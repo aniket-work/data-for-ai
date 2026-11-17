@@ -123,7 +123,7 @@ Screenshots are from the recording, with account details, other people's names, 
 
 ## What is next
 
-Video 2 stays in this Eventhouse. You will create a table with a command, then add materialized views on top of `Telemetry`: one for the latest reading per device, and one for hourly averages by site, including a backfill of the data you already loaded. The draft lives in [../02-tables-and-materialized-views](../02-tables-and-materialized-views/).
+**Next: [Video 2 — Tables and materialized views](../02-tables-and-materialized-views/README.md).** You stay in this Eventhouse, create a `SensorReadings` table with `.create table`, load it from `Telemetry` with `.set-or-append`, and build three materialized views on top of it with backfill: a dedup view with `take_any`, the latest reading per device with `arg_max`, and hourly averages by site.
 
 ## Official docs
 

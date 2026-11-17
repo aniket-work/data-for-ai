@@ -2,14 +2,14 @@
 
 Hands-on tutorials that go with the **Data for AI** videos on Microsoft Fabric. Each folder is one video. You can follow the written steps, regenerate the sample data, and run the same Kusto Query Language (KQL) in your own workspace.
 
-The lessons are built in an existing Fabric workspace that runs on a Fabric capacity. Item names in the steps (`IoTEventhouse`, `Telemetry`) match the video so the two stay in sync.
+The lessons are built in an existing Fabric workspace that runs on a Fabric capacity. Item names in the steps (`IoTEventhouse`, `Telemetry`, `SensorReadings`) match the video so the two stay in sync.
 
 ## Videos
 
 | # | Title | Folder | Video |
 | --- | --- | --- | --- |
 | 1 | Create an Eventhouse and ingest data | [01-eventhouse-create-and-ingest](01-eventhouse-create-and-ingest/) | Coming soon |
-| 2 | Create tables and materialized views | [02-tables-and-materialized-views](02-tables-and-materialized-views/) | Coming soon |
+| 2 | Tables and materialized views | [02-tables-and-materialized-views](02-tables-and-materialized-views/) | Coming soon |
 
 ## How to use this repo
 

@@ -1,0 +1,59 @@
+// Video 2: tables and materialized views
+// Run in the default queryset of the IoTEventhouse KQL database (from video 1).
+// Run one statement at a time: put the cursor on it (or highlight it) and select Run.
+// Telemetry must already hold the 6,000 rows from video 1.
+
+// STEP 1 - create a new, empty table with a management command
+.create table SensorReadings (Timestamp: datetime, DeviceId: string, Site: string, Temperature: real, Humidity: real, Pressure: real, Status: string)
+
+// STEP 2 - load it from Telemetry with ingest-from-query (6,000 rows)
+.set-or-append SensorReadings <| Telemetry
+
+// STEP 3 - simulate a device re-sending data: append 500 rows we already have
+.set-or-append SensorReadings <| Telemetry | take 500
+
+// STEP 4 - count (expect 6,500)
+SensorReadings | count
+
+// STEP 5 - materialized view 1: deduplicate (one row per DeviceId + Timestamp)
+.create materialized-view with (backfill=true) SensorReadingsDedup on table SensorReadings { SensorReadings | summarize take_any(*) by DeviceId, Timestamp }
+
+// STEP 6 - materialized view 2: latest reading per device
+.create materialized-view with (backfill=true) DeviceLatest on table SensorReadings { SensorReadings | summarize arg_max(Timestamp, *) by DeviceId }
+
+// STEP 7 - materialized view 3: hourly average temperature and reading count per site
+.create materialized-view with (backfill=true) SiteHourly on table SensorReadings { SensorReadings | summarize AvgTemperature = avg(Temperature), Readings = count() by Site, bin(Timestamp, 1h) }
+
+// STEP 8 - dedup count (expect 6,000)
+SensorReadingsDedup | count
+
+// STEP 9 - latest reading per device (expect 20 rows, one per sensor)
+DeviceLatest | project DeviceId, Site, Timestamp, Temperature, Status | order by DeviceId asc
+
+// STEP 10 - hourly averages for Toronto, newest first (expect 10 rows)
+SiteHourly | where Site == "Toronto" | order by Timestamp desc | take 10
+
+// STEP 11 - view health (expect 3 rows, all healthy and enabled)
+.show materialized-views | project Name, IsHealthy, IsEnabled, MaterializedTo
+
+
+// ---------------------------------------------------------------------------
+// Optional extras (not run in the video)
+// ---------------------------------------------------------------------------
+
+// Query only the materialized part of a view: faster, may lag slightly behind
+// materialized_view("SiteHourly") | where Site == "Toronto"
+
+// Use the materialized part only if it was refreshed in the last 10 minutes
+// materialized_view("SiteHourly", 10m) | where Site == "Toronto"
+
+// For a large source table, Microsoft Learn says to create a backfilled view
+// with the async form and to track it with .show operations:
+// .create async materialized-view with (backfill=true) SiteHourly on table SensorReadings { ... }
+// .show operations <operation-id-returned-by-the-command>
+
+// Clean up everything this lesson created (Telemetry is left alone)
+// .drop materialized-view SensorReadingsDedup
+// .drop materialized-view DeviceLatest
+// .drop materialized-view SiteHourly
+// .drop table SensorReadings

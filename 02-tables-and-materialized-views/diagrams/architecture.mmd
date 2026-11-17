@@ -1,0 +1,5 @@
+flowchart LR
+    TEL["Table<br/>Telemetry<br/>6,000 rows from part 1"] -->|".set-or-append<br/>(6,000 + 500 duplicates)"| SR["Table<br/>SensorReadings<br/>6,500 rows"]
+    SR -->|"take_any(*) by DeviceId, Timestamp"| V1["Materialized view<br/>SensorReadingsDedup<br/>6,000 rows"]
+    SR -->|"arg_max(Timestamp, *) by DeviceId"| V2["Materialized view<br/>DeviceLatest<br/>20 rows, one per sensor"]
+    SR -->|"avg(Temperature), count() by Site, bin(Timestamp, 1h)"| V3["Materialized view<br/>SiteHourly<br/>one row per city per hour"]
