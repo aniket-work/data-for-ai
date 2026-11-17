@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "How a materialized view stays fresh",
+    "output": ".archify/dataflow-mv-internals-20261117-181624/materialized-view-internals.html",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "stages": [
+    { "label": "Ingest" },
+    { "label": "Source table" },
+    { "label": "Materialization" },
+    { "label": "Stored" },
+    { "label": "Query" }
+  ],
+  "nodes": [
+    { "id": "ingestion", "type": "external", "label": "New ingestion", "sublabel": "records arrive", "stage": 0, "row": 1 },
+    { "id": "source", "type": "database", "label": "SensorReadings", "sublabel": "source table", "stage": 1, "row": 1, "tag": "all records" },
+    { "id": "materializer", "type": "backend", "label": "Background process", "sublabel": "runs periodically", "stage": 2, "row": 0, "tag": "async" },
+    { "id": "delta", "type": "messagebus", "label": "Delta", "sublabel": "not yet processed", "stage": 2, "row": 2, "tag": "newest rows" },
+    { "id": "matpart", "type": "database", "label": "Materialized part", "sublabel": "1 record per group", "stage": 3, "row": 0, "tag": "aggregated" },
+    { "id": "byname", "type": "frontend", "label": "Query by view name", "sublabel": "materialized + delta", "stage": 4, "row": 1, "tag": "always fresh" },
+    { "id": "mvfunc", "type": "frontend", "label": "materialized_view()", "sublabel": "materialized part only", "stage": 4, "row": 0, "tag": "fastest" }
+  ],
+  "flows": [
+    { "id": "arrive", "from": "ingestion", "to": "source", "label": "new records", "variant": "emphasis" },
+    { "id": "pick-up", "from": "source", "to": "materializer", "label": "after ingestion", "variant": "dashed" },
+    { "id": "unprocessed", "from": "source", "to": "delta", "label": "not materialized", "variant": "default" },
+    { "id": "write", "from": "materializer", "to": "matpart", "label": "aggregate + merge", "variant": "dashed" },
+    { "id": "read-mat", "from": "matpart", "to": "byname", "label": "stored result", "variant": "emphasis" },
+    { "id": "read-delta", "from": "delta", "to": "byname", "label": "aggregated live", "variant": "emphasis" },
+    { "id": "read-fast", "from": "matpart", "to": "mvfunc", "label": "may lag slightly", "variant": "default" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Two parts", "items": ["Materialized part: already aggregated records, one per group-by key", "Delta: newly ingested source records not processed yet"] },
+    { "dot": "cyan", "title": "Query result", "items": ["Querying the view by name combines both parts, so results are always up to date", "materialized_view() reads only the materialized part: faster, may lag"] }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "Update policy vs materialized view",
+    "output": ".archify/dataflow-mv-vs-update-policy-20261117-181624/update-policy-vs-materialized-view.html",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "stages": [
+    { "label": "Ingest" },
+    { "label": "Source table" },
+    { "label": "Processing" },
+    { "label": "Result" }
+  ],
+  "nodes": [
+    { "id": "up-batch", "type": "external", "label": "Ingestion batch", "sublabel": "one batch at a time", "stage": 0, "row": 0, "tag": "update policy" },
+    { "id": "up-source", "type": "database", "label": "Source table", "sublabel": "raw rows", "stage": 1, "row": 0 },
+    { "id": "up-policy", "type": "backend", "label": "Update policy", "sublabel": "query on each batch", "stage": 2, "row": 0, "tag": "during ingestion" },
+    { "id": "up-target", "type": "database", "label": "Target table", "sublabel": "transformed rows", "stage": 3, "row": 0, "tag": "parse, enrich" },
+    { "id": "mv-batch", "type": "external", "label": "Ingestion", "sublabel": "any number of batches", "stage": 0, "row": 2, "tag": "materialized view" },
+    { "id": "mv-source", "type": "database", "label": "Source table", "sublabel": "queryable at once", "stage": 1, "row": 2 },
+    { "id": "mv-process", "type": "backend", "label": "Materialization", "sublabel": "background, periodic", "stage": 2, "row": 2, "tag": "after ingestion" },
+    { "id": "mv-view", "type": "database", "label": "Materialized view", "sublabel": "aggregates, all data", "stage": 3, "row": 2, "tag": "dedup, rollups" }
+  ],
+  "flows": [
+    { "id": "up-in", "from": "up-batch", "to": "up-source", "label": "batch rows", "variant": "emphasis" },
+    { "id": "up-run", "from": "up-source", "to": "up-policy", "label": "same batch only", "variant": "default" },
+    { "id": "up-out", "from": "up-policy", "to": "up-target", "label": "transformed", "variant": "emphasis" },
+    { "id": "mv-in", "from": "mv-batch", "to": "mv-source", "label": "ingested rows", "variant": "emphasis" },
+    { "id": "mv-run", "from": "mv-source", "to": "mv-process", "label": "new records", "variant": "dashed" },
+    { "id": "mv-out", "from": "mv-process", "to": "mv-view", "label": "summarize", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "amber", "title": "Update policy", "items": ["Runs during ingestion, once per batch", "Aggregates only within that one batch", "Best for transforming, parsing, enriching rows"] },
+    { "dot": "emerald", "title": "Materialized view", "items": ["Runs in the background, after ingestion", "Aggregates across all the data", "Best for dedup, latest per key, rollups"] }
+  ]
+}

@@ -46,6 +46,8 @@ Sources:
 
 ## What a materialized view is
 
+![How a materialized view stays fresh: a background process writes the materialized part, new rows wait in the delta, and querying by name combines both](../diagrams/materialized-view-internals.png)
+
 A materialized view exposes **one aggregation query** (a single `summarize`) over a source table and keeps its result up to date. It has two parts:
 
 - the **materialized part**: a table of records that are already aggregated, with one record per group-by combination;
@@ -77,6 +79,8 @@ Source: [.create materialized-view](https://learn.microsoft.com/en-us/kusto/mana
 Source: [.create materialized-view: backfill](https://learn.microsoft.com/en-us/kusto/management/materialized-views/materialized-view-create?view=microsoft-fabric)
 
 ## Materialized views vs update policies
+
+![Update policy vs materialized view: an update policy runs on each ingestion batch, a materialized view runs in the background over all of the data](../diagrams/update-policy-vs-materialized-view.png)
 
 | | Materialized view | Update policy |
 | --- | --- | --- |

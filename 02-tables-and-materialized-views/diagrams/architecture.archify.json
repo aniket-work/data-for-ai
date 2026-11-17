@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "Part 2 build: Telemetry to materialized views",
+    "output": ".archify/dataflow-e2e-20261117-181624/eventhouse-part2-architecture.html",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "stages": [
+    { "label": "Source" },
+    { "label": "Ingest from query" },
+    { "label": "Table" },
+    { "label": "Materialized views" },
+    { "label": "Query" }
+  ],
+  "nodes": [
+    { "id": "telemetry", "type": "database", "label": "Telemetry", "sublabel": "6,000 rows, part 1", "stage": 0, "row": 1, "tag": "table" },
+    { "id": "setappend", "type": "backend", "label": ".set-or-append", "sublabel": "ingest a query result", "stage": 1, "row": 1, "tag": "command" },
+    { "id": "readings", "type": "database", "label": "SensorReadings", "sublabel": "6,500 rows", "stage": 2, "row": 1, "tag": ".create table" },
+    { "id": "dedup", "type": "database", "label": "SensorReadingsDedup", "sublabel": "take_any(*)", "stage": 3, "row": 0, "tag": "backfill" },
+    { "id": "latest", "type": "database", "label": "DeviceLatest", "sublabel": "arg_max(Timestamp, *)", "stage": 3, "row": 1, "tag": "backfill" },
+    { "id": "hourly", "type": "database", "label": "SiteHourly", "sublabel": "avg + count, 1h", "stage": 3, "row": 2, "tag": "backfill" },
+    { "id": "queryset", "type": "frontend", "label": "KQL queryset", "sublabel": "query views by name", "stage": 4, "row": 1, "tag": "KQL" }
+  ],
+  "flows": [
+    { "id": "copy-all", "from": "telemetry", "to": "setappend", "label": "6,000 rows", "variant": "emphasis" },
+    { "id": "resend", "from": "telemetry", "to": "setappend", "label": "take 500 again", "variant": "dashed" },
+    { "id": "append", "from": "setappend", "to": "readings", "label": "appended rows", "variant": "emphasis" },
+    { "id": "to-dedup", "from": "readings", "to": "dedup", "label": "by key", "variant": "default" },
+    { "id": "to-latest", "from": "readings", "to": "latest", "label": "by DeviceId", "variant": "default" },
+    { "id": "to-hourly", "from": "readings", "to": "hourly", "label": "by Site, hour", "variant": "default" },
+    { "id": "q-dedup", "from": "dedup", "to": "queryset", "label": "6,000 rows", "variant": "emphasis" },
+    { "id": "q-latest", "from": "latest", "to": "queryset", "label": "20 rows", "variant": "emphasis" },
+    { "id": "q-hourly", "from": "hourly", "to": "queryset", "label": "Toronto hourly", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Load", "items": [".create table defines SensorReadings", ".set-or-append copies 6,000 Telemetry rows", "take 500 appends duplicates: 6,500 rows"] },
+    { "dot": "cyan", "title": "Materialize", "items": ["Three views on SensorReadings, each with backfill=true", "Dedup by DeviceId + Timestamp, latest per device, hourly by site"] },
+    { "dot": "violet", "title": "Verify", "items": ["Dedup count 6,000; DeviceLatest 20 rows", ".show materialized-views: all healthy and enabled"] }
+  ]
+}

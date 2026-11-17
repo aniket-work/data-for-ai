@@ -6,15 +6,15 @@ This folder is the hands-on companion to video 2 in the Data for AI series.
 
 ## What you will build
 
-```mermaid
-flowchart LR
-    TEL["Table<br/>Telemetry<br/>6,000 rows from part 1"] -->|".set-or-append<br/>(6,000 + 500 duplicates)"| SR["Table<br/>SensorReadings<br/>6,500 rows"]
-    SR -->|"take_any(*) by DeviceId, Timestamp"| V1["Materialized view<br/>SensorReadingsDedup<br/>6,000 rows"]
-    SR -->|"arg_max(Timestamp, *) by DeviceId"| V2["Materialized view<br/>DeviceLatest<br/>20 rows, one per sensor"]
-    SR -->|"avg(Temperature), count() by Site, bin(Timestamp, 1h)"| V3["Materialized view<br/>SiteHourly<br/>one row per city per hour"]
-```
+![Today's build: Telemetry to SensorReadings with .set-or-append, then three materialized views queried from a KQL queryset](diagrams/architecture.png)
 
-A PNG of the same diagram is in [diagrams/architecture.png](diagrams/architecture.png).
+The diagrams in [diagrams/](diagrams/) were made with [archify](https://github.com/tt-a1i/archify). Each one comes as a PNG, an SVG, and an interactive HTML page (download it and open it in a browser), plus the archify JSON it was generated from. The original Mermaid source is still in [diagrams/architecture.mmd](diagrams/architecture.mmd).
+
+| Diagram | PNG | SVG | Interactive |
+|---|---|---|---|
+| Today's build | [architecture.png](diagrams/architecture.png) | [architecture.svg](diagrams/architecture.svg) | [architecture.html](diagrams/architecture.html) |
+| How a materialized view stays fresh | [materialized-view-internals.png](diagrams/materialized-view-internals.png) | [materialized-view-internals.svg](diagrams/materialized-view-internals.svg) | [materialized-view-internals.html](diagrams/materialized-view-internals.html) |
+| Update policy vs materialized view | [update-policy-vs-materialized-view.png](diagrams/update-policy-vs-materialized-view.png) | [update-policy-vs-materialized-view.svg](diagrams/update-policy-vs-materialized-view.svg) | [update-policy-vs-materialized-view.html](diagrams/update-policy-vs-materialized-view.html) |
 
 ## Concepts in plain words
 
