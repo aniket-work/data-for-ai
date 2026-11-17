@@ -1,0 +1,25 @@
+# OS and editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local environment and credentials — never commit these
+.env
+.env.*
+*.pem
+*.pfx
+credentials.json
+secrets.json
+appsettings.local.json
+local.settings.json
+
+# Editor folders
+.vscode/
+.idea/

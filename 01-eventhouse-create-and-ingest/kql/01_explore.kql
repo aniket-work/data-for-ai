@@ -1,0 +1,27 @@
+// Video 1 — explore the Telemetry table after local-file ingestion.
+// Run these in the default queryset (IoTEventhouse_queryset) attached to the IoTEventhouse KQL database.
+// These are the exact queries run in the video. Run one at a time.
+
+// 1. Confirm every sample row arrived. Result in the video: 6,000.
+Telemetry
+| count
+
+// 2. Preview a handful of rows and check that the columns look right.
+// take returns whichever rows it finds first, not a random sample of the whole table.
+Telemetry
+| take 10
+
+// 3. Average temperature and number of readings per site. Result in the video: 4 records.
+Telemetry
+| summarize AvgTemp = avg(Temperature), Readings = count() by Site
+| order by AvgTemp desc
+
+// 4. The spiked readings. Status is ALERT when Temperature is above 32. Result in the video: 69 records.
+Telemetry
+| where Status == "ALERT"
+| project Timestamp, DeviceId, Site, Temperature
+| order by Timestamp asc
+
+// 5. Inspect the stored schema, including column types.
+// This is a management command, not a tabular query.
+.show table Telemetry schema as json

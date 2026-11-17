@@ -1,0 +1,6 @@
+flowchart LR
+    CSV["Local CSV<br/>iot_telemetry.csv"] --> GetData["Get data wizard<br/>Local file"]
+    GetData --> EH["Eventhouse<br/>IoTEventhouse"]
+    EH --> DB["KQL database<br/>IoTEventhouse"]
+    DB --> T["Table<br/>Telemetry"]
+    T --> QS["Default queryset"]

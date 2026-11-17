@@ -1,0 +1,34 @@
+// DRAFT — video 2. Statements may change when the lesson is recorded.
+// Run these in the default queryset for the IoTEventhouse KQL database.
+
+// DRAFT — example of creating a table with a command.
+// Telemetry already exists from video 1. This is a pattern, not a second create
+// you must run against the same database.
+.create table Telemetry (
+    Timestamp: datetime,
+    DeviceId: string,
+    Site: string,
+    Temperature: real,
+    Humidity: real,
+    Pressure: real,
+    Status: string
+)
+
+// DRAFT — latest reading per device, including existing rows (backfill).
+.create async materialized-view with (backfill=true) TelemetryLatest on table Telemetry
+{
+    Telemetry
+    | summarize arg_max(Timestamp, *) by DeviceId
+}
+
+// DRAFT — hourly averages by Site, including existing rows (backfill).
+.create async materialized-view with (backfill=true) TelemetryHourlyAvgBySite on table Telemetry
+{
+    Telemetry
+    | summarize
+        AvgTemperature = avg(Temperature),
+        AvgHumidity = avg(Humidity),
+        AvgPressure = avg(Pressure),
+        EventCount = count()
+        by Site, bin(Timestamp, 1h)
+}
