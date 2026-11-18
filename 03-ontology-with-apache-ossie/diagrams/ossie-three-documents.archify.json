@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "Apache Ossie: ontology, semantic model and mapping",
+    "output": "ossie-three-documents.html",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "stages": [
+    {
+      "label": "Physical data"
+    },
+    {
+      "label": "Semantic model"
+    },
+    {
+      "label": "Mapping document"
+    },
+    {
+      "label": "Ontology"
+    },
+    {
+      "label": "Consumers"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "tables",
+      "type": "database",
+      "label": "Tables",
+      "sublabel": "4 SQLite tables",
+      "stage": 0,
+      "row": 1,
+      "tag": "data"
+    },
+    {
+      "id": "model",
+      "type": "backend",
+      "label": "iot_semantic_model",
+      "sublabel": "datasets, fields, joins",
+      "stage": 1,
+      "row": 1,
+      "tag": "core-spec"
+    },
+    {
+      "id": "mapping",
+      "type": "backend",
+      "label": "iot_mapping",
+      "sublabel": "concept_mappings",
+      "stage": 2,
+      "row": 1,
+      "tag": "mapping.json"
+    },
+    {
+      "id": "ontology",
+      "type": "backend",
+      "label": "IoTMonitoring",
+      "sublabel": "concepts, relationships, rules",
+      "stage": 3,
+      "row": 1,
+      "tag": "ontology.json"
+    },
+    {
+      "id": "agents",
+      "type": "frontend",
+      "label": "AI agents",
+      "sublabel": "verbalizations, ai_context",
+      "stage": 4,
+      "row": 0,
+      "tag": "LLM"
+    },
+    {
+      "id": "bi",
+      "type": "frontend",
+      "label": "BI and SQL",
+      "sublabel": "business questions to joins",
+      "stage": 4,
+      "row": 1,
+      "tag": "SQL"
+    },
+    {
+      "id": "rdf",
+      "type": "external",
+      "label": "RDF / OWL tools",
+      "sublabel": "shared meaning via IRIs",
+      "stage": 4,
+      "row": 2,
+      "tag": "IRI"
+    }
+  ],
+  "flows": [
+    {
+      "id": "src",
+      "from": "tables",
+      "to": "model",
+      "label": "source",
+      "variant": "default"
+    },
+    {
+      "id": "smref",
+      "from": "model",
+      "to": "mapping",
+      "label": "semantic_model_ref",
+      "variant": "emphasis"
+    },
+    {
+      "id": "oref",
+      "from": "mapping",
+      "to": "ontology",
+      "label": "ontology_ref",
+      "variant": "emphasis"
+    },
+    {
+      "id": "to-agents",
+      "from": "ontology",
+      "to": "agents",
+      "label": "meaning",
+      "variant": "default"
+    },
+    {
+      "id": "to-bi",
+      "from": "ontology",
+      "to": "bi",
+      "label": "paths",
+      "variant": "default"
+    },
+    {
+      "id": "to-rdf",
+      "from": "ontology",
+      "to": "rdf",
+      "label": "iri",
+      "variant": "default"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Semantic model",
+      "items": [
+        "Describes the data: datasets, fields, relationships, metrics",
+        "Validated by core-spec/ossie-schema.json"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Mapping document",
+      "items": [
+        "References one ontology and one model by name",
+        "Maps dataset.field expressions to concepts and relationships"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Ontology",
+      "items": [
+        "Entity and value types, relationships, rules",
+        "Spec 0.3.0.dev0, unreleased and still changing"
+      ]
+    }
+  ]
+}

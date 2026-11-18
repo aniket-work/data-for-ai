@@ -1,0 +1,6 @@
+flowchart LR
+  Site -->|owned_by| Customer
+  Sensor -->|installed_at| Site
+  Sensor -->|monitored_for (derived)| Customer
+  SensorReading -->|sensor| Sensor
+  AlertReading -.->|extends| SensorReading

@@ -1,0 +1,100 @@
+# Standalone Apache Ossie (incubating) mapping document (ontology/mapping.json).
+# It references one ontology and one semantic model instead of embedding them;
+# the embedded ontology_mappings list is deprecated.
+version: 0.3.0.dev0
+name: iot_mapping
+description: Maps the iot_semantic_model tables onto the IoTMonitoring ontology.
+ontology_ref:
+  name: IoTMonitoring
+  iri: ./iot.ontology.yaml
+semantic_model_ref:
+  name: iot_semantic_model
+  iri: ./iot.semantic_model.yaml
+concept_mappings:
+- concept: Customer
+  object_mappings:
+  - expression: customers.customer_id          # simple identifier -> one expression
+  link_mappings:
+  - object_mapping:
+      expression: customers.customer_id
+    children:
+    - relationship: name                       # level 2 -> binary relationship
+      object_mapping:
+        concept: CustomerName
+        expression: customers.customer_name
+
+- concept: Site
+  object_mappings:
+  - expression: sites.site_code
+  link_mappings:
+  - object_mapping:
+      expression: sites.site_code
+    children:
+    - relationship: city
+      object_mapping:
+        concept: CityName
+        expression: sites.city
+    - relationship: owned_by
+      object_mapping:
+        concept: Customer
+        expression: sites.customer_id
+
+- concept: Sensor
+  object_mappings:
+  - expression: devices.device_id
+  link_mappings:
+  - object_mapping:
+      expression: devices.device_id
+    children:
+    - relationship: installed_at
+      object_mapping:
+        concept: Site
+        expression: devices.site_code
+    - relationship: backup_for
+      object_mapping:
+        concept: Sensor
+        expression: devices.backup_for
+
+- concept: SensorReading
+  object_mappings:
+  - referent_mappings:                         # compound identifier: sensor + time
+    - relationship: sensor
+      referent_mappings:
+      - relationship: id
+        expression: readings.device_id
+    - relationship: taken_at
+      expression: readings.ts
+  link_mappings:
+  - object_mapping:
+      referent_mappings:
+      - relationship: sensor
+        referent_mappings:
+        - relationship: id
+          expression: readings.device_id
+      - relationship: taken_at
+        expression: readings.ts
+    children:
+    - relationship: sensor
+      object_mapping:
+        concept: Sensor
+        expression: readings.device_id
+    - relationship: taken_at
+      object_mapping:
+        concept: DateTime
+        expression: readings.ts
+    - relationship: temperature
+      object_mapping:
+        concept: Celsius
+        expression: readings.temperature
+    - relationship: humidity
+      object_mapping:
+        concept: Percent
+        expression: readings.humidity
+    - relationship: pressure
+      object_mapping:
+        concept: Hectopascal
+        expression: readings.pressure
+    - relationship: status
+      object_mapping:
+        concept: StatusCode
+        expression: readings.status

@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "diagram_type": "class",
+  "meta": {
+    "title": "IoTMonitoring ontology",
+    "subtitle": "Entity types with their value-typed relationships; arrows are relationships to other entity types.",
+    "output": "iot-ontology.html",
+    "quality_profile": "showcase"
+  },
+  "layout": {
+    "mode": "grid"
+  },
+  "types": [
+    {
+      "id": "reading",
+      "label": "SensorReading",
+      "kind": "class",
+      "sublabel": "sosa:Observation \u00b7 id: sensor + taken_at",
+      "row": 0,
+      "col": 0,
+      "attributes": [
+        {
+          "name": "taken_at",
+          "type": "DateTime"
+        },
+        {
+          "name": "temperature",
+          "type": "Celsius"
+        },
+        {
+          "name": "humidity",
+          "type": "Percent"
+        },
+        {
+          "name": "pressure",
+          "type": "Hectopascal"
+        },
+        {
+          "name": "status",
+          "type": "StatusCode"
+        }
+      ]
+    },
+    {
+      "id": "sensor",
+      "label": "Sensor",
+      "kind": "class",
+      "sublabel": "sosa:Sensor \u00b7 id: SensorId",
+      "row": 0,
+      "col": 1,
+      "attributes": [
+        {
+          "name": "id",
+          "type": "SensorId"
+        }
+      ]
+    },
+    {
+      "id": "site",
+      "label": "Site",
+      "kind": "class",
+      "sublabel": "schema:Place \u00b7 id: SiteCode",
+      "row": 0,
+      "col": 2,
+      "attributes": [
+        {
+          "name": "code",
+          "type": "SiteCode"
+        },
+        {
+          "name": "city",
+          "type": "CityName"
+        }
+      ]
+    },
+    {
+      "id": "customer",
+      "label": "Customer",
+      "kind": "class",
+      "sublabel": "schema:Organization \u00b7 id: CustomerId",
+      "row": 0,
+      "col": 3,
+      "attributes": [
+        {
+          "name": "id",
+          "type": "CustomerId"
+        },
+        {
+          "name": "name",
+          "type": "CustomerName"
+        }
+      ]
+    },
+    {
+      "id": "alert",
+      "label": "AlertReading",
+      "kind": "class",
+      "sublabel": "derived_by: status == 'ALERT'",
+      "row": 1,
+      "col": 0
+    }
+  ],
+  "relationships": [
+    {
+      "id": "made_by",
+      "from": "reading",
+      "to": "sensor",
+      "kind": "association",
+      "label": "sensor (N:1)"
+    },
+    {
+      "id": "installed",
+      "from": "sensor",
+      "to": "site",
+      "kind": "association",
+      "label": "installed_at (N:1)"
+    },
+    {
+      "id": "owned",
+      "from": "site",
+      "to": "customer",
+      "kind": "association",
+      "label": "owned_by (N:1)"
+    },
+    {
+      "id": "alert_extends",
+      "from": "alert",
+      "to": "reading",
+      "kind": "inheritance",
+      "label": "extends"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Derived",
+      "items": [
+        "Sensor.monitored_for = installed_at.owned_by(Customer)",
+        "AlertReading = readings with status ALERT"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Rules",
+      "items": [
+        "Celsius between -60 and 80",
+        "A backup sensor sits at its primary's site"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Named role",
+      "items": [
+        "Sensor.backup_for links Sensor to Sensor:primary"
+      ]
+    }
+  ]
+}

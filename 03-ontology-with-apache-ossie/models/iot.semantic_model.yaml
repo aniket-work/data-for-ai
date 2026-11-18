@@ -1,0 +1,88 @@
+# Logical layer: an Apache Ossie (incubating) core semantic model
+# (core-spec/spec.md, version 0.3.0.dev0). It describes the tables we have.
+version: 0.3.0.dev0
+name: iot_semantic_model
+description: Four tables from the IoT telemetry demo (SQLite file data/iot.db).
+ai_context:
+  instructions: Readings are raw sensor rows. Join them to devices, sites and customers through the declared relationships.
+datasets:
+- name: customers
+  source: customers
+  primary_key: [customer_id]
+  fields:
+  - name: customer_id
+    expression: {sql: customer_id}
+    datatype: String
+  - name: customer_name
+    expression: {sql: customer_name}
+    datatype: String
+    ai_context: {synonyms: [company, client, account]}
+- name: sites
+  source: sites
+  primary_key: [site_code]
+  fields:
+  - name: site_code
+    expression: {sql: site_code}
+    datatype: String
+  - name: city
+    expression: {sql: city}
+    datatype: String
+  - name: customer_id
+    expression: {sql: customer_id}
+    datatype: String
+- name: devices
+  source: devices
+  primary_key: [device_id]
+  fields:
+  - name: device_id
+    expression: {sql: device_id}
+    datatype: String
+  - name: site_code
+    expression: {sql: site_code}
+    datatype: String
+  - name: backup_for
+    expression: {sql: backup_for}
+    datatype: String
+- name: readings
+  source: readings
+  primary_key: [device_id, ts]
+  fields:
+  - name: ts
+    expression: {sql: ts}
+    datatype: DateTime
+  - name: device_id
+    expression: {sql: device_id}
+    datatype: String
+  - name: temperature
+    expression: {sql: temperature}
+    datatype: Decimal
+    ai_context: {synonyms: [temp, degrees]}
+  - name: humidity
+    expression: {sql: humidity}
+    datatype: Decimal
+  - name: pressure
+    expression: {sql: pressure}
+    datatype: Decimal
+  - name: status
+    expression: {sql: status}
+    datatype: String
+  metrics:
+  - name: avg_temperature
+    expression: {sql: AVG(temperature)}
+    datatype: Decimal
+relationships:
+- name: readings_to_devices
+  from: readings
+  to: devices
+  from_columns: [device_id]
+  to_columns: [device_id]
+- name: devices_to_sites
+  from: devices
+  to: sites
+  from_columns: [site_code]
+  to_columns: [site_code]
+- name: sites_to_customers
+  from: sites
+  to: customers
+  from_columns: [customer_id]
+  to_columns: [customer_id]

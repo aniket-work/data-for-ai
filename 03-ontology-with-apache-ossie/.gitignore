@@ -1,0 +1,5 @@
+ossie/
+data/iot.db
+out/
+.venv/
+__pycache__/
