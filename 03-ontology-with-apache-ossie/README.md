@@ -54,8 +54,8 @@ More detail, with links to the specification, is in [docs/concepts.md](docs/conc
 ### 1. Get the code and the Ossie repository
 
 ```bash
-git clone https://github.com/aniket-work/fabrics-learning-v1
-cd fabrics-learning-v1/03-ontology-with-apache-ossie
+git clone https://github.com/aniket-work/data-for-ai
+cd data-for-ai/03-ontology-with-apache-ossie
 git clone --depth 1 https://github.com/apache/ossie     # schemas, validator, Python SDK
 python -m venv .venv && source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt ./ossie/python
