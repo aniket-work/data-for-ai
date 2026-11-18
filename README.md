@@ -1,4 +1,4 @@
-# Fabrics Learning v1
+# Data for AI
 
 Hands-on tutorials that go with the **Data for AI** videos on Microsoft Fabric and open data standards. Each folder is one video. You can follow the written steps, regenerate the sample data, and run the same Kusto Query Language (KQL) in your own workspace.
 
