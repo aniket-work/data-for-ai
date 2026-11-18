@@ -1,0 +1,169 @@
+{
+ "schema_version": 1,
+ "diagram_type": "dataflow",
+ "meta": {
+  "title": "Apache Ossie name resolution: three levels of names",
+  "output": "name-resolution.html",
+  "locale": "en",
+  "quality_profile": "showcase"
+ },
+ "stages": [
+  {
+   "label": "Source columns"
+  },
+  {
+   "label": "Dataset fields"
+  },
+  {
+   "label": "Dataset-scoped metrics"
+  },
+  {
+   "label": "Model-scoped metrics"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "src",
+   "type": "database",
+   "label": "main.readings",
+   "sublabel": "ts, device_id",
+   "stage": 0,
+   "row": 1,
+   "tag": "not declared",
+   "width": 150
+  },
+  {
+   "id": "fields",
+   "type": "backend",
+   "label": "readings fields",
+   "sublabel": "reading_ts, sensor_id",
+   "stage": 1,
+   "row": 1,
+   "tag": "public interface",
+   "width": 150
+  },
+  {
+   "id": "keys",
+   "type": "backend",
+   "label": "keys, joins",
+   "sublabel": "from/to_columns",
+   "stage": 1,
+   "row": 2,
+   "tag": "field names",
+   "width": 150
+  },
+  {
+   "id": "dsm",
+   "type": "backend",
+   "label": "alert_count",
+   "sublabel": "unqualified fields",
+   "stage": 2,
+   "row": 1,
+   "tag": "field",
+   "width": 150
+  },
+  {
+   "id": "dsm2",
+   "type": "backend",
+   "label": "max_pressure_hpa",
+   "sublabel": "source.pressure",
+   "stage": 2,
+   "row": 0,
+   "tag": "source.column",
+   "width": 150
+  },
+  {
+   "id": "msm",
+   "type": "frontend",
+   "label": "alert_rate_pct",
+   "sublabel": "AGG(ds.metric)",
+   "stage": 3,
+   "row": 1,
+   "tag": "dataset.metric",
+   "width": 150
+  },
+  {
+   "id": "msm2",
+   "type": "frontend",
+   "label": "per_sensor",
+   "sublabel": "devices.sensor_id",
+   "stage": 3,
+   "row": 2,
+   "tag": "dataset.field",
+   "width": 150
+  }
+ ],
+ "flows": [
+  {
+   "id": "f1",
+   "from": "src",
+   "to": "fields",
+   "label": "sql",
+   "variant": "emphasis"
+  },
+  {
+   "id": "f2",
+   "from": "fields",
+   "to": "keys",
+   "label": "names",
+   "variant": "default",
+   "labelDy": 25
+  },
+  {
+   "id": "f3",
+   "from": "fields",
+   "to": "dsm",
+   "label": "field",
+   "variant": "emphasis"
+  },
+  {
+   "id": "f4",
+   "from": "src",
+   "to": "dsm2",
+   "label": "source.",
+   "variant": "default",
+   "fromSide": "top",
+   "toSide": "left"
+  },
+  {
+   "id": "f5",
+   "from": "dsm",
+   "to": "msm",
+   "label": "AGG",
+   "variant": "emphasis"
+  },
+  {
+   "id": "f6",
+   "from": "keys",
+   "to": "msm2",
+   "label": "joins",
+   "variant": "default"
+  }
+ ],
+ "cards": [
+  {
+   "dot": "emerald",
+   "title": "Fields",
+   "items": [
+    "Expressions read source columns",
+    "A field cannot reference another field"
+   ]
+  },
+  {
+   "dot": "cyan",
+   "title": "Dataset-scoped",
+   "items": [
+    "Unqualified names are fields",
+    "source.column reaches the source"
+   ]
+  },
+  {
+   "dot": "violet",
+   "title": "Model-scoped",
+   "items": [
+    "Always dataset.field",
+    "AGG(dataset.metric) is the only metric reference"
+   ]
+  }
+ ]
+}

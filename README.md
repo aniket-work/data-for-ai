@@ -11,6 +11,7 @@ The lessons are built in an existing Fabric workspace that runs on a Fabric capa
 | 1 | Create an Eventhouse and ingest data | [01-eventhouse-create-and-ingest](01-eventhouse-create-and-ingest/) | [Watch](https://youtu.be/4E5-xwSKkG0) |
 | 2 | Tables and materialized views | [02-tables-and-materialized-views](02-tables-and-materialized-views/) | [Watch](https://youtu.be/YYVZEckY2gY) |
 | 3 | Ontology with Apache Ossie (incubating) | [03-ontology-with-apache-ossie](03-ontology-with-apache-ossie/) | [Watch on YouTube](https://youtu.be/TV70PHBNNPk) |
+| 4 | Semantic model in Apache Ossie (incubating) | [04-semantic-model-with-apache-ossie](04-semantic-model-with-apache-ossie/) | Coming soon |
 
 ## How to use this repo
 
@@ -18,7 +19,7 @@ The lessons are built in an existing Fabric workspace that runs on a Fabric capa
 2. Recreate the same items in your own Microsoft Fabric workspace. A Fabric-enabled capacity is required.
 3. Upload or regenerate the sample data, then run the KQL files in the default queryset.
 
-Folder 03 runs locally with Python and SQLite; its README lists what to install.
+Folders 03 and 04 run locally with Python (SQLite and DuckDB); their READMEs list what to install.
 
 Do not put passwords, connection strings, workspace or tenant identifiers, or other private details into this repo.
 

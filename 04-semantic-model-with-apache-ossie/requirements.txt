@@ -1,0 +1,8 @@
+# Python 3.11+. The Apache Ossie Python SDK is installed from your clone:
+#   pip install ./ossie/python
+duckdb>=1.1
+jsonschema>=4.23
+referencing>=0.35
+PyYAML>=6.0
+sqlglot>=25.0
+rich>=13.7

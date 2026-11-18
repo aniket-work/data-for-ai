@@ -1,0 +1,166 @@
+{
+ "schema_version": 1,
+ "diagram_type": "erd",
+ "meta": {
+  "title": "iot_semantic_model: datasets, fields and relationships",
+  "subtitle": "Apache Ossie (incubating) core semantic model. Attributes are dataset FIELDS with their Ossie datatype; keys and joins use field names.",
+  "locale": "en",
+  "output": "iot-semantic-model.html",
+  "quality_profile": "showcase"
+ },
+ "layout": {
+  "mode": "grid",
+  "gapY": 60,
+  "gapX": 140
+ },
+ "entities": [
+  {
+   "id": "readings",
+   "label": "readings",
+   "row": 0,
+   "col": 0,
+   "width": 290,
+   "attributes": [
+    {
+     "name": "sensor_id",
+     "type": "String",
+     "key": [
+      "pk",
+      "fk"
+     ],
+     "references": "devices.sensor_id"
+    },
+    {
+     "name": "reading_ts",
+     "type": "DateTime",
+     "key": "pk"
+    },
+    {
+     "name": "reading_hour",
+     "type": "DateTime"
+    },
+    {
+     "name": "temperature_c",
+     "type": "Decimal"
+    },
+    {
+     "name": "temperature_f",
+     "type": "Decimal"
+    },
+    {
+     "name": "humidity_pct",
+     "type": "Decimal"
+    },
+    {
+     "name": "status",
+     "type": "String"
+    },
+    {
+     "name": "is_alert",
+     "type": "Boolean"
+    }
+   ]
+  },
+  {
+   "id": "devices",
+   "label": "devices",
+   "row": 0,
+   "col": 1,
+   "width": 270,
+   "attributes": [
+    {
+     "name": "sensor_id",
+     "type": "String",
+     "key": "pk"
+    },
+    {
+     "name": "site_code",
+     "type": "String",
+     "key": "fk",
+     "references": "sites.site_code"
+    },
+    {
+     "name": "backup_for",
+     "type": "String"
+    },
+    {
+     "name": "is_backup",
+     "type": "Boolean"
+    }
+   ]
+  },
+  {
+   "id": "sites",
+   "label": "sites",
+   "row": 1,
+   "col": 1,
+   "width": 270,
+   "attributes": [
+    {
+     "name": "site_code",
+     "type": "String",
+     "key": "pk"
+    },
+    {
+     "name": "city",
+     "type": "String"
+    },
+    {
+     "name": "province",
+     "type": "String"
+    },
+    {
+     "name": "customer_id",
+     "type": "String",
+     "key": "fk",
+     "references": "customers.customer_id"
+    }
+   ]
+  },
+  {
+   "id": "customers",
+   "label": "customers",
+   "row": 1,
+   "col": 0,
+   "width": 270,
+   "attributes": [
+    {
+     "name": "customer_id",
+     "type": "String",
+     "key": "pk"
+    },
+    {
+     "name": "customer_name",
+     "type": "String",
+     "key": "uk"
+    }
+   ]
+  }
+ ],
+ "relationships": [
+  {
+   "id": "readings_to_devices",
+   "from": "readings",
+   "to": "devices",
+   "label": "readings_to_devices",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  },
+  {
+   "id": "devices_to_sites",
+   "from": "devices",
+   "to": "sites",
+   "label": "devices_to_sites",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  },
+  {
+   "id": "sites_to_customers",
+   "from": "sites",
+   "to": "customers",
+   "label": "sites_to_customers",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  }
+ ]
+}

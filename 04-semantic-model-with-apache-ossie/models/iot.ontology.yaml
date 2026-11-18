@@ -1,0 +1,160 @@
+# IoT monitoring ontology, written against the Apache Ossie (incubating)
+# ontology specification, version 0.3.0.dev0 (ontology/ontology.md).
+# It describes the business meaning only. Where the data lives is in
+# iot.semantic_model.yaml, and how the two connect is in iot.mapping.yaml.
+version: 0.3.0.dev0
+name: IoTMonitoring
+description: Customers, the sites they own, the sensors installed there, and the readings those sensors take.
+ai_context:
+  instructions: >-
+    Use this ontology to answer questions about sensor readings, sites and
+    customers. A reading always belongs to exactly one sensor, a sensor to one
+    site and a site to one customer.
+  synonyms: [IoT telemetry, device monitoring, sensor network]
+  examples:
+    - Which customer owns the hottest site?
+    - What is the average temperature per customer?
+prefixes:
+  sosa: http://www.w3.org/ns/sosa/
+  schema: https://schema.org/
+requires:
+  - COUNT[Site] > 0            # the ontology describes at least one site
+ontology:
+# ---------- value types: data types with business meaning ----------
+- concept: CustomerId
+  type: ValueType
+  extends: [String]
+- concept: CustomerName
+  type: ValueType
+  extends: [String]
+- concept: SiteCode
+  type: ValueType
+  extends: [String]
+- concept: CityName
+  type: ValueType
+  extends: [String]
+- concept: SensorId
+  type: ValueType
+  extends: [String]
+- concept: Celsius
+  description: Temperature in degrees Celsius
+  type: ValueType
+  extends: [Decimal]
+  requires: [Celsius >= -60, Celsius <= 80]
+- concept: Percent
+  description: Relative humidity, 0 to 100
+  type: ValueType
+  extends: [Decimal]
+  requires: [0 <= Percent, Percent <= 100]
+- concept: Hectopascal
+  description: Air pressure in hPa
+  type: ValueType
+  extends: [Decimal]
+- concept: StatusCode
+  type: ValueType
+  extends: [String]
+  requires: [StatusCode == 'OK' OR StatusCode == 'ALERT']
+
+# ---------- entity types: real-world things, referenced by identifiers ----------
+- concept: Customer
+  type: EntityType
+  iri: schema:Organization
+  description: A company that owns monitored sites
+  identify_by: [id]
+  relationships:
+  - name: id
+    roles: [concept: CustomerId]
+    multiplicity: OneToOne
+    verbalizes: ['{Customer} is identified by {CustomerId}']
+  - name: name
+    roles: [concept: CustomerName]
+    multiplicity: ManyToOne
+    verbalizes: ['{Customer} has {CustomerName}']
+
+- concept: Site
+  type: EntityType
+  iri: schema:Place
+  description: A building or plant where sensors are installed
+  identify_by: [code]
+  relationships:
+  - name: code
+    roles: [concept: SiteCode]
+    multiplicity: OneToOne
+    verbalizes: ['{Site} is identified by {SiteCode}']
+  - name: city
+    roles: [concept: CityName]
+    multiplicity: ManyToOne
+    verbalizes: ['{Site} is located in {CityName}']
+  - name: owned_by
+    roles: [concept: Customer]
+    multiplicity: ManyToOne
+    verbalizes: ['{Site} is owned by {Customer}', '{Customer} owns {Site}']
+
+- concept: Sensor
+  type: EntityType
+  iri: sosa:Sensor
+  description: A device that measures temperature, humidity and pressure
+  identify_by: [id]
+  relationships:
+  - name: id
+    roles: [concept: SensorId]
+    multiplicity: OneToOne
+    verbalizes: ['{Sensor} is identified by {SensorId}']
+  - name: installed_at
+    roles: [concept: Site]
+    multiplicity: ManyToOne
+    verbalizes: ['{Sensor} is installed at {Site}', '{Site} hosts {Sensor}']
+  - name: backup_for
+    description: Two roles played by Sensor, so the second role needs a name
+    roles:
+    - concept: Sensor
+      name: primary
+    multiplicity: ManyToOne
+    verbalizes: ['{Sensor} is a backup for {Sensor:primary}']
+    requires: ['Sensor.installed_at == primary.installed_at']
+  - name: monitored_for
+    description: Derived by navigating sensor -> site -> customer
+    roles: [concept: Customer]
+    multiplicity: ManyToOne
+    verbalizes: ['{Sensor} is monitored for {Customer}']
+    derived_by: ['Sensor.installed_at.owned_by(Customer)']
+
+- concept: SensorReading
+  type: EntityType
+  iri: sosa:Observation
+  description: One measurement taken by one sensor at one time
+  identify_by: [sensor, taken_at]
+  requires: [SensorReading.sensor, SensorReading.taken_at]
+  relationships:
+  - name: sensor
+    iri: sosa:madeBySensor
+    roles: [concept: Sensor]
+    multiplicity: ManyToOne
+    verbalizes: ['{SensorReading} was made by {Sensor}', '{Sensor} made {SensorReading}']
+  - name: taken_at
+    iri: sosa:resultTime
+    roles: [concept: DateTime]
+    multiplicity: ManyToOne
+    verbalizes: ['{SensorReading} was taken at {DateTime}']
+  - name: temperature
+    roles: [concept: Celsius]
+    multiplicity: ManyToOne
+    verbalizes: ['{SensorReading} measured {Celsius}']
+  - name: humidity
+    roles: [concept: Percent]
+    multiplicity: ManyToOne
+    verbalizes: ['{SensorReading} measured humidity {Percent}']
+  - name: pressure
+    roles: [concept: Hectopascal]
+    multiplicity: ManyToOne
+    verbalizes: ['{SensorReading} measured pressure {Hectopascal}']
+  - name: status
+    roles: [concept: StatusCode]
+    multiplicity: ManyToOne
+    verbalizes: ['{SensorReading} has status {StatusCode}']
+
+- concept: AlertReading
+  type: EntityType
+  description: A reading whose status is ALERT. Its population is derived, not stored.
+  extends: [SensorReading]
+  derived_by: ["SensorReading.status == 'ALERT'"]
