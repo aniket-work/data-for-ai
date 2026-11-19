@@ -12,7 +12,7 @@ The lessons are built in an existing Fabric workspace that runs on a Fabric capa
 | 2 | Tables and materialized views | [02-tables-and-materialized-views](02-tables-and-materialized-views/) | [Watch](https://youtu.be/YYVZEckY2gY) |
 | 3 | Ontology with Apache Ossie (incubating) | [03-ontology-with-apache-ossie](03-ontology-with-apache-ossie/) | [Watch on YouTube](https://youtu.be/TV70PHBNNPk) |
 | 4 | Semantic model in Apache Ossie (incubating) | [04-semantic-model-with-apache-ossie](04-semantic-model-with-apache-ossie/) | [Watch on YouTube](https://youtu.be/6fAn39bPZb0) |
-| 5 | Context layers for AI agents | [05-context-layers-for-ai](05-context-layers-for-ai/) | Coming soon |
+| 5 | Context layers for AI agents | [05-context-layers-for-ai](05-context-layers-for-ai/) | [Watch on YouTube](https://youtu.be/DSXlY7Gruhg) |
 
 ## How to use this repo
 
