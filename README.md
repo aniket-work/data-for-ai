@@ -13,6 +13,7 @@ The lessons are built in an existing Fabric workspace that runs on a Fabric capa
 | 3 | Ontology with Apache Ossie (incubating) | [03-ontology-with-apache-ossie](03-ontology-with-apache-ossie/) | [Watch on YouTube](https://youtu.be/TV70PHBNNPk) |
 | 4 | Semantic model in Apache Ossie (incubating) | [04-semantic-model-with-apache-ossie](04-semantic-model-with-apache-ossie/) | [Watch on YouTube](https://youtu.be/6fAn39bPZb0) |
 | 5 | Context layers for AI agents | [05-context-layers-for-ai](05-context-layers-for-ai/) | [Watch on YouTube](https://youtu.be/DSXlY7Gruhg) |
+| 6 | One business, four models: taxonomy, ontology, knowledge graph and semantic layer | [06-one-business-four-models](06-one-business-four-models/) | Coming soon |
 
 ## How to use this repo
 
@@ -20,7 +21,7 @@ The lessons are built in an existing Fabric workspace that runs on a Fabric capa
 2. Recreate the same items in your own Microsoft Fabric workspace. A Fabric-enabled capacity is required.
 3. Upload or regenerate the sample data, then run the KQL files in the default queryset.
 
-Folders 03, 04 and 05 run locally with Python (SQLite and DuckDB); their READMEs list what to install.
+Folders 03 to 06 run locally with Python (SQLite, DuckDB and rdflib); their READMEs list what to install.
 
 Do not put passwords, connection strings, workspace or tenant identifiers, or other private details into this repo.
 

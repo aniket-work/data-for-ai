@@ -1,0 +1,47 @@
+# Form 2: ONTOLOGY (OWL). Classes, properties, cardinality and rules. Schema only: no real riders or trips.
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix bs:   <https://example.org/harbourline/ontology#> .
+
+bs: a owl:Ontology ; rdfs:label "Harbourline Bikes ontology (fictional, for teaching)" .
+
+# ---- classes and hierarchy
+bs:Rider a owl:Class .
+bs:Membership a owl:Class .
+bs:CasualMembership a owl:Class ; rdfs:subClassOf bs:Membership .
+bs:AnnualMembership a owl:Class ; rdfs:subClassOf bs:Membership ; owl:disjointWith bs:CasualMembership .
+bs:Bike a owl:Class .
+bs:ClassicBike a owl:Class ; rdfs:subClassOf bs:Bike .
+bs:EBike a owl:Class ; rdfs:subClassOf bs:Bike ; owl:disjointWith bs:ClassicBike .
+bs:DockStation a owl:Class .
+bs:Trip a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ; owl:onProperty bs:usesBike ;      # a trip uses EXACTLY one bike
+                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass bs:Bike ] ,
+                    [ a owl:Restriction ; owl:onProperty bs:takenBy ;
+                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass bs:Rider ] .
+
+# ---- object properties (relationships)
+bs:hasMembership a owl:ObjectProperty ; rdfs:domain bs:Rider ; rdfs:range bs:Membership .
+bs:takenBy a owl:ObjectProperty ; rdfs:domain bs:Trip ; rdfs:range bs:Rider .
+bs:usesBike a owl:ObjectProperty ; rdfs:domain bs:Trip ; rdfs:range bs:Bike .
+bs:startsAt a owl:ObjectProperty ; rdfs:domain bs:Trip ; rdfs:range bs:DockStation .
+bs:endsAt a owl:ObjectProperty ; rdfs:domain bs:Trip ; rdfs:range bs:DockStation .
+bs:tookTrip a owl:ObjectProperty ; owl:inverseOf bs:takenBy .
+
+# ---- data properties
+bs:startTime a owl:DatatypeProperty ; rdfs:domain bs:Trip ; rdfs:range xsd:dateTime .
+bs:fareCAD a owl:DatatypeProperty ; rdfs:domain bs:Trip ; rdfs:range xsd:decimal .
+bs:status a owl:DatatypeProperty ; rdfs:domain bs:Trip ; rdfs:range xsd:string .
+bs:availableBikes a owl:DatatypeProperty ; rdfs:domain bs:DockStation ; rdfs:range xsd:integer .
+bs:capacity a owl:DatatypeProperty ; rdfs:domain bs:DockStation ; rdfs:range xsd:integer .
+bs:name a owl:DatatypeProperty ; rdfs:domain bs:DockStation ; rdfs:range xsd:string .
+
+# ---- rule-defined classes. OWL cannot express "in the last 30 days" or "below 3", so each class
+#      carries its rule; the knowledge graph runs these rules as SPARQL CONSTRUCT (see kg/rules/).
+bs:ActiveRider a owl:Class ; rdfs:subClassOf bs:Rider ;
+    bs:rule "A rider with at least one completed trip in the last 30 days." ; bs:windowDays 30 .
+bs:EmptyRiskStation a owl:Class ; rdfs:subClassOf bs:DockStation ;
+    bs:rule "A dock station whose available bikes are below the threshold." ; bs:threshold 3 .
+bs:rule a owl:AnnotationProperty . bs:windowDays a owl:AnnotationProperty . bs:threshold a owl:AnnotationProperty .

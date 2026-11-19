@@ -1,0 +1,3 @@
+bikeshare.duckdb
+out/*
+!out/.gitkeep

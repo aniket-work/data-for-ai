@@ -1,0 +1,37 @@
+# Form 4: SEMANTIC LAYER. Tables, joins and governed metrics, compiled to SQL.
+# This small YAML format is OUR OWN teaching format (see our Apache Ossie semantic model video for a real spec).
+name: harbourline_bikes
+as_of: "2026-06-30 18:00"
+datasets:
+  trips:       {table: trips, primary_key: trip_id}
+  stations:    {table: stations, primary_key: station_id}
+  bikes:       {table: bikes, primary_key: bike_id}
+  memberships: {table: memberships, primary_key: membership_id}
+joins:
+  - {from: trips.start_station_id, to: stations.station_id}
+  - {from: trips.bike_id, to: bikes.bike_id}
+  - {from: trips.rider_id, to: memberships.rider_id}
+dimensions:
+  station:    {expr: stations.name}
+  bike_type:  {expr: bikes.bike_type}          # 'classic' or 'ebike': a value, not a kind-of hierarchy
+  membership: {expr: memberships.membership_type}
+metrics:
+  trip_count:
+    expr: COUNT(DISTINCT trips.trip_id)
+    filter: trips.status = 'completed'
+    description: Completed trips (cancelled unlocks never count).
+    certified: true
+  trip_revenue:
+    expr: SUM(trips.fare_cad)
+    filter: trips.status = 'completed'
+    certified: true
+  avg_trip_revenue:
+    expr: trip_revenue / trip_count          # one definition, reused by every tool
+    format: "$0.00"
+    description: Average revenue per completed trip, in CAD.
+    certified: true
+  active_riders:
+    expr: COUNT(DISTINCT trips.rider_id)
+    filter: trips.status = 'completed' AND trips.start_ts >= TIMESTAMP '{as_of}' - INTERVAL 30 DAY
+    description: Riders with a completed trip in the last 30 days.
+    certified: true

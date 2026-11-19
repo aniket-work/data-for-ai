@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "One bike-share business, four forms",
+    "output": "four-forms.html",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "csv",
+      "type": "external",
+      "label": "Business data",
+      "sublabel": "stations, bikes, trips",
+      "pos": [
+        40,
+        250
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "tax",
+      "type": "backend",
+      "label": "Taxonomy",
+      "sublabel": "SKOS terms, is-a",
+      "pos": [
+        320,
+        40
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "onto",
+      "type": "backend",
+      "label": "Ontology",
+      "sublabel": "OWL classes, rules",
+      "pos": [
+        320,
+        160
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "kg",
+      "type": "database",
+      "label": "Knowledge graph",
+      "sublabel": "rdflib + inference",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "sem",
+      "type": "database",
+      "label": "Semantic layer",
+      "sublabel": "metrics, DuckDB SQL",
+      "pos": [
+        320,
+        440
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "ask",
+      "type": "frontend",
+      "label": "Same 4 questions",
+      "sublabel": "asked of every form",
+      "pos": [
+        640,
+        250
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "score",
+      "type": "frontend",
+      "label": "Scorecard",
+      "sublabel": "answers / partly / can't",
+      "pos": [
+        900,
+        250
+      ],
+      "size": [
+        170,
+        64
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-tax",
+      "from": "tax",
+      "to": "onto",
+      "label": "words become classes",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "c-onto",
+      "from": "onto",
+      "to": "kg",
+      "label": "schema",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "c-kgdata",
+      "from": "csv",
+      "to": "kg",
+      "label": "instances",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-semdata",
+      "from": "csv",
+      "to": "sem",
+      "label": "tables",
+      "variant": "emphasis"
+    },
+    {
+      "id": "q-tax",
+      "from": "tax",
+      "to": "ask",
+      "variant": "dashed"
+    },
+    {
+      "id": "q-onto",
+      "from": "onto",
+      "to": "ask",
+      "variant": "dashed"
+    },
+    {
+      "id": "q-kg",
+      "from": "kg",
+      "to": "ask",
+      "variant": "dashed"
+    },
+    {
+      "id": "q-sem",
+      "from": "sem",
+      "to": "ask",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-score",
+      "from": "ask",
+      "to": "score",
+      "label": "compare",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Meaning",
+      "items": [
+        "Taxonomy, ontology and graph add meaning step by step"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Numbers",
+      "items": [
+        "The semantic layer governs metrics over tables"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Our own teaching code",
+      "items": [
+        "No API keys; runs locally in Python"
+      ]
+    }
+  ]
+}

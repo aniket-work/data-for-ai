@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "diagram_type": "erd",
+  "meta": {
+    "title": "Semantic layer over the bike-share tables",
+    "subtitle": "Tables, keys and joins the semantic layer compiles metrics against (DuckDB).",
+    "locale": "en",
+    "output": "semantic-layer-erd.html",
+    "quality_profile": "showcase"
+  },
+  "layout": {
+    "mode": "grid",
+    "gapY": 60,
+    "gapX": 140
+  },
+  "entities": [
+    {
+      "id": "trips",
+      "label": "trips",
+      "row": 0,
+      "col": 0,
+      "width": 300,
+      "attributes": [
+        {
+          "name": "trip_id",
+          "type": "VARCHAR",
+          "key": "pk"
+        },
+        {
+          "name": "rider_id",
+          "type": "VARCHAR",
+          "key": "fk",
+          "references": "memberships.rider_id"
+        },
+        {
+          "name": "bike_id",
+          "type": "VARCHAR",
+          "key": "fk",
+          "references": "bikes.bike_id"
+        },
+        {
+          "name": "start_station_id",
+          "type": "VARCHAR",
+          "key": "fk",
+          "references": "stations.station_id"
+        },
+        {
+          "name": "end_station_id",
+          "type": "VARCHAR",
+          "key": "fk",
+          "references": "stations.station_id"
+        },
+        {
+          "name": "start_ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "duration_min",
+          "type": "BIGINT"
+        },
+        {
+          "name": "fare_cad",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "id": "stations",
+      "label": "stations",
+      "row": 0,
+      "col": 1,
+      "width": 280,
+      "attributes": [
+        {
+          "name": "station_id",
+          "type": "VARCHAR",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "capacity",
+          "type": "BIGINT"
+        },
+        {
+          "name": "available_bikes",
+          "type": "BIGINT"
+        }
+      ]
+    },
+    {
+      "id": "bikes",
+      "label": "bikes",
+      "row": 1,
+      "col": 1,
+      "width": 280,
+      "attributes": [
+        {
+          "name": "bike_id",
+          "type": "VARCHAR",
+          "key": "pk"
+        },
+        {
+          "name": "bike_type",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "id": "memberships",
+      "label": "memberships",
+      "row": 1,
+      "col": 0,
+      "width": 300,
+      "attributes": [
+        {
+          "name": "membership_id",
+          "type": "VARCHAR",
+          "key": "pk"
+        },
+        {
+          "name": "rider_id",
+          "type": "VARCHAR",
+          "key": "uk"
+        },
+        {
+          "name": "membership_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "start_date",
+          "type": "DATE"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "trips_start",
+      "from": "trips",
+      "to": "stations",
+      "label": "starts at",
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    },
+    {
+      "id": "trips_bikes",
+      "from": "trips",
+      "to": "bikes",
+      "label": "uses",
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    },
+    {
+      "id": "trips_members",
+      "from": "trips",
+      "to": "memberships",
+      "label": "rider",
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+# Multi-hop: annual members who ended an e-bike trip this week at a station that is now empty-risk.
+# ?since is bound by four_forms.py ("now" minus 7 days).
+PREFIX bs: <https://example.org/harbourline/ontology#>
+SELECT ?station (COUNT(DISTINCT ?rider) AS ?riders) (GROUP_CONCAT(DISTINCT ?rid; separator=" ") AS ?ids)
+WHERE {
+  ?rider bs:hasMembership/a bs:AnnualMembership .   # hop 1: rider -> membership kind
+  ?trip  bs:takenBy ?rider ;                        # hop 2: trip -> rider
+         bs:usesBike/a bs:EBike ;                   # hop 3: trip -> bike kind
+         bs:endsAt ?s ; bs:startTime ?ts .          # hop 4: trip -> station
+  ?s a bs:EmptyRiskStation ; bs:name ?station .     # inferred by a rule
+  FILTER (?ts >= ?since)
+  BIND (STRAFTER(STR(?rider), "#") AS ?rid)
+}
+GROUP BY ?station ORDER BY ?station

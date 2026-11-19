@@ -1,0 +1,9 @@
+station_id,name,capacity,available_bikes
+ST-01,Harbour Front,24,11
+ST-02,Market Square,20,2
+ST-03,Old Mill,16,1
+ST-04,City Library,18,7
+ST-05,Riverside Park,22,9
+ST-06,Tech Campus,20,5
+ST-07,Museum Row,14,4
+ST-08,North Ferry,16,2

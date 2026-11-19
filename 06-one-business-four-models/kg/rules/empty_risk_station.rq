@@ -1,0 +1,8 @@
+# Rule: EmptyRiskStation = a dock station with fewer available bikes than the threshold in the ontology.
+PREFIX bs: <https://example.org/harbourline/ontology#>
+CONSTRUCT { ?s a bs:EmptyRiskStation }
+WHERE {
+  bs:EmptyRiskStation bs:threshold ?min .
+  ?s a bs:DockStation ; bs:availableBikes ?n .
+  FILTER (?n < ?min)
+}

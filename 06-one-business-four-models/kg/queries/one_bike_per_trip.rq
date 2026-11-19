@@ -1,0 +1,6 @@
+# Closed-world data check for "a trip uses exactly one bike" (our own teaching check; SHACL is the standard tool for this).
+PREFIX bs: <https://example.org/harbourline/ontology#>
+SELECT ?trip (COUNT(DISTINCT ?bike) AS ?bikes)
+WHERE { ?trip a bs:Trip . OPTIONAL { ?trip bs:usesBike ?bike } }
+GROUP BY ?trip
+HAVING (COUNT(DISTINCT ?bike) != 1)

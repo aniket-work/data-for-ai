@@ -1,0 +1,29 @@
+# Form 1: TAXONOMY (SKOS). Controlled terms, synonyms and a broader/narrower hierarchy. Nothing else.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tx:   <https://example.org/harbourline/taxonomy#> .
+
+tx:scheme a skos:ConceptScheme ;
+    skos:prefLabel "Harbourline Bikes vocabulary"@en ;
+    skos:hasTopConcept tx:Vehicle, tx:Membership, tx:Place, tx:RiderStatus .
+
+tx:Vehicle  a skos:Concept ; skos:prefLabel "Vehicle"@en ; skos:inScheme tx:scheme ; skos:topConceptOf tx:scheme .
+tx:Bike     a skos:Concept ; skos:prefLabel "Bike"@en ; skos:altLabel "bicycle"@en ; skos:broader tx:Vehicle .
+tx:ClassicBike a skos:Concept ; skos:prefLabel "Classic bike"@en ; skos:altLabel "pedal bike"@en ; skos:broader tx:Bike .
+tx:EBike    a skos:Concept ; skos:prefLabel "E-bike"@en ;
+    skos:altLabel "electric bike"@en, "pedelec"@en, "e-assist bike"@en ;
+    skos:definition "A bike with a battery-powered motor that assists pedalling."@en ;
+    skos:broader tx:Bike .
+
+tx:Membership a skos:Concept ; skos:prefLabel "Membership"@en ; skos:altLabel "pass"@en ; skos:topConceptOf tx:scheme .
+tx:CasualMembership a skos:Concept ; skos:prefLabel "Casual"@en ; skos:altLabel "pay as you go"@en, "day pass"@en ; skos:broader tx:Membership .
+tx:AnnualMembership a skos:Concept ; skos:prefLabel "Annual"@en ; skos:altLabel "yearly member"@en ; skos:broader tx:Membership .
+
+tx:Place a skos:Concept ; skos:prefLabel "Place"@en ; skos:topConceptOf tx:scheme .
+tx:DockStation a skos:Concept ; skos:prefLabel "Dock station"@en ; skos:altLabel "dock"@en, "station"@en ; skos:broader tx:Place .
+tx:EmptyRiskStation a skos:Concept ; skos:prefLabel "Empty-risk station"@en ;
+    skos:definition "A dock station that is about to run out of bikes."@en ; skos:broader tx:DockStation .
+
+tx:RiderStatus a skos:Concept ; skos:prefLabel "Rider status"@en ; skos:topConceptOf tx:scheme .
+tx:ActiveRider a skos:Concept ; skos:prefLabel "Active rider"@en ;
+    skos:definition "A rider who rides regularly."@en ; skos:broader tx:RiderStatus .
+tx:Trip a skos:Concept ; skos:prefLabel "Trip"@en ; skos:altLabel "ride"@en ; skos:related tx:Bike, tx:DockStation .

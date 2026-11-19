@@ -1,0 +1,8 @@
+# Rule: ActiveRider = a rider with at least one completed trip in the last 30 days.
+# ?cutoff is bound by four_forms.py: "now" minus bs:windowDays (30) read from the ontology.
+PREFIX bs: <https://example.org/harbourline/ontology#>
+CONSTRUCT { ?r a bs:ActiveRider }
+WHERE {
+  ?t a bs:Trip ; bs:takenBy ?r ; bs:status "completed" ; bs:startTime ?ts .
+  FILTER (?ts >= ?cutoff)
+}
