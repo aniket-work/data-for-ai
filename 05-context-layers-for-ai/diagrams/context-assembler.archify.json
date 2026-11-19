@@ -1,0 +1,42 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Context assembler: from question to grounded answer",
+    "output": "context-assembler.html",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    { "id": "agent", "label": "Agent" },
+    { "id": "asm", "label": "Context assembler" },
+    { "id": "layer", "label": "Context layer" }
+  ],
+  "mainPath": ["q", "understand", "retrieve", "policies", "compute", "answer"],
+  "nodes": [
+    { "id": "q", "lane": "agent", "col": 0, "type": "external", "label": "Question", "sublabel": "plain language" },
+    { "id": "understand", "lane": "asm", "col": 1, "type": "backend", "label": "Understand", "sublabel": "match terms", "tag": "neural" },
+    { "id": "retrieve", "lane": "asm", "col": 2, "type": "backend", "label": "Retrieve", "sublabel": "walk the graph" },
+    { "id": "policies", "lane": "asm", "col": 3, "type": "security", "label": "Apply policies", "sublabel": "rules in code", "tag": "symbolic" },
+    { "id": "compute", "lane": "asm", "col": 4, "type": "backend", "label": "Compute", "sublabel": "certified metric" },
+    { "id": "answer", "lane": "agent", "col": 5, "type": "frontend", "label": "Grounded answer", "sublabel": "with evidence" },
+    { "id": "graph", "lane": "layer", "col": 2, "type": "database", "label": "Context graph", "sublabel": "5 linked layers" },
+    { "id": "duck", "lane": "layer", "col": 4, "type": "database", "label": "DuckDB", "sublabel": "IoT readings" },
+    { "id": "log", "lane": "layer", "col": 5, "type": "messagebus", "label": "Runtime log", "sublabel": "decisions" }
+  ],
+  "edges": [
+    { "id": "e-q", "from": "q", "to": "understand", "label": "ask", "variant": "emphasis" },
+    { "id": "e-u", "from": "understand", "to": "retrieve", "variant": "emphasis" },
+    { "id": "e-g", "from": "retrieve", "to": "graph", "label": "read", "role": "branch" },
+    { "id": "e-r", "from": "retrieve", "to": "policies", "variant": "emphasis" },
+    { "id": "e-p", "from": "policies", "to": "compute", "label": "allowed", "variant": "security" },
+    { "id": "e-d", "from": "compute", "to": "duck", "label": "SQL", "role": "branch" },
+    { "id": "e-a", "from": "compute", "to": "answer", "variant": "emphasis" },
+    { "id": "e-l", "from": "answer", "to": "log", "label": "remember", "variant": "dashed", "role": "async" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Neural stand-in", "items": ["A fuzzy matcher maps words to concepts", "Swap in an LLM if you like"] },
+    { "dot": "amber", "title": "Symbolic checks", "items": ["Policies, ontology rules and certified metrics", "Checked in code, not by the model"] },
+    { "dot": "rose", "title": "Living model", "items": ["Each answer is written back with evidence"] }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "A context layer for AI agents",
+    "output": "context-layer.html",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "agent", "type": "external", "label": "AI agent", "sublabel": "asks, then acts", "pos": [40, 250], "size": [130, 64] },
+    { "id": "assembler", "type": "backend", "label": "Context assembler", "sublabel": "retrieve, check, compute", "pos": [270, 250], "size": [160, 64] },
+    { "id": "graph", "type": "database", "label": "Context layer", "sublabel": "one linked graph", "tag": "living model", "pos": [580, 170], "size": [160, 224] },
+    { "id": "data", "type": "database", "label": "Data + metadata", "sublabel": "tables, schemas, counts", "pos": [840, 40], "size": [180, 64] },
+    { "id": "sem", "type": "backend", "label": "Semantic layer", "sublabel": "metrics, definitions", "pos": [840, 140], "size": [180, 64] },
+    { "id": "onto", "type": "backend", "label": "Ontology + graph", "sublabel": "concepts, relationships", "pos": [840, 240], "size": [180, 64] },
+    { "id": "gov", "type": "security", "label": "Governance", "sublabel": "access, certified, fresh", "pos": [840, 340], "size": [180, 64] },
+    { "id": "runtime", "type": "messagebus", "label": "Runtime context", "sublabel": "events, decisions, outcomes", "pos": [840, 440], "size": [180, 64] },
+    { "id": "engine", "type": "database", "label": "Query engine", "sublabel": "governed SQL", "pos": [270, 420], "size": [160, 64] }
+  ],
+  "connections": [
+    { "id": "ask", "from": "agent", "to": "assembler", "label": "question", "variant": "emphasis" },
+    { "id": "retrieve", "from": "assembler", "to": "graph", "label": "linked context", "variant": "emphasis" },
+    { "id": "l-data", "from": "data", "to": "graph", "label": "links" },
+    { "id": "l-sem", "from": "sem", "to": "graph", "label": "links" },
+    { "id": "l-onto", "from": "onto", "to": "graph", "label": "links" },
+    { "id": "l-gov", "from": "gov", "to": "graph", "label": "rules", "variant": "security" },
+    { "id": "l-run", "from": "runtime", "to": "graph", "label": "appends", "variant": "dashed" },
+    { "id": "sql", "from": "assembler", "to": "engine", "label": "certified metric", "fromSide": "bottom", "toSide": "top" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "From the semantic layer", "items": ["Business terms and certified metrics", "Access, certification and freshness rules"] },
+    { "dot": "violet", "title": "From the knowledge graph", "items": ["Ontology concepts and relationships", "Real instances linked to concepts"] },
+    { "dot": "rose", "title": "Added at runtime", "items": ["Events, decisions, actions, outcomes", "Every agent answer is recorded"] }
+  ]
+}

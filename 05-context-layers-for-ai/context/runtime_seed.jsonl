@@ -1,0 +1,5 @@
+{"id": "EVT-101", "type": "event", "at": "2026-11-01T14:30:00Z", "about": ["site:TOR-01"], "text": "Planned HVAC stress test started at TOR-01"}
+{"id": "DEC-102", "type": "decision", "at": "2026-11-01T14:35:00Z", "about": ["site:TOR-01"], "caused_by": "EVT-101", "text": "Exclude TOR-01 readings from 15:00 to 24:00 UTC on Nov 1 from alert metrics (test traffic)", "exclude": {"site": "TOR-01", "from": "2026-11-01 15:00:00", "to": "2026-11-02 00:00:00"}}
+{"id": "EVT-103", "type": "event", "at": "2026-11-02T14:50:00Z", "about": ["sensor:sensor-002", "site:MTL-01"], "text": "sensor-002 raised 3 alerts since 10:00 UTC"}
+{"id": "ACT-104", "type": "action", "at": "2026-11-02T15:05:00Z", "about": ["sensor:sensor-002", "site:MTL-01"], "caused_by": "EVT-103", "text": "Technician dispatched to MTL-01 to check sensor-002"}
+{"id": "OUT-105", "type": "outcome", "at": "2026-11-02T16:30:00Z", "about": ["sensor:sensor-002", "site:MTL-01"], "caused_by": "ACT-104", "text": "Cooler fan replaced next to sensor-002"}

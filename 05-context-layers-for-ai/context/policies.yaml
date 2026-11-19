@@ -1,0 +1,25 @@
+# Governance layer for the IoT context layer.
+# This file format is our own teaching format for this lesson, not a standard.
+# Each policy names the semantic-model fields, datasets or metrics it governs.
+policies:
+- id: POL-PII-01
+  name: Personal data stays private
+  kind: access
+  governs: [field:sites.site_manager]
+  deny_roles: [ops_agent]          # agents may not read or repeat it
+  instead: field:sites.on_call_channel
+  reason: Site manager names are personal data.
+
+- id: POL-MET-02
+  name: Answer with certified metrics only
+  kind: certification
+  governs: [metric:alert_rate_pct, metric:readings.alert_count, metric:readings.reading_count]
+  reason: Raw alert counts mislead, because sites have different numbers of sensors.
+
+- id: POL-FRESH-03
+  name: Readings must be fresh
+  kind: freshness
+  governs: [dataset:readings]
+  time_field: readings.reading_ts
+  max_lag_minutes: 15
+  reason: Do not answer "right now" questions from stale data.

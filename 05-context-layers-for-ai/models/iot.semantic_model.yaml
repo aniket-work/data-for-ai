@@ -1,0 +1,165 @@
+# Apache Ossie (incubating) core semantic model, spec version 0.3.0.dev0 (unreleased).
+# Spec: core-spec/spec.md   Schema: core-spec/ossie-schema.json
+# It describes the four IoT tables in data/iot.duckdb as logical datasets.
+# Folder 05 adds two sites fields (site_manager, on_call_channel) to the folder 04 model.
+version: 0.3.0.dev0
+name: iot_semantic_model
+description: IoT telemetry from 20 sensors at 4 Canadian sites, owned by 2 customers.
+ai_context:
+  instructions: >-
+    Readings are raw sensor rows, one every 30 seconds. Answer questions about
+    temperature, alerts and sensors with the metrics below, and join readings to
+    devices, sites and customers only through the declared relationships.
+  examples:
+  - Average temperature per customer
+  - How many alerts did each site raise?
+
+datasets:
+- name: customers
+  source: main.customers
+  description: Companies that own monitored sites.
+  primary_key: [customer_id]
+  unique_keys:
+  - [customer_name]
+  ai_context:
+    synonyms: [company, client, account]
+  fields:
+  - name: customer_id
+    expression: {sql: customer_id}
+    datatype: String
+  - name: customer_name
+    expression: {sql: customer_name}
+    datatype: String
+  metrics:
+  - name: customer_count
+    expression: {sql: COUNT(customer_id)}
+    datatype: Integer
+
+- name: sites
+  source: main.sites
+  description: Physical locations where sensors are installed.
+  primary_key: [site_code]
+  fields:
+  - name: site_code
+    expression: {sql: site_code}
+    datatype: String
+  - name: city
+    expression: {sql: city}
+    datatype: String
+  - name: province                       # computed field: a scalar SQL expression
+    expression:
+      sql: >-
+        CASE city WHEN 'Toronto' THEN 'ON' WHEN 'Montreal' THEN 'QC'
+        WHEN 'Calgary' THEN 'AB' WHEN 'Vancouver' THEN 'BC' END
+    datatype: String
+  - name: customer_id
+    expression: {sql: customer_id}
+    datatype: String
+  - name: site_manager                   # personal data: the governance layer blocks it for agents
+    expression: {sql: site_manager}
+    datatype: String
+    ai_context: {synonyms: [manager, contact, call, who to call]}
+  - name: on_call_channel                # the approved way to escalate
+    expression: {sql: on_call_channel}
+    datatype: String
+    ai_context: {synonyms: [escalation, on call, pager]}
+
+- name: devices
+  source: main.devices
+  description: Sensors. A backup sensor names the primary sensor it backs up.
+  primary_key: [sensor_id]               # a FIELD name, not the source column device_id
+  fields:
+  - name: sensor_id
+    expression: {sql: device_id}         # field sensor_id <- source column device_id
+    datatype: String
+    ai_context: {synonyms: [device, sensor]}
+  - name: site_code
+    expression: {sql: site_code}
+    datatype: String
+  - name: backup_for
+    expression: {sql: backup_for}
+    datatype: String
+  - name: is_backup
+    expression: {sql: backup_for IS NOT NULL}
+    datatype: Boolean
+  metrics:
+  - name: sensor_count
+    expression: {sql: COUNT(sensor_id)}
+    datatype: Integer
+
+- name: readings
+  source: main.readings
+  description: One row per sensor reading.
+  primary_key: [sensor_id, reading_ts]
+  fields:
+  - name: reading_ts
+    expression: {sql: ts}
+    datatype: DateTime                   # temporal datatype, so is_time defaults to true
+  - name: reading_hour
+    expression:
+      sql: DATE_TRUNC('hour', ts)        # portable OSSIE_SQL_2026 form (authoritative)
+      dialects:
+      - dialect: BIGQUERY
+        expression: TIMESTAMP_TRUNC(ts, HOUR)
+    datatype: DateTime
+  - name: sensor_id
+    expression: {sql: device_id}
+    datatype: String
+  - name: temperature_c
+    expression: {sql: temperature}
+    datatype: Decimal
+    ai_context: {synonyms: [temperature, temp, degrees]}
+  - name: temperature_f
+    expression: {sql: temperature * 9 / 5 + 32}
+    datatype: Decimal
+  - name: humidity_pct
+    expression: {sql: humidity}
+    datatype: Decimal
+  - name: status
+    expression: {sql: status}
+    datatype: String
+  - name: is_alert
+    expression: {sql: UPPER(status) = 'ALERT'}
+    datatype: Boolean
+  metrics:                               # dataset-scoped: unqualified field names
+  - name: reading_count
+    expression: {sql: COUNT(*)}
+    datatype: Integer
+  - name: avg_temperature_c
+    expression: {sql: AVG(temperature_c)}
+    datatype: Decimal
+  - name: alert_count
+    expression: {sql: COUNT(*) FILTER (WHERE is_alert)}
+    datatype: Integer
+  - name: max_pressure_hpa
+    expression: {sql: MAX(source.pressure)}   # source column, no field declared
+    datatype: Decimal
+
+relationships:                           # from = many side, to = one side; FIELD names
+- name: readings_to_devices
+  from: readings
+  to: devices
+  from_columns: [sensor_id]
+  to_columns: [sensor_id]
+- name: devices_to_sites
+  from: devices
+  to: sites
+  from_columns: [site_code]
+  to_columns: [site_code]
+- name: sites_to_customers
+  from: sites
+  to: customers
+  from_columns: [customer_id]
+  to_columns: [customer_id]
+
+metrics:                                 # model-scoped: qualified dataset.field names
+- name: alert_rate_pct
+  expression: {sql: 100.0 * AGG(readings.alert_count) / AGG(readings.reading_count)}
+  datatype: Decimal
+  ai_context: {synonyms: [alert rate, alert percentage]}
+- name: readings_per_sensor
+  expression: {sql: AGG(readings.reading_count) / COUNT(DISTINCT devices.sensor_id)}
+  datatype: Decimal
+- name: alerts_per_site
+  expression: {sql: AGG(readings.alert_count) / COUNT(DISTINCT sites.site_code)}
+  datatype: Decimal

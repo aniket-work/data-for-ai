@@ -1,0 +1,7 @@
+# Python 3.11+. No API keys and no LLM are needed.
+duckdb>=1.1
+networkx>=3.2
+PyYAML>=6.0
+sqlglot>=25.0
+rich>=13.7
+pytz>=2024.1   # DuckDB uses it to return timestamps to Python
