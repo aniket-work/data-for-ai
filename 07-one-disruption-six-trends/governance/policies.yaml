@@ -1,0 +1,22 @@
+# Lens 3: AI GOVERNANCE PLATFORM. Central policies checked as code before any agent action runs.
+# Our own teaching format, in the spirit of policy-as-code tools (not a product).
+models:
+  rebook-assistant: {registered: true, owner: ops-ai-team, risk_tier: high, human_oversight: required_above_limits}
+policies:
+  - id: GOV-01
+    name: Only registered models with an owner and risk tier may act
+    check: model_registered
+  - id: GOV-02
+    name: Vouchers above 300 CAD need a human approval
+    check: voucher_limit
+    limit_cad: 300
+  - id: GOV-03
+    name: Agents may not cancel tickets
+    check: denied_action
+    action: cancel_ticket
+  - id: GOV-04
+    name: Every agent decision has an audit record
+    check: audit_coverage
+  - id: GOV-05
+    name: Every model call passed the residency check
+    check: residency_enforced

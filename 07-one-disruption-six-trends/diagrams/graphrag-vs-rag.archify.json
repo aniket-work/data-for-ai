@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Plain keyword RAG vs GraphRAG",
+    "output": "graphrag-vs-rag.html",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "q",
+      "type": "external",
+      "label": "Question",
+      "sublabel": "connections + crew",
+      "pos": [
+        40,
+        250
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "chunks",
+      "type": "database",
+      "label": "Ops notes",
+      "sublabel": "8 short notes",
+      "pos": [
+        300,
+        80
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "topk",
+      "type": "backend",
+      "label": "Top 3 by words",
+      "sublabel": "keyword overlap",
+      "pos": [
+        580,
+        80
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "ans1",
+      "type": "frontend",
+      "label": "Answer",
+      "sublabel": "wrong crew, no IDs",
+      "pos": [
+        880,
+        80
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "graph",
+      "type": "database",
+      "label": "Knowledge graph",
+      "sublabel": "tables + notes",
+      "pos": [
+        300,
+        420
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "walk",
+      "type": "backend",
+      "label": "Traverse paths",
+      "sublabel": "multi-hop + rules",
+      "pos": [
+        580,
+        420
+      ],
+      "size": [
+        170,
+        64
+      ]
+    },
+    {
+      "id": "ans2",
+      "type": "frontend",
+      "label": "Answer",
+      "sublabel": "right, with evidence",
+      "pos": [
+        880,
+        420
+      ],
+      "size": [
+        170,
+        64
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "q",
+      "to": "chunks",
+      "label": "search",
+      "variant": "dashed"
+    },
+    {
+      "id": "c2",
+      "from": "chunks",
+      "to": "topk"
+    },
+    {
+      "id": "c3",
+      "from": "topk",
+      "to": "ans1",
+      "label": "mock LLM"
+    },
+    {
+      "id": "c4",
+      "from": "q",
+      "to": "graph",
+      "label": "link entities",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c5",
+      "from": "graph",
+      "to": "walk",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c6",
+      "from": "walk",
+      "to": "ans2",
+      "label": "mock LLM",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "Plain RAG",
+      "items": [
+        "Finds similar text, one chunk at a time"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "GraphRAG",
+      "items": [
+        "Follows relationships across tables and notes"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Honest mock",
+      "items": [
+        "Regex extraction and a template stand in for an LLM"
+      ]
+    }
+  ]
+}

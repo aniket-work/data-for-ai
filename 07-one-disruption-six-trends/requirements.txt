@@ -1,0 +1,4 @@
+# Python 3.11+. No API keys and no LLM are needed.
+PyYAML>=6.0
+networkx>=3.2
+rich>=13.7

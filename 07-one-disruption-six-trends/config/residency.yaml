@@ -1,0 +1,17 @@
+# Lens 1: SOVEREIGN AI AND DATA RESIDENCY. A data map with residency tags, and where each AI endpoint runs.
+# Our own teaching format (not a standard). Norland and Solmara are fictional jurisdictions.
+datasets:
+  passengers:  {personal_data: true,  residency: per_record, tag_field: home_jurisdiction}
+  bookings:    {personal_data: true,  residency: per_record, tag_field: home_jurisdiction}
+  crews:       {personal_data: true,  residency: Norland}
+  flights:     {personal_data: false, residency: any}
+  ops_notes:   {personal_data: false, residency: any}
+endpoints:
+  assist-north:  {runs_in: Norland, kind: language model}
+  assist-south:  {runs_in: Solmara, kind: language model}
+  assist-global: {runs_in: Offshore, kind: language model}
+rules:
+  - id: RES-01
+    text: Personal data is processed only in its home jurisdiction.
+  - id: RES-02
+    text: Non-personal data and counts without passenger IDs may go anywhere.

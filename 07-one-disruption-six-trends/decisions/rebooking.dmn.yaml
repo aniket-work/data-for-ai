@@ -1,0 +1,15 @@
+# Lens 2: DECISION GOVERNANCE. A modeled rebooking decision, DMN-style (our own YAML, not the DMN XML standard).
+# Hit policy FIRST: rules are checked top to bottom and the first match wins.
+decision: rebook_disrupted_passenger
+version: 3
+hit_policy: FIRST
+inputs: [needs_assistance, connection_ok_on_f214, has_connection, tier]
+rules:
+  - {id: R1, when: {needs_assistance: "yes"},                 then: {option: F-214, priority: 1, voucher_cad: 25},  why: "Passengers needing assistance get the earliest flight."}
+  - {id: R2, when: {connection_ok_on_f214: true},              then: {option: F-214, priority: 2, voucher_cad: 25},  why: "F-214 still makes the onward connection (60 min minimum)."}
+  - {id: R3, when: {has_connection: true, tier: gold},         then: {option: F-218, priority: 3, voucher_cad: 450}, why: "Connection is lost today: next-day flight, onward rebooked, hotel and lounge."}
+  - {id: R4, when: {has_connection: true},                     then: {option: F-218, priority: 3, voucher_cad: 245}, why: "Connection is lost today: next-day flight, onward rebooked, hotel and meal."}
+  - {id: R5, when: {tier: gold},                               then: {option: F-214, priority: 4, voucher_cad: 60},  why: "Gold members get a remaining F-214 seat if one is left."}
+  - {id: R6, when: {},                                         then: {option: F-218, priority: 5, voucher_cad: 205}, why: "Everyone else: next-day flight, hotel and meal."}
+capacity:
+  F-214: {seats_from: flights.seats_free, overflow_to: F-218, overflow_rule: CAP, overflow_voucher_cad: 205, overflow_why: "F-214 was full; next-day flight, hotel and meal."}

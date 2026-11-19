@@ -1,0 +1,156 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "One flight disruption, six lenses",
+    "output": "six-lenses.html",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    {
+      "id": "ops",
+      "label": "Operations"
+    },
+    {
+      "id": "agent",
+      "label": "Rebooking agent"
+    },
+    {
+      "id": "guard",
+      "label": "Guardrails"
+    }
+  ],
+  "mainPath": [
+    "events",
+    "dq",
+    "decide",
+    "govern",
+    "act"
+  ],
+  "nodes": [
+    {
+      "id": "events",
+      "lane": "ops",
+      "col": 0,
+      "type": "messagebus",
+      "label": "Event stream",
+      "sublabel": "F-210 cancelled"
+    },
+    {
+      "id": "dq",
+      "lane": "agent",
+      "col": 1,
+      "type": "backend",
+      "label": "Data quality agent",
+      "sublabel": "fix or quarantine"
+    },
+    {
+      "id": "decide",
+      "lane": "agent",
+      "col": 2,
+      "type": "backend",
+      "label": "Decision table",
+      "sublabel": "rules + audit"
+    },
+    {
+      "id": "govern",
+      "lane": "guard",
+      "col": 3,
+      "type": "security",
+      "label": "Governance",
+      "sublabel": "policy as code"
+    },
+    {
+      "id": "act",
+      "lane": "ops",
+      "col": 4,
+      "type": "frontend",
+      "label": "Rebook + notify",
+      "sublabel": "34 passengers"
+    },
+    {
+      "id": "res",
+      "lane": "guard",
+      "col": 2,
+      "type": "security",
+      "label": "Residency router",
+      "sublabel": "home region"
+    },
+    {
+      "id": "graph",
+      "lane": "agent",
+      "col": 4,
+      "type": "database",
+      "label": "GraphRAG",
+      "sublabel": "crew + connections"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "events",
+      "to": "dq",
+      "label": "trigger",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e2",
+      "from": "dq",
+      "to": "decide",
+      "label": "clean",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e3",
+      "from": "decide",
+      "to": "govern",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e4",
+      "from": "govern",
+      "to": "act",
+      "label": "allowed",
+      "variant": "security"
+    },
+    {
+      "id": "e5",
+      "from": "dq",
+      "to": "res",
+      "label": "messages",
+      "role": "branch"
+    },
+    {
+      "id": "e6",
+      "from": "govern",
+      "to": "graph",
+      "label": "ask",
+      "variant": "dashed",
+      "role": "async"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "One scenario",
+      "items": [
+        "Fictional airline, passengers by ID only"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Six lenses",
+      "items": [
+        "Each one answers a different question"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Our own teaching code",
+      "items": [
+        "No API keys; the LLM step is a labelled mock"
+      ]
+    }
+  ]
+}
