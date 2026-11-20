@@ -137,8 +137,8 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
     <td><b>10 · Define Bank Metrics Once with MetricFlow, Hands-On</b><br><sub>Track B · dbt · MetricFlow · DuckDB · ~12 min</sub><br><br>Define a fictional retail bank's metrics once in dbt semantic models (simple, ratio, derived and cumulative), query them by region, product, customer segment and time, read the SQL MetricFlow generates, and watch four teams' hand-written SQL drift. Part 1 of a three-part series on the same bank (11 WrenAI, 12 Cube).<br><br>📁 <a href="10-metricflow-banking-metrics/">10-metricflow-banking-metrics</a> · ▶️ <a href="https://youtu.be/_eirsNuqM4w">Watch</a></td>
   </tr>
   <tr>
-    <td><img src="assets/readme/thumbnails/11-wrenai-semantic-text-to-sql.jpg" alt="Video 11 thumbnail" width="100%"></td>
-    <td><b>11 · Text-to-SQL That Knows the Business: WrenAI's Semantic Layer, Hands-On</b><br><sub>Track B · WrenAI · llama.cpp · DuckDB · ~12 min</sub><br><br>Ask the same bank questions with the same local model two ways, from the raw schema and through WrenAI's semantic layer (MDL models, relationships, calculated fields, business rules), and score every answer by running its SQL against Lesson 10's MetricFlow numbers: raw 0/8, WrenAI 6/8. Part 2 of the bank series.<br><br>📁 <a href="11-wrenai-semantic-text-to-sql/">11-wrenai-semantic-text-to-sql</a> · ▶️ Video coming soon</td>
+    <td><a href="https://youtu.be/TSkL_apn34c"><img src="assets/readme/thumbnails/11-wrenai-semantic-text-to-sql.jpg" alt="Video 11 thumbnail" width="100%"></a></td>
+    <td><b>11 · Text-to-SQL That Knows the Business: WrenAI's Semantic Layer, Hands-On</b><br><sub>Track B · WrenAI · llama.cpp · DuckDB · ~12 min</sub><br><br>Ask the same bank questions with the same local model two ways, from the raw schema and through WrenAI's semantic layer (MDL models, relationships, calculated fields, business rules), and score every answer by running its SQL against Lesson 10's MetricFlow numbers: raw 0/8, WrenAI 6/8. Part 2 of the bank series.<br><br>📁 <a href="11-wrenai-semantic-text-to-sql/">11-wrenai-semantic-text-to-sql</a> · ▶️ <a href="https://youtu.be/TSkL_apn34c">Watch</a></td>
   </tr>
 </table>
 
@@ -157,7 +157,7 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 | 8 | The semantic layer, hands-on with Saiku: cube, MDX, SQL and the AI Query API | [08-semantic-layer-with-saiku](08-semantic-layer-with-saiku/) | [Watch](https://youtu.be/TM_1xsWUr48) |
 | 9 | Build an AI data engineering agent, hands-on: discover, clean, ask, contract and monitor with a local model | [09-ai-data-engineering-agent](09-ai-data-engineering-agent/) | [Watch](https://youtu.be/nl3S2voeCd0) |
 | 10 | Define bank metrics once with MetricFlow, hands-on: simple, ratio, derived and cumulative metrics by region, product, segment and time | [10-metricflow-banking-metrics](10-metricflow-banking-metrics/) | [Watch](https://youtu.be/_eirsNuqM4w) |
-| 11 | Text-to-SQL that knows the business, hands-on with WrenAI: raw text-to-SQL vs a semantic layer, scored on the same bank | [11-wrenai-semantic-text-to-sql](11-wrenai-semantic-text-to-sql/) | Video coming soon |
+| 11 | Text-to-SQL that knows the business, hands-on with WrenAI: raw text-to-SQL vs a semantic layer, scored on the same bank | [11-wrenai-semantic-text-to-sql](11-wrenai-semantic-text-to-sql/) | [Watch](https://youtu.be/TSkL_apn34c) |
 
 </details>
 
