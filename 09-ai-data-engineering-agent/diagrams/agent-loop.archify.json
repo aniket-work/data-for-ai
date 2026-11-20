@@ -1,0 +1,46 @@
+{
+ "schema_version": 2,
+ "diagram_type": "workflow",
+ "meta": {"title": "One agent stage: plan, act, check, repeat", "visual_preset": "signal-flow", "quality_profile": "showcase",
+          "output": ".archify/workflow-agent-loop-20261120-093000/agent-loop.html"},
+ "lanes": [
+  {"id": "human", "label": "Human"},
+  {"id": "agent", "label": "Agent loop"},
+  {"id": "guard", "label": "Guardrails", "variant": "exception"},
+  {"id": "data", "label": "Lakehouse"}
+ ],
+ "phases": [
+  {"id": "plan", "label": "Plan", "fromCol": 0, "toCol": 1},
+  {"id": "act", "label": "Act", "fromCol": 2, "toCol": 3, "variant": "emphasis"},
+  {"id": "check", "label": "Check + report", "fromCol": 4, "toCol": 5, "variant": "dashed"}
+ ],
+ "mainPath": ["goal", "think", "call", "gate", "run", "result", "critic", "done"],
+ "nodes": [
+  {"id": "goal", "lane": "human", "col": 0, "type": "external", "label": "Stage goal", "sublabel": "e.g. clean tickets", "width": 132},
+  {"id": "think", "lane": "agent", "col": 1, "type": "backend", "label": "Model plans", "sublabel": "tool + reason", "width": 132},
+  {"id": "call", "lane": "agent", "col": 2, "type": "backend", "label": "Tool call", "sublabel": "typed arguments", "width": 132},
+  {"id": "readonly", "lane": "guard", "col": 2, "type": "security", "label": "Read-only SQL", "sublabel": "SELECT only", "width": 132},
+  {"id": "gate", "lane": "guard", "col": 3, "type": "security", "label": "Approval gate", "sublabel": "y/N + feedback", "tag": "every write", "width": 132},
+  {"id": "run", "lane": "data", "col": 3, "type": "database", "label": "Tool runs", "sublabel": "DuckDB + files", "width": 132},
+  {"id": "result", "lane": "agent", "col": 4, "type": "backend", "label": "Result", "sublabel": "or error to fix", "width": 132},
+  {"id": "critic", "lane": "guard", "col": 4, "type": "security", "label": "Critic", "sublabel": "coverage check", "width": 132},
+  {"id": "done", "lane": "human", "col": 5, "type": "frontend", "label": "Report", "sublabel": "notes, answer, alert", "width": 132},
+  {"id": "audit", "lane": "data", "col": 5, "type": "database", "label": "Audit log", "sublabel": "every step", "width": 132}
+ ],
+ "edges": [
+  {"id": "goal-think", "from": "goal", "to": "think", "variant": "emphasis"},
+  {"id": "think-call", "from": "think", "to": "call"},
+  {"id": "call-readonly", "from": "call", "to": "readonly", "label": "read"},
+  {"id": "call-gate", "from": "call", "to": "gate", "label": "write", "variant": "security"},
+  {"id": "gate-run", "from": "gate", "to": "run", "label": "approved", "variant": "emphasis"},
+  {"id": "readonly-run", "from": "readonly", "to": "run", "variant": "dashed"},
+  {"id": "run-result", "from": "run", "to": "result"},
+  {"id": "result-critic", "from": "result", "to": "critic", "label": "finish?", "variant": "security"},
+  {"id": "critic-done", "from": "critic", "to": "done", "label": "passes", "variant": "emphasis"},
+  {"id": "run-audit", "from": "run", "to": "audit", "label": "logged", "variant": "dashed", "fromSide": "bottom", "toSide": "bottom", "route": "bottom-channel"}
+ ],
+ "cards": [
+  {"dot": "cyan", "title": "Loop", "items": ["Errors and rejections go back to the model", "It retries with the feedback"]},
+  {"dot": "rose", "title": "Stops", "items": ["Writes wait for a human y/N", "Finish waits for the critic"]}
+ ]
+}

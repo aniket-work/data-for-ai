@@ -1,0 +1,26 @@
+[
+  {
+    "route_code": "SM-01",
+    "name": "Harbourfront - Gull Island",
+    "minutes": 25,
+    "active": true
+  },
+  {
+    "route_code": "SM-02",
+    "name": "Harbourfront - Cedar Point",
+    "minutes": 40,
+    "active": true
+  },
+  {
+    "route_code": "SM-03",
+    "name": "Cedar Point - Fogg Bay",
+    "minutes": 30,
+    "active": true
+  },
+  {
+    "route_code": "SM-04",
+    "name": "Gull Island - Fogg Bay",
+    "minutes": 20,
+    "active": true
+  }
+]

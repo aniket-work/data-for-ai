@@ -1,0 +1,7 @@
+lake/warehouse.duckdb
+lake/warehouse.duckdb.wal
+lake/incoming/*.csv
+lake/quarantine/*.csv
+state/
+__pycache__/
+.venv/

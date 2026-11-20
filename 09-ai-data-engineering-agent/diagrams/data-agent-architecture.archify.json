@@ -1,0 +1,238 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "A local AI data engineering agent",
+  "locale": "en",
+  "output": ".archify/architecture-data-agent-20261120-093000/data-agent-architecture.html",
+  "quality_profile": "showcase",
+  "legend": {
+   "entries": {
+    "frontend": {
+     "label": "Human"
+    },
+    "backend": {
+     "label": "Agent code"
+    },
+    "external": {
+     "label": "Model"
+    },
+    "security": {
+     "label": "Guardrail"
+    },
+    "database": {
+     "label": "Data"
+    }
+   }
+  }
+ },
+ "components": [
+  {
+   "id": "human",
+   "type": "frontend",
+   "label": "You",
+   "sublabel": "goal + approvals",
+   "pos": [
+    40,
+    190
+   ],
+   "size": [
+    150,
+    64
+   ]
+  },
+  {
+   "id": "cli",
+   "type": "backend",
+   "label": "data_agent.py",
+   "sublabel": "5 stages",
+   "pos": [
+    290,
+    190
+   ],
+   "size": [
+    150,
+    64
+   ]
+  },
+  {
+   "id": "loop",
+   "type": "backend",
+   "label": "Agent loop",
+   "sublabel": "model, tool, result",
+   "pos": [
+    540,
+    190
+   ],
+   "size": [
+    160,
+    64
+   ]
+  },
+  {
+   "id": "llm",
+   "type": "external",
+   "label": "Local LLM",
+   "sublabel": "OpenAI-compatible API",
+   "pos": [
+    540,
+    50
+   ],
+   "size": [
+    160,
+    64
+   ],
+   "tag": "any base URL"
+  },
+  {
+   "id": "tools",
+   "type": "backend",
+   "label": "Typed tools",
+   "sublabel": "profile, fix, SQL, checks",
+   "pos": [
+    800,
+    190
+   ],
+   "size": [
+    170,
+    64
+   ]
+  },
+  {
+   "id": "guard",
+   "type": "security",
+   "label": "Guardrails",
+   "sublabel": "read-only SQL, approval",
+   "pos": [
+    800,
+    50
+   ],
+   "size": [
+    170,
+    64
+   ]
+  },
+  {
+   "id": "lake",
+   "type": "database",
+   "label": "Lakehouse",
+   "sublabel": "raw files + DuckDB",
+   "pos": [
+    1070,
+    190
+   ],
+   "size": [
+    160,
+    64
+   ]
+  },
+  {
+   "id": "state",
+   "type": "database",
+   "label": "Notes + audit log",
+   "sublabel": "memory between stages",
+   "pos": [
+    540,
+    330
+   ],
+   "size": [
+    160,
+    64
+   ]
+  }
+ ],
+ "boundaries": [
+  {
+   "kind": "region",
+   "label": "your machine, no cloud account",
+   "wraps": [
+    "cli",
+    "loop",
+    "llm",
+    "tools",
+    "guard",
+    "lake",
+    "state"
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "id": "human-goal",
+   "from": "human",
+   "to": "cli",
+   "label": "goal",
+   "variant": "emphasis"
+  },
+  {
+   "id": "cli-loop",
+   "from": "cli",
+   "to": "loop",
+   "label": "stage + tools"
+  },
+  {
+   "id": "loop-llm",
+   "from": "loop",
+   "to": "llm",
+   "label": "tool calls",
+   "fromSide": "top",
+   "toSide": "bottom"
+  },
+  {
+   "id": "loop-tools",
+   "from": "loop",
+   "to": "tools",
+   "label": "run",
+   "variant": "emphasis"
+  },
+  {
+   "id": "tools-guard",
+   "from": "tools",
+   "to": "guard",
+   "label": "writes",
+   "fromSide": "top",
+   "toSide": "bottom"
+  },
+  {
+   "id": "tools-lake",
+   "from": "tools",
+   "to": "lake",
+   "label": "safe actions",
+   "variant": "emphasis"
+  },
+  {
+   "id": "loop-state",
+   "from": "loop",
+   "to": "state",
+   "label": "trace",
+   "fromSide": "bottom",
+   "toSide": "top"
+  }
+ ],
+ "cards": [
+  {
+   "dot": "emerald",
+   "title": "The model decides",
+   "items": [
+    "Which tool to call next, with which arguments",
+    "How to explain the result"
+   ]
+  },
+  {
+   "dot": "cyan",
+   "title": "The tools do the work",
+   "items": [
+    "Profiling, typed fixes, SQL and checks",
+    "Deterministic and testable"
+   ]
+  },
+  {
+   "dot": "amber",
+   "title": "The human approves",
+   "items": [
+    "Every write stops at a y/N gate",
+    "Every step lands in the audit log"
+   ]
+  }
+ ]
+}
