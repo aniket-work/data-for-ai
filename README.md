@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://www.youtube.com/@learn-physical-ai"><img src="https://img.shields.io/badge/YouTube-Data%20for%20AI-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube channel: Data for AI"></a>
-  <a href="#-video-catalog"><img src="https://img.shields.io/badge/Lessons-7-34D399?style=for-the-badge" alt="7 lessons"></a>
+  <a href="#-video-catalog"><img src="https://img.shields.io/badge/Lessons-8-34D399?style=for-the-badge" alt="8 lessons"></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/aniket-work/data-for-ai?style=for-the-badge&color=0F766E" alt="MIT License"></a>
   <br>
   <a href="https://github.com/aniket-work/data-for-ai/commits/main"><img src="https://img.shields.io/github/last-commit/aniket-work/data-for-ai?style=flat-square&color=14B8A6" alt="Last commit"></a>
@@ -57,13 +57,13 @@ Every lesson comes in matching formats:
 ## 🧭 Learning Paths
 
 <p align="center">
-  <img src="assets/readme/learning-path.png" alt="Learning paths. Track A, Microsoft Fabric Real-Time Intelligence: 01 Create an Eventhouse and Ingest Data, 02 Tables and Materialized Views, 08 next Eventhouse part coming soon. Track B, Semantics and Context for AI: 03 Ontology with Apache Ossie, 04 Semantic Model in Apache Ossie, 05 Context Layers for AI Agents, 06 One Business, Four Models, 07 One Disruption, Six Trends." width="100%">
+  <img src="assets/readme/learning-path.png" alt="Learning paths. Track A, Microsoft Fabric Real-Time Intelligence: 01 Create an Eventhouse and Ingest Data, 02 Tables and Materialized Views, 09 next: update policies and stored functions, coming soon. Track B, Semantics and Context for AI: 03 Ontology with Apache Ossie, 04 Semantic Model in Apache Ossie, 05 Context Layers for AI Agents, 06 One Business, Four Models, 07 One Disruption, Six Trends, 08 Semantic Layer with Saiku." width="100%">
 </p>
 
 | Track | Lessons | Best for | You need |
 | --- | --- | --- | --- |
 | **A. Microsoft Fabric Real-Time Intelligence** | 01 → 02 | Data engineers moving event and telemetry data into Fabric with KQL | A Fabric workspace on a Fabric-enabled capacity |
-| **B. Semantics and Context for AI** | 03 → 04 → 05 → 06 → 07 | Anyone who wants AI agents to understand business data: ontologies, semantic models, knowledge graphs, context layers | Python 3.11+ and Git |
+| **B. Semantics and Context for AI** | 03 → 04 → 05 → 06 → 07 → 08 | Anyone who wants AI agents to understand business data: ontologies, semantic models, knowledge graphs, context layers, semantic layers | Python 3.11+ and Git (08 also needs Java 21+) |
 
 <details>
 <summary><b>Text version of the learning path (Mermaid)</b></summary>
@@ -72,11 +72,11 @@ Every lesson comes in matching formats:
 flowchart LR
     subgraph A["Track A · Microsoft Fabric"]
         direction LR
-        A1["01 · Eventhouse<br/>and ingest"] --> A2["02 · Tables and<br/>materialized views"] -.-> A3["08 · Next part<br/>(coming soon)"]
+        A1["01 · Eventhouse<br/>and ingest"] --> A2["02 · Tables and<br/>materialized views"] -.-> A3["09 · Update policies<br/>(coming soon)"]
     end
     subgraph B["Track B · Semantics and Context for AI"]
         direction LR
-        B1["03 · Ontology<br/>(Apache Ossie)"] --> B2["04 · Semantic model<br/>(Apache Ossie)"] --> B3["05 · Context layers<br/>for AI agents"] --> B4["06 · One business,<br/>four models"] --> B5["07 · One disruption,<br/>six trends"]
+        B1["03 · Ontology<br/>(Apache Ossie)"] --> B2["04 · Semantic model<br/>(Apache Ossie)"] --> B3["05 · Context layers<br/>for AI agents"] --> B4["06 · One business,<br/>four models"] --> B5["07 · One disruption,<br/>six trends"] --> B6["08 · Semantic layer<br/>with Saiku"]
     end
     A1 -. "same IoT data" .-> B1
 ```
@@ -119,6 +119,9 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
   <tr>
     <td><a href="https://youtu.be/8ndA5hIxuEg"><img src="https://img.youtube.com/vi/8ndA5hIxuEg/hqdefault.jpg" alt="Video 7 thumbnail" width="100%"></a></td>
     <td><b>07 · One Flight Disruption, Six Data and AI Trends</b><br><sub>Track B · Python · networkx · ~12 min</sub><br><br>Run one airline disruption through six lenses: data residency, decision governance, AI governance, agentic streaming, agentic data quality and GraphRAG, then compare them on one scorecard.<br><br>📁 <a href="07-one-disruption-six-trends/">07-one-disruption-six-trends</a> · ▶️ <a href="https://youtu.be/8ndA5hIxuEg">Watch</a></td>
+  <tr>
+    <td><a href="08-semantic-layer-with-saiku/"><img src="assets/readme/thumbnails/08-semantic-layer-with-saiku.jpg" alt="Video 8 thumbnail" width="100%"></a></td>
+    <td><b>08 · The Semantic Layer, Hands-On with Saiku</b><br><sub>Track B · Saiku · Mondrian · MDX · ~11 min</sub><br><br>Model a fictional cinema chain as an OLAP cube, explore it in Saiku's web UI with a pivot, a drill-down and a chart, see the MDX and the SQL Mondrian generates, and ask the cube by name through Saiku's AI Query API.<br><br>📁 <a href="08-semantic-layer-with-saiku/">08-semantic-layer-with-saiku</a> · ▶️ Coming soon</td>
   </tr>
 </table>
 
@@ -134,6 +137,7 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 | 5 | Context layers for AI agents | [05-context-layers-for-ai](05-context-layers-for-ai/) | [Watch](https://youtu.be/DSXlY7Gruhg) |
 | 6 | One business, four models: taxonomy, ontology, knowledge graph and semantic layer | [06-one-business-four-models](06-one-business-four-models/) | [Watch](https://youtu.be/3Nr_XUtVRY4) |
 | 7 | One flight disruption, six data and AI trends: residency, decisions, governance, streaming, data quality and GraphRAG | [07-one-disruption-six-trends](07-one-disruption-six-trends/) | [Watch](https://youtu.be/8ndA5hIxuEg) |
+| 8 | The semantic layer, hands-on with Saiku: cube, MDX, SQL and the AI Query API | [08-semantic-layer-with-saiku](08-semantic-layer-with-saiku/) | Coming soon |
 
 </details>
 
@@ -155,16 +159,17 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 </details>
 
 <details open>
-<summary><b>Track B: Python (folders 03 to 07)</b></summary>
+<summary><b>Track B: Python (folders 03 to 08)</b></summary>
 
 - Python 3.11 or later and Git
 - Each folder has its own `requirements.txt` (for example PyYAML, rich, DuckDB, sqlglot, networkx, rdflib, owlrl)
 - Folders 03 and 04 also clone the Apache Ossie (incubating) repository; their READMEs show how
+- Folder 08 also needs Java 21+ and the Saiku release download; its README shows how
 - No LLM is called and no API key is needed
 
 ```bash
 git clone https://github.com/aniket-work/data-for-ai.git
-cd data-for-ai/05-context-layers-for-ai    # or any folder from 03 to 07
+cd data-for-ai/05-context-layers-for-ai    # or any folder from 03 to 08
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 # then follow the folder's README
@@ -186,6 +191,7 @@ data-for-ai/
 ├── 05-context-layers-for-ai/             Track B · five layers, one context graph
 ├── 06-one-business-four-models/          Track B · taxonomy, ontology, KG, semantic layer
 ├── 07-one-disruption-six-trends/         Track B · six lenses, one scorecard
+├── 08-semantic-layer-with-saiku/         Track B · OLAP cube, MDX, SQL, AI Query API
 ├── assets/readme/                        Images for this page (and their HTML sources)
 ├── LICENSE
 └── README.md
@@ -205,8 +211,8 @@ Inside a lesson folder you will usually find:
 ## 🛣️ Roadmap
 
 - [x] Track A: Eventhouse basics (01) and materialized views (02)
-- [x] Track B: Apache Ossie ontology and semantic model, context layers, four models, six trends (03 to 07)
-- [ ] Next Microsoft Fabric Eventhouse part (folder 08)
+- [x] Track B: Apache Ossie ontology and semantic model, context layers, four models, six trends, semantic layer with Saiku (03 to 08)
+- [ ] Next Microsoft Fabric Eventhouse part: update policies and stored functions (folder 09)
 - [ ] Launch the **dataforai.club** website with written guides and learning paths
 - [ ] More series on the data side of AI, one video and one folder at a time
 
@@ -235,6 +241,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. If
 - [Eventhouse overview](https://learn.microsoft.com/en-us/fabric/real-time-intelligence/eventhouse)
 - [Get started with Real-Time Intelligence](https://learn.microsoft.com/en-us/fabric/real-time-intelligence/get-started-with-real-time-intelligence)
 - [Apache Ossie (incubating)](https://github.com/apache/ossie)
+- [Saiku](https://github.com/spiculedata/saiku)
 
 ## 📄 License
 

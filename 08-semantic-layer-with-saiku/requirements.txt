@@ -1,0 +1,2 @@
+# Python 3.11+ for the helper scripts. Saiku itself needs Java 21+. No API keys and no LLM are needed.
+rich>=13.7

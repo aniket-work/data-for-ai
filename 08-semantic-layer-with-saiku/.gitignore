@@ -1,0 +1,5 @@
+# Local Saiku download and runtime state (recreated by the scripts)
+saiku-dist-*/
+saiku-dist-*.zip
+saiku-home/
+saiku-console.log

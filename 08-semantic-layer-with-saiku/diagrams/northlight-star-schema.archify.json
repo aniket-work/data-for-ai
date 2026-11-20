@@ -1,0 +1,256 @@
+{
+ "schema_version": 1,
+ "diagram_type": "erd",
+ "meta": {
+  "title": "Northlight Cinemas star schema (fictional sample data)",
+  "locale": "en",
+  "output": "diagrams/northlight-star-schema.html",
+  "quality_profile": "showcase"
+ },
+ "layout": {
+  "mode": "grid",
+  "gapY": 38,
+  "gapX": 80
+ },
+ "entities": [
+  {
+   "id": "dim_cinema",
+   "label": "dim_cinema",
+   "tag": "where and what",
+   "row": 0,
+   "col": 0,
+   "attributes": [
+    {
+     "name": "cinema_id",
+     "type": "int",
+     "key": "pk"
+    },
+    {
+     "name": "cinema_name",
+     "type": "varchar(60)"
+    },
+    {
+     "name": "city",
+     "type": "varchar(40)"
+    },
+    {
+     "name": "province",
+     "type": "varchar(4)"
+    },
+    {
+     "name": "region",
+     "type": "varchar(10)"
+    },
+    {
+     "name": "screens",
+     "type": "int"
+    }
+   ]
+  },
+  {
+   "id": "dim_film",
+   "label": "dim_film",
+   "tag": "where and what",
+   "row": 1,
+   "col": 0,
+   "attributes": [
+    {
+     "name": "film_id",
+     "type": "int",
+     "key": "pk"
+    },
+    {
+     "name": "title",
+     "type": "varchar(60)"
+    },
+    {
+     "name": "genre",
+     "type": "varchar(20)"
+    },
+    {
+     "name": "rating",
+     "type": "varchar(8)"
+    },
+    {
+     "name": "release_date",
+     "type": "date"
+    },
+    {
+     "name": "popularity",
+     "type": "decimal(4,2)"
+    }
+   ]
+  },
+  {
+   "id": "fact_screening",
+   "label": "fact_screening",
+   "tag": "facts",
+   "row": 0,
+   "col": 1,
+   "width": 270,
+   "attributes": [
+    {
+     "name": "screening_id",
+     "type": "int",
+     "key": "pk"
+    },
+    {
+     "name": "date_key",
+     "type": "int",
+     "key": "fk",
+     "references": "dim_date.date_key"
+    },
+    {
+     "name": "cinema_id",
+     "type": "int",
+     "key": "fk",
+     "references": "dim_cinema.cinema_id"
+    },
+    {
+     "name": "film_id",
+     "type": "int",
+     "key": "fk",
+     "references": "dim_film.film_id"
+    },
+    {
+     "name": "daypart_id",
+     "type": "int",
+     "key": "fk",
+     "references": "dim_daypart.daypart_id"
+    },
+    {
+     "name": "seats_available",
+     "type": "int"
+    },
+    {
+     "name": "tickets_sold",
+     "type": "int"
+    },
+    {
+     "name": "ticket_revenue",
+     "type": "decimal(10,2)"
+    },
+    {
+     "name": "concession_revenue",
+     "type": "decimal(10,2)"
+    }
+   ]
+  },
+  {
+   "id": "dim_date",
+   "label": "dim_date",
+   "tag": "when",
+   "row": 0,
+   "col": 2,
+   "attributes": [
+    {
+     "name": "date_key",
+     "type": "int",
+     "key": "pk"
+    },
+    {
+     "name": "the_date",
+     "type": "date"
+    },
+    {
+     "name": "the_year",
+     "type": "int"
+    },
+    {
+     "name": "quarter",
+     "type": "int"
+    },
+    {
+     "name": "quarter_name",
+     "type": "varchar(2)"
+    },
+    {
+     "name": "month_num",
+     "type": "int"
+    },
+    {
+     "name": "month_name",
+     "type": "varchar(12)"
+    },
+    {
+     "name": "day_name",
+     "type": "varchar(10)"
+    },
+    {
+     "name": "day_type",
+     "type": "varchar(8)"
+    }
+   ]
+  },
+  {
+   "id": "dim_daypart",
+   "label": "dim_daypart",
+   "tag": "when",
+   "row": 1,
+   "col": 2,
+   "attributes": [
+    {
+     "name": "daypart_id",
+     "type": "int",
+     "key": "pk"
+    },
+    {
+     "name": "daypart",
+     "type": "varchar(12)"
+    },
+    {
+     "name": "base_price",
+     "type": "decimal(6,2)"
+    }
+   ]
+  }
+ ],
+ "relationships": [
+  {
+   "id": "f_dim_cinema",
+   "from": "fact_screening",
+   "to": "dim_cinema",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  },
+  {
+   "id": "f_dim_film",
+   "from": "fact_screening",
+   "to": "dim_film",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  },
+  {
+   "id": "f_dim_date",
+   "from": "fact_screening",
+   "to": "dim_date",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  },
+  {
+   "id": "f_dim_daypart",
+   "from": "fact_screening",
+   "to": "dim_daypart",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  }
+ ],
+ "cards": [
+  {
+   "dot": "emerald",
+   "title": "Grain",
+   "items": [
+    "One row per screening: a film, at a cinema, on a date, in a daypart",
+    "8,277 screenings, January to June 2026"
+   ]
+  },
+  {
+   "dot": "cyan",
+   "title": "What the cube adds",
+   "items": [
+    "Measures sum or count fact columns",
+    "Dimensions and hierarchies come from the dim tables"
+   ]
+  }
+ ]
+}

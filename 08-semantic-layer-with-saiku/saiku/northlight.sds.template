@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Registers the Northlight Cinemas semantic layer with Saiku.
+     Replace @SAIKU_HOME@ with your absolute saiku-home path (scripts/load_and_register.sh does it). -->
+<dataSource>
+    <driver>mondrian.olap4j.MondrianOlap4jDriver</driver>
+    <id>northlight-cinemas</id>
+    <location>jdbc:mondrian:Jdbc=jdbc:h2:@SAIKU_HOME@/data/northlight;Catalog=file:@SAIKU_HOME@/data/NorthlightCinemas.xml;JdbcDrivers=org.h2.Driver</location>
+    <name>northlight</name>
+    <password></password>
+    <securityenabled>false</securityenabled>
+    <type>OLAP</type>
+    <username>sa</username>
+</dataSource>

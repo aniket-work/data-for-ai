@@ -1,0 +1,189 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "Saiku as a semantic layer: business terms in, SQL out",
+  "locale": "en",
+  "output": "diagrams/semantic-layer-architecture.html",
+  "quality_profile": "showcase",
+  "legend": {
+   "entries": {
+    "security": {
+     "label": "Semantic model"
+    },
+    "frontend": {
+     "label": "User"
+    },
+    "external": {
+     "label": "Program"
+    },
+    "backend": {
+     "label": "Server"
+    },
+    "database": {
+     "label": "Database"
+    }
+   }
+  }
+ },
+ "components": [
+  {
+   "id": "analyst",
+   "type": "frontend",
+   "label": "Analyst",
+   "sublabel": "pivot in the browser",
+   "pos": [
+    40,
+    70
+   ],
+   "size": [
+    150,
+    64
+   ]
+  },
+  {
+   "id": "agent",
+   "type": "external",
+   "label": "AI agent or script",
+   "sublabel": "no MDX needed",
+   "pos": [
+    40,
+    230
+   ],
+   "size": [
+    150,
+    64
+   ]
+  },
+  {
+   "id": "saiku",
+   "type": "backend",
+   "label": "Saiku 4.8.0",
+   "sublabel": "UI + AI Query API :8080",
+   "pos": [
+    320,
+    150
+   ],
+   "size": [
+    170,
+    64
+   ]
+  },
+  {
+   "id": "cube",
+   "type": "security",
+   "label": "Box Office cube",
+   "sublabel": "measures, dimensions",
+   "pos": [
+    590,
+    10
+   ],
+   "size": [
+    170,
+    64
+   ],
+   "tag": "Mondrian XML schema"
+  },
+  {
+   "id": "mondrian",
+   "type": "backend",
+   "label": "Mondrian engine",
+   "sublabel": "MDX to SQL (Calcite)",
+   "pos": [
+    590,
+    150
+   ],
+   "size": [
+    170,
+    64
+   ]
+  },
+  {
+   "id": "h2",
+   "type": "database",
+   "label": "H2 star schema",
+   "sublabel": "fact + 4 dimensions",
+   "pos": [
+    860,
+    150
+   ],
+   "size": [
+    160,
+    64
+   ]
+  }
+ ],
+ "boundaries": [
+  {
+   "kind": "region",
+   "label": "one Saiku JAR, one JVM",
+   "wraps": [
+    "saiku",
+    "mondrian"
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "id": "analyst-pivot",
+   "from": "analyst",
+   "to": "saiku",
+   "label": "drag and drop",
+   "variant": "emphasis"
+  },
+  {
+   "id": "agent-json",
+   "from": "agent",
+   "to": "saiku",
+   "label": "JSON request"
+  },
+  {
+   "id": "saiku-mdx",
+   "from": "saiku",
+   "to": "mondrian",
+   "label": "MDX",
+   "variant": "emphasis"
+  },
+  {
+   "id": "cube-def",
+   "from": "cube",
+   "to": "mondrian",
+   "label": "definitions",
+   "fromSide": "bottom",
+   "toSide": "top"
+  },
+  {
+   "id": "mondrian-sql",
+   "from": "mondrian",
+   "to": "h2",
+   "label": "SQL",
+   "variant": "emphasis"
+  }
+ ],
+ "cards": [
+  {
+   "dot": "emerald",
+   "title": "Defined once",
+   "items": [
+    "Tickets Sold, Occupancy, Avg Ticket Price",
+    "Region > City > Cinema, Genre > Film, Year > Quarter > Month"
+   ]
+  },
+  {
+   "dot": "cyan",
+   "title": "Asked many ways",
+   "items": [
+    "Drag and drop pivot and chart",
+    "AI Query API: names or synonyms in, MDX and typed cells out"
+   ]
+  },
+  {
+   "dot": "amber",
+   "title": "Same number",
+   "items": [
+    "Every consumer gets the SQL Mondrian writes from the cube",
+    "Ratios are computed as SUM / SUM at every level"
+   ]
+  }
+ ]
+}

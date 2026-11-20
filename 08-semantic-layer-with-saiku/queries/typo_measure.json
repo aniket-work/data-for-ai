@@ -1,0 +1,5 @@
+{
+  "cube": "northlight/Northlight Cinemas/Northlight Cinemas/Box Office",
+  "measures": [{"name": "Revenue Per Seat"}],
+  "rows": [{"dimension": "Location", "hierarchy": "Geography", "level": "City"}]
+}

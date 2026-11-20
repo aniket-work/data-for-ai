@@ -1,0 +1,7 @@
+{
+  "cube": "northlight/Northlight Cinemas/Northlight Cinemas/Box Office",
+  "measures": [{"name": "box office"}, {"name": "attendance"}, {"name": "Occupancy"}],
+  "rows": [{"dimension": "Film", "hierarchy": "By Genre", "level": "Genre"}],
+  "order": [{"by": "Ticket Revenue", "direction": "desc"}],
+  "limit": 3
+}

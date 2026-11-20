@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Data for AI folder 08 (our own config, not part of Saiku): Saiku's default logging
+     plus a separate file that captures the SQL Mondrian generates for every MDX query.
+     Start Saiku with: java -Dlog4j2.configurationFile=saiku/log4j2-sql.xml -jar saiku-4.8.0.jar serve ... -->
+<Configuration status="WARN" name="saiku-sql-trace">
+  <Properties>
+    <Property name="saikuHome">${sys:saiku.home:-saiku-home}</Property>
+  </Properties>
+  <Appenders>
+    <Console name="CONSOLE" target="SYSTEM_OUT">
+      <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+      <PatternLayout pattern="%d{ISO8601} %-5p [%c{1}] %m%n"/>
+    </Console>
+    <File name="SAIKUFILE" fileName="${saikuHome}/logs/saiku.log">
+      <PatternLayout pattern="%d{ISO8601} %-5p [%c{1}] %m%n"/>
+    </File>
+    <File name="SQLFILE" fileName="${saikuHome}/logs/mondrian-sql.log">
+      <PatternLayout pattern="%m%n"/>
+    </File>
+  </Appenders>
+  <Loggers>
+    <Logger name="mondrian.sql" level="DEBUG" additivity="false"><AppenderRef ref="SQLFILE"/></Logger>
+    <Logger name="mondrian.mdx" level="DEBUG" additivity="false"><AppenderRef ref="SQLFILE"/></Logger>
+    <Logger name="mondrian" level="WARN"/>
+    <Logger name="org.eclipse.jetty" level="WARN"/>
+    <Logger name="org.glassfish.jersey" level="WARN"/>
+    <Root level="INFO"><AppenderRef ref="CONSOLE"/><AppenderRef ref="SAIKUFILE"/></Root>
+  </Loggers>
+</Configuration>

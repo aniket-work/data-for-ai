@@ -1,0 +1,13 @@
+film_id,title,genre,rating,release_date,popularity
+1,Glacier Run,Action,PG-13,2026-01-09,1.25
+2,The Last Lantern,Drama,PG,2026-01-23,0.8
+3,Pixel Paws,Animation,G,2026-02-06,1.3
+4,Static Hollow,Horror,R,2026-02-27,0.95
+5,Orbit Nine,Sci-Fi,PG-13,2026-03-13,1.4
+6,Wedding Weather,Comedy,PG-13,2026-03-27,0.85
+7,Iron Tide,Action,PG-13,2026-04-10,1.15
+8,Quiet Harbour,Drama,PG,2026-04-24,0.7
+9,Moss and Pebble,Animation,G,2026-05-08,1.2
+10,Night Signal,Horror,R,2026-05-22,1.0
+11,Second Sun,Sci-Fi,PG-13,2026-06-05,1.35
+12,Office Party Animals,Comedy,14A,2026-06-12,0.9

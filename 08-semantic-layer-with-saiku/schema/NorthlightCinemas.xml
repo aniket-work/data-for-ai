@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Northlight Cinemas: a small semantic layer (Mondrian 4 schema) for Saiku.
+  Data for AI, folder 08. The cinema chain and all numbers are fictional.
+
+  Business terms live here, once:
+    dimensions + hierarchies  -> how people slice (Region > City > Cinema, Genre > Film, Year > Quarter > Month)
+    measures                  -> how numbers add up (sum of tickets, revenue, seats; count of screenings)
+    calculated measures       -> shared definitions (Occupancy, Avg Ticket Price, Total Revenue)
+  Saiku turns a drag-and-drop pivot into MDX, Mondrian turns MDX into SQL on the star schema.
+-->
+<Schema name="Northlight Cinemas" metamodelVersion="4.0">
+
+  <PhysicalSchema>
+    <Table name="fact_screening"><Key><Column name="screening_id"/></Key></Table>
+    <Table name="dim_cinema"><Key><Column name="cinema_id"/></Key></Table>
+    <Table name="dim_film"><Key><Column name="film_id"/></Key></Table>
+    <Table name="dim_date"><Key><Column name="date_key"/></Key></Table>
+    <Table name="dim_daypart"><Key><Column name="daypart_id"/></Key></Table>
+  </PhysicalSchema>
+
+  <Dimension name="Location" table="dim_cinema" key="Cinema Id">
+    <Annotations>
+      <Annotation name="saiku.semantic.description">Where the screening happened: region, city and cinema.</Annotation>
+      <Annotation name="saiku.semantic.synonyms">venue, site, theatre, theater</Annotation>
+    </Annotations>
+    <Attributes>
+      <Attribute name="Region" keyColumn="region" hasHierarchy="false"/>
+      <Attribute name="City" hasHierarchy="false">
+        <Key><Column name="region"/><Column name="city"/></Key>
+        <Name><Column name="city"/></Name>
+      </Attribute>
+      <Attribute name="Cinema" hasHierarchy="false">
+        <Key><Column name="cinema_id"/></Key>
+        <Name><Column name="cinema_name"/></Name>
+      </Attribute>
+      <Attribute name="Cinema Id" keyColumn="cinema_id" hasHierarchy="false"/>
+    </Attributes>
+    <Hierarchies>
+      <Hierarchy name="Geography" allMemberName="All Cinemas">
+        <Level attribute="Region"/>
+        <Level attribute="City"/>
+        <Level attribute="Cinema"/>
+      </Hierarchy>
+    </Hierarchies>
+  </Dimension>
+
+  <Dimension name="Film" table="dim_film" key="Film Id">
+    <Annotations>
+      <Annotation name="saiku.semantic.synonyms">movie, title, picture</Annotation>
+    </Annotations>
+    <Attributes>
+      <Attribute name="Genre" keyColumn="genre" hasHierarchy="false"/>
+      <Attribute name="Title" hasHierarchy="false">
+        <Key><Column name="film_id"/></Key>
+        <Name><Column name="title"/></Name>
+      </Attribute>
+      <Attribute name="Rating" keyColumn="rating" hierarchyAllMemberName="All Ratings"/>
+      <Attribute name="Film Id" keyColumn="film_id" hasHierarchy="false"/>
+    </Attributes>
+    <Hierarchies>
+      <Hierarchy name="By Genre" allMemberName="All Films">
+        <Level attribute="Genre"/>
+        <Level attribute="Title"/>
+      </Hierarchy>
+    </Hierarchies>
+  </Dimension>
+
+  <Dimension name="Date" table="dim_date" key="Date Key" type="TIME">
+    <Attributes>
+      <Attribute name="Year" keyColumn="the_year" levelType="TimeYears" hasHierarchy="false"/>
+      <Attribute name="Quarter" levelType="TimeQuarters" hasHierarchy="false">
+        <Key><Column name="the_year"/><Column name="quarter"/></Key>
+        <Name><Column name="quarter_name"/></Name>
+      </Attribute>
+      <Attribute name="Month" levelType="TimeMonths" hasHierarchy="false">
+        <Key><Column name="the_year"/><Column name="month_num"/></Key>
+        <Name><Column name="month_name"/></Name>
+      </Attribute>
+      <Attribute name="Day Type" keyColumn="day_type" hierarchyAllMemberName="All Days"/>
+      <Attribute name="Date Key" keyColumn="date_key" hasHierarchy="false"/>
+    </Attributes>
+    <Hierarchies>
+      <Hierarchy name="Calendar" allMemberName="All Dates">
+        <Level attribute="Year"/>
+        <Level attribute="Quarter"/>
+        <Level attribute="Month"/>
+      </Hierarchy>
+    </Hierarchies>
+  </Dimension>
+
+  <Dimension name="Showtime" table="dim_daypart" key="Daypart Id">
+    <Attributes>
+      <Attribute name="Daypart" hierarchyAllMemberName="All Showtimes">
+        <Key><Column name="daypart_id"/></Key>
+        <Name><Column name="daypart"/></Name>
+      </Attribute>
+      <Attribute name="Daypart Id" keyColumn="daypart_id" hasHierarchy="false"/>
+    </Attributes>
+  </Dimension>
+
+  <Cube name="Box Office" defaultMeasure="Tickets Sold">
+    <Annotations>
+      <Annotation name="saiku.semantic.description">Northlight Cinemas screenings, Jan to Jun 2026 (fictional sample data).</Annotation>
+    </Annotations>
+    <Dimensions>
+      <Dimension source="Location"/>
+      <Dimension source="Film"/>
+      <Dimension source="Date"/>
+      <Dimension source="Showtime"/>
+    </Dimensions>
+    <MeasureGroups>
+      <MeasureGroup name="Screenings" table="fact_screening">
+        <Measures>
+          <Measure name="Tickets Sold" column="tickets_sold" aggregator="sum" formatString="#,##0">
+            <Annotations>
+              <Annotation name="saiku.semantic.synonyms">admissions, attendance, tickets</Annotation>
+              <Annotation name="saiku.semantic.unit">count</Annotation>
+            </Annotations>
+          </Measure>
+          <Measure name="Ticket Revenue" column="ticket_revenue" aggregator="sum" formatString="$#,##0">
+            <Annotations>
+              <Annotation name="saiku.semantic.synonyms">box office, gross</Annotation>
+            </Annotations>
+          </Measure>
+          <Measure name="Concession Revenue" column="concession_revenue" aggregator="sum" formatString="$#,##0">
+            <Annotations>
+              <Annotation name="saiku.semantic.synonyms">snacks, popcorn sales, food and drink</Annotation>
+            </Annotations>
+          </Measure>
+          <Measure name="Seats Available" column="seats_available" aggregator="sum" formatString="#,##0"/>
+          <Measure name="Screenings" column="screening_id" aggregator="count" formatString="#,##0">
+            <Annotations>
+              <Annotation name="saiku.semantic.synonyms">shows, showings</Annotation>
+            </Annotations>
+          </Measure>
+        </Measures>
+        <DimensionLinks>
+          <ForeignKeyLink dimension="Location" foreignKeyColumn="cinema_id"/>
+          <ForeignKeyLink dimension="Film" foreignKeyColumn="film_id"/>
+          <ForeignKeyLink dimension="Date" foreignKeyColumn="date_key"/>
+          <ForeignKeyLink dimension="Showtime" foreignKeyColumn="daypart_id"/>
+        </DimensionLinks>
+      </MeasureGroup>
+    </MeasureGroups>
+    <CalculatedMembers>
+      <CalculatedMember name="Occupancy" dimension="Measures">
+        <Formula>[Measures].[Tickets Sold] / [Measures].[Seats Available]</Formula>
+        <CalculatedMemberProperty name="FORMAT_STRING" value="0.0%"/>
+      </CalculatedMember>
+      <CalculatedMember name="Avg Ticket Price" dimension="Measures">
+        <Formula>[Measures].[Ticket Revenue] / [Measures].[Tickets Sold]</Formula>
+        <CalculatedMemberProperty name="FORMAT_STRING" value="$#,##0.00"/>
+      </CalculatedMember>
+      <CalculatedMember name="Total Revenue" dimension="Measures">
+        <Formula>[Measures].[Ticket Revenue] + [Measures].[Concession Revenue]</Formula>
+        <CalculatedMemberProperty name="FORMAT_STRING" value="$#,##0"/>
+      </CalculatedMember>
+    </CalculatedMembers>
+  </Cube>
+</Schema>

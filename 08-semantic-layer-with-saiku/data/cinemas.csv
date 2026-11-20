@@ -1,0 +1,8 @@
+cinema_id,cinema_name,city,province,region,screens
+1,Northlight Harbourfront,Halifax,NS,East,6
+2,Northlight Byward,Ottawa,ON,East,8
+3,Northlight Plateau,Montreal,QC,East,10
+4,Northlight Old Port,Montreal,QC,East,7
+5,Northlight Bow River,Calgary,AB,West,9
+6,Northlight Seawall,Vancouver,BC,West,12
+7,Northlight Inner Harbour,Victoria,BC,West,5
