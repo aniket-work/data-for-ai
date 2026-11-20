@@ -65,6 +65,9 @@ Every lesson comes in matching formats:
 | **A. Microsoft Fabric Real-Time Intelligence** | 01 → 02 | Data engineers moving event and telemetry data into Fabric with KQL | A Fabric workspace on a Fabric-enabled capacity |
 | **B. Semantics and Context for AI** | 03 → 04 → 05 → 06 → 07 | Anyone who wants AI agents to understand business data: ontologies, semantic models, knowledge graphs, context layers | Python 3.11+ and Git |
 
+<details>
+<summary><b>Text version of the learning path (Mermaid)</b></summary>
+
 ```mermaid
 flowchart LR
     subgraph A["Track A · Microsoft Fabric"]
@@ -77,6 +80,8 @@ flowchart LR
     end
     A1 -. "same IoT data" .-> B1
 ```
+
+</details>
 
 ## 🎬 Video Catalog
 
