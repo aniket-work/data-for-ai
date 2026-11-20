@@ -120,8 +120,8 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
     <td><a href="https://youtu.be/8ndA5hIxuEg"><img src="https://img.youtube.com/vi/8ndA5hIxuEg/hqdefault.jpg" alt="Video 7 thumbnail" width="100%"></a></td>
     <td><b>07 · One Flight Disruption, Six Data and AI Trends</b><br><sub>Track B · Python · networkx · ~12 min</sub><br><br>Run one airline disruption through six lenses: data residency, decision governance, AI governance, agentic streaming, agentic data quality and GraphRAG, then compare them on one scorecard.<br><br>📁 <a href="07-one-disruption-six-trends/">07-one-disruption-six-trends</a> · ▶️ <a href="https://youtu.be/8ndA5hIxuEg">Watch</a></td>
   <tr>
-    <td><a href="08-semantic-layer-with-saiku/"><img src="assets/readme/thumbnails/08-semantic-layer-with-saiku.jpg" alt="Video 8 thumbnail" width="100%"></a></td>
-    <td><b>08 · The Semantic Layer, Hands-On with Saiku</b><br><sub>Track B · Saiku · Mondrian · MDX · ~11 min</sub><br><br>Model a fictional cinema chain as an OLAP cube, explore it in Saiku's web UI with a pivot, a drill-down and a chart, see the MDX and the SQL Mondrian generates, and ask the cube by name through Saiku's AI Query API.<br><br>📁 <a href="08-semantic-layer-with-saiku/">08-semantic-layer-with-saiku</a> · ▶️ Coming soon</td>
+    <td><a href="https://youtu.be/TM_1xsWUr48"><img src="assets/readme/thumbnails/08-semantic-layer-with-saiku.jpg" alt="Video 8 thumbnail" width="100%"></a></td>
+    <td><b>08 · The Semantic Layer, Hands-On with Saiku</b><br><sub>Track B · Saiku · Mondrian · MDX · ~11 min</sub><br><br>Model a fictional cinema chain as an OLAP cube, explore it in Saiku's web UI with a pivot, a drill-down and a chart, see the MDX and the SQL Mondrian generates, and ask the cube by name through Saiku's AI Query API.<br><br>📁 <a href="08-semantic-layer-with-saiku/">08-semantic-layer-with-saiku</a> · ▶️ <a href="https://youtu.be/TM_1xsWUr48">Watch</a></td>
   </tr>
 </table>
 
@@ -137,7 +137,7 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 | 5 | Context layers for AI agents | [05-context-layers-for-ai](05-context-layers-for-ai/) | [Watch](https://youtu.be/DSXlY7Gruhg) |
 | 6 | One business, four models: taxonomy, ontology, knowledge graph and semantic layer | [06-one-business-four-models](06-one-business-four-models/) | [Watch](https://youtu.be/3Nr_XUtVRY4) |
 | 7 | One flight disruption, six data and AI trends: residency, decisions, governance, streaming, data quality and GraphRAG | [07-one-disruption-six-trends](07-one-disruption-six-trends/) | [Watch](https://youtu.be/8ndA5hIxuEg) |
-| 8 | The semantic layer, hands-on with Saiku: cube, MDX, SQL and the AI Query API | [08-semantic-layer-with-saiku](08-semantic-layer-with-saiku/) | Coming soon |
+| 8 | The semantic layer, hands-on with Saiku: cube, MDX, SQL and the AI Query API | [08-semantic-layer-with-saiku](08-semantic-layer-with-saiku/) | [Watch](https://youtu.be/TM_1xsWUr48) |
 
 </details>
 
