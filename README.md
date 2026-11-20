@@ -133,8 +133,8 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
     <td><b>09 · Build an AI Data Engineering Agent, Hands-On</b><br><sub>Track C · Python · llama.cpp · DuckDB · ~11.5 min</sub><br><br>Build a local data agent on a 4B open model: it profiles messy raw files, cleans them into a curated table behind a human approval gate, answers with read-only SQL, writes a data contract, and quarantines a bad batch.<br><br>📁 <a href="09-ai-data-engineering-agent/">09-ai-data-engineering-agent</a> · ▶️ <a href="https://youtu.be/nl3S2voeCd0">Watch</a></td>
   </tr>
   <tr>
-    <td><img src="assets/readme/thumbnails/10-metricflow-banking-metrics.jpg" alt="Video 10 thumbnail" width="100%"></td>
-    <td><b>10 · Define Bank Metrics Once with MetricFlow, Hands-On</b><br><sub>Track B · dbt · MetricFlow · DuckDB · ~12 min</sub><br><br>Define a fictional retail bank's metrics once in dbt semantic models (simple, ratio, derived and cumulative), query them by region, product, customer segment and time, read the SQL MetricFlow generates, and watch four teams' hand-written SQL drift. Part 1 of a three-part series on the same bank (11 WrenAI, 12 Cube).<br><br>📁 <a href="10-metricflow-banking-metrics/">10-metricflow-banking-metrics</a> · 🎬 Video coming soon</td>
+    <td><a href="https://youtu.be/_eirsNuqM4w"><img src="assets/readme/thumbnails/10-metricflow-banking-metrics.jpg" alt="Video 10 thumbnail" width="100%"></a></td>
+    <td><b>10 · Define Bank Metrics Once with MetricFlow, Hands-On</b><br><sub>Track B · dbt · MetricFlow · DuckDB · ~12 min</sub><br><br>Define a fictional retail bank's metrics once in dbt semantic models (simple, ratio, derived and cumulative), query them by region, product, customer segment and time, read the SQL MetricFlow generates, and watch four teams' hand-written SQL drift. Part 1 of a three-part series on the same bank (11 WrenAI, 12 Cube).<br><br>📁 <a href="10-metricflow-banking-metrics/">10-metricflow-banking-metrics</a> · ▶️ <a href="https://youtu.be/_eirsNuqM4w">Watch</a></td>
   </tr>
 </table>
 
@@ -152,7 +152,7 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 | 7 | One flight disruption, six data and AI trends: residency, decisions, governance, streaming, data quality and GraphRAG | [07-one-disruption-six-trends](07-one-disruption-six-trends/) | [Watch](https://youtu.be/8ndA5hIxuEg) |
 | 8 | The semantic layer, hands-on with Saiku: cube, MDX, SQL and the AI Query API | [08-semantic-layer-with-saiku](08-semantic-layer-with-saiku/) | [Watch](https://youtu.be/TM_1xsWUr48) |
 | 9 | Build an AI data engineering agent, hands-on: discover, clean, ask, contract and monitor with a local model | [09-ai-data-engineering-agent](09-ai-data-engineering-agent/) | [Watch](https://youtu.be/nl3S2voeCd0) |
-| 10 | Define bank metrics once with MetricFlow, hands-on: simple, ratio, derived and cumulative metrics by region, product, segment and time | [10-metricflow-banking-metrics](10-metricflow-banking-metrics/) | Video coming soon |
+| 10 | Define bank metrics once with MetricFlow, hands-on: simple, ratio, derived and cumulative metrics by region, product, segment and time | [10-metricflow-banking-metrics](10-metricflow-banking-metrics/) | [Watch](https://youtu.be/_eirsNuqM4w) |
 
 </details>
 
