@@ -129,8 +129,8 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
     <td><b>08 · The Semantic Layer, Hands-On with Saiku</b><br><sub>Track B · Saiku · Mondrian · MDX · ~11 min</sub><br><br>Model a fictional cinema chain as an OLAP cube, explore it in Saiku's web UI with a pivot, a drill-down and a chart, see the MDX and the SQL Mondrian generates, and ask the cube by name through Saiku's AI Query API.<br><br>📁 <a href="08-semantic-layer-with-saiku/">08-semantic-layer-with-saiku</a> · ▶️ <a href="https://youtu.be/TM_1xsWUr48">Watch</a></td>
   </tr>
   <tr>
-    <td><a href="09-ai-data-engineering-agent/"><img src="assets/readme/thumbnails/09-ai-data-engineering-agent.jpg" alt="Video 9 thumbnail" width="100%"></a></td>
-    <td><b>09 · Build an AI Data Engineering Agent, Hands-On</b><br><sub>Track C · Python · llama.cpp · DuckDB · ~11.5 min</sub><br><br>Build a local data agent on a 4B open model: it profiles messy raw files, cleans them into a curated table behind a human approval gate, answers with read-only SQL, writes a data contract, and quarantines a bad batch.<br><br>📁 <a href="09-ai-data-engineering-agent/">09-ai-data-engineering-agent</a> · ▶️ Video coming soon</td>
+    <td><a href="https://youtu.be/nl3S2voeCd0"><img src="assets/readme/thumbnails/09-ai-data-engineering-agent.jpg" alt="Video 9 thumbnail" width="100%"></a></td>
+    <td><b>09 · Build an AI Data Engineering Agent, Hands-On</b><br><sub>Track C · Python · llama.cpp · DuckDB · ~11.5 min</sub><br><br>Build a local data agent on a 4B open model: it profiles messy raw files, cleans them into a curated table behind a human approval gate, answers with read-only SQL, writes a data contract, and quarantines a bad batch.<br><br>📁 <a href="09-ai-data-engineering-agent/">09-ai-data-engineering-agent</a> · ▶️ <a href="https://youtu.be/nl3S2voeCd0">Watch</a></td>
   </tr>
 </table>
 
@@ -147,7 +147,7 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 | 6 | One business, four models: taxonomy, ontology, knowledge graph and semantic layer | [06-one-business-four-models](06-one-business-four-models/) | [Watch](https://youtu.be/3Nr_XUtVRY4) |
 | 7 | One flight disruption, six data and AI trends: residency, decisions, governance, streaming, data quality and GraphRAG | [07-one-disruption-six-trends](07-one-disruption-six-trends/) | [Watch](https://youtu.be/8ndA5hIxuEg) |
 | 8 | The semantic layer, hands-on with Saiku: cube, MDX, SQL and the AI Query API | [08-semantic-layer-with-saiku](08-semantic-layer-with-saiku/) | [Watch](https://youtu.be/TM_1xsWUr48) |
-| 9 | Build an AI data engineering agent, hands-on: discover, clean, ask, contract and monitor with a local model | [09-ai-data-engineering-agent](09-ai-data-engineering-agent/) | Coming soon |
+| 9 | Build an AI data engineering agent, hands-on: discover, clean, ask, contract and monitor with a local model | [09-ai-data-engineering-agent](09-ai-data-engineering-agent/) | [Watch](https://youtu.be/nl3S2voeCd0) |
 
 </details>
 
