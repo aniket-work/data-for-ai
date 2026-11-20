@@ -50,7 +50,7 @@ Every lesson comes in matching formats:
 
 - **AI is only as good as its data.** Models get the headlines, but real projects succeed or fail on ingestion, modelling, meaning and governance. That is the part this series teaches.
 - **Build, don't just watch.** Every video has a folder you can run. Item names in the steps match the video so the two stay in sync.
-- **Plain words first.** Terms like *ontology*, *semantic layer*, *knowledge graph* and *context layer* are explained side by side, with the same example data, so the differences are easy to see.
+- **Plain words first.** Terms like *ontology*, *semantic layer*, *knowledge graph* and *context layer* are explained side by side in small runnable examples, so the differences are easy to see.
 - **Open and vendor-neutral where possible.** Track A uses Microsoft Fabric. Track B runs locally with open tools such as Apache Ossie (incubating), DuckDB, rdflib and networkx, with no API key.
 - **Honest teaching code.** Where a lesson writes its own helper or format, its README says so.
 
