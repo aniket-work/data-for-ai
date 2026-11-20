@@ -1,0 +1,209 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "MetricFlow: metrics defined once, compiled to SQL per request",
+  "locale": "en",
+  "output": ".archify/architecture-metricflow-bank-20261120-110000/metricflow-bank.html",
+  "quality_profile": "showcase",
+  "legend": {
+   "entries": {
+    "security": {
+     "label": "Definitions"
+    },
+    "frontend": {
+     "label": "User"
+    },
+    "external": {
+     "label": "Program"
+    },
+    "backend": {
+     "label": "Engine"
+    },
+    "database": {
+     "label": "Database"
+    }
+   }
+  }
+ },
+ "components": [
+  {
+   "id": "analyst",
+   "type": "frontend",
+   "label": "Analyst",
+   "sublabel": "mf query in a terminal",
+   "pos": [
+    40,
+    50
+   ],
+   "size": [
+    150,
+    64
+   ]
+  },
+  {
+   "id": "bi",
+   "type": "external",
+   "label": "Python or BI tool",
+   "sublabel": "same metric names",
+   "pos": [
+    40,
+    190
+   ],
+   "size": [
+    150,
+    64
+   ]
+  },
+  {
+   "id": "agent",
+   "type": "external",
+   "label": "AI agent",
+   "sublabel": "Lessons 11 and 12",
+   "pos": [
+    40,
+    330
+   ],
+   "size": [
+    150,
+    64
+   ]
+  },
+  {
+   "id": "yaml",
+   "type": "security",
+   "label": "Semantic YAML",
+   "sublabel": "semantic models + metrics",
+   "pos": [
+    320,
+    50
+   ],
+   "size": [
+    170,
+    64
+   ],
+   "tag": "in git, reviewed"
+  },
+  {
+   "id": "dbt",
+   "type": "backend",
+   "label": "dbt parse",
+   "sublabel": "semantic_manifest.json",
+   "pos": [
+    590,
+    50
+   ],
+   "size": [
+    170,
+    64
+   ]
+  },
+  {
+   "id": "mf",
+   "type": "backend",
+   "label": "MetricFlow",
+   "sublabel": "request to plan to SQL",
+   "pos": [
+    590,
+    190
+   ],
+   "size": [
+    170,
+    64
+   ]
+  },
+  {
+   "id": "duck",
+   "type": "database",
+   "label": "DuckDB warehouse",
+   "sublabel": "7 dbt tables",
+   "pos": [
+    860,
+    190
+   ],
+   "size": [
+    160,
+    64
+   ]
+  }
+ ],
+ "boundaries": [
+  {
+   "kind": "region",
+   "label": "runs locally, no cloud account",
+   "wraps": [
+    "dbt",
+    "mf",
+    "duck"
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "id": "a-mf",
+   "from": "analyst",
+   "to": "mf",
+   "label": "metrics + group by",
+   "variant": "emphasis"
+  },
+  {
+   "id": "b-mf",
+   "from": "bi",
+   "to": "mf",
+   "label": "same request"
+  },
+  {
+   "id": "g-mf",
+   "from": "agent",
+   "to": "mf",
+   "label": "metric names"
+  },
+  {
+   "id": "y-d",
+   "from": "yaml",
+   "to": "dbt",
+   "label": "parse"
+  },
+  {
+   "id": "d-mf",
+   "from": "dbt",
+   "to": "mf",
+   "label": "manifest",
+   "fromSide": "bottom",
+   "toSide": "top"
+  },
+  {
+   "id": "mf-db",
+   "from": "mf",
+   "to": "duck",
+   "label": "generated SQL",
+   "variant": "emphasis"
+  }
+ ],
+ "cards": [
+  {
+   "dot": "emerald",
+   "title": "Defined once",
+   "items": [
+    "Entities, dimensions and measures per table",
+    "15 metrics: simple, ratio, derived, cumulative"
+   ]
+  },
+  {
+   "dot": "cyan",
+   "title": "Compiled per request",
+   "items": [
+    "Joins found through entities",
+    "Snapshots taken at period end, ratios as SUM / SUM"
+   ]
+  },
+  {
+   "dot": "amber",
+   "title": "Same number",
+   "items": [
+    "Every slice adds back up to the total",
+    "No copy-pasted SQL to drift"
+   ]
+  }
+ ]
+}

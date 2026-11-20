@@ -1,0 +1,13 @@
+version: 2
+saved_queries:
+  - name: board_kpis_by_region
+    description: The monthly board pack, defined once and reused by every tool.
+    query_params:
+      metrics:
+        - total_deposits
+        - loan_book
+        - delinquency_rate
+        - net_interest_income
+      group_by:
+        - TimeDimension('metric_time', 'month')
+        - Dimension('branch__region')

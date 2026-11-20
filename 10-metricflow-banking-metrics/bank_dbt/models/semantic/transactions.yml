@@ -1,0 +1,51 @@
+version: 2
+semantic_models:
+  - name: transactions
+    description: Customer transactions on chequing accounts and lines of credit.
+    model: ref('fct_transactions')
+    defaults:
+      agg_time_dimension: transaction_date
+    entities:
+      - name: transaction
+        type: primary
+        expr: transaction_id
+      - name: account
+        type: foreign
+        expr: account_id
+      - name: customer
+        type: foreign
+        expr: customer_id
+      - name: branch
+        type: foreign
+        expr: branch_id
+    dimensions:
+      - name: transaction_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: channel
+        type: categorical
+    measures:
+      - name: transaction_count
+        agg: sum
+        expr: "1"
+      - name: transacting_customers
+        agg: count_distinct
+        expr: customer_id
+
+metrics:
+  - name: transactions
+    label: Transactions
+    type: simple
+    type_params:
+      measure: transaction_count
+
+  - name: active_customers
+    label: Active customers (90 days)
+    description: Distinct customers with at least one transaction in the trailing 90 days.
+    type: cumulative
+    type_params:
+      measure: transacting_customers
+      cumulative_type_params:
+        window: 90 days
+        period_agg: last

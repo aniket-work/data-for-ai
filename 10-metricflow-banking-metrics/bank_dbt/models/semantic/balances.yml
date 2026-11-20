@@ -1,0 +1,132 @@
+version: 2
+semantic_models:
+  - name: monthly_balances
+    description: >
+      Month-end balance snapshot per account. Balances are SEMI-ADDITIVE: you can add them across
+      accounts, regions and products, but never across months. The non_additive_dimension tells
+      MetricFlow to take the last month-end in each period instead of summing over time.
+    model: ref('fct_monthly_balances')
+    defaults:
+      agg_time_dimension: balance_date
+    entities:
+      - name: balance_row
+        type: primary
+        expr: balance_id
+      - name: account
+        type: foreign
+        expr: account_id
+      - name: customer
+        type: foreign
+        expr: customer_id
+      - name: product
+        type: foreign
+        expr: product_id
+      - name: branch
+        type: foreign
+        expr: branch_id
+    dimensions:
+      - name: balance_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: delinquency_bucket
+        type: categorical
+        expr: "case when days_past_due = 0 then 'current' when days_past_due < 90 then '30-89 dpd' else '90+ dpd' end"
+    measures:
+      - name: deposit_balance
+        description: Deposit balances at month-end.
+        agg: sum
+        expr: "case when product_type = 'deposit' then balance end"
+        non_additive_dimension:
+          name: balance_date
+          window_choice: max
+      - name: loan_balance
+        description: Outstanding loan balances at month-end.
+        agg: sum
+        expr: "case when product_type = 'loan' then balance end"
+        non_additive_dimension:
+          name: balance_date
+          window_choice: max
+      - name: delinquent_loan_balance
+        description: Loan balances 30 or more days past due at month-end.
+        agg: sum
+        expr: "case when product_type = 'loan' and days_past_due >= 30 then balance end"
+        non_additive_dimension:
+          name: balance_date
+          window_choice: max
+      - name: interest_earned
+        description: Interest accrued on loans in the month (additive over time).
+        agg: sum
+        expr: "case when product_type = 'loan' then interest_amount end"
+      - name: interest_paid
+        description: Interest paid on deposits in the month (additive over time).
+        agg: sum
+        expr: "case when product_type = 'deposit' then interest_amount end"
+
+metrics:
+  - name: total_deposits
+    label: Total deposits ($)
+    description: Deposit balances at the end of the period (last month-end), never summed over months.
+    type: simple
+    type_params:
+      measure: deposit_balance
+
+  - name: loan_book
+    label: Loan book ($)
+    description: Outstanding loan balances at the end of the period.
+    type: simple
+    type_params:
+      measure: loan_balance
+
+  - name: delinquent_loans
+    label: Delinquent loan balance ($)
+    type: simple
+    type_params:
+      measure: delinquent_loan_balance
+
+  - name: delinquency_rate
+    label: Delinquency rate (30+ dpd, by balance)
+    description: Share of the loan book, by balance, that is 30 or more days past due at period end.
+    type: ratio
+    type_params:
+      numerator: delinquent_loans
+      denominator: loan_book
+
+  - name: interest_income
+    label: Interest income ($)
+    type: simple
+    type_params:
+      measure:
+        name: interest_earned
+        fill_nulls_with: 0
+
+  - name: interest_expense
+    label: Interest expense ($)
+    type: simple
+    type_params:
+      measure:
+        name: interest_paid
+        fill_nulls_with: 0
+
+  - name: net_interest_income
+    label: Net interest income ($)
+    description: Interest earned on loans minus interest paid on deposits.
+    type: derived
+    type_params:
+      expr: interest_income - interest_expense
+      metrics:
+        - name: interest_income
+        - name: interest_expense
+
+  - name: nii_growth_mom
+    label: NII growth vs previous month
+    description: Net interest income compared with the previous month (use with metric_time__month).
+    type: derived
+    type_params:
+      expr: (nii - nii_prev) / nii_prev
+      metrics:
+        - name: net_interest_income
+          alias: nii
+        - name: net_interest_income
+          alias: nii_prev
+          offset_window: 1 month

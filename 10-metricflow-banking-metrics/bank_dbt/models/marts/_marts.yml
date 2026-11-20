@@ -1,0 +1,36 @@
+version: 2
+models:
+  - name: metricflow_time_spine
+    description: Daily time spine for MetricFlow.
+    time_spine:
+      standard_granularity_column: date_day
+    columns:
+      - name: date_day
+        granularity: day
+  - name: dim_branches
+    description: Branches with their region.
+    columns:
+      - name: branch_id
+        data_tests: [unique, not_null]
+  - name: dim_products
+    columns:
+      - name: product_id
+        data_tests: [unique, not_null]
+  - name: dim_customers
+    description: Customers (IDs only) with segment and home branch.
+    columns:
+      - name: customer_id
+        data_tests: [unique, not_null]
+  - name: fct_accounts
+    columns:
+      - name: account_id
+        data_tests: [unique, not_null]
+  - name: fct_monthly_balances
+    description: Month-end balance snapshot per account, with days past due and the month's interest.
+    columns:
+      - name: balance_id
+        data_tests: [unique, not_null]
+  - name: fct_transactions
+    columns:
+      - name: transaction_id
+        data_tests: [unique, not_null]

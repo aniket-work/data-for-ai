@@ -7,4 +7,4 @@ render() { google-chrome --headless=new --no-sandbox --disable-gpu --hide-scroll
   --window-size="$2" --screenshot="$PWD/../$1.png" "file://$PWD/$1.html"; }
 render banner 1280,400
 render ecosystem 1280,620
-render learning-path 1280,880
+render learning-path 1280,1090

@@ -1,0 +1,7 @@
+kestrel_bay_bank:
+  target: local
+  outputs:
+    local:
+      type: duckdb
+      path: ../warehouse/bank.duckdb
+      threads: 4

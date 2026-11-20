@@ -1,0 +1,7 @@
+data/raw/
+warehouse/*.duckdb*
+bank_dbt/target/
+bank_dbt/logs/
+bank_dbt/dbt_packages/
+.venv/
+__pycache__/

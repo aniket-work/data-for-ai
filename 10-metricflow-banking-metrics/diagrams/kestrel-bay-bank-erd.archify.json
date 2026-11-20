@@ -1,0 +1,302 @@
+{
+ "schema_version": 1,
+ "diagram_type": "erd",
+ "meta": {
+  "title": "Kestrel Bay Bank warehouse (fictional, shared by Lessons 10 to 12)",
+  "locale": "en",
+  "output": ".archify/erd-kestrel-bay-bank-20261120-110000/kestrel-bay-bank.html",
+  "quality_profile": "showcase"
+ },
+ "layout": {
+  "mode": "grid",
+  "gapY": 70,
+  "gapX": 70
+ },
+ "entities": [
+  {
+   "id": "dim_branches",
+   "label": "dim_branches",
+   "tag": "dimensions",
+   "row": 0,
+   "col": 2,
+   "attributes": [
+    {
+     "name": "branch_id",
+     "type": "varchar",
+     "key": "pk"
+    },
+    {
+     "name": "branch_name",
+     "type": "varchar"
+    },
+    {
+     "name": "city",
+     "type": "varchar"
+    },
+    {
+     "name": "region",
+     "type": "varchar"
+    }
+   ]
+  },
+  {
+   "id": "dim_products",
+   "label": "dim_products",
+   "tag": "dimensions",
+   "row": 0,
+   "col": 0,
+   "attributes": [
+    {
+     "name": "product_id",
+     "type": "varchar",
+     "key": "pk"
+    },
+    {
+     "name": "product_name",
+     "type": "varchar"
+    },
+    {
+     "name": "product_type",
+     "type": "varchar"
+    },
+    {
+     "name": "product_family",
+     "type": "varchar"
+    },
+    {
+     "name": "annual_rate",
+     "type": "double"
+    }
+   ]
+  },
+  {
+   "id": "dim_customers",
+   "label": "dim_customers",
+   "tag": "dimensions",
+   "row": 0,
+   "col": 1,
+   "attributes": [
+    {
+     "name": "customer_id",
+     "type": "varchar",
+     "key": "pk"
+    },
+    {
+     "name": "segment",
+     "type": "varchar"
+    },
+    {
+     "name": "home_branch_id",
+     "type": "varchar",
+     "key": "fk",
+     "references": "dim_branches.branch_id"
+    },
+    {
+     "name": "joined_on",
+     "type": "date"
+    }
+   ]
+  },
+  {
+   "id": "fct_accounts",
+   "label": "fct_accounts",
+   "tag": "facts",
+   "row": 1,
+   "col": 1,
+   "width": 290,
+   "attributes": [
+    {
+     "name": "account_id",
+     "type": "varchar",
+     "key": "pk"
+    },
+    {
+     "name": "customer_id",
+     "type": "varchar",
+     "key": "fk",
+     "references": "dim_customers.customer_id"
+    },
+    {
+     "name": "product_id",
+     "type": "varchar",
+     "key": "fk",
+     "references": "dim_products.product_id"
+    },
+    {
+     "name": "branch_id",
+     "type": "varchar",
+     "key": "fk",
+     "references": "dim_branches.branch_id"
+    },
+    {
+     "name": "product_type",
+     "type": "varchar"
+    },
+    {
+     "name": "opened_on",
+     "type": "date"
+    },
+    {
+     "name": "closed_on",
+     "type": "date"
+    },
+    {
+     "name": "account_status",
+     "type": "varchar"
+    },
+    {
+     "name": "original_principal",
+     "type": "decimal(14,2)"
+    }
+   ]
+  },
+  {
+   "id": "fct_monthly_balances",
+   "label": "fct_monthly_balances",
+   "tag": "facts",
+   "row": 1,
+   "col": 0,
+   "width": 290,
+   "attributes": [
+    {
+     "name": "balance_id",
+     "type": "varchar",
+     "key": "pk"
+    },
+    {
+     "name": "account_id",
+     "type": "varchar",
+     "key": "fk",
+     "references": "fct_accounts.account_id"
+    },
+    {
+     "name": "customer_id",
+     "type": "varchar",
+     "key": "fk",
+     "references": "dim_customers.customer_id"
+    },
+    {
+     "name": "product_id",
+     "type": "varchar",
+     "key": "fk",
+     "references": "dim_products.product_id"
+    },
+    {
+     "name": "branch_id",
+     "type": "varchar",
+     "key": "fk",
+     "references": "dim_branches.branch_id"
+    },
+    {
+     "name": "product_type",
+     "type": "varchar"
+    },
+    {
+     "name": "balance_date",
+     "type": "date"
+    },
+    {
+     "name": "balance",
+     "type": "decimal(14,2)"
+    },
+    {
+     "name": "days_past_due",
+     "type": "integer"
+    },
+    {
+     "name": "interest_amount",
+     "type": "decimal(12,2)"
+    }
+   ]
+  },
+  {
+   "id": "fct_transactions",
+   "label": "fct_transactions",
+   "tag": "facts",
+   "row": 1,
+   "col": 2,
+   "width": 290,
+   "attributes": [
+    {
+     "name": "transaction_id",
+     "type": "varchar",
+     "key": "pk"
+    },
+    {
+     "name": "account_id",
+     "type": "varchar",
+     "key": "fk",
+     "references": "fct_accounts.account_id"
+    },
+    {
+     "name": "customer_id",
+     "type": "varchar",
+     "key": "fk",
+     "references": "dim_customers.customer_id"
+    },
+    {
+     "name": "branch_id",
+     "type": "varchar",
+     "key": "fk",
+     "references": "dim_branches.branch_id"
+    },
+    {
+     "name": "transaction_date",
+     "type": "date"
+    },
+    {
+     "name": "channel",
+     "type": "varchar"
+    },
+    {
+     "name": "amount",
+     "type": "decimal(12,2)"
+    }
+   ]
+  }
+ ],
+ "relationships": [
+  {
+   "id": "r_fct_accounts_dim_customers",
+   "from": "fct_accounts",
+   "to": "dim_customers",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  },
+  {
+   "id": "r_fct_accounts_dim_products",
+   "from": "fct_accounts",
+   "to": "dim_products",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  },
+  {
+   "id": "r_fct_accounts_dim_branches",
+   "from": "fct_accounts",
+   "to": "dim_branches",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  },
+  {
+   "id": "r_fct_monthly_balances_fct_accounts",
+   "from": "fct_monthly_balances",
+   "to": "fct_accounts",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  },
+  {
+   "id": "r_fct_transactions_fct_accounts",
+   "from": "fct_transactions",
+   "to": "fct_accounts",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  },
+  {
+   "id": "r_dim_customers_dim_branches",
+   "from": "dim_customers",
+   "to": "dim_branches",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  }
+ ]
+}

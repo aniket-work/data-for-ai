@@ -1,0 +1,12 @@
+name: kestrel_bay_bank
+version: "1.0.0"
+config-version: 2
+profile: kestrel_bay_bank
+model-paths: ["models"]
+target-path: target
+clean-targets: ["target", "dbt_packages"]
+models:
+  kestrel_bay_bank:
+    +materialized: table
+flags:
+  send_anonymous_usage_stats: false

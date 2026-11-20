@@ -1,0 +1,76 @@
+version: 2
+semantic_models:
+  - name: accounts
+    description: One row per account, at the date it was opened.
+    model: ref('fct_accounts')
+    defaults:
+      agg_time_dimension: opened_on
+    entities:
+      - name: account
+        type: primary
+        expr: account_id
+      - name: customer
+        type: foreign
+        expr: customer_id
+      - name: product
+        type: foreign
+        expr: product_id
+      - name: branch
+        type: foreign
+        expr: branch_id
+    dimensions:
+      - name: opened_on
+        type: time
+        type_params:
+          time_granularity: day
+      - name: account_status
+        type: categorical
+    measures:
+      - name: accounts_opened
+        agg: sum
+        expr: "1"
+      - name: loans_originated
+        agg: sum
+        expr: "case when product_type = 'loan' then 1 else 0 end"
+      - name: loan_principal_originated
+        agg: sum
+        expr: "case when product_type = 'loan' then original_principal end"
+
+metrics:
+  - name: new_accounts
+    label: New accounts
+    description: Accounts opened in the period (all products).
+    type: simple
+    type_params:
+      measure: accounts_opened
+
+  - name: loan_originations
+    label: Loan originations ($)
+    description: Principal of new loans at origination.
+    type: simple
+    type_params:
+      measure: loan_principal_originated
+
+  - name: loan_originations_ytd
+    label: Loan originations, year to date ($)
+    description: Running total of loan originations since January 1 of each year.
+    type: cumulative
+    type_params:
+      measure: loan_principal_originated
+      cumulative_type_params:
+        grain_to_date: year
+        period_agg: last
+
+  - name: avg_loan_size
+    label: Average new loan size ($)
+    description: Loan principal originated per new loan.
+    type: ratio
+    type_params:
+      numerator: loan_originations
+      denominator: new_loans
+
+  - name: new_loans
+    label: New loans
+    type: simple
+    type_params:
+      measure: loans_originated

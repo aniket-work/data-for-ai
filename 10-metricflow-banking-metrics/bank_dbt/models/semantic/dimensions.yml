@@ -1,0 +1,54 @@
+version: 2
+semantic_models:
+  - name: branches
+    description: Branch and region. Joined through the `branch` entity.
+    model: ref('dim_branches')
+    entities:
+      - name: branch
+        type: primary
+        expr: branch_id
+    dimensions:
+      - name: region
+        type: categorical
+      - name: city
+        type: categorical
+      - name: branch_name
+        type: categorical
+
+  - name: products
+    description: The bank's deposit and loan products.
+    model: ref('dim_products')
+    entities:
+      - name: product
+        type: primary
+        expr: product_id
+    dimensions:
+      - name: product_name
+        type: categorical
+      - name: product_type
+        type: categorical
+        description: deposit or loan
+      - name: product_family
+        type: categorical
+
+  - name: customers
+    description: One row per customer (IDs only).
+    model: ref('dim_customers')
+    defaults:
+      agg_time_dimension: joined_on
+    entities:
+      - name: customer
+        type: primary
+        expr: customer_id
+    dimensions:
+      - name: segment
+        type: categorical
+        description: Retail, Premier or Small Business
+      - name: joined_on
+        type: time
+        type_params:
+          time_granularity: day
+    measures:
+      - name: customers_joined
+        agg: sum
+        expr: "1"
