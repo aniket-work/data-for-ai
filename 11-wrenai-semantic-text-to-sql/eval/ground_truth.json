@@ -1,0 +1,60 @@
+{
+  "q1": {
+    "question": "What was net interest income by region last quarter?",
+    "answer": {
+      "Pacific": 423077.49,
+      "Central": 847887.32,
+      "Prairies": 572111.38,
+      "Atlantic": 394557.45
+    },
+    "kind": "amount"
+  },
+  "q2": {
+    "question": "What is the delinquency rate for small-business loans?",
+    "answer": {
+      "Small Business": 0.052541974971811914
+    },
+    "kind": "rate"
+  },
+  "q3": {
+    "question": "How many active customers do we have?",
+    "answer": 1940.0,
+    "kind": "amount"
+  },
+  "q4": {
+    "question": "What were total deposits at the end of October 2026?",
+    "answer": 468047328.77,
+    "kind": "amount"
+  },
+  "q5": {
+    "question": "What were total deposits by product in Q3 2026?",
+    "answer": {
+      "High-Interest Savings": 95351569.94,
+      "1-Year GIC": 280491200.0,
+      "Everyday Chequing": 56506471.89
+    },
+    "kind": "amount"
+  },
+  "q6": {
+    "question": "What is the delinquency rate in each region?",
+    "answer": {
+      "Pacific": 0.010740267518692413,
+      "Central": 0.01667854666987771,
+      "Prairies": 0.03796878235371905,
+      "Atlantic": 0.011313699663725049
+    },
+    "kind": "rate"
+  },
+  "q7": {
+    "question": "How much have we originated in new loans year to date?",
+    "answer": 224027982.0,
+    "kind": "amount"
+  },
+  "q8": {
+    "question": "What is the average size of new mortgages opened in 2026?",
+    "answer": {
+      "Fixed Mortgage": 532165.2853333333
+    },
+    "kind": "amount"
+  }
+}

@@ -1,0 +1,10 @@
+# Tested together on Python 3.12 (November 2026).
+# wrenai[memory] pulls in sentence-transformers and torch. On a CPU-only machine, install the small CPU build of torch first:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+wrenai[memory]==0.18.0
+wren-pydantic==0.3.1
+pydantic-ai-slim[openai]==1.107.10
+duckdb==2.0.1
+sqlglot
+pyyaml
+rich

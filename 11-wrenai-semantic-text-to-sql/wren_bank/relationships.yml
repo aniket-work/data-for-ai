@@ -1,0 +1,33 @@
+relationships:
+  - name: accounts_customers
+    models: [accounts, customers]
+    join_type: MANY_TO_ONE
+    condition: accounts.customer_id = customers.customer_id
+  - name: accounts_products
+    models: [accounts, products]
+    join_type: MANY_TO_ONE
+    condition: accounts.product_id = products.product_id
+  - name: accounts_branches
+    models: [accounts, branches]
+    join_type: MANY_TO_ONE
+    condition: accounts.branch_id = branches.branch_id
+  - name: balances_customers
+    models: [monthly_balances, customers]
+    join_type: MANY_TO_ONE
+    condition: monthly_balances.customer_id = customers.customer_id
+  - name: balances_products
+    models: [monthly_balances, products]
+    join_type: MANY_TO_ONE
+    condition: monthly_balances.product_id = products.product_id
+  - name: balances_branches
+    models: [monthly_balances, branches]
+    join_type: MANY_TO_ONE
+    condition: monthly_balances.branch_id = branches.branch_id
+  - name: transactions_customers
+    models: [transactions, customers]
+    join_type: MANY_TO_ONE
+    condition: transactions.customer_id = customers.customer_id
+  - name: transactions_branches
+    models: [transactions, branches]
+    join_type: MANY_TO_ONE
+    condition: transactions.branch_id = branches.branch_id

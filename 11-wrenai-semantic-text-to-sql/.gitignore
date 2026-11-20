@@ -1,0 +1,5 @@
+wren_bank/target/
+wren_bank/.wren/
+models/
+.venv/
+__pycache__/

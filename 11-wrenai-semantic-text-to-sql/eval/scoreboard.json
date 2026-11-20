@@ -1,0 +1,169 @@
+{
+  "accuracy": {
+    "raw": "0/8",
+    "raw+": "1/8",
+    "wren": "6/8"
+  },
+  "questions": {
+    "q1": {
+      "raw": {
+        "verdict": "wrong",
+        "detail": "mismatch: Pacific, Central, Prairies, Atlantic",
+        "sql": "SELECT SUM(fcb.interest_amount) AS net_interest_income, d.region FROM fct_monthly_balances fcb JOIN dim_branches d ON fcb.branch_id = d.branch_id WHERE fcb.balance_date >= '2026-07-01' AND fcb.balance_date < '2026-10-01' GROUP BY d.region ORDER BY net_interest_income DESC",
+        "seconds": 15.6
+      },
+      "raw+": {
+        "verdict": "wrong",
+        "detail": "mismatch: Pacific, Central, Prairies, Atlantic",
+        "sql": "SELECT d.region, SUM(f.interest_amount) AS net_interest_income FROM fct_monthly_balances f JOIN dim_branches d ON f.branch_id = d.branch_id WHERE f.balance_date >= '2026-07-01' AND f.balance_date < '2026-10-01' GROUP BY d.region ORDER BY net_interest_income DESC",
+        "seconds": 51.6
+      },
+      "wren": {
+        "verdict": "correct",
+        "detail": "",
+        "sql": "SELECT region, SUM(net_interest_income) AS net_interest_income\nFROM monthly_balances\nWHERE balance_date <= '2026-09-30' AND balance_date >= '2026-07-01'\nGROUP BY region\nORDER BY net_interest_income DESC",
+        "seconds": 66.8
+      }
+    },
+    "q2": {
+      "raw": {
+        "verdict": "wrong",
+        "detail": "got []",
+        "sql": "SELECT AVG(days_past_due) AS avg_days_past_due FROM fct_monthly_balances WHERE product_type = 'small business' AND days_past_due > 0",
+        "seconds": 5.7
+      },
+      "raw+": {
+        "verdict": "wrong",
+        "detail": "got [52.429906542056074]",
+        "sql": "SELECT AVG(days_past_due) AS avg_days_past_due FROM fct_monthly_balances WHERE product_id = 'PLN' AND product_type = 'loan' AND days_past_due > 0 AND customer_id IN (SELECT customer_id FROM dim_customers WHERE segment = 'Small Business')",
+        "seconds": 9.9
+      },
+      "wren": {
+        "verdict": "correct",
+        "detail": "",
+        "sql": "SELECT SUM(delinquent_loan_balance) / SUM(loan_balance) AS delinquency_rate\nFROM monthly_balances\nWHERE product_type = 'loan' AND segment = 'Small Business'\n  AND balance_date = (SELECT MAX(balance_date) FROM monthly_balances WHERE balance_date <= '2026-10-31')",
+        "seconds": 42.3
+      }
+    },
+    "q3": {
+      "raw": {
+        "verdict": "wrong",
+        "detail": "got [0.0]",
+        "sql": "SELECT COUNT(DISTINCT fct_accounts.customer_id) AS active_customers FROM fct_accounts WHERE fct_accounts.closed_on IS NULL AND fct_accounts.account_status = 'Active'",
+        "seconds": 4.3
+      },
+      "raw+": {
+        "verdict": "wrong",
+        "detail": "got [2398.0]",
+        "sql": "SELECT COUNT(DISTINCT fct_accounts.customer_id) AS active_customers FROM fct_accounts WHERE fct_accounts.account_status = 'open' AND fct_accounts.opened_on <= '2026-10-31' AND (fct_accounts.closed_on IS NULL OR fct_accounts.closed_on > '2026-10-31')",
+        "seconds": 29.3
+      },
+      "wren": {
+        "verdict": "correct",
+        "detail": "",
+        "sql": "SELECT COUNT(DISTINCT customer_id) AS active_customers FROM transactions WHERE transaction_date BETWEEN DATE('2026-10-31') - INTERVAL '89' DAY AND '2026-10-31'",
+        "seconds": 60.7
+      }
+    },
+    "q4": {
+      "raw": {
+        "verdict": "wrong",
+        "detail": "got []",
+        "sql": "SELECT SUM(t.amount) AS total_deposits FROM fct_transactions t WHERE t.transaction_date <= '2026-10-31' AND t.channel = 'deposit' AND t.transaction_date >= '2026-10-01'",
+        "seconds": 6.0
+      },
+      "raw+": {
+        "verdict": "correct",
+        "detail": "",
+        "sql": "SELECT SUM(b.balance) AS total_deposits FROM fct_monthly_balances b WHERE b.balance_date = '2026-10-31' AND b.product_type = 'deposit'",
+        "seconds": 8.1
+      },
+      "wren": {
+        "verdict": "correct",
+        "detail": "",
+        "sql": "SELECT SUM(deposit_balance) AS total_deposits\nFROM monthly_balances\nWHERE balance_date = '2026-10-31' AND product_type = 'deposit'",
+        "seconds": 37.1
+      }
+    },
+    "q5": {
+      "raw": {
+        "verdict": "wrong",
+        "detail": "0 rows",
+        "sql": "SELECT p.product_name, SUM(t.amount) AS total_deposits \nFROM fct_transactions t\nJOIN fct_accounts a ON t.account_id = a.account_id\nJOIN dim_products p ON a.product_id = p.product_id\nWHERE t.transaction_date >= '2026-07-01' AND t.transaction_date < '2026-10-01' \n  AND t.channel = 'deposit'\nGROUP BY p.product_name\nORDER BY total_deposits DESC;",
+        "seconds": 34.8
+      },
+      "raw+": {
+        "verdict": "wrong",
+        "detail": "mismatch: High-Interest Savings, 1-Year GIC, Everyday Chequing",
+        "sql": "SELECT \n  SUM(CASE WHEN p.product_type = 'deposit' THEN b.balance ELSE 0 END) AS total_deposits \nFROM fct_monthly_balances b \nJOIN dim_products p ON b.product_id = p.product_id \nWHERE b.balance_date >= '2026-07-01' AND b.balance_date < '2026-10-01' \n  AND p.product_type = 'deposit'",
+        "seconds": 19.9
+      },
+      "wren": {
+        "verdict": "correct",
+        "detail": "",
+        "sql": "SELECT product_name, SUM(deposit_balance) AS total_deposits\nFROM monthly_balances\nWHERE balance_date = '2026-09-30' AND product_type = 'deposit'\nGROUP BY product_name\nORDER BY total_deposits DESC",
+        "seconds": 248.6
+      }
+    },
+    "q6": {
+      "raw": {
+        "verdict": "wrong",
+        "detail": "mismatch: Pacific, Central, Prairies, Atlantic",
+        "sql": "SELECT \n    b.region,\n    COUNT(*) AS total_accounts,\n    SUM(CASE WHEN f.days_past_due > 0 THEN 1 ELSE 0 END) AS delinquent_accounts,\n    SUM(CASE WHEN f.days_past_due > 0 THEN 1.0 ELSE 0.0 END) / COUNT(*) AS delinquency_rate\nFROM fct_monthly_balances f\nJOIN dim_branches b ON f.branch_id = b.branch_id\nGROUP BY b.region\nORDER BY delinquency_rate DESC",
+        "seconds": 13.0
+      },
+      "raw+": {
+        "verdict": "wrong",
+        "detail": "mismatch: Pacific, Central, Prairies, Atlantic",
+        "sql": "SELECT \n  b.region,\n  COUNT(*) AS total_accounts,\n  SUM(CASE WHEN m.days_past_due > 0 THEN 1 ELSE 0 END) AS delinquent_accounts,\n  SUM(CASE WHEN m.days_past_due > 0 THEN 1.0 ELSE 0.0 END) / COUNT(*) AS delinquency_rate\nFROM fct_monthly_balances m\nJOIN dim_branches b ON m.branch_id = b.branch_id\nWHERE m.days_past_due > 0\nGROUP BY b.region\nORDER BY delinquency_rate DESC",
+        "seconds": 14.3
+      },
+      "wren": {
+        "verdict": "correct",
+        "detail": "",
+        "sql": "SELECT region, SUM(delinquent_loan_balance) / SUM(loan_balance) AS delinquency_rate\nFROM monthly_balances\nWHERE balance_date = (SELECT MAX(balance_date) FROM monthly_balances)\nGROUP BY region",
+        "seconds": 75.4
+      }
+    },
+    "q7": {
+      "raw": {
+        "verdict": "wrong",
+        "detail": "got []",
+        "sql": "SELECT SUM(original_principal) AS total_originated_amount FROM fct_accounts WHERE opened_on <= '2026-10-31' AND opened_on >= '2025-01-01' AND account_status = 'active'",
+        "seconds": 5.7
+      },
+      "raw+": {
+        "verdict": "wrong",
+        "detail": "got [349273375.0]",
+        "sql": "SELECT SUM(original_principal) AS total_originated_loans FROM fct_accounts WHERE product_type = 'loan' AND opened_on >= '2025-01-01' AND opened_on <= '2026-10-31'",
+        "seconds": 10.4
+      },
+      "wren": {
+        "verdict": "wrong",
+        "detail": "got [349273375.0]",
+        "sql": "SELECT SUM(loan_origination_amount) AS total_loan_originations\nFROM accounts\nWHERE opened_on >= DATE '2025-01-01' AND product_type = 'loan'",
+        "seconds": 38.7
+      }
+    },
+    "q8": {
+      "raw": {
+        "verdict": "wrong",
+        "detail": "got []",
+        "sql": "SELECT AVG(original_principal) AS avg_mortgage_size FROM fct_accounts a JOIN dim_products p ON a.product_id = p.product_id WHERE a.opened_on >= '2026-01-01' AND a.opened_on < '2027-01-01' AND p.product_type = 'Mortgage' AND a.account_status = 'Active'",
+        "seconds": 7.7
+      },
+      "raw+": {
+        "verdict": "wrong",
+        "detail": "got [528796.0418994414]",
+        "sql": "SELECT AVG(original_principal) AS avg_mortgage_size FROM fct_accounts WHERE product_type = 'loan' AND product_id = 'MTG' AND opened_on >= '2026-01-01' AND opened_on < '2027-01-01' AND account_status = 'open'",
+        "seconds": 20.5
+      },
+      "wren": {
+        "verdict": "wrong",
+        "detail": "got [254288.28830874007]",
+        "sql": "SELECT SUM(loan_origination_amount) / COUNT(loan_origination_amount) AS average_loan_size\nFROM accounts\nWHERE opened_on >= '2026-01-01' AND opened_on < '2027-01-01' AND product_type = 'loan'",
+        "seconds": 53.0
+      }
+    }
+  }
+}

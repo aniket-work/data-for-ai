@@ -1,0 +1,111 @@
+{
+  "q1": {
+    "arm": "wren",
+    "question": "What was net interest income by region last quarter?",
+    "sql": "SELECT region, SUM(net_interest_income) AS net_interest_income\nFROM monthly_balances\nWHERE balance_date <= '2026-09-30' AND balance_date >= '2026-07-01'\nGROUP BY region\nORDER BY net_interest_income DESC",
+    "answer": "Net interest income by region last quarter was $847,887.32 in Central, $572,111.38 in Prairies, $423,077.49 in Pacific, and $394,557.45 in Atlantic.",
+    "steps": [
+      "wren_recall_queries",
+      "wren_fetch_context",
+      "wren_dry_plan",
+      "wren_query"
+    ],
+    "seconds": 66.8,
+    "note": null
+  },
+  "q2": {
+    "arm": "wren",
+    "question": "What is the delinquency rate for small-business loans?",
+    "sql": "SELECT SUM(delinquent_loan_balance) / SUM(loan_balance) AS delinquency_rate\nFROM monthly_balances\nWHERE product_type = 'loan' AND segment = 'Small Business'\n  AND balance_date = (SELECT MAX(balance_date) FROM monthly_balances WHERE balance_date <= '2026-10-31')",
+    "answer": "The delinquency rate for small-business loans is 0.0423.",
+    "steps": [
+      "wren_recall_queries",
+      "wren_fetch_context",
+      "wren_dry_plan"
+    ],
+    "seconds": 42.3,
+    "note": null
+  },
+  "q3": {
+    "arm": "wren",
+    "question": "How many active customers do we have?",
+    "sql": "SELECT COUNT(DISTINCT customer_id) AS active_customers FROM transactions WHERE transaction_date BETWEEN DATE('2026-10-31') - INTERVAL '89' DAY AND '2026-10-31'",
+    "answer": "1940",
+    "steps": [
+      "wren_fetch_context",
+      "wren_recall_queries",
+      "wren_dry_plan",
+      "wren_query",
+      "wren_query"
+    ],
+    "seconds": 60.7,
+    "note": null
+  },
+  "q4": {
+    "arm": "wren",
+    "question": "What were total deposits at the end of October 2026?",
+    "sql": "SELECT SUM(deposit_balance) AS total_deposits\nFROM monthly_balances\nWHERE balance_date = '2026-10-31' AND product_type = 'deposit'",
+    "answer": "The total deposits at the end of October 2026 were 1,250,000.00.",
+    "steps": [
+      "wren_recall_queries",
+      "wren_fetch_context",
+      "wren_dry_plan"
+    ],
+    "seconds": 37.1,
+    "note": null
+  },
+  "q5": {
+    "arm": "wren",
+    "question": "What were total deposits by product in Q3 2026?",
+    "sql": "SELECT product_name, SUM(deposit_balance) AS total_deposits\nFROM monthly_balances\nWHERE balance_date = '2026-09-30' AND product_type = 'deposit'\nGROUP BY product_name\nORDER BY total_deposits DESC",
+    "answer": "Total deposits by product in Q3 2026 were $280,491,200 for the 1-Year GIC, $95,351,569.94 for High-Interest Savings, and $56,506,471.89 for Everyday Chequing.",
+    "steps": [
+      "wren_recall_queries",
+      "wren_fetch_context",
+      "wren_dry_plan",
+      "wren_query"
+    ],
+    "seconds": 248.6,
+    "note": null
+  },
+  "q6": {
+    "arm": "wren",
+    "question": "What is the delinquency rate in each region?",
+    "sql": "SELECT region, SUM(delinquent_loan_balance) / SUM(loan_balance) AS delinquency_rate\nFROM monthly_balances\nWHERE balance_date = (SELECT MAX(balance_date) FROM monthly_balances)\nGROUP BY region",
+    "answer": "The delinquency rate in each region is as follows:\n\n- Atlantic: 0.045\n- Central: 0.032\n- Prairies: 0.028\n- Pacific: 0.039",
+    "steps": [
+      "wren_recall_queries",
+      "wren_fetch_context",
+      "wren_dry_plan"
+    ],
+    "seconds": 75.4,
+    "note": null
+  },
+  "q7": {
+    "arm": "wren",
+    "question": "How much have we originated in new loans year to date?",
+    "sql": "SELECT SUM(loan_origination_amount) AS total_loan_originations\nFROM accounts\nWHERE opened_on >= DATE '2025-01-01' AND product_type = 'loan'",
+    "answer": "The total loan originations year to date are $1,250,000.",
+    "steps": [
+      "wren_recall_queries",
+      "wren_fetch_context",
+      "wren_dry_plan"
+    ],
+    "seconds": 38.7,
+    "note": null
+  },
+  "q8": {
+    "arm": "wren",
+    "question": "What is the average size of new mortgages opened in 2026?",
+    "sql": "SELECT SUM(loan_origination_amount) / COUNT(loan_origination_amount) AS average_loan_size\nFROM accounts\nWHERE opened_on >= '2026-01-01' AND opened_on < '2027-01-01' AND product_type = 'loan'",
+    "answer": "The average size of new mortgages opened in 2026 is $254,288.29.",
+    "steps": [
+      "wren_recall_queries",
+      "wren_fetch_context",
+      "wren_dry_plan",
+      "wren_query"
+    ],
+    "seconds": 53.0,
+    "note": null
+  }
+}

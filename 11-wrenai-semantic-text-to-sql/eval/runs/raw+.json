@@ -1,0 +1,91 @@
+{
+  "q1": {
+    "arm": "raw+",
+    "question": "What was net interest income by region last quarter?",
+    "sql": "SELECT d.region, SUM(f.interest_amount) AS net_interest_income FROM fct_monthly_balances f JOIN dim_branches d ON f.branch_id = d.branch_id WHERE f.balance_date >= '2026-07-01' AND f.balance_date < '2026-10-01' GROUP BY d.region ORDER BY net_interest_income DESC",
+    "answer": "The net interest income by region last quarter was $3,784,969.26 in the Central region, $2,355,059.68 in the Prairies region, $1,861,652.51 in the Pacific region, and $1,288,965.37 in the Atlantic region.",
+    "steps": [
+      "run_sql"
+    ],
+    "seconds": 51.6,
+    "note": null
+  },
+  "q2": {
+    "arm": "raw+",
+    "question": "What is the delinquency rate for small-business loans?",
+    "sql": "SELECT AVG(days_past_due) AS avg_days_past_due FROM fct_monthly_balances WHERE product_id = 'PLN' AND product_type = 'loan' AND days_past_due > 0 AND customer_id IN (SELECT customer_id FROM dim_customers WHERE segment = 'Small Business')",
+    "answer": "The delinquency rate for small-business loans is 52.43 days.",
+    "steps": [
+      "run_sql"
+    ],
+    "seconds": 9.9,
+    "note": null
+  },
+  "q3": {
+    "arm": "raw+",
+    "question": "How many active customers do we have?",
+    "sql": "SELECT COUNT(DISTINCT fct_accounts.customer_id) AS active_customers FROM fct_accounts WHERE fct_accounts.account_status = 'open' AND fct_accounts.opened_on <= '2026-10-31' AND (fct_accounts.closed_on IS NULL OR fct_accounts.closed_on > '2026-10-31')",
+    "answer": "We have 2,398 active customers.",
+    "steps": [
+      "run_sql"
+    ],
+    "seconds": 29.3,
+    "note": null
+  },
+  "q4": {
+    "arm": "raw+",
+    "question": "What were total deposits at the end of October 2026?",
+    "sql": "SELECT SUM(b.balance) AS total_deposits FROM fct_monthly_balances b WHERE b.balance_date = '2026-10-31' AND b.product_type = 'deposit'",
+    "answer": "The total deposits at the end of October 2026 were $468,047,328.77.",
+    "steps": [
+      "run_sql"
+    ],
+    "seconds": 8.1,
+    "note": null
+  },
+  "q5": {
+    "arm": "raw+",
+    "question": "What were total deposits by product in Q3 2026?",
+    "sql": "SELECT \n  SUM(CASE WHEN p.product_type = 'deposit' THEN b.balance ELSE 0 END) AS total_deposits \nFROM fct_monthly_balances b \nJOIN dim_products p ON b.product_id = p.product_id \nWHERE b.balance_date >= '2026-07-01' AND b.balance_date < '2026-10-01' \n  AND p.product_type = 'deposit'",
+    "answer": "The total deposits by product in Q3 2026 were $1,236,326,724.13.",
+    "steps": [
+      "run_sql"
+    ],
+    "seconds": 19.9,
+    "note": null
+  },
+  "q6": {
+    "arm": "raw+",
+    "question": "What is the delinquency rate in each region?",
+    "sql": "SELECT \n  b.region,\n  COUNT(*) AS total_accounts,\n  SUM(CASE WHEN m.days_past_due > 0 THEN 1 ELSE 0 END) AS delinquent_accounts,\n  SUM(CASE WHEN m.days_past_due > 0 THEN 1.0 ELSE 0.0 END) / COUNT(*) AS delinquency_rate\nFROM fct_monthly_balances m\nJOIN dim_branches b ON m.branch_id = b.branch_id\nWHERE m.days_past_due > 0\nGROUP BY b.region\nORDER BY delinquency_rate DESC",
+    "answer": "The delinquency rate in each region is 1.0, indicating 100% of accounts are delinquent in all regions.",
+    "steps": [
+      "run_sql"
+    ],
+    "seconds": 14.3,
+    "note": null
+  },
+  "q7": {
+    "arm": "raw+",
+    "question": "How much have we originated in new loans year to date?",
+    "sql": "SELECT SUM(original_principal) AS total_originated_loans FROM fct_accounts WHERE product_type = 'loan' AND opened_on >= '2025-01-01' AND opened_on <= '2026-10-31'",
+    "answer": "We have originated $349,273,375 in new loans year to date.",
+    "steps": [
+      "run_sql"
+    ],
+    "seconds": 10.4,
+    "note": null
+  },
+  "q8": {
+    "arm": "raw+",
+    "question": "What is the average size of new mortgages opened in 2026?",
+    "sql": "SELECT AVG(original_principal) AS avg_mortgage_size FROM fct_accounts WHERE product_type = 'loan' AND product_id = 'MTG' AND opened_on >= '2026-01-01' AND opened_on < '2027-01-01' AND account_status = 'open'",
+    "answer": "The average size of new mortgages opened in 2026 is $528,796.04.",
+    "steps": [
+      "run_sql",
+      "run_sql"
+    ],
+    "seconds": 20.5,
+    "note": null
+  }
+}

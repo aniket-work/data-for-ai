@@ -1,0 +1,37 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "Same model, same question: raw text-to-SQL vs WrenAI's semantic layer",
+  "locale": "en",
+  "output": "wrenai-bank-architecture.html",
+  "quality_profile": "showcase",
+  "legend": {"entries": {"frontend": {"label": "Question"}, "external": {"label": "Local model"}, "security": {"label": "Context"}, "backend": {"label": "WrenAI"}, "database": {"label": "Database"}}}
+ },
+ "components": [
+  {"id": "question", "type": "frontend", "label": "Business question", "sublabel": "same 8 questions", "pos": [40, 190], "size": [150, 64]},
+  {"id": "llm", "type": "external", "label": "Local LLM", "sublabel": "Qwen3-4B, llama.cpp", "pos": [280, 190], "size": [170, 64], "tag": "OpenAI-compatible API"},
+  {"id": "raw", "type": "security", "label": "Raw text-to-SQL", "sublabel": "table DDL in the prompt", "pos": [540, 50], "size": [190, 64]},
+  {"id": "wren", "type": "backend", "label": "WrenAI toolkit", "sublabel": "recall, fetch, dry-plan, query", "pos": [540, 330], "size": [190, 64]},
+  {"id": "mdl", "type": "security", "label": "MDL + knowledge", "sublabel": "models, joins, rules, examples", "pos": [540, 470], "size": [190, 64], "tag": "in git, reviewed"},
+  {"id": "engine", "type": "backend", "label": "Wren engine", "sublabel": "plans SQL on models", "pos": [820, 330], "size": [170, 64]},
+  {"id": "duck", "type": "database", "label": "DuckDB warehouse", "sublabel": "the Lesson 10 bank", "pos": [820, 190], "size": [170, 64]}
+ ],
+ "boundaries": [
+  {"kind": "region", "label": "runs locally, no cloud account, no paid API", "wraps": ["llm", "raw", "wren", "mdl", "engine", "duck"]}
+ ],
+ "connections": [
+  {"id": "q-llm", "from": "question", "to": "llm", "label": "ask"},
+  {"id": "llm-raw", "from": "llm", "to": "raw", "label": "arm A"},
+  {"id": "llm-wren", "from": "llm", "to": "wren", "label": "arm B: tool calls", "variant": "emphasis"},
+  {"id": "raw-duck", "from": "raw", "to": "duck", "label": "SQL on tables"},
+  {"id": "mdl-wren", "from": "mdl", "to": "wren", "label": "context", "fromSide": "top", "toSide": "bottom"},
+  {"id": "wren-engine", "from": "wren", "to": "engine", "label": "SQL on models", "variant": "emphasis"},
+  {"id": "engine-duck", "from": "engine", "to": "duck", "label": "expanded SQL", "fromSide": "top", "toSide": "bottom", "variant": "emphasis"}
+ ],
+ "cards": [
+  {"dot": "amber", "title": "Arm A: raw", "items": ["The model sees table and column names only", "It must guess what NII or delinquency means"]},
+  {"dot": "emerald", "title": "Arm B: WrenAI", "items": ["Models, relationships, calculated fields", "Business rules and recalled NL-to-SQL examples"]},
+  {"dot": "cyan", "title": "Scored the same way", "items": ["We run each arm's final SQL", "and compare with the Lesson 10 MetricFlow numbers"]}
+ ]
+}
