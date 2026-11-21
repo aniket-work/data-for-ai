@@ -1,0 +1,16 @@
+{
+  "name": "kestrel-bay-bank-cube",
+  "private": true,
+  "scripts": {
+    "start": "cubejs-server"
+  },
+  "allowScripts": {
+    "@cubejs-backend/native@1.8.31": true,
+    "@cubejs-backend/cubestore@1.8.31": true,
+    "es5-ext@0.10.64": false
+  },
+  "devDependencies": {
+    "@cubejs-backend/server": "1.8.31",
+    "@cubejs-backend/duckdb-driver": "1.8.31"
+  }
+}

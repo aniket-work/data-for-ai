@@ -4,7 +4,7 @@ Ask a model "what was net interest income by region last quarter?" and it will h
 
 Everything runs locally: a small open model on a llama.cpp server, DuckDB, and the WrenAI engine from pip. No cloud account, no paid API key.
 
-> **Part 2 of 3 on the same bank.** [Lesson 10](../10-metricflow-banking-metrics/) built Kestrel Bay Bank's warehouse and defined its metrics once with MetricFlow; this lesson reuses that warehouse (same generator, same seed) and uses the MetricFlow results as ground truth. Lesson 12 (coming soon) serves the same bank through Cube to an AI agent.
+> **Part 2 of 3 on the same bank.** [Lesson 10](../10-metricflow-banking-metrics/) built Kestrel Bay Bank's warehouse and defined its metrics once with MetricFlow; this lesson reuses that warehouse (same generator, same seed) and uses the MetricFlow results as ground truth. [Lesson 12](../12-cube-semantic-layer-ai-agent/) serves the same bank through Cube to an AI agent, with access controls.
 
 ## The result
 

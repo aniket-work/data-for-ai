@@ -1,0 +1,20 @@
+cubes:
+  - name: branches
+    public: false
+    sql_table: main.dim_branches
+    description: The 10 Kestrel Bay Bank branches and the region each one belongs to.
+    dimensions:
+      - name: branch_id
+        sql: branch_id
+        type: string
+        primary_key: true
+      - name: branch_name
+        sql: branch_name
+        type: string
+      - name: city
+        sql: city
+        type: string
+      - name: region
+        sql: region
+        type: string
+        description: "Pacific, Prairies, Central or Atlantic."

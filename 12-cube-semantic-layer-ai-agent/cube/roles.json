@@ -1,0 +1,6 @@
+{
+  "exec":          { "groups": ["executive"] },
+  "prairies_mgr":  { "groups": ["regional_manager"], "region": "Prairies" },
+  "central_mgr":   { "groups": ["regional_manager"], "region": "Central" },
+  "marketing":     { "groups": ["marketing"] }
+}

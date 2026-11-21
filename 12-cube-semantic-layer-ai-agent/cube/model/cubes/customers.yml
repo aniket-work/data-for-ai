@@ -1,0 +1,20 @@
+cubes:
+  - name: customers
+    public: false
+    sql_table: main.dim_customers
+    description: 2,400 customers (IDs only, no personal data) with their segment.
+    dimensions:
+      - name: customer_id
+        sql: customer_id
+        type: string
+        primary_key: true
+        description: Customer identifier. Sensitive; masked for regional roles.
+        mask:
+          sql: "'CUST-****'"
+      - name: segment
+        sql: segment
+        type: string
+        description: "Retail, Premier or Small Business."
+      - name: joined_on
+        sql: joined_on
+        type: time

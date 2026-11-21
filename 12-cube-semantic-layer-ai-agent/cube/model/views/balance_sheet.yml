@@ -1,0 +1,36 @@
+views:
+  - name: balance_sheet
+    description: >
+      Deposits, loan book, delinquency and net interest income from month-end snapshots.
+      Pass the period as a date range on snapshot_date: point-in-time measures (deposits, loan book,
+      delinquency) are read at the LAST month-end of the range; interest measures add up over the range.
+    cubes:
+      - join_path: balances
+        includes: [snapshot_date, total_deposits, loan_book, delinquent_loans, delinquency_rate,
+                   interest_income, interest_expense, net_interest_income]
+      - join_path: balances.branches
+        includes: [region, branch_name]
+      - join_path: balances.products
+        includes: [product_name, product_type]
+      - join_path: balances.customers
+        includes: [segment, customer_id]
+    access_policy:
+      # Executives: every member, every row.
+      - group: executive
+        member_level:
+          includes: "*"
+      # Regional managers: only their own region's rows; customer_id is masked.
+      - group: regional_manager
+        member_level:
+          excludes: [customer_id]
+        member_masking:
+          includes: [customer_id]
+        row_level:
+          filters:
+            - member: region
+              operator: equals
+              values: ["{ securityContext.region }"]
+      # Marketing: deposits by segment and product only. No credit or interest members.
+      - group: marketing
+        member_level:
+          includes: [snapshot_date, total_deposits, region, product_name, product_type, segment]

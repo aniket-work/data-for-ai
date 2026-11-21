@@ -1,0 +1,40 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "One semantic layer, four doors: Cube in front of the Kestrel Bay Bank warehouse",
+  "locale": "en",
+  "output": ".archify/architecture-cube-bank-20261120-202000/cube-bank.html",
+  "quality_profile": "showcase",
+  "legend": {"entries": {"frontend": {"label": "Caller"}, "external": {"label": "Local model"}, "security": {"label": "Access rules"}, "backend": {"label": "Cube Core"}, "database": {"label": "Database"}}}
+ },
+ "components": [
+  {"id": "agent", "type": "external", "label": "AI agent", "sublabel": "Qwen3-4B on llama.cpp", "pos": [40, 60], "size": [170, 64], "tag": "MCP client"},
+  {"id": "mcp", "type": "backend", "label": "Our MCP server", "sublabel": "describe_model, query", "pos": [290, 60], "size": [180, 64], "tag": "wraps REST"},
+  {"id": "apps", "type": "frontend", "label": "Apps and notebooks", "sublabel": "REST or GraphQL", "pos": [40, 210], "size": [170, 64]},
+  {"id": "bi", "type": "frontend", "label": "BI and SQL tools", "sublabel": "Postgres protocol", "pos": [40, 360], "size": [170, 64]},
+  {"id": "apis", "type": "backend", "label": "Cube APIs", "sublabel": "REST, GraphQL, SQL API", "pos": [560, 210], "size": [190, 64], "tag": "JWT = security context"},
+  {"id": "policy", "type": "security", "label": "Access policies", "sublabel": "row filter, mask, deny", "pos": [560, 360], "size": [190, 64], "tag": "per group"},
+  {"id": "model", "type": "security", "label": "Data model", "sublabel": "6 cubes, 3 views, joins", "pos": [830, 360], "size": [190, 64], "tag": "YAML in git"},
+  {"id": "planner", "type": "backend", "label": "Query planner", "sublabel": "writes the SQL", "pos": [830, 210], "size": [190, 64]},
+  {"id": "duck", "type": "database", "label": "DuckDB warehouse", "sublabel": "the Lesson 10 bank", "pos": [830, 60], "size": [190, 64]}
+ ],
+ "boundaries": [
+  {"kind": "region", "label": "runs locally: npm, no Docker, no cloud account, no paid API", "wraps": ["agent", "mcp", "apps", "bi", "apis", "policy", "model", "planner", "duck"]}
+ ],
+ "connections": [
+  {"id": "a-m", "from": "agent", "to": "mcp", "label": "MCP stdio"},
+  {"id": "m-api", "from": "mcp", "to": "apis", "label": "REST + role JWT", "variant": "emphasis"},
+  {"id": "apps-api", "from": "apps", "to": "apis", "label": "JSON / GraphQL"},
+  {"id": "bi-api", "from": "bi", "to": "apis", "label": "SQL"},
+  {"id": "api-pol", "from": "apis", "to": "policy", "label": "who is asking?", "fromSide": "bottom", "toSide": "top"},
+  {"id": "pol-plan", "from": "policy", "to": "planner", "label": "allowed query", "variant": "emphasis"},
+  {"id": "model-plan", "from": "model", "to": "planner", "label": "measures, joins", "fromSide": "top", "toSide": "bottom"},
+  {"id": "plan-duck", "from": "planner", "to": "duck", "label": "generated SQL", "fromSide": "top", "toSide": "bottom", "variant": "emphasis"}
+ ],
+ "cards": [
+  {"dot": "emerald", "title": "Define once", "items": ["Measures, dimensions and joins in YAML", "The same numbers through every API"]},
+  {"dot": "rose", "title": "Govern once", "items": ["Executives see all regions", "Regional managers: their region, masked IDs", "Marketing: deposits only"]},
+  {"dot": "cyan", "title": "The agent is just another caller", "items": ["It never sees SQL or a token", "It gets what its role may see"]}
+ ]
+}

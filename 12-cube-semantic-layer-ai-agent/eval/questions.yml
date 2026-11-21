@@ -1,0 +1,52 @@
+# Eight business questions for Kestrel Bay Bank. Both arms get the same question and the same
+# context line: the data runs from January 2025 to October 31, 2026, so "now" is October 31, 2026.
+# Ground truth comes from the Lesson 10 MetricFlow definitions (scripts/ground_truth.py).
+- id: q1
+  question: What was net interest income by region last quarter?
+  mf: {metrics: net_interest_income, group_by: "metric_time__quarter,branch__region", start: "2026-07-01", end: "2026-09-30"}
+  key: branch__region
+  value: net_interest_income
+  trap: NII is loan interest minus deposit interest (one interest_amount column holds both); last quarter = Q3 2026
+- id: q2
+  question: What is the delinquency rate for small-business loans?
+  mf: {metrics: delinquency_rate, group_by: "metric_time__month,customer__segment", start: "2026-10-01", end: "2026-10-31"}
+  key: customer__segment
+  keep: ["Small Business"]
+  value: delinquency_rate
+  kind: rate
+  trap: by balance, 30+ days past due, at the latest month-end; not a count of loans
+- id: q3
+  question: How many active customers do we have?
+  mf: {metrics: active_customers, group_by: "metric_time__month", start: "2026-10-01", end: "2026-10-31"}
+  value: active_customers
+  trap: active = at least one transaction in the trailing 90 days; not "has an open account"
+- id: q4
+  question: What were total deposits at the end of October 2026?
+  mf: {metrics: total_deposits, group_by: "metric_time__month", start: "2026-10-01", end: "2026-10-31"}
+  value: total_deposits
+  trap: balances are month-end snapshots; take October 31 only
+- id: q5
+  question: What were total deposits by product in Q3 2026?
+  mf: {metrics: total_deposits, group_by: "metric_time__quarter,product__product_name", start: "2026-07-01", end: "2026-09-30"}
+  key: product__product_name
+  value: total_deposits
+  trap: semi-additive; take the September 30 snapshot, never sum July+August+September
+- id: q6
+  question: What is the delinquency rate in each region?
+  mf: {metrics: delinquency_rate, group_by: "metric_time__month,branch__region", start: "2026-10-01", end: "2026-10-31"}
+  key: branch__region
+  value: delinquency_rate
+  kind: rate
+  trap: by balance and at the latest month-end, per region
+- id: q7
+  question: How much have we originated in new loans year to date?
+  mf: {metrics: loan_originations_ytd, group_by: "metric_time__month", start: "2026-10-01", end: "2026-10-31"}
+  value: loan_originations_ytd
+  trap: original principal of loans opened since January 1, 2026; not current balances
+- id: q8
+  question: What is the average size of new mortgages opened in 2026?
+  mf: {metrics: avg_loan_size, group_by: "metric_time__year,product__product_name", start: "2026-01-01", end: "2026-10-31"}
+  key: product__product_name
+  keep: ["Fixed Mortgage"]
+  value: avg_loan_size
+  trap: original principal / number of new mortgage loans; not the average current balance

@@ -4,7 +4,7 @@ Every team needs the same few numbers, so every team writes its own SQL, and the
 
 The business: **Kestrel Bay Bank**, a made-up retail bank with four regions, ten branches, 2,400 customers (IDs only) and six products. Every name and number is invented and generated with a fixed seed.
 
-> **Part 1 of 3 on the same bank.** Lesson 11 points WrenAI at this warehouse to compare raw text-to-SQL with text-to-SQL on a semantic layer, and Lesson 12 serves the bank's semantic layer with Cube (SQL, REST, GraphQL, MCP) to an AI agent. The data, the dbt tables and the metric definitions here are designed to be reused there.
+> **Part 1 of 3 on the same bank.** [Lesson 11](../11-wrenai-semantic-text-to-sql/) points WrenAI at this warehouse to compare raw text-to-SQL with text-to-SQL on a semantic layer, and [Lesson 12](../12-cube-semantic-layer-ai-agent/) serves the bank's semantic layer with Cube (SQL, REST, GraphQL, MCP) to an AI agent. The data, the dbt tables and the metric definitions here are designed to be reused there.
 
 | Metric | Type | Definition (written once) |
 |---|---|---|

@@ -1,0 +1,8 @@
+# Cube: dependencies, local secrets, logs
+cube/node_modules/
+cube/.env
+!cube/.env.example
+cube.log
+# built by scripts/make_warehouse.py
+warehouse/*.duckdb
+warehouse/*.wal

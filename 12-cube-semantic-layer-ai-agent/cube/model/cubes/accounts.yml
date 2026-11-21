@@ -1,0 +1,50 @@
+cubes:
+  - name: accounts
+    public: false
+    sql_table: main.fct_accounts
+    description: One row per account, with the date it opened and its original principal (loans).
+    joins:
+      - name: branches
+        sql: "{CUBE}.branch_id = {branches.branch_id}"
+        relationship: many_to_one
+      - name: products
+        sql: "{CUBE}.product_id = {products.product_id}"
+        relationship: many_to_one
+      - name: customers
+        sql: "{CUBE}.customer_id = {customers.customer_id}"
+        relationship: many_to_one
+    dimensions:
+      - name: account_id
+        sql: account_id
+        type: string
+        primary_key: true
+      - name: opened_on
+        sql: opened_on
+        type: time
+      - name: account_status
+        sql: account_status
+        type: string
+    measures:
+      - name: new_loans
+        description: Number of loans opened.
+        type: count
+        filters:
+          - sql: "{CUBE}.product_type = 'loan'"
+      - name: loan_originations
+        description: Original principal of loans opened in the period (not current balances).
+        sql: "CASE WHEN {CUBE}.product_type = 'loan' THEN {CUBE}.original_principal END"
+        type: sum
+        format: currency
+      - name: loan_originations_ytd
+        description: Year-to-date originations (from January 1 of the year to the end of the date range).
+        sql: "CASE WHEN {CUBE}.product_type = 'loan' THEN {CUBE}.original_principal END"
+        type: sum
+        rolling_window:
+          type: to_date
+          granularity: year
+        format: currency
+      - name: avg_loan_size
+        description: Original principal per new loan.
+        sql: "1.0 * {loan_originations} / NULLIF({new_loans}, 0)"
+        type: number
+        format: currency

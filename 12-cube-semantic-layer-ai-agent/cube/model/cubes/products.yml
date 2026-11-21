@@ -1,0 +1,21 @@
+cubes:
+  - name: products
+    public: false
+    sql_table: main.dim_products
+    description: The 6 products. product_type is 'deposit' (CHQ, SAV, GIC) or 'loan' (MTG, PLN, LOC).
+    dimensions:
+      - name: product_id
+        sql: product_id
+        type: string
+        primary_key: true
+      - name: product_name
+        sql: product_name
+        type: string
+        description: "Fixed Mortgage, Personal Loan, Business Line of Credit (loans); Everyday Chequing, High-Interest Savings, 1-Year GIC (deposits)."
+      - name: product_type
+        sql: product_type
+        type: string
+        description: "'deposit' or 'loan'."
+      - name: product_family
+        sql: product_family
+        type: string

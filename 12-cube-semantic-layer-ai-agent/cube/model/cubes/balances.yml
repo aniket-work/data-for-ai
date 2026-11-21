@@ -1,0 +1,66 @@
+cubes:
+  - name: balances
+    public: false
+    sql_table: main.fct_monthly_balances
+    description: >
+      Month-end snapshot of every account (Jan 2025 to Oct 2026). Balances are
+      point-in-time: add them across accounts, regions and products, never across
+      months. Interest is a monthly flow and does add up over months.
+    joins:
+      - name: branches
+        sql: "{CUBE}.branch_id = {branches.branch_id}"
+        relationship: many_to_one
+      - name: products
+        sql: "{CUBE}.product_id = {products.product_id}"
+        relationship: many_to_one
+      - name: customers
+        sql: "{CUBE}.customer_id = {customers.customer_id}"
+        relationship: many_to_one
+    dimensions:
+      - name: balance_id
+        sql: balance_id
+        type: string
+        primary_key: true
+      - name: snapshot_date
+        sql: balance_date
+        type: time
+        description: Month-end date. Balances in a date range are read at its LAST month-end.
+      - name: days_past_due
+        sql: days_past_due
+        type: number
+    measures:
+      - name: total_deposits
+        description: Deposit balances at month-end (point-in-time).
+        sql: "CASE WHEN {CUBE}.product_type = 'deposit' THEN {CUBE}.balance END"
+        type: sum
+        format: currency
+      - name: loan_book
+        description: Outstanding loan balances at month-end (point-in-time).
+        sql: "CASE WHEN {CUBE}.product_type = 'loan' THEN {CUBE}.balance END"
+        type: sum
+        format: currency
+      - name: delinquent_loans
+        description: Loan balances 30+ days past due at month-end.
+        sql: "CASE WHEN {CUBE}.product_type = 'loan' AND {CUBE}.days_past_due >= 30 THEN {CUBE}.balance END"
+        type: sum
+        format: currency
+      - name: delinquency_rate
+        description: Share of the loan book, by balance, that is 30+ days past due.
+        sql: "1.0 * {delinquent_loans} / NULLIF({loan_book}, 0)"
+        type: number
+        format: percent
+      - name: interest_income
+        description: Interest earned on loans (monthly flow, additive over time).
+        sql: "CASE WHEN {CUBE}.product_type = 'loan' THEN {CUBE}.interest_amount ELSE 0 END"
+        type: sum
+        format: currency
+      - name: interest_expense
+        description: Interest paid on deposits (monthly flow, additive over time).
+        sql: "CASE WHEN {CUBE}.product_type = 'deposit' THEN {CUBE}.interest_amount ELSE 0 END"
+        type: sum
+        format: currency
+      - name: net_interest_income
+        description: Interest income minus interest expense.
+        sql: "{interest_income} - {interest_expense}"
+        type: number
+        format: currency

@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://www.youtube.com/@learn-physical-ai"><img src="https://img.shields.io/badge/YouTube-Data%20for%20AI-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube channel: Data for AI"></a>
-  <a href="#-video-catalog"><img src="https://img.shields.io/badge/Lessons-11-34D399?style=for-the-badge" alt="11 lessons"></a>
+  <a href="#-video-catalog"><img src="https://img.shields.io/badge/Lessons-12-34D399?style=for-the-badge" alt="12 lessons"></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/aniket-work/data-for-ai?style=for-the-badge&color=0F766E" alt="MIT License"></a>
   <br>
   <a href="https://github.com/aniket-work/data-for-ai/commits/main"><img src="https://img.shields.io/github/last-commit/aniket-work/data-for-ai?style=flat-square&color=14B8A6" alt="Last commit"></a>
@@ -57,13 +57,13 @@ Every lesson comes in matching formats:
 ## 🧭 Learning Paths
 
 <p align="center">
-  <img src="assets/readme/learning-path.png" alt="Learning paths. Track A, Microsoft Fabric Real-Time Intelligence: 01 Create an Eventhouse and Ingest Data, 02 Tables and Materialized Views, 13 next: update policies and stored functions, coming soon. Track B, Semantics and Context for AI: 03 Ontology with Apache Ossie, 04 Semantic Model in Apache Ossie, 05 Context Layers for AI Agents, 06 One Business, Four Models, 07 One Disruption, Six Trends, 08 Semantic Layer with Saiku; then a semantic layer series on one fictional bank: 10 Bank Metrics with MetricFlow, 11 Text-to-SQL with WrenAI, 12 Semantic Layer with Cube (coming soon). Track C, Agentic Data Management: 09 Build an AI Data Engineering Agent." width="100%">
+  <img src="assets/readme/learning-path.png" alt="Learning paths. Track A, Microsoft Fabric Real-Time Intelligence: 01 Create an Eventhouse and Ingest Data, 02 Tables and Materialized Views, 13 next: update policies and stored functions, coming soon. Track B, Semantics and Context for AI: 03 Ontology with Apache Ossie, 04 Semantic Model in Apache Ossie, 05 Context Layers for AI Agents, 06 One Business, Four Models, 07 One Disruption, Six Trends, 08 Semantic Layer with Saiku; then a semantic layer series on one fictional bank: 10 Bank Metrics with MetricFlow, 11 Text-to-SQL with WrenAI, 12 Semantic Layer with Cube. Track C, Agentic Data Management: 09 Build an AI Data Engineering Agent." width="100%">
 </p>
 
 | Track | Lessons | Best for | You need |
 | --- | --- | --- | --- |
 | **A. Microsoft Fabric Real-Time Intelligence** | 01 → 02 | Data engineers moving event and telemetry data into Fabric with KQL | A Fabric workspace on a Fabric-enabled capacity |
-| **B. Semantics and Context for AI** | 03 → 04 → 05 → 06 → 07 → 08 → 10 → 11 (12 next) | Anyone who wants AI agents to understand business data: ontologies, semantic models, knowledge graphs, context layers, semantic layers, metrics layers and text-to-SQL on a semantic layer | Python 3.11+ and Git (08 also needs Java 21+; 11 also needs a local OpenAI-compatible model server) |
+| **B. Semantics and Context for AI** | 03 → 04 → 05 → 06 → 07 → 08 → 10 → 11 → 12 | Anyone who wants AI agents to understand business data: ontologies, semantic models, knowledge graphs, context layers, semantic layers, metrics layers, text-to-SQL on a semantic layer and governed access for AI agents | Python 3.11+ and Git (08 also needs Java 21+; 11 and 12 also need a local OpenAI-compatible model server; 12 also needs Node.js 20+) |
 | **C. Agentic Data Management** | 09 | Anyone who wants AI agents to discover, clean, query and monitor data, with a human in the loop | Python 3.11+ and a local OpenAI-compatible model server (for example llama.cpp) |
 
 <details>
@@ -77,7 +77,7 @@ flowchart LR
     end
     subgraph B["Track B · Semantics and Context for AI"]
         direction LR
-        B1["03 · Ontology<br/>(Apache Ossie)"] --> B2["04 · Semantic model<br/>(Apache Ossie)"] --> B3["05 · Context layers<br/>for AI agents"] --> B4["06 · One business,<br/>four models"] --> B5["07 · One disruption,<br/>six trends"] --> B6["08 · Semantic layer<br/>with Saiku"] --> B7["10 · Metrics layer<br/>with MetricFlow"] --> B8["11 · Text-to-SQL<br/>with WrenAI"] -.-> B9["12 · Semantic layer<br/>with Cube (next)"]
+        B1["03 · Ontology<br/>(Apache Ossie)"] --> B2["04 · Semantic model<br/>(Apache Ossie)"] --> B3["05 · Context layers<br/>for AI agents"] --> B4["06 · One business,<br/>four models"] --> B5["07 · One disruption,<br/>six trends"] --> B6["08 · Semantic layer<br/>with Saiku"] --> B7["10 · Metrics layer<br/>with MetricFlow"] --> B8["11 · Text-to-SQL<br/>with WrenAI"] --> B9["12 · Semantic layer<br/>with Cube"]
     end
     subgraph C["Track C · Agentic Data Management"]
         direction LR
@@ -140,6 +140,10 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
     <td><a href="https://youtu.be/TSkL_apn34c"><img src="assets/readme/thumbnails/11-wrenai-semantic-text-to-sql.jpg" alt="Video 11 thumbnail" width="100%"></a></td>
     <td><b>11 · Text-to-SQL That Knows the Business: WrenAI's Semantic Layer, Hands-On</b><br><sub>Track B · WrenAI · llama.cpp · DuckDB · ~12 min</sub><br><br>Ask the same bank questions with the same local model two ways, from the raw schema and through WrenAI's semantic layer (MDL models, relationships, calculated fields, business rules), and score every answer by running its SQL against Lesson 10's MetricFlow numbers: raw 0/8, WrenAI 6/8. Part 2 of the bank series.<br><br>📁 <a href="11-wrenai-semantic-text-to-sql/">11-wrenai-semantic-text-to-sql</a> · ▶️ <a href="https://youtu.be/TSkL_apn34c">Watch</a></td>
   </tr>
+  <tr>
+    <td><img src="assets/readme/thumbnails/12-cube-semantic-layer-ai-agent.jpg" alt="Video 12 thumbnail" width="100%"></td>
+    <td><b>12 · Cube Semantic Layer: A Local AI Agent over MCP That Respects Access</b><br><sub>Track B · Cube · MCP · llama.cpp · DuckDB · ~15 min</sub><br><br>Put the same bank behind Cube Core: cubes, views and joins, access policies with row-level security per region and member masking, one model served over the SQL API, REST and GraphQL, and a local AI agent over MCP that only sees what its role allows (7/8 bank questions right as the executive). Part 3, wrapping up the bank series.<br><br>📁 <a href="12-cube-semantic-layer-ai-agent/">12-cube-semantic-layer-ai-agent</a> · ▶️ Video coming soon</td>
+  </tr>
 </table>
 
 <details>
@@ -158,6 +162,7 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 | 9 | Build an AI data engineering agent, hands-on: discover, clean, ask, contract and monitor with a local model | [09-ai-data-engineering-agent](09-ai-data-engineering-agent/) | [Watch](https://youtu.be/nl3S2voeCd0) |
 | 10 | Define bank metrics once with MetricFlow, hands-on: simple, ratio, derived and cumulative metrics by region, product, segment and time | [10-metricflow-banking-metrics](10-metricflow-banking-metrics/) | [Watch](https://youtu.be/_eirsNuqM4w) |
 | 11 | Text-to-SQL that knows the business, hands-on with WrenAI: raw text-to-SQL vs a semantic layer, scored on the same bank | [11-wrenai-semantic-text-to-sql](11-wrenai-semantic-text-to-sql/) | [Watch](https://youtu.be/TSkL_apn34c) |
+| 12 | Cube semantic layer, hands-on: a local AI agent over MCP with row-level security and masking, plus SQL, REST and GraphQL on the same bank | [12-cube-semantic-layer-ai-agent](12-cube-semantic-layer-ai-agent/) | Video coming soon |
 
 </details>
 
@@ -179,7 +184,7 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 </details>
 
 <details open>
-<summary><b>Track B: Python (folders 03 to 08, 10 and 11)</b></summary>
+<summary><b>Track B: Python (folders 03 to 08 and 10 to 12)</b></summary>
 
 - Python 3.11 or later and Git
 - Each folder has its own `requirements.txt` (for example PyYAML, rich, DuckDB, sqlglot, networkx, rdflib, owlrl, dbt-core and MetricFlow)
@@ -187,11 +192,12 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 - Folder 08 also needs Java 21+ and the Saiku release download; its README shows how
 - Folder 10 pins dbt-core, dbt-duckdb and dbt-metricflow versions tested together; it runs on Python 3.11 or 3.12
 - Folder 11 reuses the folder 10 warehouse and calls a local model behind an OpenAI-compatible API (the video uses llama.cpp with Qwen3-4B-Instruct-2507); it pins wrenai and wren-pydantic and runs on Python 3.12
-- Apart from folder 11, no LLM is called; no paid API key is needed anywhere
+- Folder 12 also reuses the folder 10 warehouse, installs Cube Core from npm (Node.js 20+, no Docker) and calls the same kind of local model through an MCP server; it runs on Python 3.12
+- Apart from folders 11 and 12, no LLM is called; no paid API key is needed anywhere
 
 ```bash
 git clone https://github.com/aniket-work/data-for-ai.git
-cd data-for-ai/05-context-layers-for-ai    # or any folder from 03 to 08, 10 or 11
+cd data-for-ai/05-context-layers-for-ai    # or any folder from 03 to 08, or 10 to 12
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 # then follow the folder's README
@@ -226,6 +232,7 @@ data-for-ai/
 ├── 09-ai-data-engineering-agent/         Track C · local data agent, guardrails, data contract
 ├── 10-metricflow-banking-metrics/        Track B · dbt semantic models, MetricFlow metrics, generated SQL
 ├── 11-wrenai-semantic-text-to-sql/       Track B · WrenAI MDL, raw vs semantic text-to-SQL, scored eval
+├── 12-cube-semantic-layer-ai-agent/      Track B · Cube views, access policies, SQL/REST/GraphQL, MCP agent
 ├── assets/readme/                        Images for this page (and their HTML sources)
 ├── LICENSE
 └── README.md
@@ -249,8 +256,8 @@ Inside a lesson folder you will usually find:
 - [x] Track B: bank metrics defined once with MetricFlow on dbt and DuckDB (10), part 1 of a series on one fictional bank
 - [x] Track C: an AI data engineering agent with a local model (09)
 - [x] Track B: text-to-SQL with and without a semantic layer, using WrenAI on the same bank (11), part 2 of the bank series
-- [ ] Track B: the bank's semantic layer with Cube, served over SQL, REST, GraphQL and MCP to an AI agent (folder 12)
-- [ ] Next Microsoft Fabric Eventhouse part: update policies and stored functions (folder 13)
+- [x] Track B: the bank's semantic layer with Cube, served over SQL, REST, GraphQL and MCP to an AI agent with access controls (12), part 3, completing the bank series
+- [ ] Next: Microsoft Fabric Eventhouse part: update policies and stored functions (folder 13)
 - [ ] Launch the **dataforai.club** website with written guides and learning paths
 - [ ] More series on the data side of AI, one video and one folder at a time
 
@@ -282,6 +289,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. If
 - [Saiku](https://github.com/spiculedata/saiku)
 - [MetricFlow](https://github.com/dbt-labs/metricflow) and [dbt-duckdb](https://github.com/duckdb/dbt-duckdb)
 - [WrenAI](https://github.com/Canner/WrenAI)
+- [Cube](https://github.com/cube-js/cube) and the [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
 - [llama.cpp](https://github.com/ggml-org/llama.cpp) and [DuckDB](https://duckdb.org/docs/)
 
 ## 📄 License

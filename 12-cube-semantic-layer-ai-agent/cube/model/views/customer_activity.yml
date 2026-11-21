@@ -1,0 +1,32 @@
+views:
+  - name: customer_activity
+    description: >
+      Transactions and active customers (at least one transaction in the trailing 90 days). active_customers needs transaction_date with a granularity or a date range; the value is as of the end of each period.
+    cubes:
+      - join_path: transactions
+        includes: [transaction_date, transaction_count, active_customers, channel]
+      - join_path: transactions.branches
+        includes: [region, branch_name]
+      - join_path: transactions.customers
+        includes: [segment, customer_id]
+    access_policy:
+      # Executives: every member, every row.
+      - group: executive
+        member_level:
+          includes: "*"
+      # Regional managers: only their own region's rows; customer_id is masked.
+      - group: regional_manager
+        member_level:
+          excludes: [customer_id]
+        member_masking:
+          includes: [customer_id]
+        row_level:
+          filters:
+            - member: region
+              operator: equals
+              values: ["{ securityContext.region }"]
+      - group: marketing
+        member_level:
+          includes: "*"
+        member_masking:
+          includes: [customer_id]

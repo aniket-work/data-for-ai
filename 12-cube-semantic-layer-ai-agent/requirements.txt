@@ -1,0 +1,9 @@
+# Lesson 12: the MCP server, the agent and the helper scripts (Python 3.12). Cube itself comes from npm (cube/package.json).
+pydantic-ai-slim[openai,mcp]==1.107.10
+mcp==1.30.0
+pyjwt==2.15.1
+psycopg[binary]==3.3.9
+httpx==0.28.1
+rich==15.0.0
+pyyaml==6.0.4
+duckdb==2.0.1   # only for scripts/make_warehouse.py

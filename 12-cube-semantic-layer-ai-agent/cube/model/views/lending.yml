@@ -1,0 +1,29 @@
+views:
+  - name: lending
+    description: >
+      New loans: count, originations (original principal) and average size, by the date the account opened.
+    cubes:
+      - join_path: accounts
+        includes: [opened_on, new_loans, loan_originations, loan_originations_ytd, avg_loan_size]
+      - join_path: accounts.branches
+        includes: [region, branch_name]
+      - join_path: accounts.products
+        includes: [product_name, product_type]
+      - join_path: accounts.customers
+        includes: [segment, customer_id]
+    access_policy:
+      # Executives: every member, every row.
+      - group: executive
+        member_level:
+          includes: "*"
+      # Regional managers: only their own region's rows; customer_id is masked.
+      - group: regional_manager
+        member_level:
+          excludes: [customer_id]
+        member_masking:
+          includes: [customer_id]
+        row_level:
+          filters:
+            - member: region
+              operator: equals
+              values: ["{ securityContext.region }"]
