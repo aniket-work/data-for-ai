@@ -141,8 +141,8 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
     <td><b>11 · Text-to-SQL That Knows the Business: WrenAI's Semantic Layer, Hands-On</b><br><sub>Track B · WrenAI · llama.cpp · DuckDB · ~12 min</sub><br><br>Ask the same bank questions with the same local model two ways, from the raw schema and through WrenAI's semantic layer (MDL models, relationships, calculated fields, business rules), and score every answer by running its SQL against Lesson 10's MetricFlow numbers: raw 0/8, WrenAI 6/8. Part 2 of the bank series.<br><br>📁 <a href="11-wrenai-semantic-text-to-sql/">11-wrenai-semantic-text-to-sql</a> · ▶️ <a href="https://youtu.be/TSkL_apn34c">Watch</a></td>
   </tr>
   <tr>
-    <td><img src="assets/readme/thumbnails/12-cube-semantic-layer-ai-agent.jpg" alt="Video 12 thumbnail" width="100%"></td>
-    <td><b>12 · Cube Semantic Layer: A Local AI Agent over MCP That Respects Access</b><br><sub>Track B · Cube · MCP · llama.cpp · DuckDB · ~15 min</sub><br><br>Put the same bank behind Cube Core: cubes, views and joins, access policies with row-level security per region and member masking, one model served over the SQL API, REST and GraphQL, and a local AI agent over MCP that only sees what its role allows (7/8 bank questions right as the executive). Part 3, wrapping up the bank series.<br><br>📁 <a href="12-cube-semantic-layer-ai-agent/">12-cube-semantic-layer-ai-agent</a> · ▶️ Video coming soon</td>
+    <td><a href="https://youtu.be/_yO8wqrezmA"><img src="assets/readme/thumbnails/12-cube-semantic-layer-ai-agent.jpg" alt="Video 12 thumbnail" width="100%"></a></td>
+    <td><b>12 · Cube Semantic Layer: A Local AI Agent over MCP That Respects Access</b><br><sub>Track B · Cube · MCP · llama.cpp · DuckDB · ~15 min</sub><br><br>Put the same bank behind Cube Core: cubes, views and joins, access policies with row-level security per region and member masking, one model served over the SQL API, REST and GraphQL, and a local AI agent over MCP that only sees what its role allows (7/8 bank questions right as the executive). Part 3, wrapping up the bank series.<br><br>📁 <a href="12-cube-semantic-layer-ai-agent/">12-cube-semantic-layer-ai-agent</a> · ▶️ <a href="https://youtu.be/_yO8wqrezmA">Watch</a></td>
   </tr>
 </table>
 
@@ -162,7 +162,7 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 | 9 | Build an AI data engineering agent, hands-on: discover, clean, ask, contract and monitor with a local model | [09-ai-data-engineering-agent](09-ai-data-engineering-agent/) | [Watch](https://youtu.be/nl3S2voeCd0) |
 | 10 | Define bank metrics once with MetricFlow, hands-on: simple, ratio, derived and cumulative metrics by region, product, segment and time | [10-metricflow-banking-metrics](10-metricflow-banking-metrics/) | [Watch](https://youtu.be/_eirsNuqM4w) |
 | 11 | Text-to-SQL that knows the business, hands-on with WrenAI: raw text-to-SQL vs a semantic layer, scored on the same bank | [11-wrenai-semantic-text-to-sql](11-wrenai-semantic-text-to-sql/) | [Watch](https://youtu.be/TSkL_apn34c) |
-| 12 | Cube semantic layer, hands-on: a local AI agent over MCP with row-level security and masking, plus SQL, REST and GraphQL on the same bank | [12-cube-semantic-layer-ai-agent](12-cube-semantic-layer-ai-agent/) | Video coming soon |
+| 12 | Cube semantic layer, hands-on: a local AI agent over MCP with row-level security and masking, plus SQL, REST and GraphQL on the same bank | [12-cube-semantic-layer-ai-agent](12-cube-semantic-layer-ai-agent/) | [Watch](https://youtu.be/_yO8wqrezmA) |
 
 </details>
 
