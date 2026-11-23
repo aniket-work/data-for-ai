@@ -145,8 +145,8 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
     <td><b>12 · Cube Semantic Layer: A Local AI Agent over MCP That Respects Access</b><br><sub>Track B · Cube · MCP · llama.cpp · DuckDB · ~15 min</sub><br><br>Put the same bank behind Cube Core: cubes, views and joins, access policies with row-level security per region and member masking, one model served over the SQL API, REST and GraphQL, and a local AI agent over MCP that only sees what its role allows (7/8 bank questions right as the executive). Part 3, wrapping up the bank series.<br><br>📁 <a href="12-cube-semantic-layer-ai-agent/">12-cube-semantic-layer-ai-agent</a> · ▶️ <a href="https://youtu.be/_yO8wqrezmA">Watch</a></td>
   </tr>
   <tr>
-    <td><a href="https://www.youtube.com/@learn-physical-ai"><img src="assets/readme/thumbnails/13-context-engineering-for-ai-agents.jpg" alt="Video 13 thumbnail" width="100%"></a></td>
-    <td><b>13 · Why Your AI Agent Doesn't Understand Your Business: The Context Engineering Problem</b><br><sub>Track B · Python · llama.cpp · SQLite · video coming soon</sub><br><br>Ask a fictional vet clinic chain's five business questions with the same local model three ways: raw schema only, a curated context layer (definitions, relationships, policies, metadata, permissions, history) with access enforced in code, and everything dumped in. Score every answer: raw 0/5, curated 5/5, polluted 2/5.<br><br>📁 <a href="13-context-engineering-for-ai-agents/">13-context-engineering-for-ai-agents</a> · ▶️ Coming soon</td>
+    <td><a href="https://youtu.be/rOq6GO1ihqg"><img src="assets/readme/thumbnails/13-context-engineering-for-ai-agents.jpg" alt="Video 13 thumbnail" width="100%"></a></td>
+    <td><b>13 · Why Your AI Agent Doesn't Understand Your Business: The Context Engineering Problem</b><br><sub>Track B · Python · llama.cpp · SQLite</sub><br><br>Ask a fictional vet clinic chain's five business questions with the same local model three ways: raw schema only, a curated context layer (definitions, relationships, policies, metadata, permissions, history) with access enforced in code, and everything dumped in. Score every answer: raw 0/5, curated 5/5, polluted 2/5.<br><br>📁 <a href="13-context-engineering-for-ai-agents/">13-context-engineering-for-ai-agents</a> · ▶️ <a href="https://youtu.be/rOq6GO1ihqg">Watch on YouTube</a></td>
   </tr>
 </table>
 
@@ -167,7 +167,7 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 | 10 | Define bank metrics once with MetricFlow, hands-on: simple, ratio, derived and cumulative metrics by region, product, segment and time | [10-metricflow-banking-metrics](10-metricflow-banking-metrics/) | [Watch](https://youtu.be/_eirsNuqM4w) |
 | 11 | Text-to-SQL that knows the business, hands-on with WrenAI: raw text-to-SQL vs a semantic layer, scored on the same bank | [11-wrenai-semantic-text-to-sql](11-wrenai-semantic-text-to-sql/) | [Watch](https://youtu.be/TSkL_apn34c) |
 | 12 | Cube semantic layer, hands-on: a local AI agent over MCP with row-level security and masking, plus SQL, REST and GraphQL on the same bank | [12-cube-semantic-layer-ai-agent](12-cube-semantic-layer-ai-agent/) | [Watch](https://youtu.be/_yO8wqrezmA) |
-| 13 | Why your AI agent doesn't understand your business: context engineering with a raw schema, a curated context layer and context pollution, scored | [13-context-engineering-for-ai-agents](13-context-engineering-for-ai-agents/) | Coming soon |
+| 13 | Why your AI agent doesn't understand your business: context engineering with a raw schema, a curated context layer and context pollution, scored | [13-context-engineering-for-ai-agents](13-context-engineering-for-ai-agents/) | [Watch](https://youtu.be/rOq6GO1ihqg) |
 
 </details>
 
