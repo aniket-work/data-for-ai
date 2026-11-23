@@ -1,11 +1,11 @@
 <p align="center">
-  <a href="https://www.youtube.com/@learn-physical-ai">
+  <a href="https://www.youtube.com/@data-4-ai">
     <img src="assets/readme/banner.png" alt="Data for AI: hands-on tutorials on the data that powers AI. Learn, build, publish, iterate." width="100%">
   </a>
 </p>
 
 <p align="center">
-  <a href="https://www.youtube.com/@learn-physical-ai"><img src="https://img.shields.io/badge/YouTube-Data%20for%20AI-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube channel: Data for AI"></a>
+  <a href="https://www.youtube.com/@data-4-ai"><img src="https://img.shields.io/badge/YouTube-Data%20for%20AI-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube channel: Data for AI"></a>
   <a href="#-video-catalog"><img src="https://img.shields.io/badge/Lessons-13-34D399?style=for-the-badge" alt="13 lessons"></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/aniket-work/data-for-ai?style=for-the-badge&color=0F766E" alt="MIT License"></a>
   <br>
@@ -38,7 +38,7 @@ Every lesson comes in matching formats:
 
 | Format | Where | What you get |
 | --- | --- | --- |
-| 🎬 **Video** | [YouTube: Data for AI](https://www.youtube.com/@learn-physical-ai) | A quick hands-on preview, the theory in plain words, then a detailed live demo and a recap |
+| 🎬 **Video** | [YouTube: Data for AI](https://www.youtube.com/@data-4-ai) | A quick hands-on preview, the theory in plain words, then a detailed live demo and a recap |
 | 💻 **Code** | This repository | One numbered folder per video with the sample data, scripts, queries, diagrams and slides |
 | 🌐 **Guides** | `dataforai.club` (coming soon) | Written guides and learning paths that tie the videos and folders together |
 
@@ -284,7 +284,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. If
 ## 📣 Connect
 
 <p align="center">
-  <a href="https://www.youtube.com/@learn-physical-ai"><img src="https://img.shields.io/badge/Subscribe-YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Subscribe on YouTube"></a>
+  <a href="https://www.youtube.com/@data-4-ai"><img src="https://img.shields.io/badge/Subscribe-YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Subscribe on YouTube"></a>
   <a href="https://github.com/aniket-work/data-for-ai"><img src="https://img.shields.io/badge/Star-GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="Star on GitHub"></a>
   <img src="https://img.shields.io/badge/dataforai.club-Coming%20soon-64748B?style=for-the-badge" alt="dataforai.club website coming soon">
 </p>
