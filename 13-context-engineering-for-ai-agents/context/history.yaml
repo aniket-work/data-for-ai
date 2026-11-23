@@ -1,0 +1,12 @@
+# Relevant history: past decisions, incidents and known data quirks (the "why" behind the data).
+history:
+  - {id: DEC-14, date: 2026-07-01, tags: [dental, category, grow, growth, DENT, DNT],
+     note: "New POS went live. Dental category code changed from DENT to DNT. Always filter cat_cd IN ('DENT','DNT') for dental."}
+  - {id: QRK-07, date: 2026-08-31, tags: [revenue, dental, balance, duplicate, CL-03],
+     note: "August 2026 migration at CL-03 re-imported about 60% of that month's invoices from the old POS as src_sys = 'legacy_pos'. They are duplicates: exclude them everywhere."}
+  - {id: DEC-09, date: 2025-01-15, tags: [no-show, missed, attendance],
+     note: "Operations decided late cancels (LCN, under 24 h notice) count as no-shows, because the slot is lost either way."}
+  - {id: DEC-11, date: 2024-05-02, tags: [active, patients, pets],
+     note: "Medical director set the 'active patient' window to 18 months (was 24) to match reminder campaigns."}
+  - {id: INC-21, date: 2026-09-12, tags: [phone, outage],
+     note: "Phone system outage at CL-06 for 3 hours. No data impact."}

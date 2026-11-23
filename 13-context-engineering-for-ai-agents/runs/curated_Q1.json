@@ -1,0 +1,33 @@
+{
+ "id": "Q1",
+ "question": "What was our net revenue for each clinic in Q3 2026?",
+ "mode": "curated",
+ "sql": "WITH lines AS (\n  SELECT h.clinic_id, SUM(l.ext_amt_c) AS cents\n  FROM inv_line l JOIN inv_hdr h ON h.inv_id = l.inv_id\n  WHERE h.status_cd = 'P' AND h.src_sys <> 'legacy_pos' AND h.inv_dt BETWEEN '2026-07-01' AND '2026-09-30'\n  GROUP BY h.clinic_id),\nrefunds AS (\n  SELECT h.clinic_id, SUM(r.amt_c) AS cents\n  FROM rfnd r JOIN inv_hdr h ON h.inv_id = r.inv_id\n  WHERE r.rfnd_dt BETWEEN '2026-07-01' AND '2026-09-30'\n  GROUP BY h.clinic_id)\nSELECT lines.clinic_id, ROUND((lines.cents - COALESCE(refunds.cents, 0)) / 100.0, 2) AS net_revenue\nFROM lines LEFT JOIN refunds ON refunds.clinic_id = lines.clinic_id\nWHERE lines.clinic_id IN ('CL-01', 'CL-02', 'CL-03')",
+ "columns": [
+  "clinic_id",
+  "net_revenue"
+ ],
+ "rows": [
+  [
+   "CL-01",
+   20841.5
+  ],
+  [
+   "CL-02",
+   18501.0
+  ],
+  [
+   "CL-03",
+   18148.5
+  ]
+ ],
+ "error": null,
+ "verdict": "correct",
+ "why": "matches the certified definition",
+ "tries": 1,
+ "model": "qwen2.5-coder-3b-instruct",
+ "seconds": 18.1,
+ "first_token_s": 3.8,
+ "prompt_tokens": 1098,
+ "completion_tokens": 264
+}

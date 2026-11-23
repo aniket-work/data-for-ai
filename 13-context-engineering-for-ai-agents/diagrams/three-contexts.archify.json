@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "One agent, three kinds of context",
+    "output": ".archify/architecture-three-contexts-20261122-200000/three-contexts.html",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "q", "type": "external", "label": "Business question", "sublabel": "West region manager", "pos": [40, 250], "size": [170, 64] },
+    { "id": "raw", "type": "database", "label": "Raw schema", "sublabel": "9 tables, DDL only", "pos": [320, 60], "size": [170, 64] },
+    { "id": "cur", "type": "security", "label": "Context layer", "sublabel": "selected per question", "pos": [320, 250], "size": [170, 64] },
+    { "id": "dump", "type": "cloud", "label": "Everything", "sublabel": "wikis, logs, catalog", "pos": [320, 440], "size": [170, 64] },
+    { "id": "llm", "type": "backend", "label": "Same LLM", "sublabel": "local, temperature 0", "pos": [620, 250], "size": [170, 64] },
+    { "id": "guard", "type": "security", "label": "Guard", "sublabel": "row + column access", "pos": [900, 250], "size": [170, 64] },
+    { "id": "db", "type": "database", "label": "Clinic database", "sublabel": "SQLite", "pos": [1180, 250], "size": [170, 64] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "q", "to": "raw", "variant": "dashed" },
+    { "id": "c2", "from": "q", "to": "cur", "label": "assemble", "variant": "emphasis" },
+    { "id": "c3", "from": "q", "to": "dump", "variant": "dashed" },
+    { "id": "c4", "from": "raw", "to": "llm", "label": "~500 tokens" },
+    { "id": "c5", "from": "cur", "to": "llm", "label": "~900 tokens", "variant": "emphasis" },
+    { "id": "c6", "from": "dump", "to": "llm", "label": "~11k tokens" },
+    { "id": "c7", "from": "llm", "to": "guard", "label": "SQL", "variant": "emphasis" },
+    { "id": "c8", "from": "guard", "to": "db", "label": "safe query", "variant": "security" }
+  ],
+  "cards": [
+    { "dot": "rose", "title": "Raw schema", "items": ["Knows column names, not what they mean"] },
+    { "dot": "emerald", "title": "Curated context", "items": ["Definitions, joins, codes, rules, access, history"] },
+    { "dot": "amber", "title": "Everything", "items": ["More tokens, stale and conflicting facts"] }
+  ]
+}

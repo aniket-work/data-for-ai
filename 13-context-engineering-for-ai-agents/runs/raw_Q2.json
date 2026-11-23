@@ -1,0 +1,23 @@
+{
+ "id": "Q2",
+ "question": "How many active patients do we have?",
+ "mode": "raw",
+ "sql": "SELECT COUNT(*) AS active_patients\nFROM patient\nWHERE status_cd = 'Active'",
+ "columns": [
+  "active_patients"
+ ],
+ "rows": [
+  [
+   0
+  ]
+ ],
+ "error": null,
+ "verdict": "wrong",
+ "why": "got 0.0, certified answer is 213",
+ "tries": 1,
+ "model": "qwen2.5-coder-3b-instruct",
+ "seconds": 2.4,
+ "first_token_s": 1.2,
+ "prompt_tokens": 390,
+ "completion_tokens": 23
+}

@@ -1,0 +1,17 @@
+{
+ "id": "Q5",
+ "question": "Did dental revenue grow from Q2 to Q3 2026? Show both quarters.",
+ "mode": "polluted",
+ "sql": "SELECT quarter, dental_revenue\nFROM category_revenue\nWHERE quarter IN ('2026-Q2', '2026-Q3')\nORDER BY quarter",
+ "columns": null,
+ "rows": [],
+ "error": "OperationalError: no such table: category_revenue",
+ "verdict": "error",
+ "why": "OperationalError: no such table: category_revenue",
+ "tries": 2,
+ "model": "qwen2.5-coder-3b-instruct",
+ "seconds": 120.3,
+ "first_token_s": 108.4,
+ "prompt_tokens": 19045,
+ "completion_tokens": 108
+}

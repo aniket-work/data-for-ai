@@ -1,0 +1,17 @@
+# Column metadata: what the cryptic columns and codes actually mean.
+columns:
+  inv_hdr.status_cd: {tags: [revenue, invoice, balance, owe], meaning: "P = posted (real), V = voided (ignore)"}
+  inv_hdr.tot_amt_c: {tags: [revenue, balance, owe], meaning: "invoice total in CENTS, INCLUDING 13% sales tax"}
+  inv_hdr.tax_amt_c: {tags: [revenue, tax], meaning: "sales tax in cents"}
+  inv_hdr.src_sys:   {tags: [revenue, dental, balance, owe, duplicate], meaning: "vetpos2 = current POS; legacy_pos = re-imported copies (see QRK-07)"}
+  inv_line.ext_amt_c: {tags: [revenue, dental, category], meaning: "line amount in CENTS, before tax"}
+  inv_line.cat_cd:   {tags: [dental, category, surgery, lab], meaning: "EXAM, VACC, LAB, SURG, PHARM, DENT (dental until 2026-06-30), DNT (dental from 2026-07-01)"}
+  appt.status_cd:    {tags: [no-show, missed, active, attendance], meaning: "CMP = completed, CNL = cancelled with notice, LCN = late cancel (<24 h), NSH = no-show"}
+  appt.appt_ts:      {tags: [no-show, active], meaning: "local date-time 'YYYY-MM-DD HH:MM' (text)"}
+  patient.status_cd: {tags: [active, patients, pets], meaning: "A = alive and current, D = deceased, T = transferred to another practice"}
+  pmt.amt_c:         {tags: [balance, owe, paid], meaning: "payment in cents; an invoice can have several payments (instalments)"}
+  rfnd.amt_c:        {tags: [revenue, refund], meaning: "refund in cents, pre-tax, dated rfnd_dt"}
+  clinic.region_cd:  {tags: [region, west, east], meaning: "W = West region, E = East region"}
+  client.first_nm:   {tags: [pii], meaning: "PERSONAL DATA (see POL-PII-01)"}
+  client.last_nm:    {tags: [pii], meaning: "PERSONAL DATA (see POL-PII-01)"}
+  client.phone:      {tags: [pii], meaning: "PERSONAL DATA (see POL-PII-01)"}

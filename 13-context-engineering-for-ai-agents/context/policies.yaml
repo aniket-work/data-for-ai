@@ -1,0 +1,13 @@
+# Policies the agent must follow. Enforced twice: in the prompt AND in code (guard.py).
+policies:
+  POL-PII-01:
+    tags: [owe, balance, call, client, clients, contact, phone, list]
+    rule: "Never output client names or phone numbers. Identify clients by client_id only; the front desk looks them up in the clinic system."
+    enforced_by: "guard.py hides client.first_nm, client.last_nm, client.phone from the agent"
+  POL-FIN-02:
+    tags: [revenue, sales, dental, category]
+    rule: "Revenue is reported pre-tax, in dollars, net of refunds. Voided and legacy_pos invoices never count."
+  POL-ROW-03:
+    tags: [always]
+    rule: "Users only see data for the clinics their role allows (see permissions)."
+    enforced_by: "guard.py swaps each table for a row-filtered view for the asking user's role"

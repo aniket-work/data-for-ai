@@ -1,0 +1,10 @@
+# How tables connect, with cardinality. The agent should only use these join paths.
+relationships:
+  - {from: inv_line.inv_id, to: inv_hdr.inv_id, card: "many lines -> one invoice", tags: [revenue, dental, category]}
+  - {from: pmt.inv_id,      to: inv_hdr.inv_id, card: "many payments -> one invoice (aggregate pmt per invoice first; never join to inv_line)", tags: [balance, owe, paid]}
+  - {from: rfnd.inv_id,     to: inv_hdr.inv_id, card: "many refunds -> one invoice", tags: [revenue, refund]}
+  - {from: inv_hdr.appt_id, to: appt.appt_id,   card: "one invoice -> one appointment", tags: [balance, owe]}
+  - {from: appt.patient_id, to: patient.patient_id, card: "many appointments -> one patient", tags: [active, balance, owe]}
+  - {from: patient.client_id, to: client.client_id, card: "many patients -> one client (owner)", tags: [balance, owe]}
+  - {from: appt.clinic_id,  to: clinic.clinic_id, card: "many appointments -> one clinic (where the visit happened)", tags: [no-show]}
+  - {from: inv_hdr.clinic_id, to: clinic.clinic_id, card: "many invoices -> one clinic", tags: [revenue, balance]}

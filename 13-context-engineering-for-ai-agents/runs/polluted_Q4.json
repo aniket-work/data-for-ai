@@ -1,0 +1,29 @@
+{
+ "id": "Q4",
+ "question": "Which clients owe us more than $300? List them so the front desk can call them.",
+ "mode": "polluted",
+ "sql": "SELECT client_id, ROUND(SUM(h.tot_amt_c - COALESCE(paid.cents, 0)) / 100.0, 2) AS balance\nFROM inv_hdr h\nJOIN appt a ON a.appt_id = h.appt_id\nJOIN patient pa ON pa.patient_id = a.patient_id\nLEFT JOIN (SELECT inv_id, SUM(amt_c) AS cents FROM pmt GROUP BY inv_id) AS paid ON paid.inv_id = h.inv_id\nWHERE h.status_cd = 'P' AND h.src_sys <> 'legacy_pos' AND h.inv_dt BETWEEN '2026-01-01' AND '2026-10-01'\nGROUP BY pa.client_id HAVING balance > 300 ORDER BY balance DESC",
+ "columns": [
+  "client_id",
+  "balance"
+ ],
+ "rows": [
+  [
+   "C-0038",
+   555.96
+  ],
+  [
+   "C-0161",
+   400.02
+  ]
+ ],
+ "error": null,
+ "verdict": "wrong",
+ "why": "2 clients listed, certified list has 6",
+ "tries": 1,
+ "model": "qwen2.5-coder-3b-instruct",
+ "seconds": 76.4,
+ "first_token_s": 56.6,
+ "prompt_tokens": 9489,
+ "completion_tokens": 173
+}

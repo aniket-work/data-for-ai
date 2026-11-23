@@ -1,0 +1,6 @@
+# Who may see what. The demo user asks every question as west_manager.
+roles:
+  west_manager: {clinics: [CL-01, CL-02, CL-03], pii: false, note: "Regional manager, West region only"}
+  east_manager: {clinics: [CL-04, CL-05, CL-06], pii: false, note: "Regional manager, East region only"}
+  finance:      {clinics: all, pii: false, note: "Head office finance"}
+  front_desk:   {clinics: own, pii: true,  note: "Clinic staff; sees contact details in the clinic system, not via the agent"}

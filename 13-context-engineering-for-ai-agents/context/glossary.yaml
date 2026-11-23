@@ -1,0 +1,85 @@
+# Business glossary: certified metric definitions (OUR OWN teaching format).
+# Each metric says what the business means, plus a certified SQL pattern the agent should reuse.
+terms:
+  fiscal_quarter:
+    tags: [q1, q2, q3, q4, quarter, quarters, quarterly]
+    definition: >
+      The fiscal year is the calendar year. Q1 = Jan 1 - Mar 31, Q2 = Apr 1 - Jun 30, Q3 = Jul 1 - Sep 30,
+      Q4 = Oct 1 - Dec 31. Dates are text 'YYYY-MM-DD', so filter with BETWEEN 'YYYY-MM-DD' AND 'YYYY-MM-DD'
+      (strftime has no quarter format in SQLite).
+  clinic:
+    tags: [clinic, clinics, location, locations]
+    definition: "A clinic is identified by clinic_id (CL-01 ... CL-06). Report clinic_id, optionally with clinic_nm."
+metrics:
+  net_revenue:
+    tags: [revenue, sales, income, earned, net, turnover]
+    owner: Finance
+    definition: >
+      Money earned from services and products, BEFORE tax and AFTER refunds, in dollars.
+      = SUM(inv_line.ext_amt_c) on posted invoices (inv_hdr.status_cd = 'P', inv_hdr.src_sys <> 'legacy_pos')
+        dated in the period, minus SUM(rfnd.amt_c) for refunds dated in the period; divide cents by 100.
+      Never use inv_hdr.tot_amt_c (it includes 13% tax). Never join inv_line to pmt (fan-out).
+    sql: |
+      WITH lines AS (
+        SELECT h.clinic_id, SUM(l.ext_amt_c) AS cents
+        FROM inv_line l JOIN inv_hdr h ON h.inv_id = l.inv_id
+        WHERE h.status_cd = 'P' AND h.src_sys <> 'legacy_pos' AND h.inv_dt BETWEEN :start AND :end
+        GROUP BY h.clinic_id),
+      refunds AS (
+        SELECT h.clinic_id, SUM(r.amt_c) AS cents
+        FROM rfnd r JOIN inv_hdr h ON h.inv_id = r.inv_id
+        WHERE r.rfnd_dt BETWEEN :start AND :end
+        GROUP BY h.clinic_id)
+      SELECT lines.clinic_id, ROUND((lines.cents - COALESCE(refunds.cents, 0)) / 100.0, 2) AS net_revenue
+      FROM lines LEFT JOIN refunds ON refunds.clinic_id = lines.clinic_id
+  category_revenue:
+    tags: [dental, surgery, lab, pharmacy, vaccine, exam, category, service line, grow, growth]
+    owner: Finance
+    definition: >
+      Pre-tax line revenue for one service category, in dollars: SUM(inv_line.ext_amt_c)/100 on posted,
+      non-legacy invoices, filtered on inv_line.cat_cd. Dental is cat_cd IN ('DENT','DNT') (see DEC-14).
+    sql: |
+      SELECT CASE WHEN h.inv_dt < '2026-07-01' THEN '2026-Q2' ELSE '2026-Q3' END AS quarter,
+             ROUND(SUM(l.ext_amt_c) / 100.0, 2) AS dental_revenue
+      FROM inv_line l JOIN inv_hdr h ON h.inv_id = l.inv_id
+      WHERE h.status_cd = 'P' AND h.src_sys <> 'legacy_pos'
+        AND l.cat_cd IN ('DENT', 'DNT') AND h.inv_dt BETWEEN '2026-04-01' AND '2026-09-30'
+      GROUP BY quarter ORDER BY quarter
+  active_patient:
+    tags: [active, patients, patient, pets, pet, animals, count]
+    owner: Medical director
+    definition: >
+      A patient (pet) whose status is alive and current (patient.status_cd = 'A') AND who had at least one
+      COMPLETED appointment (appt.status_cd = 'CMP') in the 18 months before today (appt_ts >= '2025-04-01').
+      Count distinct patient_id.
+    sql: |
+      SELECT COUNT(DISTINCT p.patient_id) AS active_patients
+      FROM patient p JOIN appt a ON a.patient_id = p.patient_id
+      WHERE p.status_cd = 'A' AND a.status_cd = 'CMP' AND a.appt_ts >= '2025-04-01'
+  no_show_rate:
+    tags: [no-show, no show, noshow, missed, attendance, rate]
+    owner: Operations
+    definition: >
+      Share of booked appointments the client did not attend: (status 'NSH' + status 'LCN') / all appointments,
+      as a percentage. Late cancels (LCN, under 24 h notice) count as no-shows (DEC-09).
+    sql: |
+      SELECT clinic_id,
+             ROUND(100.0 * SUM(status_cd IN ('NSH', 'LCN')) / COUNT(*), 1) AS no_show_rate_pct
+      FROM appt WHERE appt_ts >= :start AND appt_ts < :end_next_day
+      GROUP BY clinic_id ORDER BY no_show_rate_pct DESC
+  outstanding_balance:
+    tags: [owe, owes, owing, balance, unpaid, overdue, outstanding, debt, collections, call]
+    owner: Finance
+    definition: >
+      What a client still owes, in dollars: SUM over their posted, non-legacy invoices of
+      (inv_hdr.tot_amt_c - payments on that invoice) / 100. Tax IS owed, so use tot_amt_c here.
+      Aggregate payments per invoice FIRST, then join (pmt is many-per-invoice).
+      Client is found through inv_hdr.appt_id -> appt.patient_id -> patient.client_id.
+    sql: |
+      SELECT pa.client_id, ROUND(SUM(h.tot_amt_c - COALESCE(paid.cents, 0)) / 100.0, 2) AS balance
+      FROM inv_hdr h
+      JOIN appt a ON a.appt_id = h.appt_id
+      JOIN patient pa ON pa.patient_id = a.patient_id
+      LEFT JOIN (SELECT inv_id, SUM(amt_c) AS cents FROM pmt GROUP BY inv_id) AS paid ON paid.inv_id = h.inv_id
+      WHERE h.status_cd = 'P' AND h.src_sys <> 'legacy_pos'
+      GROUP BY pa.client_id HAVING balance > :threshold ORDER BY balance DESC

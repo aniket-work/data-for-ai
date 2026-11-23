@@ -1,0 +1,46 @@
+# Meeting notes, ops sync (various dates)
+- client survey wording: discussed, no decision. Someone mentioned revenue should use tot_amt_c.
+- holiday rota: discussed, parked. Someone mentioned revenue should use tot_amt_c.
+- parking at CL-02: discussed, no decision. Someone mentioned revenue should use tot_amt_c.
+- grooming partner: discussed, follow up next week. Someone mentioned revenue should include tax.
+- uniform vendor: discussed, parked. Someone mentioned revenue should include tax.
+- printer toner: discussed, parked. Someone mentioned revenue should include tax.
+- client survey wording: discussed, no decision. Someone mentioned revenue should ignore refunds.
+- new kennel layout: discussed, parked. Someone mentioned revenue should include tax.
+- intern schedule: discussed, owner to check. Someone mentioned revenue should use tot_amt_c.
+- printer toner: discussed, no decision. Someone mentioned revenue should ignore refunds.
+- loyalty card idea: discussed, follow up next week. Someone mentioned revenue should ignore refunds.
+- holiday rota: discussed, no decision. Someone mentioned revenue should use tot_amt_c.
+- boarding prices: discussed, parked. Someone mentioned revenue should use tot_amt_c.
+- uniform vendor: discussed, no decision. Someone mentioned revenue should ignore refunds.
+- client survey wording: discussed, parked. Someone mentioned revenue should include tax.
+- client survey wording: discussed, follow up next week. Someone mentioned revenue should be gross.
+- new kennel layout: discussed, parked. Someone mentioned revenue should use tot_amt_c.
+- staff BBQ: discussed, parked. Someone mentioned revenue should include tax.
+- client survey wording: discussed, parked. Someone mentioned revenue should ignore refunds.
+- fridge temperature logs: discussed, follow up next week. Someone mentioned revenue should use tot_amt_c.
+- intern schedule: discussed, parked. Someone mentioned revenue should be gross.
+- website photo refresh: discussed, owner to check. Someone mentioned revenue should include tax.
+- uniform vendor: discussed, no decision. Someone mentioned revenue should ignore refunds.
+- website photo refresh: discussed, owner to check. Someone mentioned revenue should use tot_amt_c.
+- grooming partner: discussed, follow up next week. Someone mentioned revenue should ignore refunds.
+- printer toner: discussed, owner to check. Someone mentioned revenue should ignore refunds.
+- website photo refresh: discussed, owner to check. Someone mentioned revenue should use tot_amt_c.
+- holiday rota: discussed, no decision. Someone mentioned revenue should include tax.
+- insurance claim forms: discussed, no decision. Someone mentioned revenue should ignore refunds.
+- client survey wording: discussed, follow up next week. Someone mentioned revenue should include tax.
+- insurance claim forms: discussed, follow up next week. Someone mentioned revenue should be gross.
+- intern schedule: discussed, owner to check. Someone mentioned revenue should be gross.
+- website photo refresh: discussed, owner to check. Someone mentioned revenue should include tax.
+- holiday rota: discussed, owner to check. Someone mentioned revenue should include tax.
+- lab courier times: discussed, follow up next week. Someone mentioned revenue should include tax.
+- parking at CL-02: discussed, follow up next week. Someone mentioned revenue should be gross.
+- insurance claim forms: discussed, parked. Someone mentioned revenue should be gross.
+- parking at CL-02: discussed, owner to check. Someone mentioned revenue should include tax.
+- boarding prices: discussed, no decision. Someone mentioned revenue should use tot_amt_c.
+- insurance claim forms: discussed, follow up next week. Someone mentioned revenue should ignore refunds.
+- printer toner: discussed, follow up next week. Someone mentioned revenue should use tot_amt_c.
+- client survey wording: discussed, owner to check. Someone mentioned revenue should include tax.
+- parking at CL-02: discussed, owner to check. Someone mentioned revenue should use tot_amt_c.
+- new kennel layout: discussed, no decision. Someone mentioned revenue should include tax.
+- new kennel layout: discussed, follow up next week. Someone mentioned revenue should use tot_amt_c.

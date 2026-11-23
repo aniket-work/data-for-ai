@@ -1,0 +1,29 @@
+{
+ "id": "Q5",
+ "question": "Did dental revenue grow from Q2 to Q3 2026? Show both quarters.",
+ "mode": "curated",
+ "sql": "SELECT \n    CASE WHEN h.inv_dt < '2026-07-01' THEN '2026-Q2' ELSE '2026-Q3' END AS quarter,\n    ROUND(SUM(l.ext_amt_c) / 100.0, 2) AS dental_revenue\nFROM \n    inv_line l \nJOIN \n    inv_hdr h ON h.inv_id = l.inv_id\nWHERE \n    h.status_cd = 'P' \n    AND h.src_sys <> 'legacy_pos' \n    AND l.cat_cd IN ('DENT', 'DNT') \n    AND h.inv_dt BETWEEN '2026-04-01' AND '2026-09-30'\nGROUP BY \n    quarter \nORDER BY \n    quarter",
+ "columns": [
+  "quarter",
+  "dental_revenue"
+ ],
+ "rows": [
+  [
+   "2026-Q2",
+   15240.0
+  ],
+  [
+   "2026-Q3",
+   18180.0
+  ]
+ ],
+ "error": null,
+ "verdict": "correct",
+ "why": "Q2 15,240 -> Q3 18,180",
+ "tries": 1,
+ "model": "qwen2.5-coder-3b-instruct",
+ "seconds": 20.9,
+ "first_token_s": 5.0,
+ "prompt_tokens": 1175,
+ "completion_tokens": 175
+}

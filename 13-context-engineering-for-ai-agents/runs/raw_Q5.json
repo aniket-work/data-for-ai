@@ -1,0 +1,25 @@
+{
+ "id": "Q5",
+ "question": "Did dental revenue grow from Q2 to Q3 2026? Show both quarters.",
+ "mode": "raw",
+ "sql": "SELECT \n    SUM(CASE WHEN strftime('%Y-%q', inv_dt) = '2026-2' THEN tot_amt_c ELSE 0 END) AS q2_revenue,\n    SUM(CASE WHEN strftime('%Y-%q', inv_dt) = '2026-3' THEN tot_amt_c ELSE 0 END) AS q3_revenue\nFROM \n    inv_hdr\nWHERE \n    inv_dt BETWEEN '2026-04-01' AND '2026-06-30' AND clinic_id = 'West'",
+ "columns": [
+  "q2_revenue",
+  "q3_revenue"
+ ],
+ "rows": [
+  [
+   null,
+   null
+  ]
+ ],
+ "error": null,
+ "verdict": "wrong",
+ "why": "certified: Q2 15,240 -> Q3 18,180 (DENT + DNT)",
+ "tries": 1,
+ "model": "qwen2.5-coder-3b-instruct",
+ "seconds": 7.6,
+ "first_token_s": 1.3,
+ "prompt_tokens": 402,
+ "completion_tokens": 127
+}

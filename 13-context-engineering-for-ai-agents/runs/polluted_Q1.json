@@ -1,0 +1,33 @@
+{
+ "id": "Q1",
+ "question": "What was our net revenue for each clinic in Q3 2026?",
+ "mode": "polluted",
+ "sql": "SELECT clinic_id, SUM(tot_amt_c) / 100.0 AS net_revenue\nFROM inv_hdr\nWHERE inv_dt BETWEEN '2026-07-01' AND '2026-09-30'\nGROUP BY clinic_id",
+ "columns": [
+  "clinic_id",
+  "net_revenue"
+ ],
+ "rows": [
+  [
+   "CL-01",
+   24186.52
+  ],
+  [
+   "CL-02",
+   22646.33
+  ],
+  [
+   "CL-03",
+   24592.19
+  ]
+ ],
+ "error": null,
+ "verdict": "wrong",
+ "why": "certified net revenue: CL-01 24,186.52 vs 20,841.50, CL-02 22,646.33 vs 18,501.00, CL-03 24,592.19 vs 18,148.50",
+ "tries": 1,
+ "model": "qwen2.5-coder-3b-instruct",
+ "seconds": 67.0,
+ "first_token_s": 59.3,
+ "prompt_tokens": 9485,
+ "completion_tokens": 65
+}

@@ -1,0 +1,23 @@
+{
+ "id": "Q2",
+ "question": "How many active patients do we have?",
+ "mode": "polluted",
+ "sql": "SELECT COUNT(DISTINCT p.patient_id) AS active_patients\nFROM patient p JOIN appt a ON a.patient_id = p.patient_id\nWHERE p.status_cd = 'A' AND a.status_cd = 'CMP' AND a.appt_ts >= '2025-04-01'",
+ "columns": [
+  "active_patients"
+ ],
+ "rows": [
+  [
+   213
+  ]
+ ],
+ "error": null,
+ "verdict": "correct",
+ "why": "213 active patients",
+ "tries": 1,
+ "model": "qwen2.5-coder-3b-instruct",
+ "seconds": 62.4,
+ "first_token_s": 54.7,
+ "prompt_tokens": 9476,
+ "completion_tokens": 69
+}

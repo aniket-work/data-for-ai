@@ -1,0 +1,25 @@
+{
+ "id": "Q3",
+ "question": "Which clinic had the highest no-show rate in Q3 2026?",
+ "mode": "curated",
+ "sql": "SELECT clinic_id, \n       ROUND(100.0 * SUM(status_cd IN ('NSH', 'LCN')) / COUNT(*), 1) AS no_show_rate_pct\nFROM appt\nWHERE appt_ts >= '2026-07-01' AND appt_ts < '2026-10-01'\nGROUP BY clinic_id\nORDER BY no_show_rate_pct DESC\nLIMIT 1",
+ "columns": [
+  "clinic_id",
+  "no_show_rate_pct"
+ ],
+ "rows": [
+  [
+   "CL-01",
+   9.3
+  ]
+ ],
+ "error": null,
+ "verdict": "correct",
+ "why": "CL-01 at 9.3%",
+ "tries": 1,
+ "model": "qwen2.5-coder-3b-instruct",
+ "seconds": 7.2,
+ "first_token_s": 2.2,
+ "prompt_tokens": 710,
+ "completion_tokens": 99
+}

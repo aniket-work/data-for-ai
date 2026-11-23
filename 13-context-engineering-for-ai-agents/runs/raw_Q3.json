@@ -1,0 +1,20 @@
+{
+ "id": "Q3",
+ "question": "Which clinic had the highest no-show rate in Q3 2026?",
+ "mode": "raw",
+ "sql": "SELECT c.clinic_nm, COUNT(appt_id) AS no_show_count\nFROM clinic c\nJOIN appt a ON c.clinic_id = a.clinic_id\nWHERE strftime('%Y-%q', a.appt_ts) = '2026-3'\n  AND a.status_cd = 'NS'\nGROUP BY c.clinic_id\nORDER BY no_show_count DESC\nLIMIT 1",
+ "columns": [
+  "clinic_nm",
+  "no_show_count"
+ ],
+ "rows": [],
+ "error": null,
+ "verdict": "wrong",
+ "why": "returned no rows",
+ "tries": 1,
+ "model": "qwen2.5-coder-3b-instruct",
+ "seconds": 5.9,
+ "first_token_s": 1.2,
+ "prompt_tokens": 399,
+ "completion_tokens": 92
+}

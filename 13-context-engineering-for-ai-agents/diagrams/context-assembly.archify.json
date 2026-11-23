@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Context assembly for one question",
+    "output": ".archify/workflow-context-assembly-20261122-200000/context-assembly.html",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    { "id": "user", "label": "User" },
+    { "id": "ctx", "label": "Context engine" },
+    { "id": "agent", "label": "Agent" }
+  ],
+  "mainPath": ["ask", "resolve", "select", "write", "check", "answer"],
+  "nodes": [
+    { "id": "ask", "lane": "user", "col": 0, "type": "frontend", "label": "Question", "sublabel": "plus who is asking" },
+    { "id": "resolve", "lane": "ctx", "col": 1, "type": "backend", "label": "Resolve terms", "sublabel": "Q3 to exact dates" },
+    { "id": "select", "lane": "ctx", "col": 2, "type": "database", "label": "Select layers", "sublabel": "only what matters" },
+    { "id": "write", "lane": "agent", "col": 3, "type": "backend", "label": "LLM writes SQL", "sublabel": "certified patterns" },
+    { "id": "check", "lane": "agent", "col": 4, "type": "security", "label": "Guard runs it", "sublabel": "permissions in code" },
+    { "id": "answer", "lane": "user", "col": 5, "type": "frontend", "label": "Answer", "sublabel": "checked vs definition" },
+    { "id": "layers", "lane": "user", "col": 2, "type": "database", "label": "Context layer", "sublabel": "6 YAML files" }
+  ],
+  "edges": [
+    { "id": "e1", "from": "ask", "to": "resolve", "variant": "emphasis" },
+    { "id": "e2", "from": "resolve", "to": "select", "variant": "emphasis" },
+    { "id": "e3", "from": "select", "to": "write", "label": "~900 tokens", "variant": "emphasis" },
+    { "id": "e4", "from": "write", "to": "check", "label": "SQL", "variant": "emphasis" },
+    { "id": "e5", "from": "check", "to": "answer", "label": "allowed", "variant": "security" },
+    { "id": "e6", "from": "layers", "to": "select", "label": "tags", "variant": "dashed", "role": "async" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Select", "items": ["Pick the layers that match the question"] },
+    { "dot": "emerald", "title": "Ground", "items": ["Certified SQL for each business metric"] },
+    { "dot": "amber", "title": "Enforce", "items": ["Access rules run in code, not just in the prompt"] }
+  ]
+}
