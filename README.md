@@ -148,6 +148,10 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
     <td><a href="https://youtu.be/rOq6GO1ihqg"><img src="assets/readme/thumbnails/13-context-engineering-for-ai-agents.jpg" alt="Video 13 thumbnail" width="100%"></a></td>
     <td><b>13 · Why Your AI Agent Doesn't Understand Your Business: The Context Engineering Problem</b><br><sub>Track B · Python · llama.cpp · SQLite</sub><br><br>Ask a fictional vet clinic chain's five business questions with the same local model three ways: raw schema only, a curated context layer (definitions, relationships, policies, metadata, permissions, history) with access enforced in code, and everything dumped in. Score every answer: raw 0/5, curated 5/5, polluted 2/5.<br><br>📁 <a href="13-context-engineering-for-ai-agents/">13-context-engineering-for-ai-agents</a> · ▶️ <a href="https://youtu.be/rOq6GO1ihqg">Watch on YouTube</a></td>
   </tr>
+  <tr>
+    <td><a href="https://youtu.be/zbb1ywHqW2A"><img src="assets/readme/thumbnails/16-context-graphs-for-ai-agents.jpg" alt="Video 16 thumbnail" width="100%"></a></td>
+    <td><b>16 · Context Graphs for AI Agents: Decision Traces Your Agent Can Query</b><br><sub>Track B · Python · NetworkX · llama.cpp · ~11 min</sub><br><br>Give a local agent a fictional cold-chain company's decision history two ways: plain RAG over documents and a context graph of entities, decision traces, policy versions and precedents. Score five questions: plain RAG 1/5, context graph 5/5, then write the new decision back and export the graph for Microsoft Fabric.<br><br>📁 <a href="16-context-graphs-for-ai-agents/">16-context-graphs-for-ai-agents</a> · ▶️ <a href="https://youtu.be/zbb1ywHqW2A">Watch on YouTube</a></td>
+  </tr>
 </table>
 
 <details>
@@ -168,7 +172,7 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 | 11 | Text-to-SQL that knows the business, hands-on with WrenAI: raw text-to-SQL vs a semantic layer, scored on the same bank | [11-wrenai-semantic-text-to-sql](11-wrenai-semantic-text-to-sql/) | [Watch](https://youtu.be/TSkL_apn34c) |
 | 12 | Cube semantic layer, hands-on: a local AI agent over MCP with row-level security and masking, plus SQL, REST and GraphQL on the same bank | [12-cube-semantic-layer-ai-agent](12-cube-semantic-layer-ai-agent/) | [Watch](https://youtu.be/_yO8wqrezmA) |
 | 13 | Why your AI agent doesn't understand your business: context engineering with a raw schema, a curated context layer and context pollution, scored | [13-context-engineering-for-ai-agents](13-context-engineering-for-ai-agents/) | [Watch](https://youtu.be/rOq6GO1ihqg) |
-| 16 | Context graphs for AI agents, hands-on: decision traces an agent can query, plain RAG vs a context graph on the same local model, plus a Microsoft Fabric graph export | [16-context-graphs-for-ai-agents](16-context-graphs-for-ai-agents/) | Coming soon |
+| 16 | Context graphs for AI agents, hands-on: decision traces an agent can query, plain RAG vs a context graph on the same local model, plus a Microsoft Fabric graph export | [16-context-graphs-for-ai-agents](16-context-graphs-for-ai-agents/) | [Watch](https://youtu.be/zbb1ywHqW2A) |
 
 </details>
 
