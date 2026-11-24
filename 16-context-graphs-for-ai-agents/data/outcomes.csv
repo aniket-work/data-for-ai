@@ -1,0 +1,4 @@
+id,date,decision,result,kind
+OUT-119,2026-05-16,DEC-118,Clinic CL-06 reported visible particles in two syringes; retest failed.,adverse
+OUT-132,2026-08-10,DEC-131,Potency retest passed; no complaints after 60 days.,good
+OUT-136,2026-09-01,DEC-135,No complaints; stock used before expiry.,good

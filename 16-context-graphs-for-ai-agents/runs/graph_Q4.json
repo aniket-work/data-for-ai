@@ -1,0 +1,29 @@
+{
+ "q": 4,
+ "mode": "graph",
+ "question": "Shipment SH-2063 (Insulin pen B, lot L-B-01, carrier Frostline Express) logged 8 min at a max of 8.4 C today. Release, quarantine, destroy or escalate?",
+ "context": "- Shipment SH-2063: Insulin pen B (PRD-B, freeze-sensitive: yes), lot L-B-01, carrier CR-3 Frostline Express.\n- Excursion EXC-2063 on 2026-10-15: 8 min, max 8.4 C, min 4.4 C.\n- Policy in force on 2026-10-15: SOP-TEMP-v3 (it SUPERSEDES SOP-TEMP-v2, which no longer applies). Rule: Apply in order. Step 1: freeze-sensitive product with any reading at or below 0.0 C -> DESTROY, no exceptions. Step 2: max at most 12.0 C AND at most 30 min AND the lot has at least 60 min of stability budget left before this excursion -> RELEASE (deduct the minutes from the lot budget). Step 3: anything else -> QUARANTINE pending QA review.\n- Lot L-B-01 stability budget: 90 min. Already used: none. Left BEFORE this excursion: 90 min (Step 2 needs 60).\n- Precedent DEC-143 (2026-09-27, about SH-2048): RELEASE, still valid.\n- Precedent DEC-139 (2026-09-08, about SH-2040): RELEASE, still valid.\n- POL-SIGNOFF-01: An AI agent may propose a disposition. A human QA reviewer approves it before stock moves.\n- SOP-TEMP-v3 checks answered from the graph: Step 1 condition (freeze-sensitive AND froze): no. Step 2 condition (max <= 12 C, <= 30 min, >= 60 min budget left): yes. Overturned precedents to ignore: none. Active constraints: DEC-140.\n- Active constraint DEC-140 on CR-3 (valid to 2026-12-31), OVERRIDES the policy result: Third Frostline excursion in 30 days (EXC-2040, EXC-2044, EXC-2048). Until 2026-12-31 every Frostline shipment with an excursion is ESCALATED to the QA lead, even if v3 would release it.",
+ "used": [
+  "DEC-139",
+  "DEC-140",
+  "DEC-143",
+  "EXC-2063",
+  "L-B-01",
+  "POL-SIGNOFF-01",
+  "PRD-B",
+  "SH-2063",
+  "SOP-TEMP-v3"
+ ],
+ "answer": {
+  "disposition": "ESCALATE",
+  "cites": [
+   "DEC-140"
+  ],
+  "reason": "Active constraint DEC-140 overrides the policy due to the third excursion in 30 days on carrier CR-3."
+ },
+ "raw": "{\"disposition\": \"ESCALATE\", \"cites\": [\"DEC-140\"], \"reason\": \"Active constraint DEC-140 overrides the policy due to the third excursion in 30 days on carrier CR-3.\"}",
+ "ok": true,
+ "note": "",
+ "seconds": 17.2,
+ "prompt_tokens": 744
+}

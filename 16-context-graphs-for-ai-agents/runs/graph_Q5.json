@@ -1,0 +1,34 @@
+{
+ "q": 5,
+ "mode": "graph",
+ "question": "Why was shipment SH-1975 released in June, and did it turn out well?",
+ "context": "- DEC-131 (2026-06-10) decided RELEASE for SH-1975. Rationale: 18 min, max 9.9 C, lot L-A-02 had 100 min of budget left. Meets v3 release criteria. Stability report STAB-A reviewed.\n- DEC-131 TRIGGERED_BY EXC-1975: 2026-06-10 18 min, max 9.9 C, min 4.4 C\n- DEC-131 APPLIED SOP-TEMP-v3: Temperature excursion SOP, version 3, from 2026-04-01\n- DEC-131 PROPOSED_BY QA-02: QA specialist\n- DEC-131 APPROVED_BY QA-07: QA lead\n- DEC-131 USED_EVIDENCE STAB-A: Stability study, Vaccine A\n- OUT-132 RESULT_OF DEC-131: Potency retest passed; no complaints after 60 days.",
+ "used": [
+  "DEC-131",
+  "EXC-1975",
+  "OUT-132",
+  "QA-02",
+  "QA-07",
+  "SH-1975",
+  "SOP-TEMP-v3",
+  "STAB-A"
+ ],
+ "answer": {
+  "disposition": "EXPLAIN",
+  "cites": [
+   "DEC-131",
+   "EXC-1975",
+   "SOP-TEMP-v3",
+   "QA-02",
+   "QA-07",
+   "STAB-A",
+   "OUT-132"
+  ],
+  "reason": "Shipment SH-1975 was released in June because it met the temperature criteria and stability requirements, as per the SOP. The retest passed and there were no complaints after 60 days, indicating a successful outcome."
+ },
+ "raw": "{\"disposition\": \"EXPLAIN\", \"cites\": [\"DEC-131\", \"EXC-1975\", \"SOP-TEMP-v3\", \"QA-02\", \"QA-07\", \"STAB-A\", \"OUT-132\"], \"reason\": \"Shipment SH-1975 was released in June because it met the temperature criteria and stability requirements, as per the SOP. The retest passed and there were no complaints after 60 days, indicating a successful outcome.\"}",
+ "ok": true,
+ "note": "6 of 6 trace nodes",
+ "seconds": 22.4,
+ "prompt_tokens": 377
+}

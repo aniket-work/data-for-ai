@@ -1,0 +1,28 @@
+// The context graph queries from cg.py, written in GQL for graph in Microsoft Fabric (preview).
+// Not executed in this lesson. Map data/fabric/*.csv to node and edge types first, then
+// check each query against the GQL reference and current limitations in Microsoft Learn.
+
+// 1. Which excursion SOP was in force on a date?
+MATCH (p:Policy)
+FILTER p.effective_from <= '2026-10-14' AND (p.effective_to = '' OR p.effective_to >= '2026-10-14')
+RETURN p.id, p.rule
+
+// 2. How much stability budget has a lot already used?
+MATCH (d:Decision)-[:TRIGGERED_BY]->(e:Excursion)-[:AFFECTED]->(l:Lot)
+FILTER l.id = 'L-A-04' AND d.status = 'final'
+RETURN l.id, l.stability_budget_min, d.id, d.deducts
+
+// 3. Was a precedent overturned, and by what?
+MATCH (newer:Decision)-[:OVERTURNS]->(old:Decision)
+FILTER old.id = 'DEC-118'
+RETURN old.id, old.disposition, newer.id, newer.rationale
+
+// 4. Active constraints on the carrier of a shipment
+MATCH (s:Shipment)-[:BY_CARRIER]->(c:Carrier)<-[k:CONSTRAINS]-(d:Decision)
+FILTER s.id = 'SH-2063' AND k.valid_to >= '2026-10-15'
+RETURN c.name, d.id, d.rationale
+
+// 5. The decision trace behind a release
+MATCH (o:Outcome)-[:RESULT_OF]->(d:Decision)-[:APPLIED]->(p:Policy)
+FILTER d.id = 'DEC-131'
+RETURN d.id, d.rationale, p.id, o.result

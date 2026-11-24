@@ -1,0 +1,28 @@
+today: "2026-10-15"
+questions:
+  - id: 1
+    text: "Shipment SH-2051 (Vaccine A, lot L-A-07) logged 14 min at a max of 9.6 C in transit yesterday. Release, quarantine, destroy or escalate?"
+    expect: RELEASE
+    why: "SOP-TEMP-v3 is in force (v2 was superseded on 2026-04-01). 14 min, max 9.6 C, lot L-A-07 has 95 min of budget left."
+    cite_any: [SOP-TEMP-v3]
+  - id: 2
+    text: "Shipment SH-2057 (Biologic C, lot L-C-03) dipped to -0.5 C for 6 min. Can we release it like we did for SH-1990?"
+    expect: DESTROY
+    why: "Biologic C is freeze-sensitive and froze. The SH-1990 release (DEC-118) was overturned by DEC-121 after an adverse outcome."
+    cite_any: [DEC-121, SOP-TEMP-v3]
+  - id: 3
+    text: "Shipment SH-2060 (Vaccine A, lot L-A-04) logged 22 min at a max of 10.1 C today. Release, quarantine, destroy or escalate?"
+    expect: QUARANTINE
+    why: "Lot L-A-04 already used 65 of its 100 budget minutes (DEC-135, DEC-142), so only 35 are left, below the 60 v3 requires."
+    cite_any: [DEC-142, DEC-135]
+  - id: 4
+    text: "Shipment SH-2063 (Insulin pen B, lot L-B-01, carrier Frostline Express) logged 8 min at a max of 8.4 C today. Release, quarantine, destroy or escalate?"
+    expect: ESCALATE
+    why: "v3 alone would release it, but DEC-140 put Frostline on probation until 2026-12-31: every Frostline excursion goes to the QA lead."
+    cite_any: [DEC-140]
+  - id: 5
+    text: "Why was shipment SH-1975 released in June, and did it turn out well?"
+    expect: EXPLAIN
+    why: "DEC-131 applied SOP-TEMP-v3, used the stability study STAB-A, was approved by the QA lead QA-07, and OUT-132 shows the retest passed."
+    cite_min: 3
+    cite_pool: [DEC-131, SOP-TEMP-v3, STAB-A, QA-07, OUT-132, EXC-1975]

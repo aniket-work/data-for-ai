@@ -1,0 +1,29 @@
+{
+ "q": 1,
+ "mode": "graph",
+ "question": "Shipment SH-2051 (Vaccine A, lot L-A-07) logged 14 min at a max of 9.6 C in transit yesterday. Release, quarantine, destroy or escalate?",
+ "context": "- Shipment SH-2051: Vaccine A (multi-dose vial) (PRD-A, freeze-sensitive: yes), lot L-A-07, carrier CR-1 Bluefin Courier.\n- Excursion EXC-2051 on 2026-10-14: 14 min, max 9.6 C, min 4.3 C.\n- Policy in force on 2026-10-14: SOP-TEMP-v3 (it SUPERSEDES SOP-TEMP-v2, which no longer applies). Rule: Apply in order. Step 1: freeze-sensitive product with any reading at or below 0.0 C -> DESTROY, no exceptions. Step 2: max at most 12.0 C AND at most 30 min AND the lot has at least 60 min of stability budget left before this excursion -> RELEASE (deduct the minutes from the lot budget). Step 3: anything else -> QUARANTINE pending QA review.\n- Lot L-A-07 stability budget: 100 min. Already used: 5 min by DEC-138. Left BEFORE this excursion: 95 min (Step 2 needs 60).\n- Precedent DEC-138 (2026-08-21, about SH-2016): RELEASE, still valid.\n- Precedent DEC-135 (2026-07-03, about L-A-04): RELEASE, still valid. Outcome OUT-136: No complaints; stock used before expiry.\n- Precedent DEC-131 (2026-06-10, about SH-1975): RELEASE, still valid. Outcome OUT-132: Potency retest passed; no complaints after 60 days.\n- POL-SIGNOFF-01: An AI agent may propose a disposition. A human QA reviewer approves it before stock moves.\n- SOP-TEMP-v3 checks answered from the graph: Step 1 condition (freeze-sensitive AND froze): no. Step 2 condition (max <= 12 C, <= 30 min, >= 60 min budget left): yes. Overturned precedents to ignore: none. Active constraints: none.",
+ "used": [
+  "DEC-131",
+  "DEC-135",
+  "DEC-138",
+  "EXC-2051",
+  "L-A-07",
+  "POL-SIGNOFF-01",
+  "PRD-A",
+  "SH-2051",
+  "SOP-TEMP-v3"
+ ],
+ "answer": {
+  "disposition": "RELEASE",
+  "cites": [
+   "SOP-TEMP-v3"
+  ],
+  "reason": "The excursion met the criteria for release as per Step 2 of SOP-TEMP-v3, with a max temperature of 9.6 C, duration of 14 min, and the lot having 95 min of stability budget left."
+ },
+ "raw": "{\"disposition\": \"RELEASE\", \"cites\": [\"SOP-TEMP-v3\"], \"reason\": \"The excursion met the criteria for release as per Step 2 of SOP-TEMP-v3, with a max temperature of 9.6 C, duration of 14 min, and the lot having 95 min of stability budget left.\"}",
+ "ok": true,
+ "note": "",
+ "seconds": 14.8,
+ "prompt_tokens": 717
+}

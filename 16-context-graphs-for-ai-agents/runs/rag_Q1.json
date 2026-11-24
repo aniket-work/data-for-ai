@@ -1,0 +1,25 @@
+{
+ "q": 1,
+ "mode": "rag",
+ "question": "Shipment SH-2051 (Vaccine A, lot L-A-07) logged 14 min at a max of 9.6 C in transit yesterday. Release, quarantine, destroy or escalate?",
+ "context": "[sop-temp-v3.md]\n# Temperature excursion SOP, version 3\n\nApply in order. Step 1: freeze-sensitive product with any reading at or below 0.0 C -> DESTROY, no exceptions. Step 2: max at most 12.0 C AND at most 30 min AND the lot has at least 60 min of stability budget left before this excursion -> RELEASE (deduct the minutes from the lot budget). Step 3: anything else -> QUARANTINE pending QA review.\n\nOwner: Quality Assurance.\n\n[stab-a.md]\n# Stability study, Vaccine A\n\nLots tolerate up to 100 cumulative minutes at 8-12 C over shelf life.\n\n[memo_dec-138.md]\n# Decision memo DEC-138 (2026-08-21)\n\nSubject: SH-2016. Disposition: RELEASE.\n\n5 min at 8.9 C, lot L-A-07 had 100 min left.\n\n[memo_dec-131.md]\n# Decision memo DEC-131 (2026-06-10)\n\nSubject: SH-1975. Disposition: RELEASE.\n\n18 min, max 9.9 C, lot L-A-02 had 100 min of budget left. Meets v3 release criteria. Stability report STAB-A reviewed.",
+ "used": [
+  "memo_dec-131.md",
+  "memo_dec-138.md",
+  "sop-temp-v3.md",
+  "stab-a.md"
+ ],
+ "answer": {
+  "disposition": "RELEASE",
+  "cites": [
+   "sop-temp-v3.md",
+   "stab-a.md"
+  ],
+  "reason": "The shipment meets the release criteria as it had 100 minutes of stability budget left and the temperature was below 12.0 C for less than 30 minutes."
+ },
+ "raw": "{\"disposition\": \"RELEASE\", \"cites\": [\"sop-temp-v3.md\", \"stab-a.md\"], \"reason\": \"The shipment meets the release criteria as it had 100 minutes of stability budget left and the temperature was below 12.0 C for less than 30 minutes.\"}",
+ "ok": true,
+ "note": "",
+ "seconds": 11.6,
+ "prompt_tokens": 517
+}

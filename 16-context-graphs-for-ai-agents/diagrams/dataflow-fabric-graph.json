@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "A Context Graph on Microsoft Fabric", "output": ".archify/dataflow-fabric-graph-20261124-130000/fabric-graph.html",
+            "animation": "trace", "visual_preset": "signal-flow", "quality_profile": "showcase" },
+  "stages": [ { "label": "Sources" }, { "label": "OneLake" }, { "label": "Graph" }, { "label": "Agents" } ],
+  "nodes": [
+    { "id": "ops", "type": "backend", "label": "Ops systems", "sublabel": "shipments, lots", "stage": 0, "row": 0 },
+    { "id": "iot", "type": "messagebus", "label": "Loggers", "sublabel": "excursions", "stage": 0, "row": 1 },
+    { "id": "dec", "type": "backend", "label": "Decision log", "sublabel": "traces, outcomes", "stage": 0, "row": 2, "tag": "capture at decision time" },
+    { "id": "lh", "type": "database", "label": "Lakehouse", "sublabel": "node + edge tables", "stage": 1, "row": 1, "tag": "Delta tables" },
+    { "id": "gm", "type": "backend", "label": "Graph model", "sublabel": "node + edge types", "stage": 2, "row": 0, "tag": "preview" },
+    { "id": "onto", "type": "backend", "label": "Ontology", "sublabel": "business terms", "stage": 2, "row": 2, "tag": "preview" },
+    { "id": "gql", "type": "frontend", "label": "GQL queries", "sublabel": "apps + REST", "stage": 3, "row": 0 },
+    { "id": "agent", "type": "security", "label": "Data agent", "sublabel": "NL to GQL", "stage": 3, "row": 2, "tag": "preview" }
+  ],
+  "flows": [
+    { "from": "ops", "to": "lh", "label": "entities", "variant": "emphasis" },
+    { "from": "iot", "to": "lh", "label": "events", "variant": "emphasis", "route": "straight" },
+    { "from": "dec", "to": "lh", "label": "traces", "variant": "emphasis" },
+    { "from": "lh", "to": "gm", "label": "map", "variant": "emphasis" },
+    { "from": "lh", "to": "onto", "label": "bind", "variant": "default" },
+    { "from": "gm", "to": "gql", "label": "GQL", "variant": "emphasis", "route": "straight" },
+    { "from": "gm", "to": "agent", "label": "graph source", "variant": "default" },
+    { "from": "onto", "to": "agent", "label": "ontology source", "variant": "default", "route": "straight" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Model", "items": ["Land entities, events and decisions as tables", "Map them to node and edge types"] },
+    { "dot": "amber", "title": "Query", "items": ["GQL for exact, repeatable lookups", "Data agent for natural-language questions"] }
+  ]
+}

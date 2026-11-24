@@ -1,0 +1,12 @@
+id,date,about,trigger,policy,disposition,proposed_by,approved_by,rationale,status,deducts,valid_to
+DEC-097,2026-02-11,SH-1958,EXC-1958,SOP-TEMP-v2,QUARANTINE,QA-02,QA-07,11 min at 9.2 C. Version 2 allows no release.,final,0,
+DEC-118,2026-05-02,SH-1990,EXC-1990,SOP-TEMP-v3,RELEASE,QA-11,QA-11,Dip to -0.8 C lasted only 5 min; judged acceptable because it was short. Exception granted without QA lead.,overturned,5,
+DEC-121,2026-05-20,L-C-01,OUT-119,SOP-TEMP-v3,RECALL,QA-07,QA-07,"Overturns DEC-118. Freeze-sensitive product that froze must be destroyed under v3, regardless of duration. Lot L-C-01 recalled from CL-06.",final,0,
+DEC-131,2026-06-10,SH-1975,EXC-1975,SOP-TEMP-v3,RELEASE,QA-02,QA-07,"18 min, max 9.9 C, lot L-A-02 had 100 min of budget left. Meets v3 release criteria. Stability report STAB-A reviewed.",final,18,
+DEC-135,2026-07-03,L-A-04,EXC-W0703,SOP-TEMP-v3,RELEASE,QA-02,QA-07,"Cold room 2 door alarm, 40 min at 9.0 C. Stock kept in date. QA lead accepted the deviation and deducted 40 min.",final,40,
+DEC-138,2026-08-21,SH-2016,EXC-2016,SOP-TEMP-v3,RELEASE,QA-11,QA-07,"5 min at 8.9 C, lot L-A-07 had 100 min left.",final,5,
+DEC-140,2026-09-30,CR-3,EXC-2048,POL-SIGNOFF-01,CARRIER PROBATION,QA-07,QA-07,"Third Frostline excursion in 30 days (EXC-2040, EXC-2044, EXC-2048). Until 2026-12-31 every Frostline shipment with an excursion is ESCALATED to the QA lead, even if v3 would release it.",final,0,2026-12-31
+DEC-142,2026-09-12,SH-2031,EXC-2031,SOP-TEMP-v3,RELEASE,AGENT-1,QA-07,"25 min at 9.4 C, lot L-A-04 had 60 min left (100 minus 40). Released; 35 min remain.",final,25,
+DEC-139,2026-09-08,SH-2040,EXC-2040,SOP-TEMP-v3,RELEASE,QA-11,QA-07,"12 min, max 9.1 C, budget OK.",final,12,
+DEC-141,2026-09-19,SH-2044,EXC-2044,SOP-TEMP-v3,RELEASE,QA-11,QA-07,"21 min, max 10.4 C, budget OK.",final,21,
+DEC-143,2026-09-27,SH-2048,EXC-2048,SOP-TEMP-v3,RELEASE,QA-11,QA-07,"16 min, max 9.8 C, budget OK.",final,16,

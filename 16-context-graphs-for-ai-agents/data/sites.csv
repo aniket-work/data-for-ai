@@ -1,0 +1,11 @@
+id,kind,city
+DC-HFX,distribution centre,Halifax
+DC-MTL,distribution centre,Montreal
+CL-01,clinic,Moncton
+CL-02,clinic,Saint John
+CL-03,clinic,Fredericton
+CL-04,clinic,Charlottetown
+CL-05,clinic,Quebec City
+CL-06,clinic,Sherbrooke
+CL-07,clinic,Trois-Rivieres
+CL-08,clinic,Laval

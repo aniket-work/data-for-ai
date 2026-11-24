@@ -1,0 +1,43 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": { "title": "How an Agent Uses a Context Graph", "animation": "trace", "visual_preset": "signal-flow", "quality_profile": "showcase",
+            "output": ".archify/workflow-agent-loop-20261124-130000/agent-loop.html" },
+  "lanes": [
+    { "id": "ask", "label": "Request" },
+    { "id": "read", "label": "Graph retrieval" },
+    { "id": "decide", "label": "Model + human", "variant": "exception" },
+    { "id": "graph", "label": "Context graph" }
+  ],
+  "phases": [
+    { "id": "p1", "label": "Resolve", "fromCol": 0, "toCol": 1 },
+    { "id": "p2", "label": "Retrieve context", "fromCol": 2, "toCol": 3, "variant": "emphasis" },
+    { "id": "p3", "label": "Decide + write back", "fromCol": 4, "toCol": 5, "variant": "dashed" }
+  ],
+  "mainPath": ["q", "resolve", "policy", "prec", "llm", "review", "write"],
+  "nodes": [
+    { "id": "q", "lane": "ask", "col": 0, "type": "external", "label": "Question", "sublabel": "release SH-2057?", "width": 132 },
+    { "id": "resolve", "lane": "read", "col": 1, "type": "backend", "label": "Resolve IDs", "sublabel": "shipment, lot", "width": 132 },
+    { "id": "policy", "lane": "read", "col": 2, "type": "backend", "label": "Policy in force", "sublabel": "follow SUPERSEDES", "width": 132 },
+    { "id": "prec", "lane": "read", "col": 3, "type": "backend", "label": "Precedents", "sublabel": "skip OVERTURNED", "tag": "budget + constraints", "width": 132 },
+    { "id": "llm", "lane": "decide", "col": 4, "type": "backend", "label": "Local LLM", "sublabel": "decide + cite", "width": 132 },
+    { "id": "review", "lane": "decide", "col": 5, "type": "security", "label": "QA review", "sublabel": "human approves", "width": 132 },
+    { "id": "ents", "lane": "graph", "col": 1, "type": "database", "label": "Entities", "sublabel": "lots, shipments", "width": 132 },
+    { "id": "traces", "lane": "graph", "col": 3, "type": "database", "label": "Decision traces", "sublabel": "why + outcome", "width": 132 },
+    { "id": "write", "lane": "graph", "col": 5, "type": "database", "label": "New trace", "sublabel": "status: proposed", "width": 132 }
+  ],
+  "edges": [
+    { "id": "e1", "from": "q", "to": "resolve", "variant": "emphasis" },
+    { "id": "e2", "from": "resolve", "to": "policy", "variant": "emphasis" },
+    { "id": "e3", "from": "policy", "to": "prec", "variant": "emphasis" },
+    { "id": "e4", "from": "prec", "to": "llm", "label": "context pack", "variant": "emphasis" },
+    { "id": "e5", "from": "llm", "to": "review", "label": "proposal", "variant": "security" },
+    { "id": "e6", "from": "review", "to": "write", "label": "record", "variant": "emphasis" },
+    { "id": "e7", "from": "ents", "to": "resolve", "label": "lookup", "variant": "dashed" },
+    { "id": "e8", "from": "traces", "to": "prec", "label": "traverse", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Read", "items": ["Graph queries return facts with IDs", "Superseded and overturned items are flagged"] },
+    { "dot": "rose", "title": "Write", "items": ["Every agent decision becomes a new trace", "A human approves before stock moves"] }
+  ]
+}

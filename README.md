@@ -63,7 +63,7 @@ Every lesson comes in matching formats:
 | Track | Lessons | Best for | You need |
 | --- | --- | --- | --- |
 | **A. Microsoft Fabric Real-Time Intelligence** | 01 → 02 | Data engineers moving event and telemetry data into Fabric with KQL | A Fabric workspace on a Fabric-enabled capacity |
-| **B. Semantics and Context for AI** | 03 → 04 → 05 → 06 → 07 → 08 → 10 → 11 → 12 → 13 | Anyone who wants AI agents to understand business data: ontologies, semantic models, knowledge graphs, context layers, semantic layers, metrics layers, text-to-SQL on a semantic layer and governed access for AI agents | Python 3.11+ and Git (08 also needs Java 21+; 11, 12 and 13 also need a local OpenAI-compatible model server; 12 also needs Node.js 20+) |
+| **B. Semantics and Context for AI** | 03 → 04 → 05 → 06 → 07 → 08 → 10 → 11 → 12 → 13 → 16 | Anyone who wants AI agents to understand business data: ontologies, semantic models, knowledge graphs, context layers, semantic layers, metrics layers, text-to-SQL on a semantic layer and governed access for AI agents, and context graphs | Python 3.11+ and Git (08 also needs Java 21+; 11, 12, 13 and 16 also need a local OpenAI-compatible model server; 12 also needs Node.js 20+) |
 | **C. Agentic Data Management** | 09 | Anyone who wants AI agents to discover, clean, query and monitor data, with a human in the loop | Python 3.11+ and a local OpenAI-compatible model server (for example llama.cpp) |
 
 <details>
@@ -168,6 +168,7 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 | 11 | Text-to-SQL that knows the business, hands-on with WrenAI: raw text-to-SQL vs a semantic layer, scored on the same bank | [11-wrenai-semantic-text-to-sql](11-wrenai-semantic-text-to-sql/) | [Watch](https://youtu.be/TSkL_apn34c) |
 | 12 | Cube semantic layer, hands-on: a local AI agent over MCP with row-level security and masking, plus SQL, REST and GraphQL on the same bank | [12-cube-semantic-layer-ai-agent](12-cube-semantic-layer-ai-agent/) | [Watch](https://youtu.be/_yO8wqrezmA) |
 | 13 | Why your AI agent doesn't understand your business: context engineering with a raw schema, a curated context layer and context pollution, scored | [13-context-engineering-for-ai-agents](13-context-engineering-for-ai-agents/) | [Watch](https://youtu.be/rOq6GO1ihqg) |
+| 16 | Context graphs for AI agents, hands-on: decision traces an agent can query, plain RAG vs a context graph on the same local model, plus a Microsoft Fabric graph export | [16-context-graphs-for-ai-agents](16-context-graphs-for-ai-agents/) | Coming soon |
 
 </details>
 

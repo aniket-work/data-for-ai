@@ -1,0 +1,4 @@
+id,name,range,freeze_sensitive
+PRD-A,Vaccine A (multi-dose vial),2-8 C,yes
+PRD-B,Insulin pen B,2-8 C,yes
+PRD-C,Biologic C (prefilled syringe),2-8 C,yes

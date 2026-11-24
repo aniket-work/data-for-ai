@@ -1,0 +1,14 @@
+id,shipment,site,lot,date,max_c,min_c,minutes
+EXC-1958,SH-1958,in transit,L-A-01,2026-02-11,9.2,4.1,11
+EXC-1975,SH-1975,in transit,L-A-02,2026-06-10,9.9,4.4,18
+EXC-1990,SH-1990,in transit,L-C-01,2026-05-02,5.0,-0.8,5
+EXC-W0703,,DC-HFX cold room 2,L-A-04,2026-07-03,9.0,4.8,40
+EXC-2031,SH-2031,in transit,L-A-04,2026-09-12,9.4,4.6,25
+EXC-2040,SH-2040,in transit,L-B-02,2026-09-08,9.1,4.2,12
+EXC-2044,SH-2044,in transit,L-A-06,2026-09-19,10.4,4.2,21
+EXC-2048,SH-2048,in transit,L-B-03,2026-09-27,9.8,4.2,16
+EXC-2016,SH-2016,in transit,L-A-07,2026-08-21,8.9,4.5,5
+EXC-2051,SH-2051,in transit,L-A-07,2026-10-14,9.6,4.3,14
+EXC-2057,SH-2057,in transit,L-C-03,2026-10-14,5.2,-0.5,6
+EXC-2060,SH-2060,in transit,L-A-04,2026-10-15,10.1,4.9,22
+EXC-2063,SH-2063,in transit,L-B-01,2026-10-15,8.4,4.4,8

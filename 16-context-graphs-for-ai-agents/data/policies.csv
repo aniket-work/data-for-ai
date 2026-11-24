@@ -1,0 +1,4 @@
+id,title,effective_from,effective_to,rule
+SOP-TEMP-v2,"Temperature excursion SOP, version 2",2025-01-01,2026-03-31,Any reading above 8.0 C or below 2.0 C: QUARANTINE the shipment; QA destroys it. No release is allowed.
+SOP-TEMP-v3,"Temperature excursion SOP, version 3",2026-04-01,,"Apply in order. Step 1: freeze-sensitive product with any reading at or below 0.0 C -> DESTROY, no exceptions. Step 2: max at most 12.0 C AND at most 30 min AND the lot has at least 60 min of stability budget left before this excursion -> RELEASE (deduct the minutes from the lot budget). Step 3: anything else -> QUARANTINE pending QA review."
+POL-SIGNOFF-01,Release sign-off,2025-01-01,,An AI agent may propose a disposition. A human QA reviewer approves it before stock moves.
