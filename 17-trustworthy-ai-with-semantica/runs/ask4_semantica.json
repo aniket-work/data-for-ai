@@ -1,0 +1,49 @@
+{
+ "n": 4,
+ "claim": "CLM-2604",
+ "mode": "semantica",
+ "model": "qwen2.5-7b-instruct-q4_k_m",
+ "seed": 42,
+ "temperature": 0,
+ "prompt_sha256": "1579b55e432449c06502da50bb53b096be7eb2ff284e7ad4623d9978251b374b",
+ "system": "You are an accountable home-insurance claims triage assistant. Use only the evidence pack. Cite fact ids (F..) and clause ids for every statement. If the pack lists a conflict, you must report it and must not auto-decide. Return JSON only: {\"route\": one of FAST_TRACK, STANDARD_REVIEW, SENIOR_REVIEW, REFER_ADJUSTER, DENY, \"rationale\": \"two sentences\", \"cited\": [ids of the sources you used], \"conflicts\": [{\"property\": \"date_of_loss|cause|amount\", \"values\": [..]}] or []}",
+ "user": "CLAIM CLM-2604, policy HP-47731, policy start 2023-02-01, triage date 2026-10-20.\nFACTS (id, value, source, quote, credibility):\n- F13 date_of_loss = 2026-09-14 | FNOL-2604 (call note) \"burst suddenly on 2026-09-14\" | 0.6\n- F14 cause = sudden_escape | FNOL-2604 (call note) \"a pipe under the laundry room floor burst suddenly\" | 0.6\n- F15 cause = gradual_seepage | ADJ-2604 (field report) \"consistent with gradual seepage over several months\" | 0.9\n- F16 amount = 18700 | ADJ-2604 (field report) \"Damage estimate $18,700\" | 0.9\nCONFLICTS (Semantica ConflictDetector): \n- cause: sudden_escape (F14, FNOL-2604) vs gradual_seepage (F15, ADJ-2604) -> expert review\nCLAUSES IN FORCE ON THE DATE OF LOSS 2026-09-14 (temporal validity):\n- WORD-2026#4.1: 4.1 Escape of water. Sudden and accidental escape of water from a plumbing system or appliance is covered.\n- WORD-2026#4.2: 4.2 Sewer backup. Water that backs up through a sewer, floor drain or sump is covered up to $25,000 per occurrence, after a $1,000 deductible.\n- WORD-2026#4.3: 4.3 Gradual seepage. Continuous or repeated seepage or leakage over 14 days or more is excluded.\n- WORD-2026#4.4: 4.4 Policy period. The loss must begin during the policy period. Damage that began before the policy start date is excluded.\nGUIDELINE IN FORCE: GL-TRIAGE-v3 (v2 superseded 2026-09-01): Routing. FAST_TRACK: covered cause, no conflicting facts, amount up to $10,000.\nSTANDARD_REVIEW: covered cause, no conflicting facts, amount over $10,000 and up to $50,000.\nSENIOR_REVIEW: amount over $50,000.\nREFER_ADJUSTER: two sources disagree on a material fact (date of loss, cause or amount). Do not auto-decide; send to a human adjuster and name the conflict.\nDENY: an excluded cause, confirmed by consistent sources.\nRULE CHECK (Semantica Reasoner): route REFER_ADJUSTER. Given the premises: Conflict(CLM-2604, cause), we conclude: Route(CLM-2604, REFER_ADJUSTER) using rule 'Rule 1'.",
+ "raw": "{\n  \"route\": \"REFER_ADJUSTER\",\n  \"rationale\": \"There is a conflict regarding the cause of the loss, with one source indicating a sudden escape and another indicating gradual seepage. This requires expert review and cannot be auto-decided.\",\n  \"cited\": [\"F14\", \"F15\"],\n  \"conflicts\": [\n    {\n      \"property\": \"cause\",\n      \"values\": [\"sudden_escape\", \"gradual_seepage\"]\n    }\n  ]\n}",
+ "answer": {
+  "route": "REFER_ADJUSTER",
+  "rationale": "There is a conflict regarding the cause of the loss, with one source indicating a sudden escape and another indicating gradual seepage. This requires expert review and cannot be auto-decided.",
+  "cited": [
+   "F14",
+   "F15"
+  ],
+  "conflicts": [
+   {
+    "property": "cause",
+    "values": [
+     "sudden_escape",
+     "gradual_seepage"
+    ]
+   }
+  ],
+  "final_route": "REFER_ADJUSTER"
+ },
+ "guard": "",
+ "grade": {
+  "route_ok": true,
+  "cite_ok": true,
+  "conf_ok": true,
+  "bad_cites": [],
+  "expected": "REFER_ADJUSTER",
+  "score": 3
+ },
+ "seconds": 23.2,
+ "usage": {
+  "completion_tokens": 107,
+  "prompt_tokens": 824,
+  "total_tokens": 931,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  }
+ },
+ "decision_id": "DEC-2604-1579b5"
+}

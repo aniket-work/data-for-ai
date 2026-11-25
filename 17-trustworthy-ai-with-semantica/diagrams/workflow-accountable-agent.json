@@ -1,0 +1,43 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": { "title": "An Accountable Claims Triage Agent", "animation": "trace", "visual_preset": "signal-flow", "quality_profile": "showcase",
+            "output": ".archify/workflow-accountable-agent-20261124-223500/accountable-agent.html" },
+  "lanes": [
+    { "id": "in", "label": "Claim" },
+    { "id": "sem", "label": "Semantica checks" },
+    { "id": "decide", "label": "Model + guardrail", "variant": "exception" },
+    { "id": "store", "label": "Audit store" }
+  ],
+  "phases": [
+    { "id": "p1", "label": "Gather evidence", "fromCol": 0, "toCol": 1 },
+    { "id": "p2", "label": "Check it", "fromCol": 2, "toCol": 3, "variant": "emphasis" },
+    { "id": "p3", "label": "Decide + record", "fromCol": 4, "toCol": 5, "variant": "dashed" }
+  ],
+  "mainPath": ["claim", "facts", "conf", "rules", "llm", "guard", "rec"],
+  "nodes": [
+    { "id": "claim", "lane": "in", "col": 0, "type": "external", "label": "New claim", "sublabel": "CLM-2603", "width": 132 },
+    { "id": "facts", "lane": "sem", "col": 1, "type": "backend", "label": "Facts + sources", "sublabel": "doc, section, quote", "width": 132 },
+    { "id": "conf", "lane": "sem", "col": 2, "type": "backend", "label": "Conflicts", "sublabel": "ConflictDetector", "width": 132 },
+    { "id": "rules", "lane": "sem", "col": 3, "type": "backend", "label": "Rule check", "sublabel": "Reasoner", "tag": "clauses in force", "width": 132 },
+    { "id": "llm", "lane": "decide", "col": 4, "type": "backend", "label": "Local LLM", "sublabel": "route + cite", "width": 132 },
+    { "id": "guard", "lane": "decide", "col": 5, "type": "security", "label": "Guardrail", "sublabel": "agree or hold", "width": 132 },
+    { "id": "prov", "lane": "store", "col": 1, "type": "database", "label": "Provenance", "sublabel": "PROV-O, SQLite", "width": 132 },
+    { "id": "ver", "lane": "store", "col": 3, "type": "database", "label": "Policy versions", "sublabel": "valid from / to", "width": 132 },
+    { "id": "rec", "lane": "store", "col": 5, "type": "database", "label": "Decision record", "sublabel": "hash-chained", "width": 132 }
+  ],
+  "edges": [
+    { "id": "e1", "from": "claim", "to": "facts", "variant": "emphasis" },
+    { "id": "e2", "from": "facts", "to": "conf", "variant": "emphasis" },
+    { "id": "e3", "from": "conf", "to": "rules", "variant": "emphasis" },
+    { "id": "e4", "from": "rules", "to": "llm", "label": "evidence pack", "variant": "emphasis" },
+    { "id": "e5", "from": "llm", "to": "guard", "label": "proposal", "variant": "security" },
+    { "id": "e6", "from": "guard", "to": "rec", "label": "record", "variant": "emphasis" },
+    { "id": "e7", "from": "prov", "to": "facts", "label": "lineage", "variant": "dashed" },
+    { "id": "e8", "from": "ver", "to": "rules", "label": "in force", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Check", "items": ["Every fact keeps its source and quote", "Conflicts go to a human, not the model"] },
+    { "dot": "rose", "title": "Record", "items": ["Each decision links the facts it used", "A regulator can replay it later"] }
+  ]
+}

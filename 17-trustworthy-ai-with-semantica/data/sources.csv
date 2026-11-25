@@ -1,0 +1,16 @@
+doc_id,kind,credibility,valid_from,valid_until
+WORD-2025,policy_wording,1.0,2025-01-01,2026-06-01
+WORD-2026,policy_wording,1.0,2026-06-01,
+GL-TRIAGE-v2,guideline,1.0,2026-01-15,2026-09-01
+GL-TRIAGE-v3,guideline,1.0,2026-09-01,
+FNOL-2601,fnol_call,0.6,,
+ADJ-2601,adjuster_report,0.9,,
+FNOL-2602,fnol_call,0.6,,
+ADJ-2602,adjuster_report,0.9,,
+FNOL-2603,fnol_call,0.6,,
+INV-2603,contractor_invoice,0.8,,
+ADJ-2603,adjuster_report,0.9,,
+FNOL-2604,fnol_call,0.6,,
+ADJ-2604,adjuster_report,0.9,,
+FNOL-2605,fnol_call,0.6,,
+ADJ-2605,adjuster_report,0.9,,

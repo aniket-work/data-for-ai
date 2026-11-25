@@ -1,0 +1,45 @@
+{
+ "n": 2,
+ "claim": "CLM-2602",
+ "mode": "rag",
+ "model": "qwen2.5-7b-instruct-q4_k_m",
+ "seed": 42,
+ "temperature": 0,
+ "prompt_sha256": "122ef444244831174f1ea6b3bc3db40e25f6d45097b5e08590c6d0a8995c559e",
+ "system": "You are a home-insurance claims triage assistant. Decide the route for the claim using only the retrieved context. Return JSON only: {\"route\": one of FAST_TRACK, STANDARD_REVIEW, SENIOR_REVIEW, REFER_ADJUSTER, DENY, \"rationale\": \"two sentences\", \"cited\": [ids of the sources you used], \"conflicts\": [{\"property\": \"date_of_loss|cause|amount\", \"values\": [..]}] or []}",
+ "user": "Claim CLM-2602. Triage date 2026-10-20.\nRETRIEVED CONTEXT:\n[ADJ-2602] Inspected 2026-08-22. Cause: municipal sewer backup through the floor drain. Date of loss 2026-08-19 confirmed. Damage estimate $9,400.\n[FNOL-2602] Policy HP-38815. Caller reports water came up through the basement floor drain during the storm on 2026-08-19.\n[WORD-2025#4.2] 4.2 Sewer backup. Water that backs up through a sewer, floor drain or sump is EXCLUDED.\n[WORD-2026#4.4] 4.4 Policy period. The loss must begin during the policy period. Damage that began before the policy start date is excluded.\n[WORD-2026#4.2] 4.2 Sewer backup. Water that backs up through a sewer, floor drain or sump is covered up to $25,000 per occurrence, after a $1,000 deductible.\n[WORD-2026#4.1] 4.1 Escape of water. Sudden and accidental escape of water from a plumbing system or appliance is covered.\n\nWhich route?",
+ "raw": "{\"route\": \"DENY\", \"rationale\": \"The claim is denied because the cause of loss is municipal sewer backup, which is excluded under the policy.\", \"cited\": [\"WORD-2025#4.2\", \"WORD-2026#4.2\"], \"conflicts\": []}",
+ "answer": {
+  "route": "DENY",
+  "rationale": "The claim is denied because the cause of loss is municipal sewer backup, which is excluded under the policy.",
+  "cited": [
+   "WORD-2025#4.2",
+   "WORD-2026#4.2"
+  ],
+  "conflicts": [],
+  "final_route": "DENY"
+ },
+ "guard": "",
+ "grade": {
+  "route_ok": false,
+  "cite_ok": false,
+  "conf_ok": true,
+  "bad_cites": [
+   [
+    "WORD-2025#4.2",
+    "not in force on 2026-08-19"
+   ]
+  ],
+  "expected": "FAST_TRACK",
+  "score": 1
+ },
+ "seconds": 18.3,
+ "usage": {
+  "completion_tokens": 68,
+  "prompt_tokens": 415,
+  "total_tokens": 483,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  }
+ }
+}

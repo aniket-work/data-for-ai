@@ -152,6 +152,10 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
     <td><a href="https://youtu.be/zbb1ywHqW2A"><img src="assets/readme/thumbnails/16-context-graphs-for-ai-agents.jpg" alt="Video 16 thumbnail" width="100%"></a></td>
     <td><b>16 · Context Graphs for AI Agents: Decision Traces Your Agent Can Query</b><br><sub>Track B · Python · NetworkX · llama.cpp · ~11 min</sub><br><br>Give a local agent a fictional cold-chain company's decision history two ways: plain RAG over documents and a context graph of entities, decision traces, policy versions and precedents. Score five questions: plain RAG 1/5, context graph 5/5, then write the new decision back and export the graph for Microsoft Fabric.<br><br>📁 <a href="16-context-graphs-for-ai-agents/">16-context-graphs-for-ai-agents</a> · ▶️ <a href="https://youtu.be/zbb1ywHqW2A">Watch on YouTube</a></td>
   </tr>
+  <tr>
+    <td><a href="17-trustworthy-ai-with-semantica/"><img src="assets/readme/thumbnails/17-trustworthy-ai-with-semantica.jpg" alt="Video 17 thumbnail" width="100%"></a></td>
+    <td><b>17 · Trustworthy AI with Semantica: Every Fact Cited, Every Decision Replayable</b><br><sub>Track B · Python · Semantica · llama.cpp · ~11 min</sub><br><br>A fictional home insurer triages five water-damage claims with the same local model two ways: plain RAG over the documents, and a Semantica-backed agent with provenance for every fact, conflict checks, policy versions in force, a rules check, a guardrail and a hash-chained audit record. Score: plain RAG 7/15, Semantica-backed 15/15, then tamper with the store and export the trail as PROV-O and tables for a Fabric lakehouse.<br><br>📁 <a href="17-trustworthy-ai-with-semantica/">17-trustworthy-ai-with-semantica</a> · ▶️ Coming soon</td>
+  </tr>
 </table>
 
 <details>
@@ -173,6 +177,7 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 | 12 | Cube semantic layer, hands-on: a local AI agent over MCP with row-level security and masking, plus SQL, REST and GraphQL on the same bank | [12-cube-semantic-layer-ai-agent](12-cube-semantic-layer-ai-agent/) | [Watch](https://youtu.be/_yO8wqrezmA) |
 | 13 | Why your AI agent doesn't understand your business: context engineering with a raw schema, a curated context layer and context pollution, scored | [13-context-engineering-for-ai-agents](13-context-engineering-for-ai-agents/) | [Watch](https://youtu.be/rOq6GO1ihqg) |
 | 16 | Context graphs for AI agents, hands-on: decision traces an agent can query, plain RAG vs a context graph on the same local model, plus a Microsoft Fabric graph export | [16-context-graphs-for-ai-agents](16-context-graphs-for-ai-agents/) | [Watch](https://youtu.be/zbb1ywHqW2A) |
+| 17 | Trustworthy AI with Semantica, hands-on: provenance for every fact, conflict checks, policy versions, a guardrail and a hash-chained audit trail, plain RAG vs Semantica on the same local model | [17-trustworthy-ai-with-semantica](17-trustworthy-ai-with-semantica/) | Coming soon |
 
 </details>
 
@@ -204,11 +209,12 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 - Folder 11 reuses the folder 10 warehouse and calls a local model behind an OpenAI-compatible API (the video uses llama.cpp with Qwen3-4B-Instruct-2507); it pins wrenai and wren-pydantic and runs on Python 3.12
 - Folder 12 also reuses the folder 10 warehouse, installs Cube Core from npm (Node.js 20+, no Docker) and calls the same kind of local model through an MCP server; it runs on Python 3.12
 - Folder 13 calls a local model (the video uses llama.cpp with Qwen2.5-Coder-3B-Instruct) through any OpenAI-compatible API
-- Apart from folders 11, 12 and 13, no LLM is called; no paid API key is needed anywhere
+- Folders 16 and 17 call a local model (the videos use llama.cpp with Qwen2.5-7B-Instruct Q4_K_M) through any OpenAI-compatible API; folder 17 installs Semantica 0.7.0 from PyPI
+- Apart from folders 11, 12, 13, 16 and 17, no LLM is called; no paid API key is needed anywhere
 
 ```bash
 git clone https://github.com/aniket-work/data-for-ai.git
-cd data-for-ai/05-context-layers-for-ai    # or any folder from 03 to 08, or 10 to 13
+cd data-for-ai/05-context-layers-for-ai    # or any folder from 03 to 08, or 10 to 17
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 # then follow the folder's README

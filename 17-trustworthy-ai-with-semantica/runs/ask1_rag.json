@@ -1,0 +1,41 @@
+{
+ "n": 1,
+ "claim": "CLM-2601",
+ "mode": "rag",
+ "model": "qwen2.5-7b-instruct-q4_k_m",
+ "seed": 42,
+ "temperature": 0,
+ "prompt_sha256": "403b18bc3bc6bf786b6fbfd6474ca5c341e1f0353bf8f41d8662ade188aecaf2",
+ "system": "You are a home-insurance claims triage assistant. Decide the route for the claim using only the retrieved context. Return JSON only: {\"route\": one of FAST_TRACK, STANDARD_REVIEW, SENIOR_REVIEW, REFER_ADJUSTER, DENY, \"rationale\": \"two sentences\", \"cited\": [ids of the sources you used], \"conflicts\": [{\"property\": \"date_of_loss|cause|amount\", \"values\": [..]}] or []}",
+ "user": "Claim CLM-2601. Triage date 2026-10-20.\nRETRIEVED CONTEXT:\n[ADJ-2601] Inspected 2026-09-30. Cause: sudden failure of braided supply line under the kitchen sink. Date of loss 2026-09-28 confirmed. Damage estimate $7,850.\n[FNOL-2601] Policy HP-41207. Caller reports the kitchen sink supply line burst on 2026-09-28 and flooded the kitchen floor. Water shut off within 20 minutes.\n[WORD-2026#4.4] 4.4 Policy period. The loss must begin during the policy period. Damage that began before the policy start date is excluded.\n[WORD-2025#4.2] 4.2 Sewer backup. Water that backs up through a sewer, floor drain or sump is EXCLUDED.\n[WORD-2026#4.2] 4.2 Sewer backup. Water that backs up through a sewer, floor drain or sump is covered up to $25,000 per occurrence, after a $1,000 deductible.\n[WORD-2026#4.1] 4.1 Escape of water. Sudden and accidental escape of water from a plumbing system or appliance is covered.\n\nWhich route?",
+ "raw": "{\"route\": \"STANDARD_REVIEW\", \"rationale\": \"The claim involves a covered event but requires a detailed review of the damage estimate and policy terms.\", \"cited\": [\"ADJ-2601\", \"FNOL-2601\", \"WORD-2026#4.1\"], \"conflicts\": []}",
+ "answer": {
+  "route": "STANDARD_REVIEW",
+  "rationale": "The claim involves a covered event but requires a detailed review of the damage estimate and policy terms.",
+  "cited": [
+   "ADJ-2601",
+   "FNOL-2601",
+   "WORD-2026#4.1"
+  ],
+  "conflicts": [],
+  "final_route": "STANDARD_REVIEW"
+ },
+ "guard": "",
+ "grade": {
+  "route_ok": false,
+  "cite_ok": true,
+  "conf_ok": true,
+  "bad_cites": [],
+  "expected": "FAST_TRACK",
+  "score": 2
+ },
+ "seconds": 13.7,
+ "usage": {
+  "completion_tokens": 74,
+  "prompt_tokens": 428,
+  "total_tokens": 502,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  }
+ }
+}

@@ -1,0 +1,43 @@
+{
+ "n": 5,
+ "claim": "CLM-2605",
+ "mode": "semantica",
+ "model": "qwen2.5-7b-instruct-q4_k_m",
+ "seed": 42,
+ "temperature": 0,
+ "prompt_sha256": "1dfb01711e6b9705645a848d7f852ca23674a8698880ff95602179a00588c551",
+ "system": "You are an accountable home-insurance claims triage assistant. Use only the evidence pack. Cite fact ids (F..) and clause ids for every statement. If the pack lists a conflict, you must report it and must not auto-decide. Return JSON only: {\"route\": one of FAST_TRACK, STANDARD_REVIEW, SENIOR_REVIEW, REFER_ADJUSTER, DENY, \"rationale\": \"two sentences\", \"cited\": [ids of the sources you used], \"conflicts\": [{\"property\": \"date_of_loss|cause|amount\", \"values\": [..]}] or []}",
+ "user": "CLAIM CLM-2605, policy HP-50164, policy start 2026-01-10, triage date 2026-10-20.\nFACTS (id, value, source, quote, credibility):\n- F17 date_of_loss = 2026-10-02 | FNOL-2605 (call note) \"supply hose split on 2026-10-02\" | 0.6\n- F18 date_of_loss = 2026-10-02 | ADJ-2605 (field report) \"Date of loss 2026-10-02 confirmed\" | 0.9\n- F19 cause = sudden_escape | ADJ-2605 (field report) \"sudden split of the dishwasher supply hose\" | 0.9\n- F20 amount = 14600 | ADJ-2605 (field report) \"Damage estimate $14,600\" | 0.9\nCONFLICTS (Semantica ConflictDetector): none\nCLAUSES IN FORCE ON THE DATE OF LOSS 2026-10-02 (temporal validity):\n- WORD-2026#4.1: 4.1 Escape of water. Sudden and accidental escape of water from a plumbing system or appliance is covered.\n- WORD-2026#4.2: 4.2 Sewer backup. Water that backs up through a sewer, floor drain or sump is covered up to $25,000 per occurrence, after a $1,000 deductible.\n- WORD-2026#4.3: 4.3 Gradual seepage. Continuous or repeated seepage or leakage over 14 days or more is excluded.\n- WORD-2026#4.4: 4.4 Policy period. The loss must begin during the policy period. Damage that began before the policy start date is excluded.\nGUIDELINE IN FORCE: GL-TRIAGE-v3 (v2 superseded 2026-09-01): Routing. FAST_TRACK: covered cause, no conflicting facts, amount up to $10,000.\nSTANDARD_REVIEW: covered cause, no conflicting facts, amount over $10,000 and up to $50,000.\nSENIOR_REVIEW: amount over $50,000.\nREFER_ADJUSTER: two sources disagree on a material fact (date of loss, cause or amount). Do not auto-decide; send to a human adjuster and name the conflict.\nDENY: an excluded cause, confirmed by consistent sources.\nRULE CHECK (Semantica Reasoner): route STANDARD_REVIEW. Given the premises: Cause(CLM-2605, sudden_escape), we conclude: Covered(CLM-2605) using rule 'Rule 2'. Given the premises: Covered(CLM-2605), Band(CLM-2605, Mid), Consistent(CLM-2605), we conclude: Route(CLM-2605, STANDARD_REVIEW) using rule 'Rule 9'.",
+ "raw": "{\n  \"route\": \"STANDARD_REVIEW\",\n  \"rationale\": \"The claim meets the criteria for a standard review as the cause is covered, there are no conflicting facts, and the amount is within the specified range.\",\n  \"cited\": [\n    \"F19\",\n    \"F20\",\n    \"WORD-2026#4.1\",\n    \"GL-TRIAGE-v3\"\n  ],\n  \"conflicts\": []\n}",
+ "answer": {
+  "route": "STANDARD_REVIEW",
+  "rationale": "The claim meets the criteria for a standard review as the cause is covered, there are no conflicting facts, and the amount is within the specified range.",
+  "cited": [
+   "F19",
+   "F20",
+   "WORD-2026#4.1",
+   "GL-TRIAGE-v3"
+  ],
+  "conflicts": [],
+  "final_route": "STANDARD_REVIEW"
+ },
+ "guard": "",
+ "grade": {
+  "route_ok": true,
+  "cite_ok": true,
+  "conf_ok": true,
+  "bad_cites": [],
+  "expected": "STANDARD_REVIEW",
+  "score": 3
+ },
+ "seconds": 20.0,
+ "usage": {
+  "completion_tokens": 98,
+  "prompt_tokens": 852,
+  "total_tokens": 950,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  }
+ },
+ "decision_id": "DEC-2605-1dfb01"
+}

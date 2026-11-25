@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "Fact-Level Provenance Next to Fabric Lineage", "output": ".archify/dataflow-trust-fabric-20261124-223500/trust-fabric.html",
+            "animation": "trace", "visual_preset": "signal-flow", "quality_profile": "showcase" },
+  "stages": [ { "label": "Sources" }, { "label": "Semantica" }, { "label": "OneLake" }, { "label": "Review" } ],
+  "nodes": [
+    { "id": "docs", "type": "external", "label": "Claim documents", "sublabel": "calls, reports", "stage": 0, "row": 0 },
+    { "id": "pol", "type": "external", "label": "Policy wording", "sublabel": "versioned", "stage": 0, "row": 2 },
+    { "id": "prov", "type": "database", "label": "Provenance store", "sublabel": "facts + decisions", "stage": 1, "row": 0, "tag": "PROV-O" },
+    { "id": "chk", "type": "backend", "label": "Checks", "sublabel": "conflicts, rules", "stage": 1, "row": 2 },
+    { "id": "lh", "type": "database", "label": "Lakehouse", "sublabel": "Delta tables", "stage": 2, "row": 1, "tag": "Load to tables" },
+    { "id": "sql", "type": "frontend", "label": "SQL endpoint", "sublabel": "audit queries", "stage": 3, "row": 0 },
+    { "id": "lin", "type": "security", "label": "Lineage view", "sublabel": "item level", "stage": 3, "row": 2 }
+  ],
+  "flows": [
+    { "from": "docs", "to": "prov", "label": "facts", "variant": "emphasis", "route": "straight" },
+    { "from": "pol", "to": "chk", "label": "clauses", "variant": "emphasis", "route": "straight" },
+    { "from": "chk", "to": "prov", "label": "decisions", "variant": "default" },
+    { "from": "prov", "to": "lh", "label": "CSV export", "variant": "emphasis" },
+    { "from": "lh", "to": "sql", "label": "query", "variant": "emphasis" },
+    { "from": "lh", "to": "lin", "label": "items", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Semantica", "items": ["Which sentence fed which decision", "Exported as PROV-O and flat tables"] },
+    { "dot": "amber", "title": "Fabric", "items": ["Which item fed which item", "Lineage view and impact analysis"] }
+  ]
+}

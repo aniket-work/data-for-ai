@@ -1,0 +1,42 @@
+{
+ "n": 3,
+ "claim": "CLM-2603",
+ "mode": "rag",
+ "model": "qwen2.5-7b-instruct-q4_k_m",
+ "seed": 42,
+ "temperature": 0,
+ "prompt_sha256": "7e9acae88cf39943a39dc09d1042fd9a95cd5b0718ea18929267dc42816e9f5d",
+ "system": "You are a home-insurance claims triage assistant. Decide the route for the claim using only the retrieved context. Return JSON only: {\"route\": one of FAST_TRACK, STANDARD_REVIEW, SENIOR_REVIEW, REFER_ADJUSTER, DENY, \"rationale\": \"two sentences\", \"cited\": [ids of the sources you used], \"conflicts\": [{\"property\": \"date_of_loss|cause|amount\", \"values\": [..]}] or []}",
+ "user": "Claim CLM-2603. Triage date 2026-10-20.\nRETRIEVED CONTEXT:\n[ADJ-2603] Inspected 2026-09-02. Cause: leaking vanity drain connection. Damage estimate $6,300.\n[FNOL-2603] Policy HP-52290, policy start date 2026-08-01. Caller reports a leak under the upstairs bathroom vanity, discovered on 2026-08-28.\n[INV-2603] Repaired the vanity drain connection. Homeowner said ceiling staining below was first noticed around 2026-07-25. Invoice total $6,300.\n[WORD-2026#4.4] 4.4 Policy period. The loss must begin during the policy period. Damage that began before the policy start date is excluded.\n[GL-TRIAGE-v3#routing] Routing. FAST_TRACK: covered cause, no conflicting facts, amount up to $10,000.\nSTANDARD_REVIEW: covered cause, no conflicting facts, amount over $10,000 and up to $50,000.\nSENIOR_REVIEW: amount over $50,000.\nREFER_ADJUSTER: two sources disagree on a material fact (date of loss, cause or amount). Do not auto-decide; send to a human adjuster and name the conflict.\nDENY: an excluded cause, confirmed by consistent sources.\n[WORD-2025#4.1] 4.1 Escape of water. Sudden and accidental escape of water from a plumbing system or appliance is covered.\n[GL-TRIAGE-v2#routing] Routing. FAST_TRACK: covered cause, no conflicting facts, amount up to $25,000.\nSTANDARD_REVIEW: covered cause, amount over $25,000 and up to $50,000.\nSENIOR_REVIEW: amount over $50,000.\n\nWhich route?",
+ "raw": "{\"route\": \"FAST_TRACK\", \"rationale\": \"The claim meets the criteria for a covered cause with no conflicting facts and the amount is within the $10,000 limit.\", \"cited\": [\"ADJ-2603\", \"FNOL-2603\", \"INV-2603\", \"GL-TRIAGE-v3#routing\"], \"conflicts\": []}",
+ "answer": {
+  "route": "FAST_TRACK",
+  "rationale": "The claim meets the criteria for a covered cause with no conflicting facts and the amount is within the $10,000 limit.",
+  "cited": [
+   "ADJ-2603",
+   "FNOL-2603",
+   "INV-2603",
+   "GL-TRIAGE-v3#routing"
+  ],
+  "conflicts": [],
+  "final_route": "FAST_TRACK"
+ },
+ "guard": "",
+ "grade": {
+  "route_ok": false,
+  "cite_ok": true,
+  "conf_ok": false,
+  "bad_cites": [],
+  "expected": "REFER_ADJUSTER",
+  "score": 1
+ },
+ "seconds": 24.3,
+ "usage": {
+  "completion_tokens": 88,
+  "prompt_tokens": 572,
+  "total_tokens": 660,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  }
+ }
+}

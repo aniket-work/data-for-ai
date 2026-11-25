@@ -1,0 +1,49 @@
+{
+ "n": 3,
+ "claim": "CLM-2603",
+ "mode": "semantica",
+ "model": "qwen2.5-7b-instruct-q4_k_m",
+ "seed": 42,
+ "temperature": 0,
+ "prompt_sha256": "273932e82b773e921e053cc25dfe6606a6b02b7fc80e2866125013c0f59f9ce5",
+ "system": "You are an accountable home-insurance claims triage assistant. Use only the evidence pack. Cite fact ids (F..) and clause ids for every statement. If the pack lists a conflict, you must report it and must not auto-decide. Return JSON only: {\"route\": one of FAST_TRACK, STANDARD_REVIEW, SENIOR_REVIEW, REFER_ADJUSTER, DENY, \"rationale\": \"two sentences\", \"cited\": [ids of the sources you used], \"conflicts\": [{\"property\": \"date_of_loss|cause|amount\", \"values\": [..]}] or []}",
+ "user": "CLAIM CLM-2603, policy HP-52290, policy start 2026-08-01, triage date 2026-10-20.\nFACTS (id, value, source, quote, credibility):\n- F09 date_of_loss = 2026-08-28 | FNOL-2603 (call note) \"discovered on 2026-08-28\" | 0.6\n- F10 date_of_loss = 2026-07-25 | INV-2603 (invoice note) \"first noticed around 2026-07-25\" | 0.8\n- F11 cause = sudden_escape | ADJ-2603 (field report) \"leaking vanity drain connection\" | 0.9\n- F12 amount = 6300 | ADJ-2603 (field report) \"Damage estimate $6,300\" | 0.9\nCONFLICTS (Semantica ConflictDetector): \n- date_of_loss: 2026-08-28 (F09, FNOL-2603) vs 2026-07-25 (F10, INV-2603) -> expert review\nCLAUSES IN FORCE ON THE DATE OF LOSS 2026-07-25 (temporal validity):\n- WORD-2026#4.1: 4.1 Escape of water. Sudden and accidental escape of water from a plumbing system or appliance is covered.\n- WORD-2026#4.2: 4.2 Sewer backup. Water that backs up through a sewer, floor drain or sump is covered up to $25,000 per occurrence, after a $1,000 deductible.\n- WORD-2026#4.3: 4.3 Gradual seepage. Continuous or repeated seepage or leakage over 14 days or more is excluded.\n- WORD-2026#4.4: 4.4 Policy period. The loss must begin during the policy period. Damage that began before the policy start date is excluded.\nGUIDELINE IN FORCE: GL-TRIAGE-v3 (v2 superseded 2026-09-01): Routing. FAST_TRACK: covered cause, no conflicting facts, amount up to $10,000.\nSTANDARD_REVIEW: covered cause, no conflicting facts, amount over $10,000 and up to $50,000.\nSENIOR_REVIEW: amount over $50,000.\nREFER_ADJUSTER: two sources disagree on a material fact (date of loss, cause or amount). Do not auto-decide; send to a human adjuster and name the conflict.\nDENY: an excluded cause, confirmed by consistent sources.\nRULE CHECK (Semantica Reasoner): route REFER_ADJUSTER. Given the premises: Conflict(CLM-2603, date_of_loss), we conclude: Route(CLM-2603, REFER_ADJUSTER) using rule 'Rule 1'.",
+ "raw": "{\n  \"route\": \"REFER_ADJUSTER\",\n  \"rationale\": \"There is a conflict regarding the date of loss, which requires expert review and cannot be auto-decided.\",\n  \"cited\": [\"F09\", \"F10\"],\n  \"conflicts\": [\n    {\n      \"property\": \"date_of_loss\",\n      \"values\": [\"2026-08-28\", \"2026-07-25\"]\n    }\n  ]\n}",
+ "answer": {
+  "route": "REFER_ADJUSTER",
+  "rationale": "There is a conflict regarding the date of loss, which requires expert review and cannot be auto-decided.",
+  "cited": [
+   "F09",
+   "F10"
+  ],
+  "conflicts": [
+   {
+    "property": "date_of_loss",
+    "values": [
+     "2026-08-28",
+     "2026-07-25"
+    ]
+   }
+  ],
+  "final_route": "REFER_ADJUSTER"
+ },
+ "guard": "",
+ "grade": {
+  "route_ok": true,
+  "cite_ok": true,
+  "conf_ok": true,
+  "bad_cites": [],
+  "expected": "REFER_ADJUSTER",
+  "score": 3
+ },
+ "seconds": 23.4,
+ "usage": {
+  "completion_tokens": 105,
+  "prompt_tokens": 850,
+  "total_tokens": 955,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  }
+ },
+ "decision_id": "DEC-2603-273932"
+}

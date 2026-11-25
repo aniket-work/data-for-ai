@@ -1,0 +1,86 @@
+{
+ "rag": [
+  {
+   "claim": "CLM-2601",
+   "route": "STANDARD_REVIEW",
+   "route_ok": false,
+   "cite_ok": true,
+   "conf_ok": true,
+   "score": 2
+  },
+  {
+   "claim": "CLM-2602",
+   "route": "DENY",
+   "route_ok": false,
+   "cite_ok": false,
+   "conf_ok": true,
+   "score": 1
+  },
+  {
+   "claim": "CLM-2603",
+   "route": "FAST_TRACK",
+   "route_ok": false,
+   "cite_ok": true,
+   "conf_ok": false,
+   "score": 1
+  },
+  {
+   "claim": "CLM-2604",
+   "route": "DENY",
+   "route_ok": false,
+   "cite_ok": false,
+   "conf_ok": false,
+   "score": 0
+  },
+  {
+   "claim": "CLM-2605",
+   "route": "STANDARD_REVIEW",
+   "route_ok": true,
+   "cite_ok": true,
+   "conf_ok": true,
+   "score": 3
+  }
+ ],
+ "semantica": [
+  {
+   "claim": "CLM-2601",
+   "route": "FAST_TRACK",
+   "route_ok": true,
+   "cite_ok": true,
+   "conf_ok": true,
+   "score": 3
+  },
+  {
+   "claim": "CLM-2602",
+   "route": "FAST_TRACK",
+   "route_ok": true,
+   "cite_ok": true,
+   "conf_ok": true,
+   "score": 3
+  },
+  {
+   "claim": "CLM-2603",
+   "route": "REFER_ADJUSTER",
+   "route_ok": true,
+   "cite_ok": true,
+   "conf_ok": true,
+   "score": 3
+  },
+  {
+   "claim": "CLM-2604",
+   "route": "REFER_ADJUSTER",
+   "route_ok": true,
+   "cite_ok": true,
+   "conf_ok": true,
+   "score": 3
+  },
+  {
+   "claim": "CLM-2605",
+   "route": "STANDARD_REVIEW",
+   "route_ok": true,
+   "cite_ok": true,
+   "conf_ok": true,
+   "score": 3
+  }
+ ]
+}

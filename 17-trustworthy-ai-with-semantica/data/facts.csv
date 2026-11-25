@@ -1,0 +1,21 @@
+fact_id,claim_id,property,value,source_doc,location,quote
+F01,CLM-2601,date_of_loss,2026-09-28,FNOL-2601,call note,supply line burst on 2026-09-28
+F02,CLM-2601,date_of_loss,2026-09-28,ADJ-2601,field report,Date of loss 2026-09-28 confirmed
+F03,CLM-2601,cause,sudden_escape,ADJ-2601,field report,sudden failure of braided supply line
+F04,CLM-2601,amount,7850,ADJ-2601,field report,"Damage estimate $7,850"
+F05,CLM-2602,date_of_loss,2026-08-19,FNOL-2602,call note,during the storm on 2026-08-19
+F06,CLM-2602,date_of_loss,2026-08-19,ADJ-2602,field report,Date of loss 2026-08-19 confirmed
+F07,CLM-2602,cause,sewer_backup,ADJ-2602,field report,municipal sewer backup through the floor drain
+F08,CLM-2602,amount,9400,ADJ-2602,field report,"Damage estimate $9,400"
+F09,CLM-2603,date_of_loss,2026-08-28,FNOL-2603,call note,discovered on 2026-08-28
+F10,CLM-2603,date_of_loss,2026-07-25,INV-2603,invoice note,first noticed around 2026-07-25
+F11,CLM-2603,cause,sudden_escape,ADJ-2603,field report,leaking vanity drain connection
+F12,CLM-2603,amount,6300,ADJ-2603,field report,"Damage estimate $6,300"
+F13,CLM-2604,date_of_loss,2026-09-14,FNOL-2604,call note,burst suddenly on 2026-09-14
+F14,CLM-2604,cause,sudden_escape,FNOL-2604,call note,a pipe under the laundry room floor burst suddenly
+F15,CLM-2604,cause,gradual_seepage,ADJ-2604,field report,consistent with gradual seepage over several months
+F16,CLM-2604,amount,18700,ADJ-2604,field report,"Damage estimate $18,700"
+F17,CLM-2605,date_of_loss,2026-10-02,FNOL-2605,call note,supply hose split on 2026-10-02
+F18,CLM-2605,date_of_loss,2026-10-02,ADJ-2605,field report,Date of loss 2026-10-02 confirmed
+F19,CLM-2605,cause,sudden_escape,ADJ-2605,field report,sudden split of the dishwasher supply hose
+F20,CLM-2605,amount,14600,ADJ-2605,field report,"Damage estimate $14,600"

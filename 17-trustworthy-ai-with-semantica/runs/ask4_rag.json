@@ -1,0 +1,54 @@
+{
+ "n": 4,
+ "claim": "CLM-2604",
+ "mode": "rag",
+ "model": "qwen2.5-7b-instruct-q4_k_m",
+ "seed": 42,
+ "temperature": 0,
+ "prompt_sha256": "f4dfc370906316548b3fa49f8d080de7cacac09c6e04b114e4f2f62c70ad82bf",
+ "system": "You are a home-insurance claims triage assistant. Decide the route for the claim using only the retrieved context. Return JSON only: {\"route\": one of FAST_TRACK, STANDARD_REVIEW, SENIOR_REVIEW, REFER_ADJUSTER, DENY, \"rationale\": \"two sentences\", \"cited\": [ids of the sources you used], \"conflicts\": [{\"property\": \"date_of_loss|cause|amount\", \"values\": [..]}] or []}",
+ "user": "Claim CLM-2604. Triage date 2026-10-20.\nRETRIEVED CONTEXT:\n[ADJ-2604] Inspected 2026-09-17. Subfloor rot and mould consistent with gradual seepage over several months, not a sudden burst. Date of loss reported 2026-09-14. Damage estimate $18,700.\n[FNOL-2604] Policy HP-47731. Caller says a pipe under the laundry room floor burst suddenly on 2026-09-14.\n[WORD-2026#4.4] 4.4 Policy period. The loss must begin during the policy period. Damage that began before the policy start date is excluded.\n[WORD-2025#4.2] 4.2 Sewer backup. Water that backs up through a sewer, floor drain or sump is EXCLUDED.\n[WORD-2026#4.3] 4.3 Gradual seepage. Continuous or repeated seepage or leakage over 14 days or more is excluded.\n[WORD-2025#4.3] 4.3 Gradual seepage. Continuous or repeated seepage or leakage over 14 days or more is excluded.\n\nWhich route?",
+ "raw": "{\"route\": \"DENY\", \"rationale\": \"The damage is due to gradual seepage, which is excluded under the policy, and the date of loss reported does not match the inspection findings.\", \"cited\": [\"ADJ-2604\", \"WORD-2026#4.3\", \"WORD-2025#4.3\"], \"conflicts\": [{\"property\": \"date_of_loss|cause|amount\", \"values\": [\"2026-09-14|gradual seepage|18700\", \"2026-09-14|sudden burst|18700\"]}]}",
+ "answer": {
+  "route": "DENY",
+  "rationale": "The damage is due to gradual seepage, which is excluded under the policy, and the date of loss reported does not match the inspection findings.",
+  "cited": [
+   "ADJ-2604",
+   "WORD-2026#4.3",
+   "WORD-2025#4.3"
+  ],
+  "conflicts": [
+   {
+    "property": "date_of_loss|cause|amount",
+    "values": [
+     "2026-09-14|gradual seepage|18700",
+     "2026-09-14|sudden burst|18700"
+    ]
+   }
+  ],
+  "final_route": "DENY"
+ },
+ "guard": "",
+ "grade": {
+  "route_ok": false,
+  "cite_ok": false,
+  "conf_ok": false,
+  "bad_cites": [
+   [
+    "WORD-2025#4.3",
+    "not in force on 2026-09-14"
+   ]
+  ],
+  "expected": "REFER_ADJUSTER",
+  "score": 0
+ },
+ "seconds": 24.5,
+ "usage": {
+  "completion_tokens": 147,
+  "prompt_tokens": 411,
+  "total_tokens": 558,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  }
+ }
+}
