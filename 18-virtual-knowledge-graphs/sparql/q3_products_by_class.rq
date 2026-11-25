@@ -1,0 +1,3 @@
+# No mapping says "Product". The ontology says Tent, Backpack, Stove and Sleeping bag are Products, and Ontop reasons it.
+PREFIX : <http://alderfinch.example/ontology#>
+SELECT (COUNT(DISTINCT ?p) AS ?products) WHERE { ?p a :Product . }

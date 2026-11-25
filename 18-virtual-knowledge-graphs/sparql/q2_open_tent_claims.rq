@@ -1,0 +1,8 @@
+# Which suppliers have tents with warranty claims open for more than 14 days, and how many customers are waiting?
+PREFIX :    <http://alderfinch.example/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?supplier (COUNT(DISTINCT ?claim) AS ?openClaims) (COUNT(DISTINCT ?customer) AS ?customers) WHERE {
+  ?claim a :OpenClaim ; :claimFor ?tent ; :openedAt ?opened ; :fromOrder/:placedBy ?customer .
+  ?tent a :Tent ; :suppliedBy/:name ?supplier .
+  FILTER (?opened < "2026-11-06T09:00:00"^^xsd:dateTime)
+} GROUP BY ?supplier ORDER BY DESC(?openClaims)

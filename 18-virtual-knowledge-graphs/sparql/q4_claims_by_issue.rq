@@ -1,0 +1,7 @@
+# Open claims by product type and issue code, across the service desk and the ERP.
+PREFIX : <http://alderfinch.example/ontology#>
+SELECT ?type (COUNT(?claim) AS ?open) WHERE {
+  ?claim a :OpenClaim ; :claimFor ?p .
+  VALUES (?cls ?type) { (:Tent "Tent") (:Backpack "Backpack") (:Stove "Stove") (:SleepingBag "Sleeping bag") }
+  ?p a ?cls .
+} GROUP BY ?type ORDER BY DESC(?open)

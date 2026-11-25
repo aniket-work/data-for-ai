@@ -1,0 +1,4 @@
+# Ontop -> Microsoft Fabric Warehouse / SQL analytics endpoint (T-SQL over TDS). Fill in your own values; never commit them.
+jdbc.url=jdbc:sqlserver://<your-sql-endpoint>:1433;database=<your-warehouse>;encrypt=true;authentication=ActiveDirectoryInteractive
+jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
+# put mssql-jdbc (and msal4j for Entra sign-in) into ontop-cli/jdbc/

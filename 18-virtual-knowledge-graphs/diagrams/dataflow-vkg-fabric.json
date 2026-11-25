@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "A Virtual Knowledge Graph over Microsoft Fabric", "output": "diagrams/dataflow-vkg-fabric.html",
+            "animation": "trace", "visual_preset": "signal-flow", "quality_profile": "showcase" },
+  "stages": [ { "label": "OneLake" }, { "label": "SQL endpoint" }, { "label": "VKG" }, { "label": "Consumers" } ],
+  "nodes": [
+    { "id": "lh", "type": "database", "label": "Lakehouse", "sublabel": "Delta tables", "stage": 0, "row": 0 },
+    { "id": "wh", "type": "database", "label": "Warehouse", "sublabel": "tables", "stage": 0, "row": 2 },
+    { "id": "tds", "type": "backend", "label": "T-SQL over TDS", "sublabel": "port 1433", "stage": 1, "row": 1, "tag": "Entra ID" },
+    { "id": "ontop", "type": "backend", "label": "Ontop", "sublabel": "same mapping", "stage": 2, "row": 1, "tag": "SQL Server dialect" },
+    { "id": "agent", "type": "frontend", "label": "AI agent", "sublabel": "SPARQL", "stage": 3, "row": 0 },
+    { "id": "kgapp", "type": "frontend", "label": "Graph apps", "sublabel": "SPARQL", "stage": 3, "row": 2 }
+  ],
+  "flows": [
+    { "from": "lh", "to": "tds", "label": "read-only", "variant": "emphasis" },
+    { "from": "wh", "to": "tds", "label": "tables", "variant": "emphasis" },
+    { "from": "tds", "to": "ontop", "label": "SQL", "variant": "emphasis", "route": "straight" },
+    { "from": "ontop", "to": "agent", "label": "answers", "variant": "default" },
+    { "from": "ontop", "to": "kgapp", "label": "answers", "variant": "default" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Stays in Fabric", "items": ["Data never leaves OneLake", "Fabric security still applies"] },
+    { "dot": "amber", "title": "Not executed here", "items": ["No Fabric capacity used", "Test the SQL on your endpoint"] }
+  ]
+}

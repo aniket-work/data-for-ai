@@ -156,6 +156,10 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
     <td><a href="https://youtu.be/6Lx4JSycNIc"><img src="assets/readme/thumbnails/17-trustworthy-ai-with-semantica.jpg" alt="Video 17 thumbnail" width="100%"></a></td>
     <td><b>17 · Trustworthy AI with Semantica: Every Fact Cited, Every Decision Replayable</b><br><sub>Track B · Python · Semantica · llama.cpp · ~11 min</sub><br><br>A fictional home insurer triages five water-damage claims with the same local model two ways: plain RAG over the documents, and a Semantica-backed agent with provenance for every fact, conflict checks, policy versions in force, a rules check, a guardrail and a hash-chained audit record. Score: plain RAG 7/15, Semantica-backed 15/15, then tamper with the store and export the trail as PROV-O and tables for a Fabric lakehouse.<br><br>📁 <a href="17-trustworthy-ai-with-semantica/">17-trustworthy-ai-with-semantica</a> · ▶️ <a href="https://youtu.be/6Lx4JSycNIc">Watch on YouTube</a></td>
   </tr>
+  <tr>
+    <td><a href="18-virtual-knowledge-graphs/"><img src="assets/readme/thumbnails/18-virtual-knowledge-graphs.jpg" alt="Video 18 thumbnail" width="100%"></a></td>
+    <td><b>18 · Virtual Knowledge Graphs: Query Live Tables as a Graph, No Copy</b><br><sub>Track B · Ontop · SPARQL · PostgreSQL · ~11 min</sub><br><br>Give a fictional outdoor retailer's three legacy systems business meaning with an OWL 2 QL ontology and 13 mappings, then let Ontop rewrite SPARQL into one SQL query over the live tables, reasoning included. Measured against an ETL copy into a triple store: 235 MB copied vs nothing stored, stale vs live after 26 changes, and a renamed column fixed in two mapping lines. Plus how the same mapping points at a Microsoft Fabric Warehouse or SQL analytics endpoint.<br><br>📁 <a href="18-virtual-knowledge-graphs/">18-virtual-knowledge-graphs</a> · ▶️ Coming soon</td>
+  </tr>
 </table>
 
 <details>
@@ -178,6 +182,7 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 | 13 | Why your AI agent doesn't understand your business: context engineering with a raw schema, a curated context layer and context pollution, scored | [13-context-engineering-for-ai-agents](13-context-engineering-for-ai-agents/) | [Watch](https://youtu.be/rOq6GO1ihqg) |
 | 16 | Context graphs for AI agents, hands-on: decision traces an agent can query, plain RAG vs a context graph on the same local model, plus a Microsoft Fabric graph export | [16-context-graphs-for-ai-agents](16-context-graphs-for-ai-agents/) | [Watch](https://youtu.be/zbb1ywHqW2A) |
 | 17 | Trustworthy AI with Semantica, hands-on: provenance for every fact, conflict checks, policy versions, a guardrail and a hash-chained audit trail, plain RAG vs Semantica on the same local model | [17-trustworthy-ai-with-semantica](17-trustworthy-ai-with-semantica/) | [Watch](https://youtu.be/6Lx4JSycNIc) |
+| 18 | Virtual knowledge graphs, hands-on with Ontop: an ontology and mappings over live PostgreSQL tables, SPARQL rewritten to SQL, measured against an ETL copy into a triple store, plus a Microsoft Fabric tie-in | [18-virtual-knowledge-graphs](18-virtual-knowledge-graphs/) | Coming soon |
 
 </details>
 
@@ -210,11 +215,12 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 - Folder 12 also reuses the folder 10 warehouse, installs Cube Core from npm (Node.js 20+, no Docker) and calls the same kind of local model through an MCP server; it runs on Python 3.12
 - Folder 13 calls a local model (the video uses llama.cpp with Qwen2.5-Coder-3B-Instruct) through any OpenAI-compatible API
 - Folders 16 and 17 call a local model (the videos use llama.cpp with Qwen2.5-7B-Instruct Q4_K_M) through any OpenAI-compatible API; folder 17 installs Semantica 0.7.0 from PyPI
+- Folder 18 also needs PostgreSQL (a local Docker container works), Java 17+ and the Ontop 5.5 CLI; its README shows how
 - Apart from folders 11, 12, 13, 16 and 17, no LLM is called; no paid API key is needed anywhere
 
 ```bash
 git clone https://github.com/aniket-work/data-for-ai.git
-cd data-for-ai/05-context-layers-for-ai    # or any folder from 03 to 08, or 10 to 17
+cd data-for-ai/05-context-layers-for-ai    # or any folder from 03 to 08, or 10 to 18
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 # then follow the folder's README

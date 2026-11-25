@@ -1,0 +1,5 @@
+# Every tent, with its supplier. "Tent" lives in the ontology, not in the database.
+PREFIX : <http://alderfinch.example/ontology#>
+SELECT ?product ?supplier WHERE {
+  ?p a :Tent ; :name ?product ; :suppliedBy/:name ?supplier .
+} ORDER BY ?supplier ?product

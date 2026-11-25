@@ -1,0 +1,5 @@
+copy/
+export/
+runs/endpoint.log
+runs/*.bak
+__pycache__/

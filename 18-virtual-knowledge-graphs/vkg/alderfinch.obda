@@ -1,0 +1,58 @@
+[PrefixDeclaration]
+:		http://alderfinch.example/ontology#
+d:		http://alderfinch.example/data/
+xsd:		http://www.w3.org/2001/XMLSchema#
+
+[MappingDeclaration] @collection [[
+mappingId	customers
+target		d:customer/{cst_id} a :Customer ; :region {rgn_cd}^^xsd:string ; :tier {tier} .
+source		SELECT cst_id, rgn_cd, CASE tier_cd WHEN 'G' THEN 'Gold' WHEN 'S' THEN 'Silver' ELSE 'Bronze' END AS tier FROM crm.cst_mstr
+
+mappingId	suppliers
+target		d:supplier/{sup_id} a :Supplier ; :name {sup_nm}^^xsd:string ; :country {ctry_cd}^^xsd:string .
+source		SELECT sup_id, sup_nm, ctry_cd FROM erp.sup_mstr
+
+mappingId	products
+target		d:product/{sku} :name {prd_desc}^^xsd:string ; :listPrice {list_px}^^xsd:decimal ; :suppliedBy d:supplier/{sup_id} .
+source		SELECT sku, prd_desc, list_px, sup_id FROM erp.prd_mstr
+
+mappingId	tents
+target		d:product/{sku} a :Tent .
+source		SELECT sku FROM erp.prd_mstr WHERE cat_cd = 'TNT'
+
+mappingId	backpacks
+target		d:product/{sku} a :Backpack .
+source		SELECT sku FROM erp.prd_mstr WHERE cat_cd = 'PCK'
+
+mappingId	stoves
+target		d:product/{sku} a :Stove .
+source		SELECT sku FROM erp.prd_mstr WHERE cat_cd = 'STV'
+
+mappingId	sleeping-bags
+target		d:product/{sku} a :SleepingBag .
+source		SELECT sku FROM erp.prd_mstr WHERE cat_cd = 'SLB'
+
+mappingId	orders
+target		d:order/{ord_no} a :Order ; :placedBy d:customer/{cst_id} ; :orderDate {ord_dt}^^xsd:date ; :channel {chnl_cd}^^xsd:string .
+source		SELECT ord_no, cst_id, ord_dt, chnl_cd FROM erp.ord_hdr
+
+mappingId	order-lines
+target		d:order/{ord_no}/line/{ln_no} a :OrderLine ; :ofProduct d:product/{sku} ; :quantity {qty}^^xsd:integer ; :unitPrice {unit_px}^^xsd:decimal .
+source		SELECT ord_no, ln_no, sku, qty, unit_px FROM erp.ord_ln
+
+mappingId	order-has-line
+target		d:order/{ord_no} :hasLine d:order/{ord_no}/line/{ln_no} .
+source		SELECT ord_no, ln_no FROM erp.ord_ln
+
+mappingId	claims
+target		d:claim/{tkt_id} a :WarrantyClaim ; :claimFor d:product/{sku} ; :fromOrder d:order/{ord_no} ; :openedAt {opn_ts}^^xsd:dateTime ; :status {status} ; :issue {iss_cd}^^xsd:string .
+source		SELECT tkt_id, sku, ord_no, opn_ts, iss_cd, CASE sts_cd WHEN 'O' THEN 'open' WHEN 'W' THEN 'waiting-on-customer' ELSE 'closed' END AS status FROM svc.wrty_tkt
+
+mappingId	claims-closed-at
+target		d:claim/{tkt_id} :closedAt {cls_ts}^^xsd:dateTime .
+source		SELECT tkt_id, cls_ts FROM svc.wrty_tkt WHERE cls_ts IS NOT NULL
+
+mappingId	open-claims
+target		d:claim/{tkt_id} a :OpenClaim .
+source		SELECT tkt_id FROM svc.wrty_tkt WHERE sts_cd = 'O'
+]]

@@ -1,0 +1,7 @@
+# Claims opened after the lesson's data snapshot (2026-11-20 09:00). Zero until the service desk logs a new one.
+PREFIX :    <http://alderfinch.example/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT (COUNT(?claim) AS ?newClaims) WHERE {
+  ?claim a :WarrantyClaim ; :openedAt ?opened .
+  FILTER (?opened > "2026-11-20T09:00:00"^^xsd:dateTime)
+}

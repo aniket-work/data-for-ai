@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "How a Virtual Knowledge Graph Answers a Question", "output": "diagrams/dataflow-vkg-rewrite.html",
+            "animation": "trace", "visual_preset": "signal-flow", "quality_profile": "showcase" },
+  "stages": [ { "label": "Ask" }, { "label": "Ontop" }, { "label": "Database" }, { "label": "Answer" } ],
+  "nodes": [
+    { "id": "app", "type": "frontend", "label": "App or agent", "sublabel": "SPARQL query", "stage": 0, "row": 1 },
+    { "id": "ont", "type": "external", "label": "Ontology", "sublabel": "business terms", "stage": 0, "row": 0, "tag": "OWL 2 QL" },
+    { "id": "map", "type": "external", "label": "Mappings", "sublabel": "terms to SQL", "stage": 0, "row": 2, "tag": "R2RML / OBDA" },
+    { "id": "rw", "type": "backend", "label": "Rewrite", "sublabel": "reason + unfold", "stage": 1, "row": 1, "tag": "no copy" },
+    { "id": "db", "type": "database", "label": "Live tables", "sublabel": "PostgreSQL", "stage": 2, "row": 1 },
+    { "id": "res", "type": "frontend", "label": "Results", "sublabel": "as RDF terms", "stage": 3, "row": 1 }
+  ],
+  "flows": [
+    { "from": "app", "to": "rw", "label": "SPARQL", "variant": "emphasis", "route": "straight" },
+    { "from": "ont", "to": "rw", "label": "axioms", "variant": "default" },
+    { "from": "map", "to": "rw", "label": "rules", "variant": "default" },
+    { "from": "rw", "to": "db", "label": "one SQL query", "variant": "emphasis", "route": "straight" },
+    { "from": "db", "to": "res", "label": "rows", "variant": "emphasis", "route": "straight" }
+  ],
+  "cards": [
+    { "dot": "amber", "title": "At query time", "items": ["Ontology expands Tent to Product", "Mapping turns terms into joins"] },
+    { "dot": "emerald", "title": "Nothing stored", "items": ["No triples written anywhere", "Answers reflect the live rows"] }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+ "q1": {
+  "rows": [
+   [
+    "Ridgeline 2P Tent",
+    "Ridgeway Shelter Works"
+   ],
+   [
+    "Ridgeline 3P Tent",
+    "Ridgeway Shelter Works"
+   ],
+   [
+    "Summit Dome 2P",
+    "Ridgeway Shelter Works"
+   ],
+   [
+    "Summit Dome 4P",
+    "Ridgeway Shelter Works"
+   ],
+   [
+    "Basecamp 6P",
+    "Tallgrass Shelters"
+   ],
+   [
+    "Bivy Lite 1P",
+    "Tallgrass Shelters"
+   ],
+   [
+    "Prairie Trek 2P",
+    "Tallgrass Shelters"
+   ],
+   [
+    "Prairie Trek 3P",
+    "Tallgrass Shelters"
+   ]
+  ],
+  "ms": 7.4
+ },
+ "q2": {
+  "rows": [
+   [
+    "Ridgeway Shelter Works",
+    "354",
+    "343"
+   ],
+   [
+    "Tallgrass Shelters",
+    "14",
+    "14"
+   ]
+  ],
+  "ms": 10.2
+ },
+ "q3": {
+  "rows": [
+   [
+    "34"
+   ]
+  ],
+  "ms": 6.7
+ }
+}

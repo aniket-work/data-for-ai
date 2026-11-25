@@ -1,0 +1,275 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix : <http://alderfinch.example/ontology#> .
+@prefix d: <http://alderfinch.example/data/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix obda: <https://w3id.org/obda/vocabulary#> .
+
+<urn:r2rml:customers> a rr:TriplesMap;
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:TermMap, rr:ObjectMap;
+          rr:termType rr:Literal;
+          rr:column "tier"
+        ];
+      rr:predicate :tier
+    ], [ a rr:PredicateObjectMap;
+      rr:predicate :region;
+      rr:objectMap [ a rr:TermMap, rr:ObjectMap;
+          rr:datatype xsd:string;
+          rr:termType rr:Literal;
+          rr:column "rgn_cd"
+        ]
+    ];
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "SELECT cst_id, rgn_cd, CASE tier_cd WHEN 'G' THEN 'Gold' WHEN 'S' THEN 'Silver' ELSE 'Bronze' END AS tier FROM crm.cst_mstr"
+    ];
+  rr:subjectMap [ a rr:TermMap, rr:SubjectMap;
+      rr:class :Customer;
+      rr:template "http://alderfinch.example/data/customer/{cst_id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:r2rml:suppliers> a rr:TriplesMap;
+  rr:subjectMap [ a rr:TermMap, rr:SubjectMap;
+      rr:termType rr:IRI;
+      rr:template "http://alderfinch.example/data/supplier/{sup_id}";
+      rr:class :Supplier
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:termType rr:Literal;
+          rr:datatype xsd:string;
+          rr:column "ctry_cd"
+        ];
+      rr:predicate :country
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:termType rr:Literal;
+          rr:datatype xsd:string;
+          rr:column "sup_nm"
+        ];
+      rr:predicate :name
+    ];
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "SELECT sup_id, sup_nm, ctry_cd FROM erp.sup_mstr"
+    ] .
+
+<urn:r2rml:products> a rr:TriplesMap;
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:termType rr:IRI;
+          rr:template "http://alderfinch.example/data/supplier/{sup_id}"
+        ];
+      rr:predicate :suppliedBy
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:datatype xsd:decimal;
+          rr:termType rr:Literal;
+          rr:column "list_px"
+        ];
+      rr:predicate :listPrice
+    ], [ a rr:PredicateObjectMap;
+      rr:predicate :name;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "prd_desc";
+          rr:termType rr:Literal;
+          rr:datatype xsd:string
+        ]
+    ];
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "SELECT sku, prd_desc, list_px, sup_id FROM erp.prd_mstr"
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:termType rr:IRI;
+      rr:template "http://alderfinch.example/data/product/{sku}"
+    ] .
+
+<urn:r2rml:tents> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "SELECT sku FROM erp.prd_mstr WHERE cat_cd = 'TNT'"
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:template "http://alderfinch.example/data/product/{sku}";
+      rr:class :Tent;
+      rr:termType rr:IRI
+    ] .
+
+<urn:r2rml:backpacks> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "SELECT sku FROM erp.prd_mstr WHERE cat_cd = 'PCK'"
+    ];
+  rr:subjectMap [ a rr:TermMap, rr:SubjectMap;
+      rr:termType rr:IRI;
+      rr:template "http://alderfinch.example/data/product/{sku}";
+      rr:class :Backpack
+    ] .
+
+<urn:r2rml:stoves> a rr:TriplesMap;
+  rr:subjectMap [ a rr:TermMap, rr:SubjectMap;
+      rr:termType rr:IRI;
+      rr:template "http://alderfinch.example/data/product/{sku}";
+      rr:class :Stove
+    ];
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "SELECT sku FROM erp.prd_mstr WHERE cat_cd = 'STV'"
+    ] .
+
+<urn:r2rml:sleeping-bags> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "SELECT sku FROM erp.prd_mstr WHERE cat_cd = 'SLB'"
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:termType rr:IRI;
+      rr:class :SleepingBag;
+      rr:template "http://alderfinch.example/data/product/{sku}"
+    ] .
+
+<urn:r2rml:orders> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "SELECT ord_no, cst_id, ord_dt, chnl_cd FROM erp.ord_hdr"
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:predicate :orderDate;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:datatype xsd:date;
+          rr:termType rr:Literal;
+          rr:column "ord_dt"
+        ]
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:termType rr:Literal;
+          rr:column "chnl_cd";
+          rr:datatype xsd:string
+        ];
+      rr:predicate :channel
+    ], [ a rr:PredicateObjectMap;
+      rr:predicate :placedBy;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:termType rr:IRI;
+          rr:template "http://alderfinch.example/data/customer/{cst_id}"
+        ]
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:termType rr:IRI;
+      rr:template "http://alderfinch.example/data/order/{ord_no}";
+      rr:class :Order
+    ] .
+
+<urn:r2rml:order-lines> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "SELECT ord_no, ln_no, sku, qty, unit_px FROM erp.ord_ln"
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :OrderLine;
+      rr:termType rr:IRI;
+      rr:template "http://alderfinch.example/data/order/{ord_no}/line/{ln_no}"
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:predicate :ofProduct;
+      rr:objectMap [ a rr:TermMap, rr:ObjectMap;
+          rr:template "http://alderfinch.example/data/product/{sku}";
+          rr:termType rr:IRI
+        ]
+    ], [ a rr:PredicateObjectMap;
+      rr:predicate :quantity;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:termType rr:Literal;
+          rr:column "qty";
+          rr:datatype xsd:integer
+        ]
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:termType rr:Literal;
+          rr:datatype xsd:decimal;
+          rr:column "unit_px"
+        ];
+      rr:predicate :unitPrice
+    ] .
+
+<urn:r2rml:order-has-line> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "SELECT ord_no, ln_no FROM erp.ord_ln"
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:predicate :hasLine;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:termType rr:IRI;
+          rr:template "http://alderfinch.example/data/order/{ord_no}/line/{ln_no}"
+        ]
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:termType rr:IRI;
+      rr:template "http://alderfinch.example/data/order/{ord_no}"
+    ] .
+
+<urn:r2rml:claims> a rr:TriplesMap;
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:predicate :issue;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:termType rr:Literal;
+          rr:datatype xsd:string;
+          rr:column "iss_cd"
+        ]
+    ], [ a rr:PredicateObjectMap;
+      rr:predicate :status;
+      rr:objectMap [ a rr:TermMap, rr:ObjectMap;
+          rr:column "status";
+          rr:termType rr:Literal
+        ]
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:termType rr:Literal;
+          rr:datatype xsd:dateTime;
+          rr:column "opn_ts"
+        ];
+      rr:predicate :openedAt
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:termType rr:IRI;
+          rr:template "http://alderfinch.example/data/order/{ord_no}"
+        ];
+      rr:predicate :fromOrder
+    ], [ a rr:PredicateObjectMap;
+      rr:predicate :claimFor;
+      rr:objectMap [ a rr:TermMap, rr:ObjectMap;
+          rr:template "http://alderfinch.example/data/product/{sku}";
+          rr:termType rr:IRI
+        ]
+    ];
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "SELECT tkt_id, sku, ord_no, opn_ts, iss_cd, CASE sts_cd WHEN 'O' THEN 'open' WHEN 'W' THEN 'waiting-on-customer' ELSE 'closed' END AS status FROM svc.wrty_tkt"
+    ];
+  rr:subjectMap [ a rr:TermMap, rr:SubjectMap;
+      rr:template "http://alderfinch.example/data/claim/{tkt_id}";
+      rr:class :WarrantyClaim;
+      rr:termType rr:IRI
+    ] .
+
+<urn:r2rml:claims-closed-at> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "SELECT tkt_id, cls_ts FROM svc.wrty_tkt WHERE cls_ts IS NOT NULL"
+    ];
+  rr:subjectMap [ a rr:TermMap, rr:SubjectMap;
+      rr:termType rr:IRI;
+      rr:template "http://alderfinch.example/data/claim/{tkt_id}"
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:predicate :closedAt;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:datatype xsd:dateTime;
+          rr:column "cls_ts";
+          rr:termType rr:Literal
+        ]
+    ] .
+
+<urn:r2rml:open-claims> a rr:TriplesMap;
+  rr:subjectMap [ a rr:TermMap, rr:SubjectMap;
+      rr:class :OpenClaim;
+      rr:template "http://alderfinch.example/data/claim/{tkt_id}";
+      rr:termType rr:IRI
+    ];
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "SELECT tkt_id FROM svc.wrty_tkt WHERE sts_cd = 'O'"
+    ] .

@@ -1,0 +1,22 @@
+{
+ "q1": {
+  "vkg_ms": 5.9,
+  "copy_ms": 0.4,
+  "same": true
+ },
+ "q2": {
+  "vkg_ms": 7.6,
+  "copy_ms": 36.0,
+  "same": true
+ },
+ "q3": {
+  "vkg_ms": 5.0,
+  "copy_ms": 0.1,
+  "same": true
+ },
+ "q4": {
+  "vkg_ms": 7.2,
+  "copy_ms": 14.6,
+  "same": true
+ }
+}

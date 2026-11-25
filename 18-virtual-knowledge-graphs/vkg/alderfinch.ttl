@@ -1,0 +1,41 @@
+@prefix :     <http://alderfinch.example/ontology#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# Business vocabulary for the fictional Alder & Finch Outdoor (OWL 2 QL, so Ontop can rewrite queries to SQL).
+<http://alderfinch.example/ontology> a owl:Ontology ;
+    rdfs:label "Alder & Finch Outdoor business ontology" .
+
+:Customer      a owl:Class ; rdfs:label "Customer" .
+:Order         a owl:Class ; rdfs:label "Order" .
+:OrderLine     a owl:Class ; rdfs:label "Order line" .
+:Supplier      a owl:Class ; rdfs:label "Supplier" .
+:Product       a owl:Class ; rdfs:label "Product" .
+:Tent          a owl:Class ; rdfs:subClassOf :Product ; rdfs:label "Tent" .
+:Backpack      a owl:Class ; rdfs:subClassOf :Product ; rdfs:label "Backpack" .
+:Stove         a owl:Class ; rdfs:subClassOf :Product ; rdfs:label "Stove" .
+:SleepingBag   a owl:Class ; rdfs:subClassOf :Product ; rdfs:label "Sleeping bag" .
+:WarrantyClaim a owl:Class ; rdfs:label "Warranty claim" .
+:OpenClaim     a owl:Class ; rdfs:subClassOf :WarrantyClaim ; rdfs:label "Open warranty claim" .
+
+:placedBy    a owl:ObjectProperty ; rdfs:domain :Order ;         rdfs:range :Customer .
+:hasLine     a owl:ObjectProperty ; rdfs:domain :Order ;         rdfs:range :OrderLine .
+:ofProduct   a owl:ObjectProperty ; rdfs:domain :OrderLine ;     rdfs:range :Product .
+:suppliedBy  a owl:ObjectProperty ; rdfs:domain :Product ;       rdfs:range :Supplier .
+:claimFor    a owl:ObjectProperty ; rdfs:domain :WarrantyClaim ; rdfs:range :Product .
+:fromOrder   a owl:ObjectProperty ; rdfs:domain :WarrantyClaim ; rdfs:range :Order .
+
+:region      a owl:DatatypeProperty ; rdfs:domain :Customer ; rdfs:range xsd:string .
+:tier        a owl:DatatypeProperty ; rdfs:domain :Customer ; rdfs:range xsd:string .
+:orderDate   a owl:DatatypeProperty ; rdfs:domain :Order ;    rdfs:range xsd:date .
+:channel     a owl:DatatypeProperty ; rdfs:domain :Order ;    rdfs:range xsd:string .
+:quantity    a owl:DatatypeProperty ; rdfs:domain :OrderLine ; rdfs:range xsd:integer .
+:unitPrice   a owl:DatatypeProperty ; rdfs:domain :OrderLine ; rdfs:range xsd:decimal .
+:name        a owl:DatatypeProperty ; rdfs:range xsd:string .
+:country     a owl:DatatypeProperty ; rdfs:domain :Supplier ; rdfs:range xsd:string .
+:listPrice   a owl:DatatypeProperty ; rdfs:domain :Product ;  rdfs:range xsd:decimal .
+:openedAt    a owl:DatatypeProperty ; rdfs:domain :WarrantyClaim ; rdfs:range xsd:dateTime .
+:closedAt    a owl:DatatypeProperty ; rdfs:domain :WarrantyClaim ; rdfs:range xsd:dateTime .
+:status      a owl:DatatypeProperty ; rdfs:domain :WarrantyClaim ; rdfs:range xsd:string .
+:issue       a owl:DatatypeProperty ; rdfs:domain :WarrantyClaim ; rdfs:range xsd:string .
