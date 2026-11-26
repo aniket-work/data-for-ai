@@ -168,6 +168,10 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
     <td><a href="https://youtu.be/39KPiE605VU"><img src="assets/readme/thumbnails/20-vector-databases-for-ai.jpg" alt="Video 20 thumbnail" width="100%"></a></td>
     <td><b>20 · Vector Databases for AI: Embeddings, HNSW, Hybrid Search and Local RAG</b><br><sub>Track B · Qdrant · pgvector · DuckDB · llama.cpp · ~10 min</sub><br><br>Turn a fictional bank's policy library into vectors, load it into Qdrant as a single binary (no Docker), and measure every trade-off live: similarity metrics, HNSW, IVF, int8 and product quantization with rescoring, chunking, metadata filters and the post-filter trap, and BM25 + vectors fused with RRF. Hybrid search finds the right page in the top 5 for 94% of questions (keywords 88%, vectors 91%), and a small local model goes from 0/8 to 7/8 correct with retrieval, every answer cited. pgvector and DuckDB vss run on the same 40,000 vectors.<br><br>📁 <a href="20-vector-databases-for-ai/">20-vector-databases-for-ai</a> · ▶️ <a href="https://youtu.be/39KPiE605VU">Watch on YouTube</a></td>
   </tr>
+  <tr>
+    <td><a href="21-banking-ossie-cube-superset/"><img src="assets/readme/thumbnails/21-banking-ossie-cube-superset.jpg" alt="Video 21 thumbnail" width="100%"></a></td>
+    <td><b>21 · Bank KPIs from Apache OSSIE: Cube, ClickHouse and a Live Superset Dashboard</b><br><sub>Track B · Apache Ossie · Cube Core · ClickHouse · Apache Superset · ~11 min</sub><br><br>Start from a finished Apache Ossie package for a fictional bank (semantic model, ontology, mapping, validation) and serve it end to end: the official apache-ossie-cube converter writes the Cube model, ClickHouse holds the data, and Superset shows the OSSIE KPIs next to the ontology's business conditions and violation tiles. Live numbers: deposits 2,062,500, NPL ratio 2.38%, one customer at 50.7% of deposits against a 25% limit. Change one definition in the OSSIE model, regenerate, and the NPL ratio moves to 4.39% with no dashboard edits.<br><br>📁 <a href="21-banking-ossie-cube-superset/">21-banking-ossie-cube-superset</a> · ▶️ Coming soon</td>
+  </tr>
 </table>
 
 <details>
@@ -193,6 +197,7 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 | 18 | Virtual knowledge graphs, hands-on with Ontop: an ontology and mappings over live PostgreSQL tables, SPARQL rewritten to SQL, measured against an ETL copy into a triple store, plus a Microsoft Fabric tie-in | [18-virtual-knowledge-graphs](18-virtual-knowledge-graphs/) | [Watch](https://youtu.be/9TE_qgn4qWE) |
 | 19 | Supply chain semantic model with dbt MetricFlow, hands-on: an Apache Ossie model converted to MetricFlow semantic models, metric queries, saved queries and exports, a dashboard, every metric verified in plain SQL, and a local AI agent answering an SLA question | [19-supply-chain-semantic-model-dbt-metricflow](19-supply-chain-semantic-model-dbt-metricflow/) | [Watch](https://youtu.be/hHz3NcQyBXM) |
 | 20 | Vector databases for AI, hands-on with Qdrant: embeddings, similarity metrics, HNSW, IVF and quantization, chunking, metadata filters, hybrid search with RRF and local RAG with citations, plus pgvector and DuckDB vss on the same vectors | [20-vector-databases-for-ai](20-vector-databases-for-ai/) | [Watch](https://youtu.be/39KPiE605VU) |
+| 21 | Bank KPIs from Apache Ossie, hands-on: an Apache Ossie package converted with the official apache-ossie-cube converter into Cube Core, served from ClickHouse, and shown in an Apache Superset dashboard with the ontology business conditions and violation tiles | [21-banking-ossie-cube-superset](21-banking-ossie-cube-superset/) | Coming soon |
 
 </details>
 

@@ -1,0 +1,32 @@
+{
+  "description": "Expected KPI values derived from OSSIE metric definitions applied to the demo CSVs in data/ (not adapter constants).",
+  "tolerance": 0.0001,
+  "source": "ossie/semantic_model.yaml metrics + seed CSVs",
+  "kpis": {
+    "total_deposits": {
+      "cube": "bank_account",
+      "measure": "total_deposits",
+      "expected": 2062500.0
+    },
+    "npl_principal": {
+      "cube": "loan",
+      "measure": "npl_principal",
+      "expected": 57000.0
+    },
+    "total_loan_principal": {
+      "cube": "loan",
+      "measure": "total_principal",
+      "expected": 2392000.0
+    },
+    "npl_ratio": {
+      "cube": "loan",
+      "measure": "npl_ratio",
+      "expected": 0.023829431438127092
+    },
+    "transaction_volume": {
+      "cube": "transaction",
+      "measure": "transaction_volume",
+      "expected": 375427.54
+    }
+  }
+}

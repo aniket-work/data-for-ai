@@ -1,0 +1,58 @@
+cubes:
+- name: customer
+  sql_table: banking.customers
+  description: A person or organization with an established business relationship.
+  meta:
+    ossie:
+      unique_keys:
+      - - customer_id
+      key_from_unique_keys: true
+  joins:
+  - name: branch
+    sql: '{CUBE}.branch_id = {branch}.branch_code'
+    relationship: many_to_one
+  dimensions:
+  - name: customer_name
+    sql: name
+    type: string
+    description: The customer's name.
+    meta:
+      ossie:
+        no_role: true
+  - name: business_segment
+    sql: segment
+    type: string
+    description: The customer's business segment, such as retail, SMB, wealth, or
+      corporate.
+    meta:
+      ossie:
+        no_role: true
+  - name: relationship_start_date
+    sql: since_date
+    type: time
+    description: 'The date the customer relationship began. — format: YYYY-MM-DD'
+    meta:
+      ossie:
+        no_role: true
+        datatype: Date
+  - name: customer_id
+    sql: customer_id
+    type: string
+    primary_key: true
+    description: The identifier assigned to the customer.
+    meta:
+      ossie:
+        no_role: true
+  - name: customer_status
+    sql: status
+    type: string
+    description: The customer's active or inactive status.
+    meta:
+      ossie:
+        no_role: true
+  - name: branch_id
+    sql: branch_id
+    type: string
+    meta:
+      ossie:
+        no_role: true

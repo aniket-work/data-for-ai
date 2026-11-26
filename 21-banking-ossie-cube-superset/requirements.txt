@@ -1,0 +1,8 @@
+# Runtime helpers for the demo scripts.
+PyYAML>=6.0
+requests>=2.31
+sqlglot>=30.12.0
+# Official Apache Ossie ↔ Cube converter (not yet on PyPI as of this pin).
+# Install from the ASF converters repo subdirectory:
+#   pip install "apache-ossie-cube @ git+https://github.com/apache/ossie-converters.git#subdirectory=cube"
+apache-ossie-cube @ git+https://github.com/apache/ossie-converters.git#subdirectory=cube

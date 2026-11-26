@@ -1,0 +1,162 @@
+cubes:
+- name: loan
+  sql_table: banking.loans
+  description: A sum of money lent to a borrower, with agreed interest and repayment
+    terms.
+  meta:
+    ossie:
+      unique_keys:
+      - - loan_identifier
+  joins:
+  - name: customer
+    sql: '{CUBE}.customer_id = {customer}.customer_id'
+    relationship: many_to_one
+  - name: branch
+    sql: '{CUBE}.branch_id = {branch}.branch_code'
+    relationship: many_to_one
+  dimensions:
+  - name: days_past_due
+    sql: days_past_due
+    type: number
+    description: The number of days the loan is overdue.
+    meta:
+      ossie:
+        no_role: true
+        datatype: Integer
+  - name: maturity_date
+    sql: matures_on
+    type: time
+    description: 'The date the loan reaches maturity. — format: YYYY-MM-DD'
+    meta:
+      ossie:
+        no_role: true
+        datatype: Date
+  - name: interest_rate
+    sql: rate
+    type: number
+    description: The loan's interest rate expressed as a decimal.
+    meta:
+      ossie:
+        no_role: true
+        datatype: Float
+  - name: origination_date
+    sql: originated_on
+    type: time
+    description: 'The date the loan was originated. — format: YYYY-MM-DD'
+    meta:
+      ossie:
+        no_role: true
+        datatype: Date
+  - name: principal_amount
+    sql: principal
+    type: number
+    description: The principal amount of the loan.
+    meta:
+      ossie:
+        no_role: true
+        datatype: Float
+  - name: performance_classification
+    sql: status
+    type: string
+    description: The loan's performance classification, such as performing, non-performing,
+      or watch.
+    meta:
+      ossie:
+        no_role: true
+  - name: loan_identifier
+    sql: loan_id
+    type: string
+    primary_key: true
+    description: The identifier assigned to the loan.
+    meta:
+      ossie:
+        no_role: true
+  - name: is_non_performing_loan
+    sql: npl_flag
+    type: boolean
+    description: Indicates whether the loan is classified as non-performing.
+    meta:
+      ossie:
+        no_role: true
+  - name: customer_id
+    sql: customer_id
+    type: string
+    meta:
+      ossie:
+        no_role: true
+  - name: branch_id
+    sql: branch_id
+    type: string
+    meta:
+      ossie:
+        no_role: true
+  measures:
+  - name: npl_principal
+    sql: CASE WHEN {CUBE.is_non_performing_loan} THEN {CUBE.principal_amount} ELSE
+      0 END
+    type: sum
+    description: Principal of non-performing loans.
+    meta:
+      ai_context: 'Also known as: NPL book, non-performing principal.'
+      ossie:
+        datatype: Float
+        expression:
+          sql: SUM(CASE WHEN loan.is_non_performing_loan THEN loan.principal_amount
+            ELSE 0 END)
+        ai_context:
+          synonyms:
+          - NPL book
+          - non-performing principal
+        model_scoped: true
+        expression_signature: 77ee31858e3e9887cda3e5432aec5f4aa81e48b9a19fa7c8c4df10e989ff3fda
+  - name: npl_ratio
+    sql: SUM(CASE WHEN {CUBE.is_non_performing_loan} THEN {CUBE.principal_amount}
+      ELSE 0 END) / NULLIF(SUM({CUBE.principal_amount}), 0)
+    type: number
+    description: Non-performing loan principal divided by total loan principal.
+    meta:
+      ai_context: |-
+        Ratio in [0, 1]; multiply by 100 only for display as a percent.
+        Also known as: NPL ratio, non-performing loan ratio.
+      ossie:
+        datatype: Float
+        expression:
+          sql: SUM(CASE WHEN loan.is_non_performing_loan THEN loan.principal_amount
+            ELSE 0 END) / NULLIF(SUM(loan.principal_amount), 0)
+        ai_context:
+          instructions: Ratio in [0, 1]; multiply by 100 only for display as a percent.
+          synonyms:
+          - NPL ratio
+          - non-performing loan ratio
+        model_scoped: true
+        expression_signature: dc974644a834119b8114ca96ed60abef1d88ebb022f40d806ea4a57cb4fb5d0f
+  - name: total_principal
+    sql: '{CUBE.principal_amount}'
+    type: sum
+    description: Total loan principal outstanding.
+    meta:
+      ai_context: 'Also known as: loan book principal, total principal.'
+      ossie:
+        datatype: Float
+        expression:
+          sql: SUM(loan.principal_amount)
+        ai_context:
+          synonyms:
+          - loan book principal
+          - total principal
+        model_scoped: true
+        expression_signature: f071c0b0ce0e8948b3190a3ba7515ca802fd4124e74b42a09f074f19f01bbc02
+  - name: npl_book_principal
+    title: Npl Book Principal
+    description: "Principal in the NPL population (flag or days_past_due \u2265 90). (from OSSIE concept NPLClassificationRule)"
+    sql: principal
+    type: sum
+    filters:
+    - sql: "{CUBE}.npl_flag OR {CUBE}.days_past_due >= 90"
+  - name: large_exposure_principal
+    title: Large Exposure Principal
+    description: "Principal on loans at/above the large-exposure threshold. (from OSSIE concept LargeExposureApprovalRule)"
+    sql: principal
+    type: sum
+    filters:
+    - sql: "{CUBE}.principal >= 300000000"

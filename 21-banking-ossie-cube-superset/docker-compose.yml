@@ -1,0 +1,122 @@
+# Banking demo stack
+# OSSIE → Cube → ClickHouse → Superset
+#
+# Host ports:
+#   ClickHouse HTTP  8124
+#   Cube API         4000
+#   Cube SQL API     35432  (Postgres wire; Superset connects here)
+#   Superset UI      8088
+
+name: banking-cube-ossie
+
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.8
+    ports:
+      - "8124:8123"
+      - "9004:9000"
+    environment:
+      CLICKHOUSE_DB: banking
+      CLICKHOUSE_USER: banking
+      CLICKHOUSE_PASSWORD: banking
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1"
+    volumes:
+      - ./clickhouse/init:/docker-entrypoint-initdb.d:ro
+      - ch_data:/var/lib/clickhouse
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "clickhouse-client --user banking --password banking -q 'SELECT 1'",
+        ]
+      interval: 3s
+      timeout: 5s
+      retries: 40
+
+  cube:
+    image: cubejs/cube:latest
+    ports:
+      - "4000:4000"
+      - "35432:15432"
+    environment:
+      CUBEJS_DEV_MODE: "true"
+      CUBEJS_DB_TYPE: clickhouse
+      CUBEJS_DB_HOST: clickhouse
+      CUBEJS_DB_PORT: "8123"
+      CUBEJS_DB_NAME: banking
+      CUBEJS_DB_USER: banking
+      CUBEJS_DB_PASS: banking
+      CUBEJS_API_SECRET: banking_cube_dev_secret
+      CUBEJS_SQL_USER: cube
+      CUBEJS_SQL_PASSWORD: cube
+      CUBEJS_SCHEMA_PATH: model
+      CUBEJS_TELEMETRY: "false"
+    volumes:
+      - ./cube:/cube/conf
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:4000/readyz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 40
+
+  # Superset talks to Cube's SQL API (Postgres protocol on 15432).
+  superset_db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: superset
+      POSTGRES_USER: superset
+      POSTGRES_PASSWORD: superset
+    volumes:
+      - superset_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U superset -d superset"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  superset:
+    image: apache/superset:4.0.2
+    ports:
+      - "8088:8088"
+    environment:
+      SUPERSET_SECRET_KEY: banking_cube_superset_dev_secret_change_me
+      DATABASE_URL: postgresql+psycopg2://superset:superset@superset_db:5432/superset
+      SUPERSET_LOAD_EXAMPLES: "no"
+      # Admin created by scripts/superset_bootstrap.sh on first run.
+      ADMIN_USERNAME: admin
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: admin
+    volumes:
+      - ./superset/superset_config.py:/app/pythonpath/superset_config.py:ro
+      - ./scripts/superset_bootstrap.sh:/app/superset_bootstrap.sh:ro
+      - superset_home:/app/superset_home
+    depends_on:
+      superset_db:
+        condition: service_healthy
+      cube:
+        condition: service_healthy
+    command: ["/bin/bash", "/app/superset_bootstrap.sh"]
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8088/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 60
+      start_period: 60s
+
+volumes:
+  ch_data:
+  superset_pg:
+  superset_home:

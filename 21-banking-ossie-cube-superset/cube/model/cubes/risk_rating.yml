@@ -1,0 +1,47 @@
+cubes:
+- name: risk_rating
+  sql_table: banking.risk_ratings
+  description: An assessment of risk expressed as a letter rating and numeric score
+    as of a specific date.
+  meta:
+    ossie:
+      unique_keys:
+      - - customer_id
+        - as_of_date
+  joins:
+  - name: customer
+    sql: '{CUBE}.customer_id = {customer}.customer_id'
+    relationship: many_to_one
+  dimensions:
+  - name: risk_score
+    sql: score
+    type: number
+    description: The numeric score assigned to the record.
+    meta:
+      ossie:
+        no_role: true
+        datatype: Integer
+  - name: as_of_date
+    sql: as_of
+    type: time
+    description: 'The date as of which the record''s information applies. — format:
+      YYYY-MM-DD'
+    meta:
+      ossie:
+        no_role: true
+        datatype: Date
+  - name: risk_rating
+    sql: rating
+    type: string
+    description: The letter rating assigned to the record, with sample values A through
+      E.
+    meta:
+      ossie:
+        no_role: true
+  - name: customer_id
+    sql: customer_id
+    type: string
+    primary_key: true
+    meta:
+      ossie:
+        no_role: true

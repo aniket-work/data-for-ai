@@ -1,0 +1,426 @@
+version: 0.3.0.dev0
+name: happn_banking_ontology
+description: 'Happn Community Bank ontology: business concepts (accounts, customers, loans, branches, risk ratings, transactions) and the bank''s business conditions.'
+ai_context:
+  instructions: Banking business conditions live as ontology requires / derived_by / annotations.policy_rule. Prefer those over ad-hoc SQL when explaining policy outcomes.
+  synonyms:
+  - Happn banking ontology
+  - deposit and credit risk conditions
+prefixes:
+  hb: https://example.com/happn-bank#
+ontology:
+- concept: BankAccount
+  type: EntityType
+  description: A financial account that holds funds in a checking, savings, or money market product.
+  iri: hb:BankAccount
+  relationships:
+  - name: account_balance
+    description: The monetary balance of the account.
+    roles:
+    - concept: Float
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{BankAccount} has Account Balance {Float}'
+    iri: hb:BankAccount.account_balance
+  - name: account_id
+    description: The identifier for the account.
+    roles:
+    - concept: String
+    multiplicity: OneToOne
+    verbalizes:
+    - '{BankAccount} has Account ID {String}'
+    iri: hb:BankAccount.account_id
+  - name: account_status
+    description: The account's status as open or closed.
+    roles:
+    - concept: String
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{BankAccount} has Account Status {String}'
+    iri: hb:BankAccount.account_status
+  - name: branch
+    description: Branch Code refers to Branch
+    roles:
+    - concept: Branch
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{BankAccount} refers to {Branch}'
+    iri: hb:BankAccount.branch
+  - name: customer
+    description: Customer ID refers to Customer
+    roles:
+    - concept: Customer
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{BankAccount} refers to {Customer}'
+    iri: hb:BankAccount.customer
+  - name: opening_date
+    description: 'The date the account was opened. — format: YYYY-MM-DD'
+    roles:
+    - concept: Date
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{BankAccount} has Opening Date {Date}'
+    iri: hb:BankAccount.opening_date
+  - name: product_type
+    description: The account product type, such as checking, savings, or money market.
+    roles:
+    - concept: String
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{BankAccount} has Product Type {String}'
+    iri: hb:BankAccount.product_type
+  identify_by:
+  - account_id
+- concept: Branch
+  type: EntityType
+  description: A business location identified by a branch code, with geographic details and an opening date.
+  iri: hb:Branch
+  relationships:
+  - name: branch_code
+    description: The code identifying the branch.
+    roles:
+    - concept: String
+    multiplicity: OneToOne
+    verbalizes:
+    - '{Branch} has Branch Code {String}'
+    iri: hb:Branch.branch_code
+  - name: branch_name
+    description: The name of the branch.
+    roles:
+    - concept: String
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Branch} has Branch Name {String}'
+    iri: hb:Branch.branch_name
+  - name: city
+    description: The city where the branch is located.
+    roles:
+    - concept: String
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Branch} has City {String}'
+    iri: hb:Branch.city
+  - name: country_code
+    description: The country code for the branch's location.
+    roles:
+    - concept: String
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Branch} has Country Code {String}'
+    iri: hb:Branch.country_code
+  - name: opening_date
+    description: 'The date the branch opened. — format: YYYY-MM-DD'
+    roles:
+    - concept: Date
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Branch} has Opening Date {Date}'
+    iri: hb:Branch.opening_date
+  - name: region
+    description: The geographic region where the branch is located.
+    roles:
+    - concept: String
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Branch} has Region {String}'
+    iri: hb:Branch.region
+  identify_by:
+  - branch_code
+- concept: Customer
+  type: EntityType
+  description: A person or organization with an established business relationship.
+  iri: hb:Customer
+  relationships:
+  - name: branch
+    description: Branch Code refers to Branch
+    roles:
+    - concept: Branch
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Customer} refers to {Branch}'
+    iri: hb:Customer.branch
+  - name: business_segment
+    description: The customer's business segment, such as retail, SMB, wealth, or corporate.
+    roles:
+    - concept: String
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Customer} has Business Segment {String}'
+    iri: hb:Customer.business_segment
+  - name: customer_id
+    description: The identifier assigned to the customer.
+    roles:
+    - concept: String
+    multiplicity: OneToOne
+    verbalizes:
+    - '{Customer} has Customer ID {String}'
+    iri: hb:Customer.customer_id
+  - name: customer_name
+    description: The customer's name.
+    roles:
+    - concept: String
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Customer} has Customer Name {String}'
+    iri: hb:Customer.customer_name
+  - name: customer_status
+    description: The customer's active or inactive status.
+    roles:
+    - concept: String
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Customer} has Customer Status {String}'
+    iri: hb:Customer.customer_status
+  - name: relationship_start_date
+    description: 'The date the customer relationship began. — format: YYYY-MM-DD'
+    roles:
+    - concept: Date
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Customer} has Relationship Start Date {Date}'
+    iri: hb:Customer.relationship_start_date
+  identify_by:
+  - customer_id
+- concept: Loan
+  type: EntityType
+  description: A sum of money lent to a borrower, with agreed interest and repayment terms.
+  iri: hb:Loan
+  relationships:
+  - name: branch
+    description: Branch Code refers to Branch
+    roles:
+    - concept: Branch
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Loan} refers to {Branch}'
+    iri: hb:Loan.branch
+  - name: customer
+    description: Customer ID refers to Customer
+    roles:
+    - concept: Customer
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Loan} refers to {Customer}'
+    iri: hb:Loan.customer
+  - name: days_past_due
+    description: The number of days the loan is overdue.
+    roles:
+    - concept: Integer
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Loan} has Days Past Due {Integer}'
+    iri: hb:Loan.days_past_due
+  - name: interest_rate
+    description: The loan's interest rate expressed as a decimal.
+    roles:
+    - concept: Float
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Loan} has Interest Rate {Float}'
+    iri: hb:Loan.interest_rate
+  - name: is_non_performing_loan
+    description: Indicates whether the loan is classified as non-performing.
+    roles:
+    - concept: Boolean
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Loan} has Is Non Performing Loan {Boolean}'
+    iri: hb:Loan.is_non_performing_loan
+  - name: loan_identifier
+    description: The identifier assigned to the loan.
+    roles:
+    - concept: String
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Loan} has Loan Identifier {String}'
+    iri: hb:Loan.loan_identifier
+  - name: maturity_date
+    description: 'The date the loan reaches maturity. — format: YYYY-MM-DD'
+    roles:
+    - concept: Date
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Loan} has Maturity Date {Date}'
+    iri: hb:Loan.maturity_date
+  - name: origination_date
+    description: 'The date the loan was originated. — format: YYYY-MM-DD'
+    roles:
+    - concept: Date
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Loan} has Origination Date {Date}'
+    iri: hb:Loan.origination_date
+  - name: performance_classification
+    description: The loan's performance classification, such as performing, non-performing, or watch.
+    roles:
+    - concept: String
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Loan} has Performance Classification {String}'
+    iri: hb:Loan.performance_classification
+  - name: principal_amount
+    description: The principal amount of the loan.
+    roles:
+    - concept: Float
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Loan} has Principal Amount {Float}'
+    iri: hb:Loan.principal_amount
+- concept: RiskRating
+  type: EntityType
+  description: An assessment of risk expressed as a letter rating and numeric score as of a specific date.
+  iri: hb:RiskRating
+  relationships:
+  - name: as_of_date
+    description: 'The date as of which the record''s information applies. — format: YYYY-MM-DD'
+    roles:
+    - concept: Date
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{RiskRating} has As Of Date {Date}'
+    iri: hb:RiskRating.as_of_date
+  - name: customer
+    description: Customer ID refers to Customer
+    roles:
+    - concept: Customer
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{RiskRating} refers to {Customer}'
+    iri: hb:RiskRating.customer
+  - name: risk_rating
+    description: The letter rating assigned to the record, with sample values A through E.
+    roles:
+    - concept: String
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{RiskRating} has Risk Rating {String}'
+    iri: hb:RiskRating.risk_rating
+  - name: risk_score
+    description: The numeric score assigned to the record.
+    roles:
+    - concept: Integer
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{RiskRating} has Risk Score {Integer}'
+    iri: hb:RiskRating.risk_score
+- concept: Transaction
+  type: EntityType
+  description: A recorded financial movement with a signed monetary amount, booking date and time, category, and descriptive note.
+  iri: hb:Transaction
+  relationships:
+  - name: bankaccount
+    description: Account ID refers to Bank Account
+    roles:
+    - concept: BankAccount
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Transaction} refers to {BankAccount}'
+    iri: hb:Transaction.bankaccount
+  - name: booking_date_and_time
+    description: 'The date and time the transaction was booked, without time zone information. — format: YYYY-MM-DD HH:MM:SS'
+    roles:
+    - concept: DateTime
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Transaction} has Booking Date And Time {DateTime}'
+    iri: hb:Transaction.booking_date_and_time
+  - name: transaction_amount
+    description: The signed monetary amount of the transaction.
+    roles:
+    - concept: Float
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Transaction} has Transaction Amount {Float}'
+    iri: hb:Transaction.transaction_amount
+  - name: transaction_id
+    description: The identifier for the transaction.
+    roles:
+    - concept: String
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Transaction} has Transaction ID {String}'
+    iri: hb:Transaction.transaction_id
+  - name: transaction_memo
+    description: A text note describing the transaction's purpose or context.
+    roles:
+    - concept: String
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Transaction} has Transaction Memo {String}'
+    iri: hb:Transaction.transaction_memo
+  - name: transaction_type
+    description: The transaction category, such as deposit, card, outgoing wire, incoming transfer, or incoming wire.
+    roles:
+    - concept: String
+    multiplicity: ManyToOne
+    verbalizes:
+    - '{Transaction} has Transaction Type {String}'
+    iri: hb:Transaction.transaction_type
+- concept: OpenAccountDepositRule
+  type: EntityType
+  description: Open accounts only contribute to deposit totals and concentration checks.
+  requires:
+  - bank_account.account_status = 'open'
+  annotations:
+    policy_rule:
+      scope: bank_account
+      measure: account_balance
+      operator: included_when
+      condition: account_status = 'open'
+      authority: Happn Treasury Policy
+    ai_context:
+      instructions: When summing deposits, exclude closed accounts. Only open accounts count toward total_deposits and customer_deposit_share.
+- concept: NPLClassificationRule
+  type: EntityType
+  description: A loan is non-performing when days past due are at least 90 or the NPL flag is set.
+  requires:
+  - loan.days_past_due >= 90 OR loan.is_non_performing_loan = true
+  derived_by:
+  - loan.days_past_due >= 90 OR loan.is_non_performing_loan
+  extends:
+  - Loan
+  annotations:
+    policy_rule:
+      scope: loan
+      measure: days_past_due
+      operator: gte
+      amount: '90'
+      currency: ''
+      authority: Happn Credit Risk Policy
+      exceptions: []
+      alternate: is_non_performing_loan
+    ai_context:
+      instructions: Classify a loan as NonPerformingLoan when days_past_due >= 90 or is_non_performing_loan is true. NPL principal and npl_ratio use this population.
+- concept: SingleCustomerDepositConcentrationWarning
+  type: EntityType
+  description: Warn when one customer's open deposit balances exceed 25% of total open deposits.
+  requires:
+  - customer_open_deposits / NULLIF(total_deposits, 0) <= 0.25
+  annotations:
+    policy_rule:
+      scope: customer
+      measure: deposit_share
+      operator: lte
+      amount: '0.25'
+      currency: ''
+      authority: Happn Liquidity Risk Policy
+    ai_context:
+      instructions: Flag concentration risk when a single customer's share of open deposits exceeds 25 percent of total_deposits.
+- concept: LargeExposureApprovalRule
+  type: EntityType
+  description: Large single-loan exposures require elevated approval authority.
+  requires:
+  - loan.principal_amount >= 300000000
+  annotations:
+    policy_rule:
+      scope: loan
+      measure: principal_amount
+      operator: gte
+      amount: '300000000'
+      currency: KRW
+      authority: RiskCommittee
+      exceptions:
+      - government-guaranteed
+    ai_context:
+      instructions: When loan principal_amount is at least 300000000 KRW, RiskCommittee authority is required unless the loan is government-guaranteed.

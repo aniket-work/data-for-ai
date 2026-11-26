@@ -1,0 +1,113 @@
+cubes:
+- name: bank_account
+  sql_table: banking.accounts
+  description: A financial account that holds funds in a checking, savings, or money
+    market product.
+  meta:
+    ossie:
+      unique_keys:
+      - - account_id
+      key_from_unique_keys: true
+  joins:
+  - name: customer
+    sql: '{CUBE}.customer_id = {customer}.customer_id'
+    relationship: many_to_one
+  - name: branch
+    sql: '{CUBE}.branch_id = {branch}.branch_code'
+    relationship: many_to_one
+  dimensions:
+  - name: account_status
+    sql: status
+    type: string
+    description: The account's status as open or closed.
+    meta:
+      ossie:
+        no_role: true
+  - name: account_balance
+    sql: balance
+    type: number
+    description: The monetary balance of the account.
+    meta:
+      ossie:
+        no_role: true
+        datatype: Float
+  - name: account_id
+    sql: account_id
+    type: string
+    primary_key: true
+    description: The identifier for the account.
+    meta:
+      ossie:
+        no_role: true
+  - name: product_type
+    sql: product
+    type: string
+    description: The account product type, such as checking, savings, or money market.
+    meta:
+      ossie:
+        no_role: true
+  - name: opening_date
+    sql: opened_on
+    type: time
+    description: 'The date the account was opened. — format: YYYY-MM-DD'
+    meta:
+      ossie:
+        no_role: true
+        datatype: Date
+  - name: customer_id
+    sql: customer_id
+    type: string
+    meta:
+      ossie:
+        no_role: true
+  - name: branch_id
+    sql: branch_id
+    type: string
+    meta:
+      ossie:
+        no_role: true
+  measures:
+  - name: total_deposits
+    sql: CASE WHEN {CUBE.account_status} = 'open' THEN {CUBE.account_balance} ELSE
+      0 END
+    type: sum
+    description: Sum of open account balances (deposit products).
+    meta:
+      ai_context: |-
+        Count only accounts with account_status = open.
+        Also known as: open deposit balances, total open deposits.
+      ossie:
+        datatype: Float
+        expression:
+          sql: SUM(CASE WHEN bank_account.account_status = 'open' THEN bank_account.account_balance
+            ELSE 0 END)
+        ai_context:
+          instructions: Count only accounts with account_status = open.
+          synonyms:
+          - open deposit balances
+          - total open deposits
+        model_scoped: true
+        expression_signature: 47c5a33cb0a43119cf4fe71c73aec4e08d52addf46560bee5e8017815570ef1a
+  - name: customer_deposit_share
+    sql: CASE WHEN {CUBE.account_status} = 'open' THEN {CUBE.account_balance} ELSE
+      0 END
+    type: sum
+    description: Open-balance sum used with a customer dimension to measure deposit
+      concentration (max share of total_deposits).
+    meta:
+      ai_context: Pivot by customer and compare each customer's open balances to total_deposits;
+        warn when a single customer exceeds the concentration threshold.
+      ossie:
+        datatype: Float
+        expression:
+          sql: SUM(CASE WHEN bank_account.account_status = 'open' THEN bank_account.account_balance
+            ELSE 0 END)
+        model_scoped: true
+        expression_signature: 47c5a33cb0a43119cf4fe71c73aec4e08d52addf46560bee5e8017815570ef1a
+  - name: closed_account_balance
+    title: Closed Account Balance
+    description: "Balances on accounts failing open-status deposit rule. (from OSSIE concept OpenAccountDepositRule)"
+    sql: balance
+    type: sum
+    filters:
+    - sql: "{CUBE}.status = 'closed'"

@@ -1,0 +1,40 @@
+views:
+- name: happn_banking
+  description: 'Happn Community Bank semantic model: accounts, branches, customers,
+    loans, risk ratings and transactions, with the bank''s KPI definitions as metrics.'
+  meta:
+    ai_context: |-
+      Answer Happn banking questions with the metrics below instead of inventing formulas. Total deposits sum open account balances only. NPL principal and ratio use the loan is_non_performing_loan flag. Transaction volume is the sum of absolute transaction amounts.
+      Also known as: Happn Community Bank semantic model, banking cube model.
+      Example questions: What is total deposits across open accounts? What is the NPL ratio on the loan book? Which customers concentrate deposit share?
+    ossie:
+      ai_context:
+        instructions: Answer Happn banking questions with the metrics below instead
+          of inventing formulas. Total deposits sum open account balances only. NPL
+          principal and ratio use the loan is_non_performing_loan flag. Transaction
+          volume is the sum of absolute transaction amounts.
+        synonyms:
+        - Happn Community Bank semantic model
+        - banking cube model
+        examples:
+        - What is total deposits across open accounts?
+        - What is the NPL ratio on the loan book?
+        - Which customers concentrate deposit share?
+  cubes:
+  - join_path: bank_account
+    includes: '*'
+  - join_path: bank_account.customer
+    includes: '*'
+    prefix: true
+  - join_path: bank_account.branch
+    includes: '*'
+    prefix: true
+  - join_path: bank_account.transaction
+    includes: '*'
+    prefix: true
+  - join_path: bank_account.customer.loan
+    includes: '*'
+    prefix: true
+  - join_path: bank_account.customer.risk_rating
+    includes: '*'
+    prefix: true

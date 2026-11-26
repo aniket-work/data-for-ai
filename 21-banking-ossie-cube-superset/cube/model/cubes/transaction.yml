@@ -1,0 +1,76 @@
+cubes:
+- name: transaction
+  sql_table: banking.transactions
+  description: A recorded financial movement with a signed monetary amount, booking
+    date and time, category, and descriptive note.
+  meta:
+    ossie:
+      unique_keys:
+      - - transaction_id
+  joins:
+  - name: bank_account
+    sql: '{CUBE}.account_id = {bank_account}.account_id'
+    relationship: many_to_one
+  dimensions:
+  - name: transaction_type
+    sql: txn_type
+    type: string
+    description: The transaction category, such as deposit, card, outgoing wire, incoming
+      transfer, or incoming wire.
+    meta:
+      ossie:
+        no_role: true
+  - name: booking_date_and_time
+    sql: booked_at
+    type: time
+    description: 'The date and time the transaction was booked, without time zone
+      information. — format: YYYY-MM-DD HH:MM:SS'
+    meta:
+      ossie:
+        no_role: true
+  - name: transaction_amount
+    sql: amount
+    type: number
+    description: The signed monetary amount of the transaction.
+    meta:
+      ossie:
+        no_role: true
+        datatype: Float
+  - name: transaction_id
+    sql: transaction_id
+    type: string
+    primary_key: true
+    description: The identifier for the transaction.
+    meta:
+      ossie:
+        no_role: true
+  - name: transaction_memo
+    sql: memo
+    type: string
+    description: A text note describing the transaction's purpose or context.
+    meta:
+      ossie:
+        no_role: true
+  - name: account_id
+    sql: account_id
+    type: string
+    meta:
+      ossie:
+        no_role: true
+  measures:
+  - name: transaction_volume
+    sql: ABS({CUBE.transaction_amount})
+    type: sum
+    description: Sum of absolute transaction amounts.
+    meta:
+      ai_context: 'Also known as: payment volume, absolute transaction sum.'
+      ossie:
+        datatype: Float
+        expression:
+          sql: SUM(ABS(transaction.transaction_amount))
+        ai_context:
+          synonyms:
+          - payment volume
+          - absolute transaction sum
+        model_scoped: true
+        expression_signature: cb8e4889367988057e408c7cee4723ee24a6cd7fdd24caa2eda0db6609468574

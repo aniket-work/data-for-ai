@@ -1,0 +1,39 @@
+version: 0.3.0.dev0
+name: happn_banking_mapping
+description: Maps the happn_banking datasets onto happn_banking_ontology
+ontology_ref:
+  name: happn_banking_ontology
+  iri: ./ontology.yaml
+semantic_model_ref:
+  name: happn_banking
+  iri: ./semantic_model.yaml
+concept_mappings:
+- concept: BankAccount
+  object_mappings:
+  - expression: bank_account.account_id
+  link_mappings:
+  - object_mapping:
+      expression: bank_account.account_id
+    children:
+    - relationship: branch
+      object_mapping:
+        concept: Branch
+        expression: bank_account.branch_id
+    - relationship: customer
+      object_mapping:
+        concept: Customer
+        expression: bank_account.customer_id
+- concept: Branch
+  object_mappings:
+  - expression: branch.branch_code
+- concept: Customer
+  object_mappings:
+  - expression: customer.customer_id
+  link_mappings:
+  - object_mapping:
+      expression: customer.customer_id
+    children:
+    - relationship: branch
+      object_mapping:
+        concept: Branch
+        expression: customer.branch_id

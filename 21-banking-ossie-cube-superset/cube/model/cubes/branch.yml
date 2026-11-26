@@ -1,0 +1,55 @@
+cubes:
+- name: branch
+  sql_table: banking.branches
+  description: A business location identified by a branch code, with geographic details
+    and an opening date.
+  meta:
+    ossie:
+      unique_keys:
+      - - branch_code
+      key_from_unique_keys: true
+  dimensions:
+  - name: region
+    sql: region
+    type: string
+    description: The geographic region where the branch is located.
+    meta:
+      ossie:
+        no_role: true
+  - name: branch_code
+    sql: branch_id
+    type: string
+    primary_key: true
+    description: The code identifying the branch.
+    meta:
+      ossie:
+        no_role: true
+  - name: city
+    sql: city
+    type: string
+    description: The city where the branch is located.
+    meta:
+      ossie:
+        no_role: true
+  - name: country_code
+    sql: country
+    type: string
+    description: The country code for the branch's location.
+    meta:
+      ossie:
+        no_role: true
+  - name: branch_name
+    sql: name
+    type: string
+    description: The name of the branch.
+    meta:
+      ossie:
+        no_role: true
+  - name: opening_date
+    sql: opened_on
+    type: time
+    description: 'The date the branch opened. — format: YYYY-MM-DD'
+    meta:
+      ossie:
+        no_role: true
+        datatype: Date
