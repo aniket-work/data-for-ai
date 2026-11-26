@@ -1,0 +1,23 @@
+{
+ "chunk_whole": {
+  "chunks": 34,
+  "recall1": 0.75,
+  "recall3": 0.875,
+  "long_hits": 1,
+  "long_words": 384.3333333333333
+ },
+ "chunk_fixed": {
+  "chunks": 120,
+  "recall1": 0.78125,
+  "recall3": 0.84375,
+  "long_hits": 5,
+  "long_words": 117.83333333333333
+ },
+ "chunk_sections": {
+  "chunks": 94,
+  "recall1": 0.71875,
+  "recall3": 0.84375,
+  "long_hits": 6,
+  "long_words": 173.5
+ }
+}

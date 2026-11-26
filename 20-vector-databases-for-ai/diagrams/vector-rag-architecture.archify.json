@@ -1,0 +1,42 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "Data as vectors: the Kestrel Bay Bank policy assistant, ingest and query paths",
+  "locale": "en",
+  "output": ".archify/architecture-vector-rag-20261121-103000/vector-rag.html",
+  "quality_profile": "showcase",
+  "legend": {"entries": {"frontend": {"label": "Input"}, "backend": {"label": "Processing"}, "database": {"label": "Qdrant"}, "external": {"label": "Local model"}, "security": {"label": "Filter"}}}
+ },
+ "components": [
+  {"id": "docs", "type": "frontend", "label": "Policy documents", "sublabel": "34 docs + metadata", "pos": [40, 60], "size": [170, 64], "tag": "markdown"},
+  {"id": "chunk", "type": "backend", "label": "Chunker", "sublabel": "one chunk per section", "pos": [290, 60], "size": [170, 64], "tag": "94 chunks"},
+  {"id": "embed", "type": "external", "label": "Embedding model", "sublabel": "bge-small, 384 dims", "pos": [560, 60], "size": [190, 64], "tag": "CPU, ONNX"},
+  {"id": "qdrant", "type": "database", "label": "Qdrant collection", "sublabel": "HNSW + BM25 + payload", "pos": [830, 60], "size": [190, 64], "tag": "1.20.2 binary"},
+  {"id": "user", "type": "frontend", "label": "Customer question", "sublabel": "everyday words", "pos": [40, 300], "size": [170, 64]},
+  {"id": "qembed", "type": "external", "label": "Same embedding model", "sublabel": "question to vector", "pos": [290, 300], "size": [170, 64]},
+  {"id": "filter", "type": "security", "label": "Metadata filter", "sublabel": "audience, status, region", "pos": [560, 300], "size": [190, 64], "tag": "payload index"},
+  {"id": "fuse", "type": "backend", "label": "Hybrid search", "sublabel": "BM25 + vectors, RRF", "pos": [830, 300], "size": [190, 64], "tag": "Query API"},
+  {"id": "llm", "type": "external", "label": "Local LLM", "sublabel": "Qwen3-4B on llama.cpp", "pos": [830, 450], "size": [190, 64], "tag": "temperature 0"},
+  {"id": "answer", "type": "frontend", "label": "Answer with citations", "sublabel": "[KB-113P] ...", "pos": [560, 450], "size": [190, 64]}
+ ],
+ "boundaries": [
+  {"kind": "region", "label": "runs on one machine: no Docker, no cloud account, no paid API key", "wraps": ["docs", "chunk", "embed", "qdrant", "user", "qembed", "filter", "fuse", "llm", "answer"]}
+ ],
+ "connections": [
+  {"id": "d-c", "from": "docs", "to": "chunk", "label": "split"},
+  {"id": "c-e", "from": "chunk", "to": "embed", "label": "text"},
+  {"id": "e-q", "from": "embed", "to": "qdrant", "label": "vectors + payload", "variant": "emphasis"},
+  {"id": "u-qe", "from": "user", "to": "qembed", "label": "text"},
+  {"id": "qe-f", "from": "qembed", "to": "filter", "label": "query vector"},
+  {"id": "f-fu", "from": "filter", "to": "fuse", "label": "where clause", "variant": "emphasis"},
+  {"id": "fu-q", "from": "fuse", "to": "qdrant", "label": "two prefetches", "fromSide": "top", "toSide": "bottom"},
+  {"id": "fu-l", "from": "fuse", "to": "llm", "label": "top 4 chunks", "fromSide": "bottom", "toSide": "top", "variant": "emphasis"},
+  {"id": "l-a", "from": "llm", "to": "answer", "label": "grounded answer"}
+ ],
+ "cards": [
+  {"dot": "emerald", "title": "Ingest once", "items": ["Chunk, embed, store with metadata", "Payload indexes before the graph"]},
+  {"dot": "cyan", "title": "Retrieve with both", "items": ["BM25 finds codes like NSF-02", "Vectors find meaning, not words"]},
+  {"dot": "rose", "title": "Filter before you rank", "items": ["Customers never see staff-only docs", "Superseded fee schedules stay out"]}
+ ]
+}

@@ -1,0 +1,94 @@
+[
+ {
+  "engine": "pgvector",
+  "setting": "exact scan (no index)",
+  "build_s": null,
+  "recall10": 1.0,
+  "p50_ms": 9.296755502873566,
+  "rows": 10.0
+ },
+ {
+  "engine": "pgvector",
+  "setting": "HNSW m=16, ef_search=40",
+  "build_s": 2.9825968742370605,
+  "recall10": 0.9795,
+  "p50_ms": 0.39752850352670066,
+  "rows": 10.0
+ },
+ {
+  "engine": "pgvector",
+  "setting": "IVFFlat lists=200, probes=1",
+  "build_s": 0.7470321655273438,
+  "recall10": 0.9515,
+  "p50_ms": 0.3173884979332797,
+  "rows": 10.0
+ },
+ {
+  "engine": "pgvector",
+  "setting": "IVFFlat lists=200, probes=5",
+  "build_s": null,
+  "recall10": 0.9990000000000001,
+  "p50_ms": 0.685783499648096,
+  "rows": 10.0
+ },
+ {
+  "engine": "pgvector",
+  "setting": "IVFFlat lists=200, probes=20",
+  "build_s": null,
+  "recall10": 1.0,
+  "p50_ms": 1.654630497796461,
+  "rows": 10.0
+ },
+ {
+  "engine": "DuckDB",
+  "setting": "exact scan (no index)",
+  "build_s": null,
+  "recall10": 1.0,
+  "p50_ms": 23.809654499928,
+  "rows": 10.0
+ },
+ {
+  "engine": "DuckDB vss",
+  "setting": "HNSW defaults (cosine)",
+  "build_s": 1.3523855209350586,
+  "recall10": 1.0,
+  "p50_ms": 1.7867964998004027,
+  "rows": 10.0
+ },
+ {
+  "engine": "Qdrant",
+  "setting": "HNSW m=16, hnsw_ef=40",
+  "build_s": null,
+  "recall10": 1.0,
+  "p50_ms": 2.102139002090553,
+  "rows": 10.0
+ },
+ {
+  "engine": "pgvector",
+  "setting": "planner's choice (HNSW index)",
+  "recall10": 0.024,
+  "p50_ms": 0.4626730005838908,
+  "rows": 0.24
+ },
+ {
+  "engine": "pgvector",
+  "setting": "HNSW + WHERE, iterative off",
+  "recall10": 0.024,
+  "p50_ms": 0.3928025034838356,
+  "rows": 0.24
+ },
+ {
+  "engine": "pgvector",
+  "setting": "HNSW + WHERE, iterative relaxed",
+  "recall10": 0.9620000000000002,
+  "p50_ms": 11.031931499019265,
+  "rows": 10.0
+ },
+ {
+  "engine": "Qdrant",
+  "setting": "payload index + query planner",
+  "recall10": 1.0,
+  "p50_ms": 1.998731000639964,
+  "rows": 10.0
+ }
+]

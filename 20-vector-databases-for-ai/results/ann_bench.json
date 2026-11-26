@@ -1,0 +1,101 @@
+{
+ "rows": [
+  {
+   "config": "exact scan (no index)",
+   "recall10": 1.0,
+   "p50_ms": 4.793747499206802,
+   "p95_ms": 6.67899354994006,
+   "bytes_per_vector": 1536
+  },
+  {
+   "config": "HNSW m=16  ef=10",
+   "recall10": 0.9919999999999999,
+   "p50_ms": 1.8642265022208448,
+   "p95_ms": 2.7084303976153024,
+   "bytes_per_vector": 1536
+  },
+  {
+   "config": "HNSW m=16  ef=20",
+   "recall10": 0.9995,
+   "p50_ms": 1.8465725042915437,
+   "p95_ms": 2.6757524505228503,
+   "bytes_per_vector": 1536
+  },
+  {
+   "config": "HNSW m=16  ef=40",
+   "recall10": 1.0,
+   "p50_ms": 1.8341499962843955,
+   "p95_ms": 2.568517898544086,
+   "bytes_per_vector": 1536
+  },
+  {
+   "config": "HNSW m=16  ef=80",
+   "recall10": 1.0,
+   "p50_ms": 2.063220996205928,
+   "p95_ms": 2.94872835620481,
+   "bytes_per_vector": 1536
+  },
+  {
+   "config": "HNSW m=16  ef=160",
+   "recall10": 1.0,
+   "p50_ms": 2.415866001683753,
+   "p95_ms": 3.1960283980879467,
+   "bytes_per_vector": 1536
+  },
+  {
+   "config": "HNSW m=4   ef=10",
+   "recall10": 0.9095000000000002,
+   "p50_ms": 2.2342939955706242,
+   "p95_ms": 3.6382728496391787,
+   "bytes_per_vector": 1536
+  },
+  {
+   "config": "HNSW m=4   ef=40",
+   "recall10": 0.9795,
+   "p50_ms": 2.045730496320175,
+   "p95_ms": 2.806346098805079,
+   "bytes_per_vector": 1536
+  },
+  {
+   "config": "HNSW m=4   ef=160",
+   "recall10": 0.9895,
+   "p50_ms": 2.082231996610062,
+   "p95_ms": 2.821348149518598,
+   "bytes_per_vector": 1536
+  },
+  {
+   "config": "m=16 ef=40 + int8, no rescore",
+   "recall10": 0.919,
+   "p50_ms": 2.1491974985110573,
+   "p95_ms": 3.5502456008543937,
+   "bytes_per_vector": 384
+  },
+  {
+   "config": "m=16 ef=40 + int8, rescore 2x",
+   "recall10": 1.0,
+   "p50_ms": 1.902181000332348,
+   "p95_ms": 2.625519449065904,
+   "bytes_per_vector": 384
+  },
+  {
+   "config": "m=16 ef=40 + PQ x16, no rescore",
+   "recall10": 0.7495,
+   "p50_ms": 2.352820501982933,
+   "p95_ms": 3.7157074049900967,
+   "bytes_per_vector": 96
+  },
+  {
+   "config": "m=16 ef=40 + PQ x16, rescore 2x",
+   "recall10": 0.9660000000000001,
+   "p50_ms": 2.068738001980819,
+   "p95_ms": 2.7887719988939352,
+   "bytes_per_vector": 96
+  }
+ ],
+ "build_s": {
+  "hnsw_m16": 8.4,
+  "hnsw_m4": 5.8,
+  "hnsw_sq8": 6.2,
+  "hnsw_pq16": 19.3
+ }
+}

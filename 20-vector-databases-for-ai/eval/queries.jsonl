@@ -1,0 +1,32 @@
+{"id": "q01", "type": "paraphrase", "q": "the cash machine ate my card, what now?", "relevant": ["KB-101"]}
+{"id": "q02", "type": "paraphrase", "q": "someone used my card to buy stuff I never bought", "relevant": ["KB-103"]}
+{"id": "q03", "type": "paraphrase", "q": "how long before I can spend the money from a cheque I put in", "relevant": ["KB-104"]}
+{"id": "q04", "type": "paraphrase", "q": "I lost my job and can't make my house payments", "relevant": ["KB-113"]}
+{"id": "q05", "type": "paraphrase", "q": "my payment bounced, how much will you charge me", "relevant": ["KB-106", "FS-2026"]}
+{"id": "q06", "type": "paraphrase", "q": "I want to freeze my card for a bit, I think it's somewhere in my car", "relevant": ["KB-102"]}
+{"id": "q07", "type": "paraphrase", "q": "send money to my family's bank in India", "relevant": ["KB-108"]}
+{"id": "q08", "type": "paraphrase", "q": "a guy called saying he's from the bank and asked for the code I got by text", "relevant": ["KB-119"]}
+{"id": "q09", "type": "paraphrase", "q": "can I cash out my term deposit before it ends", "relevant": ["KB-111"]}
+{"id": "q10", "type": "paraphrase", "q": "pay extra on my home loan without a penalty", "relevant": ["KB-112"]}
+{"id": "q11", "type": "paraphrase", "q": "the store never shipped my order and I paid with my credit card", "relevant": ["KB-118"]}
+{"id": "q12", "type": "paraphrase", "q": "my husband passed away, what happens to our shared account", "relevant": ["KB-122"]}
+{"id": "q13", "type": "paraphrase", "q": "the hurricane damaged my house in Halifax, can I hold off on the mortgage", "relevant": ["KB-113A"]}
+{"id": "q14", "type": "paraphrase", "q": "we were evacuated because of the fires near Saskatoon, can I pause my loan", "relevant": ["KB-113P"]}
+{"id": "q15", "type": "paraphrase", "q": "I got a new phone number and now I can't log in", "relevant": ["KB-120"]}
+{"id": "q16", "type": "paraphrase", "q": "what happens to money I forgot about in an old account", "relevant": ["KB-121"]}
+{"id": "q17", "type": "paraphrase", "q": "my mom can't manage her banking anymore, can I do it for her", "relevant": ["KB-123"]}
+{"id": "q18", "type": "paraphrase", "q": "deposit a cheque by snapping a picture with my phone", "relevant": ["KB-105"]}
+{"id": "q19", "type": "paraphrase", "q": "how much can I e-transfer in a week", "relevant": ["KB-109"]}
+{"id": "q20", "type": "paraphrase", "q": "is there a charge for taking money out of my savings", "relevant": ["KB-110"]}
+{"id": "q21", "type": "paraphrase", "q": "I'm relocating from Ontario to BC, do I need a new account", "relevant": ["KB-117"]}
+{"id": "q22", "type": "paraphrase", "q": "can I get my statements in braille", "relevant": ["KB-124"]}
+{"id": "q23", "type": "identifier", "q": "NSF-02", "relevant": ["FS-2026"]}
+{"id": "q24", "type": "identifier", "q": "form KB-114", "relevant": ["KB-114"]}
+{"id": "q25", "type": "identifier", "q": "GIC-1Y", "relevant": ["KB-111"]}
+{"id": "q26", "type": "identifier", "q": "WIR-OUT fee", "relevant": ["FS-2026"]}
+{"id": "q27", "type": "identifier", "q": "IRD prepayment charge", "relevant": ["KB-112"]}
+{"id": "q28", "type": "identifier", "q": "debt service coverage covenant 1.25", "relevant": ["KB-116"]}
+{"id": "q29", "type": "identifier", "q": "Autodeposit", "relevant": ["KB-109"]}
+{"id": "q30", "type": "identifier", "q": "safety deposit box rent", "relevant": ["KB-125"]}
+{"id": "q31", "type": "identifier", "q": "Zero Liability Guarantee", "relevant": ["KB-103"]}
+{"id": "q32", "type": "identifier", "q": "Overdraft Protection monthly fee", "relevant": ["KB-107"]}

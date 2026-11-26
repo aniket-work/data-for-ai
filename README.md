@@ -160,6 +160,10 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
     <td><a href="https://youtu.be/9TE_qgn4qWE"><img src="assets/readme/thumbnails/18-virtual-knowledge-graphs.jpg" alt="Video 18 thumbnail" width="100%"></a></td>
     <td><b>18 · Virtual Knowledge Graphs: Query Live Tables as a Graph, No Copy</b><br><sub>Track B · Ontop · SPARQL · PostgreSQL · ~11 min</sub><br><br>Give a fictional outdoor retailer's three legacy systems business meaning with an OWL 2 QL ontology and 13 mappings, then let Ontop rewrite SPARQL into one SQL query over the live tables, reasoning included. Measured against an ETL copy into a triple store: 235 MB copied vs nothing stored, stale vs live after 26 changes, and a renamed column fixed in two mapping lines. Plus how the same mapping points at a Microsoft Fabric Warehouse or SQL analytics endpoint.<br><br>📁 <a href="18-virtual-knowledge-graphs/">18-virtual-knowledge-graphs</a> · ▶️ <a href="https://youtu.be/9TE_qgn4qWE">Watch on YouTube</a></td>
   </tr>
+  <tr>
+    <td><a href="20-vector-databases-for-ai/"><img src="assets/readme/thumbnails/20-vector-databases-for-ai.jpg" alt="Video 20 thumbnail" width="100%"></a></td>
+    <td><b>20 · Vector Databases for AI: Embeddings, HNSW, Hybrid Search and Local RAG</b><br><sub>Track B · Qdrant · pgvector · DuckDB · llama.cpp · ~11 min</sub><br><br>Turn a fictional bank's policy library into vectors, load it into Qdrant as a single binary (no Docker), and measure every trade-off live: similarity metrics, HNSW, IVF, int8 and product quantization with rescoring, chunking, metadata filters and the post-filter trap, and BM25 + vectors fused with RRF. Hybrid search finds the right page in the top 5 for 94% of questions (keywords 88%, vectors 91%), and a small local model goes from 1/8 to 7/8 correct with retrieval, every answer cited. pgvector and DuckDB vss run on the same 40,000 vectors.<br><br>📁 <a href="20-vector-databases-for-ai/">20-vector-databases-for-ai</a> · ▶️ Coming soon</td>
+  </tr>
 </table>
 
 <details>
@@ -183,6 +187,7 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 | 16 | Context graphs for AI agents, hands-on: decision traces an agent can query, plain RAG vs a context graph on the same local model, plus a Microsoft Fabric graph export | [16-context-graphs-for-ai-agents](16-context-graphs-for-ai-agents/) | [Watch](https://youtu.be/zbb1ywHqW2A) |
 | 17 | Trustworthy AI with Semantica, hands-on: provenance for every fact, conflict checks, policy versions, a guardrail and a hash-chained audit trail, plain RAG vs Semantica on the same local model | [17-trustworthy-ai-with-semantica](17-trustworthy-ai-with-semantica/) | [Watch](https://youtu.be/6Lx4JSycNIc) |
 | 18 | Virtual knowledge graphs, hands-on with Ontop: an ontology and mappings over live PostgreSQL tables, SPARQL rewritten to SQL, measured against an ETL copy into a triple store, plus a Microsoft Fabric tie-in | [18-virtual-knowledge-graphs](18-virtual-knowledge-graphs/) | [Watch](https://youtu.be/9TE_qgn4qWE) |
+| 20 | Vector databases for AI, hands-on with Qdrant: embeddings, similarity metrics, HNSW, IVF and quantization, chunking, metadata filters, hybrid search with RRF and local RAG with citations, plus pgvector and DuckDB vss on the same vectors | [20-vector-databases-for-ai](20-vector-databases-for-ai/) | Coming soon |
 
 </details>
 
@@ -216,11 +221,12 @@ Click a thumbnail to watch on YouTube. Durations are approximate.
 - Folder 13 calls a local model (the video uses llama.cpp with Qwen2.5-Coder-3B-Instruct) through any OpenAI-compatible API
 - Folders 16 and 17 call a local model (the videos use llama.cpp with Qwen2.5-7B-Instruct Q4_K_M) through any OpenAI-compatible API; folder 17 installs Semantica 0.7.0 from PyPI
 - Folder 18 also needs PostgreSQL (a local Docker container works), Java 17+ and the Ontop 5.5 CLI; its README shows how
-- Apart from folders 11, 12, 13, 16 and 17, no LLM is called; no paid API key is needed anywhere
+- Folder 20 runs Qdrant as a single binary (no Docker), embeds on the CPU with FastEmbed, and calls a local model (the video uses llama.cpp with Qwen3-4B-Instruct-2507 Q4_K_M) through any OpenAI-compatible API; its optional pgvector step needs PostgreSQL 17 with pgvector 0.8
+- Apart from folders 11, 12, 13, 16, 17 and 20, no LLM is called; no paid API key is needed anywhere
 
 ```bash
 git clone https://github.com/aniket-work/data-for-ai.git
-cd data-for-ai/05-context-layers-for-ai    # or any folder from 03 to 08, or 10 to 18
+cd data-for-ai/05-context-layers-for-ai    # or any folder from 03 to 08, 10 to 18, or 20
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 # then follow the folder's README
