@@ -1,6 +1,6 @@
 # 20 — Data as Vectors: Vector Databases for AI, Hands-On
 
-AI systems don't search your data by matching words; they search by **meaning**. An embedding model turns each piece of text into a list of numbers, a **vector**, and a **vector database** finds the stored vectors closest to a question's vector, fast, with filters, at scale. In this lesson we turn a fictional bank's policy library into vectors, load it into **[Qdrant](https://github.com/qdrant/qdrant)**, and measure every trade-off live: similarity metrics, HNSW, IVF, quantization, chunking, metadata filters, hybrid search and a small RAG answer with citations. **pgvector** and **DuckDB vss** run on the same vectors for comparison: pgvector HNSW recall@10 0.980 at 0.4 ms, DuckDB vss 1.000 at 1.8 ms, Qdrant 1.000 at 2.1 ms (40,000 vectors).
+AI systems don't search your data by matching words; they search by **meaning**. An embedding model turns each piece of text into a list of numbers, a **vector**, and a **vector database** finds the stored vectors closest to a question's vector, fast, with filters, at scale. In this lesson we turn a fictional bank's policy library into vectors, load it into **[Qdrant](https://github.com/qdrant/qdrant)**, and measure every trade-off live: similarity metrics, HNSW, IVF, quantization, chunking, metadata filters, hybrid search and a small RAG answer with citations. **pgvector** and **DuckDB vss** run on the same vectors for comparison: pgvector HNSW recall@10 0.980 at 0.4 ms, DuckDB vss 0.999 at 1.9 ms, Qdrant 1.000 at 2.9 ms (40,000 vectors).
 
 Everything runs locally on a CPU: Qdrant as a single binary (no Docker), embeddings with FastEmbed, a small open model on a llama.cpp server. No cloud account, no paid API key.
 
@@ -22,14 +22,14 @@ All numbers below were measured in the recorded runs (`results/*.json`). Your nu
 
 | Qdrant setting | recall@10 | p50 | bytes per vector |
 |---|---|---|---|
-| Exact scan | 1.000 | 4.8 ms | 1,536 |
-| HNSW m=16, hnsw_ef=10 | 0.992 | 1.9 ms | 1,536 |
-| HNSW m=16, hnsw_ef=40 | 1.000 | 1.8 ms | 1,536 |
-| HNSW m=4, hnsw_ef=10 | 0.910 | 2.2 ms | 1,536 |
-| + int8 scalar quantization, no rescore | 0.919 | 2.2 ms | 384 |
-| + int8, rescore with 2x oversampling | 1.000 | 1.9 ms | 384 |
-| + product quantization x16, no rescore | 0.750 | 2.4 ms | 96 |
-| + PQ x16, rescore with 2x oversampling | 0.966 | 2.1 ms | 96 |
+| Exact scan | 1.000 | 5.4 ms | 1,536 |
+| HNSW m=16, hnsw_ef=10 | 0.995 | 2.1 ms | 1,536 |
+| HNSW m=16, hnsw_ef=40 | 1.000 | 2.0 ms | 1,536 |
+| HNSW m=4, hnsw_ef=10 | 0.887 | 4.0 ms | 1,536 |
+| + int8 scalar quantization, no rescore | 0.919 | 2.6 ms | 384 |
+| + int8, rescore with 2x oversampling | 1.000 | 2.7 ms | 384 |
+| + product quantization x16, no rescore | 0.747 | 2.3 ms | 96 |
+| + PQ x16, rescore with 2x oversampling | 0.961 | 2.0 ms | 96 |
 
 Rescoring only re-ranks the candidates already fetched, so without oversampling it cannot bring back neighbours the quantized search missed.
 
@@ -38,12 +38,12 @@ Rescoring only re-ranks the candidates already fetched, so without oversampling 
 | Engine | rows returned | recall@10 |
 |---|---|---|
 | pgvector HNSW, iterative scan off | 0.24 on average | 0.024 |
-| pgvector 0.8 HNSW, `hnsw.iterative_scan = relaxed_order` | 10 | 0.962 |
+| pgvector 0.8 HNSW, `hnsw.iterative_scan = relaxed_order` | 10 | 0.958 |
 | Qdrant, payload index + query planner | 10 | 1.000 |
 
 **Chunking** (6 questions about a ~1,000-word account agreement; these 6 were written to test chunking): whole document 1/6, fixed 40-word windows 5/6, sections with the title prefixed 6/6.
 
-**Local RAG** (Qwen3-4B-Instruct-2507 Q4_K_M on CPU, temperature 0, 8 questions): **1/8 without retrieval, 7/8 with retrieval**, every answer cited. Even the one "no retrieval" pass is luck: it said "6 months" while claiming the bank has no formal deferral. llama.cpp output is not bit-identical across runs, so a rerun may score the no-retrieval column one point differently. The RAG miss (q2) is a retrieval problem: the retrieved page only points to the fee schedule, and the model correctly said the amount was not in its sources. For a question no document covers (crypto trading) it says "I don't know".
+**Local RAG** (Qwen3-4B-Instruct-2507 Q4_K_M on CPU, temperature 0, 8 questions): **0/8 without retrieval, 7/8 with retrieval**, every answer cited. Without retrieval the model answers confidently with generic bank policy (for example, that wildfire evacuees cannot defer payments). llama.cpp output is not bit-identical across runs, so a rerun may score a column one point differently. The RAG miss (q2) is a retrieval problem: the retrieved page only points to the fee schedule, and the model correctly said the amount was not in its sources. For a question no document covers (crypto trading) it says "I don't know".
 
 > **Honest notes.** Kestrel Bay Bank, its documents, fees and tickets are fictional. The 40,000 tickets are generated from templates with a fixed seed, so they are easier than real support data. The evaluation sets are small: read differences as a direction, not a law. Latencies are medians on one 8-core CPU machine. Whether PostgreSQL uses the HNSW index for the filtered query depends on its statistics; `pg_duckdb.py` prints the plan it chose and forces the index (`enable_seqscan = off`) for the trap rows.
 
