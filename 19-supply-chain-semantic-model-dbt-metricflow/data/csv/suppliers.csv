@@ -1,0 +1,9 @@
+supplier_id,supplier_name,supplier_tier,country,category,region,contract_id,payment_terms_days,onboarded_date
+SUP-01,Pangrove Polymer Ltd,Strategic,Canada,Polymers & Packaging,North America,CTR-PGV-2025,45,2019-04-01
+SUP-02,Kessling Fastener GmbH,Strategic,Germany,Fasteners,Europe,CTR-KSF-2024,60,2018-09-15
+SUP-03,Siravan Hydraulics Inc,Preferred,USA,Hydraulics,North America,CTR-SRV-2025,30,2021-02-01
+SUP-04,Tollmere Electrical Supply,Preferred,Canada,Electrical,North America,CTR-TLM-2024,30,2020-06-10
+SUP-05,Brackenfield Timber Co,Approved,Canada,Lumber,North America,CTR-BRK-2023,30,2017-03-20
+SUP-06,Quillon Safety Gear,Approved,USA,Safety,North America,CTR-QLN-2025,45,2022-01-12
+SUP-07,Marrowgate Adhesives,Approved,USA,Adhesives & Sealants,North America,CTR-MRG-2024,30,2020-11-03
+SUP-08,Veltrane Pipe & Valve,Preferred,Mexico,Plumbing,North America,CTR-VLT-2025,60,2023-05-08

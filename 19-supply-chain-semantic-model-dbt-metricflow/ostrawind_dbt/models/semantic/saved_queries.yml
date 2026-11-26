@@ -1,0 +1,63 @@
+# Business questions, defined once on top of the Ossie metrics and reused by every tool.
+version: 2
+saved_queries:
+  - name: supplier_sla_scorecard
+    description: Quarterly supplier scorecard for the contract review (OTD, fill rate, spend).
+    query_params:
+      metrics: [on_time_delivery_rate, fill_rate, purchase_value]
+      group_by:
+        - TimeDimension('metric_time', 'quarter')
+        - Dimension('supplier__supplier_name')
+    exports:
+      - name: supplier_sla_scorecard
+        config:
+          export_as: table
+
+  - name: supplier_quality_and_freight
+    description: Damage rate and freight cost per unit by supplier and quarter (shipments).
+    query_params:
+      metrics: [damage_rate, freight_cost_per_unit, total_freight_cost]
+      group_by:
+        - TimeDimension('metric_time', 'quarter')
+        - Dimension('supplier__supplier_name', entity_path=['purchase_order'])
+    exports:
+      - name: supplier_quality_and_freight
+        config:
+          export_as: table
+
+  - name: warehouse_inventory_health
+    description: Month-end stockout and below-safety-stock rates by warehouse (LOG-POL-7).
+    query_params:
+      metrics: [stockout_rate, below_safety_stock_rate]
+      group_by:
+        - TimeDimension('metric_time', 'month')
+        - Dimension('warehouse__warehouse_name')
+    exports:
+      - name: warehouse_inventory_health
+        config:
+          export_as: table
+
+  - name: carrier_scorecard
+    description: Carrier on-time rate by month, next to the contracted target.
+    query_params:
+      metrics: [carrier_on_time_rate, total_damage_claims]
+      group_by:
+        - TimeDimension('metric_time', 'month')
+        - Dimension('carrier__carrier_name')
+        - Dimension('carrier__contracted_otd_target_pct')
+    exports:
+      - name: carrier_scorecard
+        config:
+          export_as: table
+
+  - name: forecast_accuracy_by_category
+    description: Forecast WAPE and bias by product category and month.
+    query_params:
+      metrics: [forecast_wape, forecast_bias]
+      group_by:
+        - TimeDimension('metric_time', 'month')
+        - Dimension('product__category')
+    exports:
+      - name: forecast_accuracy_by_category
+        config:
+          export_as: table

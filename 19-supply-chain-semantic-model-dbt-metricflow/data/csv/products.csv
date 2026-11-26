@@ -1,0 +1,30 @@
+sku,product_name,category,abc_class,unit_price,unit_cost,lead_time_days,primary_supplier_id,weight_kg
+SKU-1001,Polyethylene Stretch Film 18in,Polymers & Packaging,A,57.96,42.0,14,SUP-01,16.4
+SKU-1002,HDPE Pallet Wrap 20in,Polymers & Packaging,A,66.93,48.5,14,SUP-01,18.9
+SKU-1003,Bubble Cushion Roll 24in,Polymers & Packaging,B,42.78,31.0,14,SUP-01,12.7
+SKU-1004,Polypropylene Strapping Kit,Polymers & Packaging,B,77.28,56.0,14,SUP-01,12.5
+SKU-1005,Moisture Barrier Bag Pack,Polymers & Packaging,C,30.36,22.0,14,SUP-01,9.7
+SKU-1006,Hex Bolt M12 Box,Fasteners,A,24.84,18.0,28,SUP-02,23.9
+SKU-1007,Stainless Lag Screw Box,Fasteners,A,33.12,24.0,28,SUP-02,7.2
+SKU-1008,Anchor Wedge Kit,Fasteners,B,49.68,36.0,28,SUP-02,3.9
+SKU-1009,Lock Nut Assortment,Fasteners,C,19.32,14.0,28,SUP-02,6.6
+SKU-1010,Hydraulic Hose 3/8in 50ft,Hydraulics,A,121.44,88.0,21,SUP-03,6.5
+SKU-1011,Quick Coupler Set,Hydraulics,B,88.32,64.0,21,SUP-03,8.1
+SKU-1012,Gear Pump 12cc,Hydraulics,A,427.8,310.0,21,SUP-03,6.7
+SKU-1013,Seal Kit Universal,Hydraulics,C,26.22,19.0,21,SUP-03,2.9
+SKU-1014,Copper Wire 12AWG 250ft,Electrical,A,132.48,96.0,10,SUP-04,8.1
+SKU-1015,LED High Bay 150W,Electrical,B,195.96,142.0,10,SUP-04,7.7
+SKU-1016,Breaker 20A Single Pole,Electrical,B,15.87,11.5,10,SUP-04,13.8
+SKU-1017,Conduit EMT 3/4in 10ft,Electrical,C,11.32,8.2,10,SUP-04,5.2
+SKU-1018,Spruce Stud 2x4x8,Lumber,A,8.83,6.4,12,SUP-05,2.1
+SKU-1019,Plywood Sheathing 7/16,Lumber,A,38.64,28.0,12,SUP-05,5.2
+SKU-1020,Cedar Fence Board,Lumber,C,5.66,4.1,12,SUP-05,13.2
+SKU-1021,Hard Hat Class E,Safety,B,28.98,21.0,9,SUP-06,9.6
+SKU-1022,Cut Resistant Gloves A4,Safety,A,13.11,9.5,9,SUP-06,17.7
+SKU-1023,Safety Glasses Clear,Safety,C,6.07,4.4,9,SUP-06,19.4
+SKU-1024,Construction Adhesive 28oz,Adhesives & Sealants,A,10.9,7.9,8,SUP-07,10.2
+SKU-1025,Polyurethane Sealant,Adhesives & Sealants,B,13.52,9.8,8,SUP-07,2.7
+SKU-1026,Epoxy Anchor Cartridge,Adhesives & Sealants,B,40.02,29.0,8,SUP-07,17.6
+SKU-1027,PEX Pipe 1/2in 100ft,Plumbing,A,74.52,54.0,25,SUP-08,18.2
+SKU-1028,Brass Ball Valve 3/4in,Plumbing,B,24.15,17.5,25,SUP-08,9.7
+SKU-1029,PVC Elbow 2in Pack,Plumbing,C,16.56,12.0,25,SUP-08,15.9

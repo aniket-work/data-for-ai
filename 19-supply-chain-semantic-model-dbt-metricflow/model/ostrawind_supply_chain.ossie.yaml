@@ -1,0 +1,1042 @@
+# Ostrawind Supply Co. supply chain semantic model (Apache Ossie 0.3.0.dev0)
+version: 0.3.0.dev0
+name: ostrawind_supply_chain
+description: Semantic model of Ostrawind Supply Co., a fictional North American distributor of industrial
+  and building supplies. It covers suppliers, products, warehouses, carriers, purchase orders, inbound
+  shipments, monthly inventory snapshots, demand forecasts and carrier lane performance, with the KPIs
+  used in supplier contracts and the logistics policy (on-time delivery, fill rate, damage rate, stockouts,
+  forecast accuracy).
+ai_context:
+  instructions: 'Answer supply chain questions with the metrics below instead of writing new formulas.
+    On-time delivery compares a purchase order''s received date with its promised date. Fill rate and
+    damage rate are unit-based. Inventory snapshots are month-end point-in-time values: never add on-hand
+    units across snapshot dates; filter to one snapshot date or average them. Forecast accuracy is 1 -
+    WAPE. Contract SLA targets: Pangrove Polymer OTD 92% / fill 98% / damage <=0.5%; Kessling Fastener
+    OTD 95% / fill 99%; Siravan Hydraulics OTD 88% / fill 97%. Carriers have a contracted OTD target per
+    carrier.'
+  synonyms:
+  - supply chain model
+  - procurement and logistics model
+  - inbound supply model
+  examples:
+  - Which suppliers missed their on-time delivery SLA last quarter?
+  - What is the fill rate by supplier and month?
+  - Which warehouses had SKUs below safety stock in the latest snapshot?
+  - How accurate was the demand forecast by product category?
+  - Which carrier lanes are below their contracted on-time target?
+datasets:
+- name: supplier
+  source: supply_chain.suppliers
+  primary_key:
+  - supplier_id
+  description: Core information about a supplier, including identifiers, contact details, and classification.
+  ai_context:
+    synonyms:
+    - vendor
+    - supplier master
+    - source of supply
+  fields:
+  - name: payment_terms_days
+    expression:
+      sql: payment_terms_days
+    datatype: Integer
+    description: payment_terms_days represents the number of days allowed for the supplier to receive
+      payment for their goods or services.
+    dimension:
+      is_time: false
+  - name: contract_id
+    expression:
+      sql: contract_id
+    datatype: String
+    description: contract_id represents a unique identifier for each contract between the organization
+      and a supplier.
+    dimension:
+      is_time: false
+  - name: supplier_tier
+    expression:
+      sql: supplier_tier
+    datatype: String
+    description: supplier_tier represents the classification level of the supplier based on their importance
+      or relationship.
+    dimension:
+      is_time: false
+    ai_context:
+      synonyms:
+      - tier
+      - supplier segment
+  - name: country
+    expression:
+      sql: country
+    datatype: String
+    description: country represents the country where the supplier is based.
+    dimension:
+      is_time: false
+  - name: product_category
+    expression:
+      sql: category
+    datatype: String
+    description: category represents the type of products or services the supplier provides.
+    dimension:
+      is_time: false
+  - name: region
+    expression:
+      sql: region
+    datatype: String
+    description: region represents the geographical region the supplier is associated with.
+    dimension:
+      is_time: false
+  - name: supplier_id
+    expression:
+      sql: supplier_id
+    datatype: String
+    description: supplier_id represents a unique identifier for each supplier.
+    dimension:
+      is_time: false
+  - name: supplier_name
+    expression:
+      sql: supplier_name
+    datatype: String
+    description: supplier_name represents the official name of the supplier.
+    dimension:
+      is_time: false
+  - name: onboarded_date
+    expression:
+      sql: onboarded_date
+    datatype: Date
+    description: 'onboarded_date represents the date when the supplier was added to the organization''s
+      system. — format: YYYY-MM-DD'
+    dimension:
+      is_time: true
+- name: product
+  source: supply_chain.products
+  primary_key:
+  - sku
+  description: Core information about each product item in inventory
+  ai_context:
+    synonyms:
+    - item
+    - SKU
+    - article
+    - material
+  fields:
+  - name: category
+    expression:
+      sql: category
+    datatype: String
+    description: category classifies the product into a broader product group or type.
+    dimension:
+      is_time: false
+  - name: unit_price
+    expression:
+      sql: unit_price
+    datatype: Float
+    description: unit_price represents the selling price of the product per unit.
+    dimension:
+      is_time: false
+  - name: abc_class
+    expression:
+      sql: abc_class
+    datatype: String
+    description: abc_class categorizes the product into A, B, or C based on its importance or value.
+    dimension:
+      is_time: false
+    ai_context:
+      synonyms:
+      - ABC class
+      - velocity class
+  - name: product_name
+    expression:
+      sql: product_name
+    datatype: String
+    description: product_name describes the specific name or type of the product.
+    dimension:
+      is_time: false
+  - name: lead_time_in_days
+    expression:
+      sql: lead_time_days
+    datatype: Integer
+    description: lead_time_days indicates the number of days required to receive the product from the
+      supplier.
+    dimension:
+      is_time: false
+  - name: unit_cost
+    expression:
+      sql: unit_cost
+    datatype: Float
+    description: unit_cost represents the cost price of the product per unit.
+    dimension:
+      is_time: false
+  - name: primary_supplier_id
+    expression:
+      sql: primary_supplier_id
+    datatype: String
+    description: primary_supplier_id identifies the main supplier associated with the product.
+    dimension:
+      is_time: false
+  - name: sku
+    expression:
+      sql: sku
+    datatype: String
+    description: sku represents a unique identifier for each product item in the inventory.
+    dimension:
+      is_time: false
+  - name: weight_in_kilograms
+    expression:
+      sql: weight_kg
+    datatype: Float
+    description: weight_kg indicates the weight of the product in kilograms.
+    dimension:
+      is_time: false
+- name: warehouse
+  source: supply_chain.warehouses
+  primary_key:
+  - warehouse_id
+  description: A physical location used for storing goods, with associated metadata and operational details.
+  ai_context:
+    synonyms:
+    - distribution center
+    - DC
+    - site
+    - location
+    - facility
+  fields:
+  - name: region
+    expression:
+      sql: region
+    datatype: String
+    description: region indicates the geographical region associated with the warehouse.
+    dimension:
+      is_time: false
+  - name: maximum_pallet_capacity
+    expression:
+      sql: capacity_pallets
+    datatype: Integer
+    description: capacity_pallets represents the maximum number of pallets the warehouse can store.
+    dimension:
+      is_time: false
+  - name: warehouse_name
+    expression:
+      sql: warehouse_name
+    datatype: String
+    description: warehouse_name provides the official name of the warehouse, indicating its primary function
+      and location.
+    dimension:
+      is_time: false
+  - name: warehouse_id
+    expression:
+      sql: warehouse_id
+    datatype: String
+    description: warehouse_id represents the unique identifier for each warehouse, formatted as a location
+      code.
+    dimension:
+      is_time: false
+  - name: city
+    expression:
+      sql: city
+    datatype: String
+    description: city specifies the city where the warehouse is located.
+    dimension:
+      is_time: false
+  - name: warehouse_type
+    expression:
+      sql: warehouse_type
+    datatype: String
+    description: warehouse_type describes the operational function of the warehouse, such as Distribution
+      Center or Fulfilment Center.
+    dimension:
+      is_time: false
+- name: carrier
+  source: supply_chain.carriers
+  primary_key:
+  - carrier_id
+  description: Information about a transportation company providing services.
+  ai_context:
+    synonyms:
+    - freight carrier
+    - transport provider
+    - logistics provider
+  fields:
+  - name: carrier_id
+    expression:
+      sql: carrier_id
+    datatype: String
+    description: carrier_id uniquely identifies a carrier within the system using a prefix-suffix format.
+    dimension:
+      is_time: false
+  - name: transport_mode
+    expression:
+      sql: transport_mode
+    datatype: String
+    description: transport_mode indicates the type of transportation method used by the carrier.
+    dimension:
+      is_time: false
+  - name: contracted_otd_target_pct
+    expression:
+      sql: contracted_otd_target_pct
+    datatype: Integer
+    description: contracted_otd_target_pct represents the percentage of on-time deliveries expected from
+      the carrier as per the contract.
+    dimension:
+      is_time: false
+  - name: carrier_name
+    expression:
+      sql: carrier_name
+    datatype: String
+    description: carrier_name represents the full name of the transportation company providing services.
+    dimension:
+      is_time: false
+- name: purchase_order
+  source: supply_chain.purchase_orders
+  primary_key:
+  - po_id
+  description: A record representing a purchase order placed by a buyer.
+  ai_context:
+    synonyms:
+    - PO
+    - purchase order line
+    - replenishment order
+    - buy order
+  fields:
+  - name: purchase_order_status
+    expression:
+      sql: po_status
+    datatype: String
+    description: po_status represents the current status of the purchase order, such as Closed, In Transit,
+      Cancelled, or Open.
+    dimension:
+      is_time: false
+  - name: unit_cost
+    expression:
+      sql: unit_cost
+    datatype: Float
+    description: unit_cost represents the cost per unit of the product ordered.
+    dimension:
+      is_time: false
+  - name: po_id
+    expression:
+      sql: po_id
+    datatype: String
+    description: po_id represents the unique identifier for a purchase order.
+    dimension:
+      is_time: false
+  - name: promised_delivery_date
+    expression:
+      sql: promised_date
+    datatype: Date
+    description: 'promised_date represents the expected date by which the product should be delivered.
+      — format: YYYY-MM-DD'
+    dimension:
+      is_time: true
+  - name: order_date
+    expression:
+      sql: order_date
+    datatype: Date
+    description: 'order_date represents the date when the purchase order was placed. — format: YYYY-MM-DD'
+    dimension:
+      is_time: true
+  - name: quantity_ordered
+    expression:
+      sql: quantity_ordered
+    datatype: Integer
+    description: quantity_ordered represents the number of units ordered in the purchase order.
+    dimension:
+      is_time: false
+    ai_context:
+      synonyms:
+      - ordered units
+      - order quantity
+  - name: sku
+    expression:
+      sql: sku
+    datatype: String
+    description: sku represents the unique identifier for a product or inventory item.
+    dimension:
+      is_time: false
+  - name: supplier_id
+    expression:
+      sql: supplier_id
+    datatype: String
+    dimension:
+      is_time: false
+  - name: warehouse_id
+    expression:
+      sql: warehouse_id
+    datatype: String
+    dimension:
+      is_time: false
+  - name: quantity_received
+    expression:
+      sql: quantity_received
+    description: Units received in good condition against the purchase order line.
+    datatype: Integer
+    dimension:
+      is_time: false
+  - name: received_date
+    expression:
+      sql: received_date
+    description: Date the purchase order line was received at the warehouse. Empty while open.
+    datatype: Date
+    dimension:
+      is_time: true
+  - name: is_on_time
+    expression:
+      sql: CASE WHEN received_date IS NULL THEN NULL WHEN received_date <= promised_date THEN 1 ELSE 0
+        END
+    datatype: Integer
+    description: 1 when the purchase order was received on or before its promised date, 0 when received
+      late, empty while not received.
+    dimension:
+      is_time: false
+  - name: is_received
+    expression:
+      sql: CASE WHEN received_date IS NOT NULL THEN 1 ELSE 0 END
+    datatype: Integer
+    description: 1 when the purchase order has a receipt date.
+    dimension:
+      is_time: false
+  - name: received_qty_on_receipt
+    expression:
+      sql: CASE WHEN received_date IS NOT NULL THEN quantity_received END
+    datatype: Integer
+    description: Units received, for received purchase orders only.
+    dimension:
+      is_time: false
+  - name: ordered_qty_on_receipt
+    expression:
+      sql: CASE WHEN received_date IS NOT NULL THEN quantity_ordered END
+    datatype: Integer
+    description: Units ordered, for received purchase orders only (fill-rate denominator).
+    dimension:
+      is_time: false
+  - name: po_value
+    expression:
+      sql: quantity_ordered * unit_cost
+    datatype: Decimal
+    description: Purchase order value, ordered units times unit cost (USD).
+    dimension:
+      is_time: false
+- name: shipment
+  source: supply_chain.shipments
+  primary_key:
+  - shipment_id
+  description: Core entity representing a shipment, including its identification, timeline, and status.
+  ai_context:
+    synonyms:
+    - inbound shipment
+    - delivery
+    - receipt
+    - consignment
+  fields:
+  - name: carrier_id
+    expression:
+      sql: carrier_id
+    datatype: String
+    description: carrier_id uniquely identifies each carrier with a text identifier starting with 'CAR-'
+      followed by a numeric sequence.
+    dimension:
+      is_time: false
+  - name: delivery_date
+    expression:
+      sql: delivered_date
+    datatype: Date
+    description: 'delivered_date records the date when the shipment was successfully delivered. — format:
+      YYYY-MM-DD'
+    dimension:
+      is_time: true
+  - name: shipment_id
+    expression:
+      sql: shipment_id
+    datatype: String
+    description: shipment_id uniquely identifies each shipment with a text identifier starting with 'SHP-'
+      followed by a numeric sequence.
+    dimension:
+      is_time: false
+  - name: po_id
+    expression:
+      sql: po_id
+    datatype: String
+    description: po_id uniquely identifies each purchase order with a text identifier starting with 'PO-'
+      followed by a numeric sequence.
+    dimension:
+      is_time: false
+  - name: shipment_date
+    expression:
+      sql: ship_date
+    datatype: Date
+    description: 'ship_date records the date when the shipment was dispatched. — format: YYYY-MM-DD'
+    dimension:
+      is_time: true
+  - name: shipment_status
+    expression:
+      sql: shipment_status
+    datatype: String
+    description: shipment_status indicates the current status of the shipment, such as 'Delivered' or
+      'In Transit'.
+    dimension:
+      is_time: false
+  - name: freight_cost
+    expression:
+      sql: freight_cost
+    datatype: Float
+    description: freight_cost represents the total cost incurred for transporting the shipment, expressed
+      in currency.
+    dimension:
+      is_time: false
+    ai_context:
+      synonyms:
+      - shipping cost
+      - transport cost
+      - freight spend
+  - name: damaged_units
+    expression:
+      sql: damaged_units
+    datatype: Integer
+    description: damaged_units represents the number of units that were damaged upon delivery.
+    dimension:
+      is_time: false
+    ai_context:
+      synonyms:
+      - damaged quantity
+      - units damaged
+  - name: quantity_received
+    expression:
+      sql: quantity_received
+    datatype: Integer
+    description: quantity_received represents the total number of units received from the shipment.
+    dimension:
+      is_time: false
+    ai_context:
+      synonyms:
+      - received units
+      - units received
+  - name: units_shipped
+    expression:
+      sql: quantity_received + damaged_units
+    datatype: Integer
+    description: Units that arrived, good plus damaged.
+    dimension:
+      is_time: false
+  - name: transit_days
+    expression:
+      sql: CASE WHEN delivered_date IS NOT NULL THEN delivered_date - ship_date END
+    datatype: Integer
+    description: Days from ship date to delivered date.
+    dimension:
+      is_time: false
+- name: inventory_snapshot
+  source: supply_chain.inventory_snapshots
+  primary_key:
+  - snapshot_id
+  description: A record representing the state of inventory at a specific point in time for a particular
+    warehouse and product.
+  ai_context:
+    synonyms:
+    - stock snapshot
+    - inventory position
+    - stock on hand
+    instructions: Month-end point-in-time balances. Do not sum on-hand units across dates.
+  fields:
+  - name: snapshot_date
+    expression:
+      sql: snapshot_date
+    datatype: Date
+    description: 'snapshot_date represents the date on which the inventory snapshot was taken. — format:
+      YYYY-MM-DD'
+    dimension:
+      is_time: true
+  - name: allocated_units
+    expression:
+      sql: allocated_units
+    datatype: Integer
+    description: allocated_units represents the number of units of a product that have been reserved for
+      orders or commitments.
+    dimension:
+      is_time: false
+  - name: reorder_point_units
+    expression:
+      sql: reorder_point_units
+    datatype: Integer
+    description: reorder_point_units represents the inventory level at which a product should be reordered
+      to avoid stockouts.
+    dimension:
+      is_time: false
+  - name: warehouse_id
+    expression:
+      sql: warehouse_id
+    datatype: String
+    description: warehouse_id identifies the specific warehouse location associated with the inventory
+      data.
+    dimension:
+      is_time: false
+  - name: on_hand_units
+    expression:
+      sql: on_hand_units
+    datatype: Integer
+    description: on_hand_units represents the number of units of a product currently available in the
+      warehouse.
+    dimension:
+      is_time: false
+  - name: sku
+    expression:
+      sql: sku
+    datatype: String
+    description: sku is a unique identifier for each product or item in the inventory.
+    dimension:
+      is_time: false
+  - name: snapshot_id
+    expression:
+      sql: snapshot_id
+    datatype: String
+    description: snapshot_id is a unique identifier for each inventory snapshot record.
+    dimension:
+      is_time: false
+  - name: safety_stock_units
+    expression:
+      sql: safety_stock_units
+    datatype: Integer
+    description: safety_stock_units represents the minimum number of units that should always be kept
+      in stock to mitigate supply chain risks.
+    dimension:
+      is_time: false
+    ai_context:
+      synonyms:
+      - safety stock
+      - buffer stock
+  - name: available_units
+    expression:
+      sql: on_hand_units - allocated_units
+    datatype: Integer
+    description: On-hand units minus units allocated to open customer orders (logistics policy LOG-POL-7).
+    dimension:
+      is_time: false
+  - name: is_stockout
+    expression:
+      sql: CASE WHEN on_hand_units - allocated_units <= 0 THEN 1 ELSE 0 END
+    datatype: Integer
+    description: 1 when available units are zero (a stockout under LOG-POL-7).
+    dimension:
+      is_time: false
+  - name: is_below_safety_stock
+    expression:
+      sql: CASE WHEN on_hand_units - allocated_units < safety_stock_units THEN 1 ELSE 0 END
+    datatype: Integer
+    description: 1 when available units are under safety stock units.
+    dimension:
+      is_time: false
+- name: demand_forecast
+  source: supply_chain.demand_forecasts
+  primary_key:
+  - forecast_id
+  description: A record representing a forecast of demand for a specific product in a specific warehouse
+    for a given month.
+  ai_context:
+    synonyms:
+    - forecast
+    - demand plan
+    - forecast vs actual
+    instructions: actual_units is empty for months that have not closed yet.
+  fields:
+  - name: forecast_id
+    expression:
+      sql: forecast_id
+    datatype: String
+    description: A unique identifier for each forecast record.
+    dimension:
+      is_time: false
+  - name: sku
+    expression:
+      sql: sku
+    datatype: String
+    description: A unique identifier for a specific product or stock-keeping unit.
+    dimension:
+      is_time: false
+  - name: forecast_month
+    expression:
+      sql: forecast_month
+    datatype: Date
+    description: 'The month for which the forecast is made. — format: YYYY-MM-DD'
+    dimension:
+      is_time: true
+  - name: actual_units
+    expression:
+      sql: actual_units
+    datatype: Integer
+    description: The actual number of units sold or available compared to the forecast.
+    dimension:
+      is_time: false
+  - name: forecasted_units
+    expression:
+      sql: forecast_units
+    datatype: Integer
+    description: The number of units predicted to be available or sold in the forecast month.
+    dimension:
+      is_time: false
+  - name: warehouse_id
+    expression:
+      sql: warehouse_id
+    datatype: String
+    description: A unique identifier for a warehouse location.
+    dimension:
+      is_time: false
+  - name: abs_forecast_error_units
+    expression:
+      sql: ABS(actual_units - forecast_units)
+    datatype: Integer
+    description: Absolute difference between actual and forecast units (closed months only).
+    dimension:
+      is_time: false
+  - name: forecast_minus_actual_units
+    expression:
+      sql: CASE WHEN actual_units IS NOT NULL THEN forecast_units - actual_units END
+    datatype: Integer
+    description: Forecast minus actual units for closed months (positive = over-forecast).
+    dimension:
+      is_time: false
+- name: carrier_lane_performance
+  source: supply_chain.carrier_performance
+  primary_key:
+  - performance_id
+  description: Records of carrier performance metrics across different lanes and months
+  ai_context:
+    synonyms:
+    - carrier scorecard
+    - lane performance
+    - carrier KPI
+  fields:
+  - name: performance_id
+    expression:
+      sql: performance_id
+    datatype: String
+    description: The performance_id is a unique identifier for each performance record, formatted as CPF
+      followed by a five-digit number.
+    dimension:
+      is_time: false
+  - name: total_shipments
+    expression:
+      sql: shipments
+    datatype: Integer
+    description: The shipments column represents the total number of shipments processed during the performance
+      month.
+    dimension:
+      is_time: false
+  - name: performance_month
+    expression:
+      sql: performance_month
+    datatype: Date
+    description: 'The performance_month represents the specific month during which the performance metrics
+      were recorded. — format: YYYY-MM-DD'
+    dimension:
+      is_time: true
+  - name: damage_claims
+    expression:
+      sql: damage_claims
+    datatype: Integer
+    description: The damage_claims column represents the number of claims filed due to damage during the
+      performance month.
+    dimension:
+      is_time: false
+  - name: on_time_shipments
+    expression:
+      sql: on_time_shipments
+    datatype: Integer
+    description: The on_time_shipments column represents the number of shipments that were delivered on
+      time during the performance month.
+    dimension:
+      is_time: false
+  - name: average_transit_days
+    expression:
+      sql: avg_transit_days
+    datatype: Float
+    description: The avg_transit_days column represents the average number of days it took for shipments
+      to transit between ports during the performance month.
+    dimension:
+      is_time: false
+  - name: lane
+    expression:
+      sql: lane
+    datatype: String
+    description: The lane column indicates the route or connection between two ports or cities, such as
+      Ho Chi Minh-Vancouver.
+    dimension:
+      is_time: false
+    ai_context:
+      synonyms:
+      - route
+      - trade lane
+  - name: carrier_id
+    expression:
+      sql: carrier_id
+    datatype: String
+    dimension:
+      is_time: false
+relationships:
+- name: purchase_order_to_supplier_supplier_id
+  from: purchase_order
+  to: supplier
+  from_columns:
+  - supplier_id
+  to_columns:
+  - supplier_id
+- name: purchase_order_to_product_sku
+  from: purchase_order
+  to: product
+  from_columns:
+  - sku
+  to_columns:
+  - sku
+- name: purchase_order_to_warehouse_warehouse_id
+  from: purchase_order
+  to: warehouse
+  from_columns:
+  - warehouse_id
+  to_columns:
+  - warehouse_id
+- name: shipment_to_purchase_order_po_id
+  from: shipment
+  to: purchase_order
+  from_columns:
+  - po_id
+  to_columns:
+  - po_id
+- name: shipment_to_carrier_carrier_id
+  from: shipment
+  to: carrier
+  from_columns:
+  - carrier_id
+  to_columns:
+  - carrier_id
+- name: product_to_supplier_primary_supplier_id
+  from: product
+  to: supplier
+  from_columns:
+  - primary_supplier_id
+  to_columns:
+  - supplier_id
+- name: inventory_snapshot_to_product_sku
+  from: inventory_snapshot
+  to: product
+  from_columns:
+  - sku
+  to_columns:
+  - sku
+- name: inventory_snapshot_to_warehouse_warehouse_id
+  from: inventory_snapshot
+  to: warehouse
+  from_columns:
+  - warehouse_id
+  to_columns:
+  - warehouse_id
+- name: demand_forecast_to_product_sku
+  from: demand_forecast
+  to: product
+  from_columns:
+  - sku
+  to_columns:
+  - sku
+- name: demand_forecast_to_warehouse_warehouse_id
+  from: demand_forecast
+  to: warehouse
+  from_columns:
+  - warehouse_id
+  to_columns:
+  - warehouse_id
+- name: carrier_lane_performance_to_carrier_carrier_id
+  from: carrier_lane_performance
+  to: carrier
+  from_columns:
+  - carrier_id
+  to_columns:
+  - carrier_id
+metrics:
+- name: purchase_order_count
+  expression:
+    sql: COUNT(purchase_order.po_id)
+  description: Number of purchase order lines.
+  datatype: Integer
+  ai_context:
+    synonyms:
+    - PO count
+    - number of POs
+- name: ordered_units
+  expression:
+    sql: SUM(purchase_order.quantity_ordered)
+  description: Units ordered on purchase orders.
+  datatype: Integer
+  ai_context:
+    synonyms:
+    - order quantity
+- name: purchase_value
+  expression:
+    sql: SUM(purchase_order.po_value)
+  description: Value of purchase orders (units ordered x unit cost, USD).
+  datatype: Decimal
+  ai_context:
+    synonyms:
+    - spend
+    - purchase spend
+    - PO value
+- name: shipment_count
+  expression:
+    sql: COUNT(shipment.shipment_id)
+  description: Number of inbound shipments.
+  datatype: Integer
+- name: received_purchase_orders
+  expression:
+    sql: SUM(purchase_order.is_received)
+  description: Purchase order lines that have been received.
+  datatype: Integer
+- name: on_time_purchase_orders
+  expression:
+    sql: SUM(purchase_order.is_on_time)
+  description: Purchase order lines received on or before the promised date.
+  datatype: Integer
+- name: on_time_delivery_rate
+  expression:
+    sql: AVG(purchase_order.is_on_time)
+  description: 'On-time delivery (OTD): received purchase order lines whose receipt date is on or before
+    the promised date, divided by received purchase order lines. Contract SLA targets are 92% (Pangrove
+    Polymer), 95% (Kessling Fastener) and 88% (Siravan Hydraulics).'
+  datatype: Float
+  ai_context:
+    synonyms:
+    - OTD
+    - on-time delivery
+    - OTD rate
+    - supplier on-time rate
+    - delivery reliability
+- name: units_received
+  expression:
+    sql: SUM(shipment.quantity_received)
+  description: Good units received.
+  datatype: Integer
+- name: total_damaged_units
+  expression:
+    sql: SUM(shipment.damaged_units)
+  description: Units received damaged.
+  datatype: Integer
+- name: damage_rate
+  expression:
+    sql: SUM(shipment.damaged_units) / SUM(shipment.units_shipped)
+  description: Damaged units divided by units shipped. Pangrove Polymer's contract caps it at 0.5% per
+    quarter.
+  datatype: Float
+  ai_context:
+    synonyms:
+    - damage percentage
+    - defect rate in transit
+- name: fill_rate
+  expression:
+    sql: SUM(purchase_order.received_qty_on_receipt) / SUM(purchase_order.ordered_qty_on_receipt)
+  description: Units received divided by units ordered, over received purchase order lines. Contract targets
+    are 97-99%.
+  datatype: Float
+  ai_context:
+    synonyms:
+    - order fill rate
+    - unit fill rate
+- name: total_freight_cost
+  expression:
+    sql: SUM(shipment.freight_cost)
+  description: Freight cost paid (USD).
+  datatype: Decimal
+  ai_context:
+    synonyms:
+    - freight spend
+    - transport cost
+- name: avg_transit_days
+  expression:
+    sql: AVG(shipment.transit_days)
+  description: Average days from ship date to delivered date.
+  datatype: Float
+  ai_context:
+    synonyms:
+    - transit time
+    - lead time in transit
+- name: freight_cost_per_unit
+  expression:
+    sql: SUM(shipment.freight_cost) / SUM(shipment.quantity_received)
+  description: Freight cost divided by units received (logistics policy KPI).
+  datatype: Float
+- name: avg_on_hand_units
+  expression:
+    sql: AVG(inventory_snapshot.on_hand_units)
+  description: Average on-hand units per SKU-warehouse snapshot.
+  datatype: Float
+- name: total_available_units
+  expression:
+    sql: SUM(inventory_snapshot.available_units)
+  description: Available units (on hand minus allocated). Filter to one snapshot date; do not add across
+    dates.
+  datatype: Integer
+  ai_context:
+    synonyms:
+    - free stock
+    - available to promise
+- name: snapshot_count
+  expression:
+    sql: COUNT(inventory_snapshot.snapshot_id)
+  description: Number of SKU-warehouse inventory snapshots.
+  datatype: Integer
+- name: stockout_snapshots
+  expression:
+    sql: SUM(inventory_snapshot.is_stockout)
+  description: SKU-warehouse snapshots with zero available units.
+  datatype: Integer
+- name: stockout_rate
+  expression:
+    sql: AVG(inventory_snapshot.is_stockout)
+  description: Share of SKU-warehouse snapshots with zero available units.
+  datatype: Float
+  ai_context:
+    synonyms:
+    - out-of-stock rate
+    - OOS rate
+- name: below_safety_stock_rate
+  expression:
+    sql: AVG(inventory_snapshot.is_below_safety_stock)
+  description: Share of SKU-warehouse snapshots whose available units are under safety stock.
+  datatype: Float
+- name: forecast_units
+  expression:
+    sql: SUM(demand_forecast.forecasted_units)
+  description: Forecast demand units.
+  datatype: Integer
+- name: total_actual_units
+  expression:
+    sql: SUM(demand_forecast.actual_units)
+  description: Actual demand units (closed months).
+  datatype: Integer
+- name: forecast_wape
+  expression:
+    sql: SUM(demand_forecast.abs_forecast_error_units) / SUM(demand_forecast.actual_units)
+  description: Weighted absolute percentage error, sum of |actual - forecast| over sum of actual units.
+    Forecast accuracy is 1 - WAPE.
+  datatype: Float
+  ai_context:
+    synonyms:
+    - WAPE
+    - forecast error
+- name: forecast_bias
+  expression:
+    sql: SUM(demand_forecast.forecast_minus_actual_units) / SUM(demand_forecast.actual_units)
+  description: (Forecast - actual) / actual over closed months. Positive means over-forecasting.
+  datatype: Float
+  ai_context:
+    synonyms:
+    - bias
+    - over-forecast
+- name: carrier_on_time_rate
+  expression:
+    sql: SUM(carrier_lane_performance.on_time_shipments) / SUM(carrier_lane_performance.total_shipments)
+  description: On-time shipments divided by shipments for carrier lanes; compare with the carrier's contracted
+    OTD target.
+  datatype: Float
+  ai_context:
+    synonyms:
+    - carrier OTD
+    - lane on-time rate
+- name: total_damage_claims
+  expression:
+    sql: SUM(carrier_lane_performance.damage_claims)
+  description: Damage claims filed against carriers.
+  datatype: Integer

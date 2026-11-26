@@ -1,0 +1,10 @@
+ostrawind_dbt/target/
+ostrawind_dbt/logs/
+ostrawind_dbt/dbt_packages/
+ostrawind_dbt/.user.yml
+warehouse/*.duckdb
+warehouse/*.wal
+__pycache__/
+.venv/
+exports/
+dashboard/

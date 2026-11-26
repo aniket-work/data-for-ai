@@ -1,0 +1,7 @@
+ostrawind:
+  target: local
+  outputs:
+    local:
+      type: duckdb
+      path: ../warehouse/ostrawind.duckdb
+      threads: 4

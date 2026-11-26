@@ -1,0 +1,11 @@
+{
+  "name": "ostrawind_supply_chain",
+  "instructions": "Answer supply chain questions with the metrics below instead of writing new formulas. On-time delivery compares a purchase order's received date with its promised date. Fill rate and damage rate are unit-based. Inventory snapshots are month-end point-in-time values: never add on-hand units across snapshot dates; filter to one snapshot date or average them. Forecast accuracy is 1 - WAPE. Contract SLA targets: Pangrove Polymer OTD 92% / fill 98% / damage <=0.5%; Kessling Fastener OTD 95% / fill 99%; Siravan Hydraulics OTD 88% / fill 97%. Carriers have a contracted OTD target per carrier.",
+  "examples": [
+    "Which suppliers missed their on-time delivery SLA last quarter?",
+    "What is the fill rate by supplier and month?",
+    "Which warehouses had SKUs below safety stock in the latest snapshot?",
+    "How accurate was the demand forecast by product category?",
+    "Which carrier lanes are below their contracted on-time target?"
+  ]
+}

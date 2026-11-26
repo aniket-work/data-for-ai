@@ -1,0 +1,6 @@
+carrier_id,carrier_name,transport_mode,contracted_otd_target_pct
+CAR-01,Northline Freight,Truckload,95
+CAR-02,Bluewater Intermodal,Intermodal,90
+CAR-03,Ridgeback LTL,LTL,92
+CAR-04,Cinderpath Express,Expedited,97
+CAR-05,Harrow Rail Logistics,Rail,88

@@ -1,0 +1,12 @@
+name: ostrawind
+version: "1.0.0"
+config-version: 2
+profile: ostrawind
+model-paths: ["models"]
+target-path: target
+clean-targets: ["target", "dbt_packages"]
+models:
+  ostrawind:
+    +materialized: view
+flags:
+  send_anonymous_usage_stats: false

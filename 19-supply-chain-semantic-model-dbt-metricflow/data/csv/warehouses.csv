@@ -1,0 +1,5 @@
+warehouse_id,warehouse_name,city,region,warehouse_type,capacity_pallets
+WH-TOR,Toronto Distribution Center,Toronto,East,Distribution Center,9000
+WH-MTL,Montreal Distribution Center,Montreal,East,Distribution Center,6500
+WH-CGY,Calgary Distribution Center,Calgary,West,Distribution Center,5200
+WH-VAN,Vancouver Fulfilment Center,Vancouver,West,Fulfilment Center,4100

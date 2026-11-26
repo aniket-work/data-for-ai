@@ -1,0 +1,10 @@
+# Tested together on Python 3.12 (Nov 2026)
+dbt-core==1.10.23
+dbt-duckdb==1.11.1
+dbt-metricflow==0.13.0
+metricflow==0.211.0
+duckdb==2.0.1
+pyyaml
+rich
+plotly
+openai

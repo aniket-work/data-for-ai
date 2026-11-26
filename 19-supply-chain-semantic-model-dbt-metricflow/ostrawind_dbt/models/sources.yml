@@ -1,0 +1,29 @@
+version: 2
+sources:
+- name: supply_chain
+  schema: supply_chain
+  tables:
+  - name: suppliers
+    description: Core information about a supplier, including identifiers, contact
+      details, and classification.
+  - name: products
+    description: Core information about each product item in inventory
+  - name: warehouses
+    description: A physical location used for storing goods, with associated metadata
+      and operational details.
+  - name: carriers
+    description: Information about a transportation company providing services.
+  - name: purchase_orders
+    description: A record representing a purchase order placed by a buyer.
+  - name: shipments
+    description: Core entity representing a shipment, including its identification,
+      timeline, and status.
+  - name: inventory_snapshots
+    description: A record representing the state of inventory at a specific point
+      in time for a particular warehouse and product.
+  - name: demand_forecasts
+    description: A record representing a forecast of demand for a specific product
+      in a specific warehouse for a given month.
+  - name: carrier_performance
+    description: Records of carrier performance metrics across different lanes and
+      months

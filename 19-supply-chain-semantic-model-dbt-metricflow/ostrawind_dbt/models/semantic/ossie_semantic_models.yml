@@ -1,0 +1,878 @@
+# Generated from the Apache Ossie model by scripts/ossie_to_dbt.py. Do not edit by hand.
+version: 2
+semantic_models:
+- name: supplier
+  description: Core information about a supplier, including identifiers, contact details, and classification.
+  model: ref('supplier')
+  config:
+    meta:
+      synonyms:
+      - vendor
+      - supplier master
+      - source of supply
+  entities:
+  - name: supplier
+    type: primary
+    expr: supplier_id
+  dimensions:
+  - name: payment_terms_days
+    expr: payment_terms_days
+    description: payment_terms_days represents the number of days allowed for the supplier to receive payment for their goods
+      or services.
+    type: categorical
+  - name: contract_id
+    expr: contract_id
+    description: contract_id represents a unique identifier for each contract between the organization and a supplier.
+    type: categorical
+  - name: supplier_tier
+    expr: supplier_tier
+    description: supplier_tier represents the classification level of the supplier based on their importance or relationship.
+    type: categorical
+  - name: country
+    expr: country
+    description: country represents the country where the supplier is based.
+    type: categorical
+  - name: product_category
+    expr: category
+    description: category represents the type of products or services the supplier provides.
+    type: categorical
+  - name: region
+    expr: region
+    description: region represents the geographical region the supplier is associated with.
+    type: categorical
+  - name: supplier_name
+    expr: supplier_name
+    description: supplier_name represents the official name of the supplier.
+    type: categorical
+  - name: onboarded_date
+    expr: onboarded_date
+    description: "onboarded_date represents the date when the supplier was added to the organization's system. \u2014 format:\
+      \ YYYY-MM-DD"
+    type: time
+    type_params:
+      time_granularity: day
+- name: product
+  description: Core information about each product item in inventory
+  model: ref('product')
+  config:
+    meta:
+      synonyms:
+      - item
+      - SKU
+      - article
+      - material
+  entities:
+  - name: product
+    type: primary
+    expr: sku
+  - name: supplier
+    type: foreign
+    expr: primary_supplier_id
+  dimensions:
+  - name: category
+    expr: category
+    description: category classifies the product into a broader product group or type.
+    type: categorical
+  - name: unit_price
+    expr: unit_price
+    description: unit_price represents the selling price of the product per unit.
+    type: categorical
+  - name: abc_class
+    expr: abc_class
+    description: abc_class categorizes the product into A, B, or C based on its importance or value.
+    type: categorical
+  - name: product_name
+    expr: product_name
+    description: product_name describes the specific name or type of the product.
+    type: categorical
+  - name: lead_time_in_days
+    expr: lead_time_days
+    description: lead_time_days indicates the number of days required to receive the product from the supplier.
+    type: categorical
+  - name: unit_cost
+    expr: unit_cost
+    description: unit_cost represents the cost price of the product per unit.
+    type: categorical
+  - name: weight_in_kilograms
+    expr: weight_kg
+    description: weight_kg indicates the weight of the product in kilograms.
+    type: categorical
+- name: warehouse
+  description: A physical location used for storing goods, with associated metadata and operational details.
+  model: ref('warehouse')
+  config:
+    meta:
+      synonyms:
+      - distribution center
+      - DC
+      - site
+      - location
+      - facility
+  entities:
+  - name: warehouse
+    type: primary
+    expr: warehouse_id
+  dimensions:
+  - name: region
+    expr: region
+    description: region indicates the geographical region associated with the warehouse.
+    type: categorical
+  - name: maximum_pallet_capacity
+    expr: capacity_pallets
+    description: capacity_pallets represents the maximum number of pallets the warehouse can store.
+    type: categorical
+  - name: warehouse_name
+    expr: warehouse_name
+    description: warehouse_name provides the official name of the warehouse, indicating its primary function and location.
+    type: categorical
+  - name: city
+    expr: city
+    description: city specifies the city where the warehouse is located.
+    type: categorical
+  - name: warehouse_type
+    expr: warehouse_type
+    description: warehouse_type describes the operational function of the warehouse, such as Distribution Center or Fulfilment
+      Center.
+    type: categorical
+- name: carrier
+  description: Information about a transportation company providing services.
+  model: ref('carrier')
+  config:
+    meta:
+      synonyms:
+      - freight carrier
+      - transport provider
+      - logistics provider
+  entities:
+  - name: carrier
+    type: primary
+    expr: carrier_id
+  dimensions:
+  - name: transport_mode
+    expr: transport_mode
+    description: transport_mode indicates the type of transportation method used by the carrier.
+    type: categorical
+  - name: contracted_otd_target_pct
+    expr: contracted_otd_target_pct
+    description: contracted_otd_target_pct represents the percentage of on-time deliveries expected from the carrier as per
+      the contract.
+    type: categorical
+  - name: carrier_name
+    expr: carrier_name
+    description: carrier_name represents the full name of the transportation company providing services.
+    type: categorical
+- name: purchase_order
+  description: A record representing a purchase order placed by a buyer.
+  model: ref('purchase_order')
+  config:
+    meta:
+      synonyms:
+      - PO
+      - purchase order line
+      - replenishment order
+      - buy order
+  entities:
+  - name: purchase_order
+    type: primary
+    expr: po_id
+  - name: supplier
+    type: foreign
+    expr: supplier_id
+  - name: product
+    type: foreign
+    expr: sku
+  - name: warehouse
+    type: foreign
+    expr: warehouse_id
+  dimensions:
+  - name: purchase_order_status
+    expr: po_status
+    description: po_status represents the current status of the purchase order, such as Closed, In Transit, Cancelled, or
+      Open.
+    type: categorical
+  - name: unit_cost
+    expr: unit_cost
+    description: unit_cost represents the cost per unit of the product ordered.
+    type: categorical
+  - name: promised_delivery_date
+    expr: promised_date
+    description: "promised_date represents the expected date by which the product should be delivered. \u2014 format: YYYY-MM-DD"
+    type: time
+    type_params:
+      time_granularity: day
+  - name: order_date
+    expr: order_date
+    description: "order_date represents the date when the purchase order was placed. \u2014 format: YYYY-MM-DD"
+    type: time
+    type_params:
+      time_granularity: day
+  - name: quantity_ordered
+    expr: quantity_ordered
+    description: quantity_ordered represents the number of units ordered in the purchase order.
+    type: categorical
+  - name: quantity_received
+    expr: quantity_received
+    description: Units received in good condition against the purchase order line.
+    type: categorical
+  - name: received_date
+    expr: received_date
+    description: Date the purchase order line was received at the warehouse. Empty while open.
+    type: time
+    type_params:
+      time_granularity: day
+  - name: is_on_time
+    expr: CASE WHEN received_date IS NULL THEN NULL WHEN received_date <= promised_date THEN 1 ELSE 0 END
+    description: 1 when the purchase order was received on or before its promised date, 0 when received late, empty while
+      not received.
+    type: categorical
+  - name: is_received
+    expr: CASE WHEN received_date IS NOT NULL THEN 1 ELSE 0 END
+    description: 1 when the purchase order has a receipt date.
+    type: categorical
+  - name: received_qty_on_receipt
+    expr: CASE WHEN received_date IS NOT NULL THEN quantity_received END
+    description: Units received, for received purchase orders only.
+    type: categorical
+  - name: ordered_qty_on_receipt
+    expr: CASE WHEN received_date IS NOT NULL THEN quantity_ordered END
+    description: Units ordered, for received purchase orders only (fill-rate denominator).
+    type: categorical
+  - name: po_value
+    expr: quantity_ordered * unit_cost
+    description: Purchase order value, ordered units times unit cost (USD).
+    type: categorical
+  defaults:
+    agg_time_dimension: promised_delivery_date
+  measures:
+  - name: po_id_count
+    agg: count
+    expr: po_id
+  - name: quantity_ordered_sum
+    agg: sum
+    expr: quantity_ordered
+  - name: po_value_sum
+    agg: sum
+    expr: quantity_ordered * unit_cost
+  - name: is_received_sum
+    agg: sum
+    expr: CASE WHEN received_date IS NOT NULL THEN 1 ELSE 0 END
+  - name: is_on_time_sum
+    agg: sum
+    expr: CASE WHEN received_date IS NULL THEN NULL WHEN received_date <= promised_date THEN 1 ELSE 0 END
+  - name: is_on_time_average
+    agg: average
+    expr: CASE WHEN received_date IS NULL THEN NULL WHEN received_date <= promised_date THEN 1 ELSE 0 END
+  - name: received_qty_on_receipt_sum
+    agg: sum
+    expr: CASE WHEN received_date IS NOT NULL THEN quantity_received END
+  - name: ordered_qty_on_receipt_sum
+    agg: sum
+    expr: CASE WHEN received_date IS NOT NULL THEN quantity_ordered END
+- name: shipment
+  description: Core entity representing a shipment, including its identification, timeline, and status.
+  model: ref('shipment')
+  config:
+    meta:
+      synonyms:
+      - inbound shipment
+      - delivery
+      - receipt
+      - consignment
+  entities:
+  - name: shipment
+    type: primary
+    expr: shipment_id
+  - name: purchase_order
+    type: foreign
+    expr: po_id
+  - name: carrier
+    type: foreign
+    expr: carrier_id
+  dimensions:
+  - name: delivery_date
+    expr: delivered_date
+    description: "delivered_date records the date when the shipment was successfully delivered. \u2014 format: YYYY-MM-DD"
+    type: time
+    type_params:
+      time_granularity: day
+  - name: shipment_date
+    expr: ship_date
+    description: "ship_date records the date when the shipment was dispatched. \u2014 format: YYYY-MM-DD"
+    type: time
+    type_params:
+      time_granularity: day
+  - name: shipment_status
+    expr: shipment_status
+    description: shipment_status indicates the current status of the shipment, such as 'Delivered' or 'In Transit'.
+    type: categorical
+  - name: freight_cost
+    expr: freight_cost
+    description: freight_cost represents the total cost incurred for transporting the shipment, expressed in currency.
+    type: categorical
+  - name: damaged_units
+    expr: damaged_units
+    description: damaged_units represents the number of units that were damaged upon delivery.
+    type: categorical
+  - name: quantity_received
+    expr: quantity_received
+    description: quantity_received represents the total number of units received from the shipment.
+    type: categorical
+  - name: units_shipped
+    expr: quantity_received + damaged_units
+    description: Units that arrived, good plus damaged.
+    type: categorical
+  - name: transit_days
+    expr: CASE WHEN delivered_date IS NOT NULL THEN delivered_date - ship_date END
+    description: Days from ship date to delivered date.
+    type: categorical
+  defaults:
+    agg_time_dimension: delivery_date
+  measures:
+  - name: shipment_id_count
+    agg: count
+    expr: shipment_id
+  - name: quantity_received_sum
+    agg: sum
+    expr: quantity_received
+  - name: damaged_units_sum
+    agg: sum
+    expr: damaged_units
+  - name: units_shipped_sum
+    agg: sum
+    expr: quantity_received + damaged_units
+  - name: freight_cost_sum
+    agg: sum
+    expr: freight_cost
+  - name: transit_days_average
+    agg: average
+    expr: CASE WHEN delivered_date IS NOT NULL THEN delivered_date - ship_date END
+- name: inventory_snapshot
+  description: A record representing the state of inventory at a specific point in time for a particular warehouse and product.
+  model: ref('inventory_snapshot')
+  config:
+    meta:
+      synonyms:
+      - stock snapshot
+      - inventory position
+      - stock on hand
+  entities:
+  - name: inventory_snapshot
+    type: primary
+    expr: snapshot_id
+  - name: product
+    type: foreign
+    expr: sku
+  - name: warehouse
+    type: foreign
+    expr: warehouse_id
+  dimensions:
+  - name: snapshot_date
+    expr: snapshot_date
+    description: "snapshot_date represents the date on which the inventory snapshot was taken. \u2014 format: YYYY-MM-DD"
+    type: time
+    type_params:
+      time_granularity: day
+  - name: allocated_units
+    expr: allocated_units
+    description: allocated_units represents the number of units of a product that have been reserved for orders or commitments.
+    type: categorical
+  - name: reorder_point_units
+    expr: reorder_point_units
+    description: reorder_point_units represents the inventory level at which a product should be reordered to avoid stockouts.
+    type: categorical
+  - name: on_hand_units
+    expr: on_hand_units
+    description: on_hand_units represents the number of units of a product currently available in the warehouse.
+    type: categorical
+  - name: safety_stock_units
+    expr: safety_stock_units
+    description: safety_stock_units represents the minimum number of units that should always be kept in stock to mitigate
+      supply chain risks.
+    type: categorical
+  - name: available_units
+    expr: on_hand_units - allocated_units
+    description: On-hand units minus units allocated to open customer orders (logistics policy LOG-POL-7).
+    type: categorical
+  - name: is_stockout
+    expr: CASE WHEN on_hand_units - allocated_units <= 0 THEN 1 ELSE 0 END
+    description: 1 when available units are zero (a stockout under LOG-POL-7).
+    type: categorical
+  - name: is_below_safety_stock
+    expr: CASE WHEN on_hand_units - allocated_units < safety_stock_units THEN 1 ELSE 0 END
+    description: 1 when available units are under safety stock units.
+    type: categorical
+  defaults:
+    agg_time_dimension: snapshot_date
+  measures:
+  - name: on_hand_units_average
+    agg: average
+    expr: on_hand_units
+  - name: available_units_sum
+    agg: sum
+    expr: on_hand_units - allocated_units
+  - name: snapshot_id_count
+    agg: count
+    expr: snapshot_id
+  - name: is_stockout_sum
+    agg: sum
+    expr: CASE WHEN on_hand_units - allocated_units <= 0 THEN 1 ELSE 0 END
+  - name: is_stockout_average
+    agg: average
+    expr: CASE WHEN on_hand_units - allocated_units <= 0 THEN 1 ELSE 0 END
+  - name: is_below_safety_stock_average
+    agg: average
+    expr: CASE WHEN on_hand_units - allocated_units < safety_stock_units THEN 1 ELSE 0 END
+- name: demand_forecast
+  description: A record representing a forecast of demand for a specific product in a specific warehouse for a given month.
+  model: ref('demand_forecast')
+  config:
+    meta:
+      synonyms:
+      - forecast
+      - demand plan
+      - forecast vs actual
+  entities:
+  - name: demand_forecast
+    type: primary
+    expr: forecast_id
+  - name: product
+    type: foreign
+    expr: sku
+  - name: warehouse
+    type: foreign
+    expr: warehouse_id
+  dimensions:
+  - name: forecast_month
+    expr: forecast_month
+    description: "The month for which the forecast is made. \u2014 format: YYYY-MM-DD"
+    type: time
+    type_params:
+      time_granularity: day
+  - name: actual_units
+    expr: actual_units
+    description: The actual number of units sold or available compared to the forecast.
+    type: categorical
+  - name: forecasted_units
+    expr: forecast_units
+    description: The number of units predicted to be available or sold in the forecast month.
+    type: categorical
+  - name: abs_forecast_error_units
+    expr: ABS(actual_units - forecast_units)
+    description: Absolute difference between actual and forecast units (closed months only).
+    type: categorical
+  - name: forecast_minus_actual_units
+    expr: CASE WHEN actual_units IS NOT NULL THEN forecast_units - actual_units END
+    description: Forecast minus actual units for closed months (positive = over-forecast).
+    type: categorical
+  defaults:
+    agg_time_dimension: forecast_month
+  measures:
+  - name: forecasted_units_sum
+    agg: sum
+    expr: forecast_units
+  - name: actual_units_sum
+    agg: sum
+    expr: actual_units
+  - name: abs_forecast_error_units_sum
+    agg: sum
+    expr: ABS(actual_units - forecast_units)
+  - name: forecast_minus_actual_units_sum
+    agg: sum
+    expr: CASE WHEN actual_units IS NOT NULL THEN forecast_units - actual_units END
+- name: carrier_lane_performance
+  description: Records of carrier performance metrics across different lanes and months
+  model: ref('carrier_lane_performance')
+  config:
+    meta:
+      synonyms:
+      - carrier scorecard
+      - lane performance
+      - carrier KPI
+  entities:
+  - name: carrier_lane_performance
+    type: primary
+    expr: performance_id
+  - name: carrier
+    type: foreign
+    expr: carrier_id
+  dimensions:
+  - name: total_shipments
+    expr: shipments
+    description: The shipments column represents the total number of shipments processed during the performance month.
+    type: categorical
+  - name: performance_month
+    expr: performance_month
+    description: "The performance_month represents the specific month during which the performance metrics were recorded.\
+      \ \u2014 format: YYYY-MM-DD"
+    type: time
+    type_params:
+      time_granularity: day
+  - name: damage_claims
+    expr: damage_claims
+    description: The damage_claims column represents the number of claims filed due to damage during the performance month.
+    type: categorical
+  - name: on_time_shipments
+    expr: on_time_shipments
+    description: The on_time_shipments column represents the number of shipments that were delivered on time during the performance
+      month.
+    type: categorical
+  - name: average_transit_days
+    expr: avg_transit_days
+    description: The avg_transit_days column represents the average number of days it took for shipments to transit between
+      ports during the performance month.
+    type: categorical
+  - name: lane
+    expr: lane
+    description: The lane column indicates the route or connection between two ports or cities, such as Ho Chi Minh-Vancouver.
+    type: categorical
+  defaults:
+    agg_time_dimension: performance_month
+  measures:
+  - name: on_time_shipments_sum
+    agg: sum
+    expr: on_time_shipments
+  - name: total_shipments_sum
+    agg: sum
+    expr: shipments
+  - name: damage_claims_sum
+    agg: sum
+    expr: damage_claims
+metrics:
+- name: purchase_order_count
+  label: purchase order count
+  description: Number of purchase order lines.
+  type: simple
+  type_params:
+    measure: po_id_count
+  config:
+    meta:
+      synonyms:
+      - PO count
+      - number of POs
+- name: ordered_units
+  label: ordered units
+  description: Units ordered on purchase orders.
+  type: simple
+  type_params:
+    measure: quantity_ordered_sum
+  config:
+    meta:
+      synonyms:
+      - order quantity
+- name: purchase_value
+  label: purchase value
+  description: Value of purchase orders (units ordered x unit cost, USD).
+  type: simple
+  type_params:
+    measure: po_value_sum
+  config:
+    meta:
+      synonyms:
+      - spend
+      - purchase spend
+      - PO value
+- name: shipment_count
+  label: shipment count
+  description: Number of inbound shipments.
+  type: simple
+  type_params:
+    measure: shipment_id_count
+  config:
+    meta:
+      synonyms: []
+- name: received_purchase_orders
+  label: received purchase orders
+  description: Purchase order lines that have been received.
+  type: simple
+  type_params:
+    measure: is_received_sum
+  config:
+    meta:
+      synonyms: []
+- name: on_time_purchase_orders
+  label: on time purchase orders
+  description: Purchase order lines received on or before the promised date.
+  type: simple
+  type_params:
+    measure: is_on_time_sum
+  config:
+    meta:
+      synonyms: []
+- name: on_time_delivery_rate
+  label: on time delivery rate
+  description: 'On-time delivery (OTD): received purchase order lines whose receipt date is on or before the promised date,
+    divided by received purchase order lines. Contract SLA targets are 92% (Pangrove Polymer), 95% (Kessling Fastener) and
+    88% (Siravan Hydraulics).'
+  type: simple
+  type_params:
+    measure: is_on_time_average
+  config:
+    meta:
+      synonyms:
+      - OTD
+      - on-time delivery
+      - OTD rate
+      - supplier on-time rate
+      - delivery reliability
+- name: units_received
+  label: units received
+  description: Good units received.
+  type: simple
+  type_params:
+    measure: quantity_received_sum
+  config:
+    meta:
+      synonyms: []
+- name: total_damaged_units
+  label: total damaged units
+  description: Units received damaged.
+  type: simple
+  type_params:
+    measure: damaged_units_sum
+  config:
+    meta:
+      synonyms: []
+- name: damaged_units_sum
+  label: damaged units sum
+  description: Helper for damaged_units_sum.
+  type: simple
+  type_params:
+    measure: damaged_units_sum
+- name: units_shipped_sum
+  label: units shipped sum
+  description: Helper for units_shipped_sum.
+  type: simple
+  type_params:
+    measure: units_shipped_sum
+- name: damage_rate
+  label: damage rate
+  description: Damaged units divided by units shipped. Pangrove Polymer's contract caps it at 0.5% per quarter.
+  type: ratio
+  type_params:
+    numerator: damaged_units_sum
+    denominator: units_shipped_sum
+  config:
+    meta:
+      synonyms:
+      - damage percentage
+      - defect rate in transit
+- name: received_qty_on_receipt_sum
+  label: received qty on receipt sum
+  description: Helper for received_qty_on_receipt_sum.
+  type: simple
+  type_params:
+    measure: received_qty_on_receipt_sum
+- name: ordered_qty_on_receipt_sum
+  label: ordered qty on receipt sum
+  description: Helper for ordered_qty_on_receipt_sum.
+  type: simple
+  type_params:
+    measure: ordered_qty_on_receipt_sum
+- name: fill_rate
+  label: fill rate
+  description: Units received divided by units ordered, over received purchase order lines. Contract targets are 97-99%.
+  type: ratio
+  type_params:
+    numerator: received_qty_on_receipt_sum
+    denominator: ordered_qty_on_receipt_sum
+  config:
+    meta:
+      synonyms:
+      - order fill rate
+      - unit fill rate
+- name: total_freight_cost
+  label: total freight cost
+  description: Freight cost paid (USD).
+  type: simple
+  type_params:
+    measure: freight_cost_sum
+  config:
+    meta:
+      synonyms:
+      - freight spend
+      - transport cost
+- name: avg_transit_days
+  label: avg transit days
+  description: Average days from ship date to delivered date.
+  type: simple
+  type_params:
+    measure: transit_days_average
+  config:
+    meta:
+      synonyms:
+      - transit time
+      - lead time in transit
+- name: freight_cost_sum
+  label: freight cost sum
+  description: Helper for freight_cost_sum.
+  type: simple
+  type_params:
+    measure: freight_cost_sum
+- name: quantity_received_sum
+  label: quantity received sum
+  description: Helper for quantity_received_sum.
+  type: simple
+  type_params:
+    measure: quantity_received_sum
+- name: freight_cost_per_unit
+  label: freight cost per unit
+  description: Freight cost divided by units received (logistics policy KPI).
+  type: ratio
+  type_params:
+    numerator: freight_cost_sum
+    denominator: quantity_received_sum
+  config:
+    meta:
+      synonyms: []
+- name: avg_on_hand_units
+  label: avg on hand units
+  description: Average on-hand units per SKU-warehouse snapshot.
+  type: simple
+  type_params:
+    measure: on_hand_units_average
+  config:
+    meta:
+      synonyms: []
+- name: total_available_units
+  label: total available units
+  description: Available units (on hand minus allocated). Filter to one snapshot date; do not add across dates.
+  type: simple
+  type_params:
+    measure: available_units_sum
+  config:
+    meta:
+      synonyms:
+      - free stock
+      - available to promise
+- name: snapshot_count
+  label: snapshot count
+  description: Number of SKU-warehouse inventory snapshots.
+  type: simple
+  type_params:
+    measure: snapshot_id_count
+  config:
+    meta:
+      synonyms: []
+- name: stockout_snapshots
+  label: stockout snapshots
+  description: SKU-warehouse snapshots with zero available units.
+  type: simple
+  type_params:
+    measure: is_stockout_sum
+  config:
+    meta:
+      synonyms: []
+- name: stockout_rate
+  label: stockout rate
+  description: Share of SKU-warehouse snapshots with zero available units.
+  type: simple
+  type_params:
+    measure: is_stockout_average
+  config:
+    meta:
+      synonyms:
+      - out-of-stock rate
+      - OOS rate
+- name: below_safety_stock_rate
+  label: below safety stock rate
+  description: Share of SKU-warehouse snapshots whose available units are under safety stock.
+  type: simple
+  type_params:
+    measure: is_below_safety_stock_average
+  config:
+    meta:
+      synonyms: []
+- name: forecast_units
+  label: forecast units
+  description: Forecast demand units.
+  type: simple
+  type_params:
+    measure: forecasted_units_sum
+  config:
+    meta:
+      synonyms: []
+- name: total_actual_units
+  label: total actual units
+  description: Actual demand units (closed months).
+  type: simple
+  type_params:
+    measure: actual_units_sum
+  config:
+    meta:
+      synonyms: []
+- name: abs_forecast_error_units_sum
+  label: abs forecast error units sum
+  description: Helper for abs_forecast_error_units_sum.
+  type: simple
+  type_params:
+    measure: abs_forecast_error_units_sum
+- name: actual_units_sum
+  label: actual units sum
+  description: Helper for actual_units_sum.
+  type: simple
+  type_params:
+    measure: actual_units_sum
+- name: forecast_wape
+  label: forecast wape
+  description: Weighted absolute percentage error, sum of |actual - forecast| over sum of actual units. Forecast accuracy
+    is 1 - WAPE.
+  type: ratio
+  type_params:
+    numerator: abs_forecast_error_units_sum
+    denominator: actual_units_sum
+  config:
+    meta:
+      synonyms:
+      - WAPE
+      - forecast error
+- name: forecast_minus_actual_units_sum
+  label: forecast minus actual units sum
+  description: Helper for forecast_minus_actual_units_sum.
+  type: simple
+  type_params:
+    measure: forecast_minus_actual_units_sum
+- name: forecast_bias
+  label: forecast bias
+  description: (Forecast - actual) / actual over closed months. Positive means over-forecasting.
+  type: ratio
+  type_params:
+    numerator: forecast_minus_actual_units_sum
+    denominator: actual_units_sum
+  config:
+    meta:
+      synonyms:
+      - bias
+      - over-forecast
+- name: on_time_shipments_sum
+  label: on time shipments sum
+  description: Helper for on_time_shipments_sum.
+  type: simple
+  type_params:
+    measure: on_time_shipments_sum
+- name: total_shipments_sum
+  label: total shipments sum
+  description: Helper for total_shipments_sum.
+  type: simple
+  type_params:
+    measure: total_shipments_sum
+- name: carrier_on_time_rate
+  label: carrier on time rate
+  description: On-time shipments divided by shipments for carrier lanes; compare with the carrier's contracted OTD target.
+  type: ratio
+  type_params:
+    numerator: on_time_shipments_sum
+    denominator: total_shipments_sum
+  config:
+    meta:
+      synonyms:
+      - carrier OTD
+      - lane on-time rate
+- name: total_damage_claims
+  label: total damage claims
+  description: Damage claims filed against carriers.
+  type: simple
+  type_params:
+    measure: damage_claims_sum
+  config:
+    meta:
+      synonyms: []
