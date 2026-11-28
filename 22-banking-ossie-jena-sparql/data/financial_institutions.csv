@@ -1,0 +1,4 @@
+institution_id,name,institution_type,country,status
+FI-HAPPN,Happn Community Bank,bank,US,active
+FI-NORTH,Northwind Correspondent,correspondent,US,active
+FI-PAC,Pacific Clearing Ltd,clearing,SG,active

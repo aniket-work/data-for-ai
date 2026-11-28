@@ -1,0 +1,15 @@
+{
+  "semantic_model": "ok",
+  "roundtrip": "ok",
+  "ontology": "ok",
+  "mapping": "ok",
+  "warnings": [
+    "mapping: Loan: dataset loan declares no key, not mapped",
+    "mapping: RiskRating: dataset risk_rating declares no key, not mapped",
+    "mapping: Transaction: dataset transaction declares no key, not mapped",
+    "mapping: RiskRating.customer -> Customer: both ends need a single-field key, no link mapping",
+    "mapping: Transaction.bankaccount -> BankAccount: both ends need a single-field key, no link mapping",
+    "mapping: Loan.branch -> Branch: both ends need a single-field key, no link mapping",
+    "mapping: Loan.customer -> Customer: both ends need a single-field key, no link mapping"
+  ]
+}

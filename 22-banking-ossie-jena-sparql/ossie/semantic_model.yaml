@@ -1,0 +1,427 @@
+version: 0.3.0.dev0
+name: happn_banking
+description: 'Happn Community Bank semantic model: accounts, branches, customers, loans, risk ratings and transactions, with the bank''s KPI definitions as metrics.'
+datasets:
+- name: bank_account
+  source: core_banking.public.accounts
+  description: A financial account that holds funds in a checking, savings, or money market product.
+  unique_keys:
+  - - account_id
+  fields:
+  - name: account_status
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: status
+    datatype: String
+    description: The account's status as open or closed.
+  - name: account_balance
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: balance
+    datatype: Float
+    description: The monetary balance of the account.
+  - name: account_id
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: account_id
+    datatype: String
+    description: The identifier for the account.
+  - name: product_type
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: product
+    datatype: String
+    description: The account product type, such as checking, savings, or money market.
+  - name: opening_date
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: opened_on
+    datatype: Date
+    description: 'The date the account was opened. — format: YYYY-MM-DD'
+  - name: customer_id
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: customer_id
+    datatype: String
+  - name: branch_id
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: branch_id
+    datatype: String
+- name: branch
+  source: core_banking.public.branches
+  description: A business location identified by a branch code, with geographic details and an opening date.
+  unique_keys:
+  - - branch_code
+  fields:
+  - name: region
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: region
+    datatype: String
+    description: The geographic region where the branch is located.
+  - name: branch_code
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: branch_id
+    datatype: String
+    description: The code identifying the branch.
+  - name: city
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: city
+    datatype: String
+    description: The city where the branch is located.
+  - name: country_code
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: country
+    datatype: String
+    description: The country code for the branch's location.
+  - name: branch_name
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: name
+    datatype: String
+    description: The name of the branch.
+  - name: opening_date
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: opened_on
+    datatype: Date
+    description: 'The date the branch opened. — format: YYYY-MM-DD'
+- name: customer
+  source: core_banking.public.customers
+  description: A person or organization with an established business relationship.
+  unique_keys:
+  - - customer_id
+  fields:
+  - name: customer_name
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: name
+    datatype: String
+    description: The customer's name.
+  - name: business_segment
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: segment
+    datatype: String
+    description: The customer's business segment, such as retail, SMB, wealth, or corporate.
+  - name: relationship_start_date
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: since_date
+    datatype: Date
+    description: 'The date the customer relationship began. — format: YYYY-MM-DD'
+  - name: customer_id
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: customer_id
+    datatype: String
+    description: The identifier assigned to the customer.
+  - name: customer_status
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: status
+    datatype: String
+    description: The customer's active or inactive status.
+  - name: branch_id
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: branch_id
+    datatype: String
+- name: loan
+  source: core_banking.public.loans
+  description: A sum of money lent to a borrower, with agreed interest and repayment terms.
+  fields:
+  - name: days_past_due
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: days_past_due
+    datatype: Integer
+    description: The number of days the loan is overdue.
+  - name: maturity_date
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: matures_on
+    datatype: Date
+    description: 'The date the loan reaches maturity. — format: YYYY-MM-DD'
+  - name: interest_rate
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: rate
+    datatype: Float
+    description: The loan's interest rate expressed as a decimal.
+  - name: origination_date
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: originated_on
+    datatype: Date
+    description: 'The date the loan was originated. — format: YYYY-MM-DD'
+  - name: principal_amount
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: principal
+    datatype: Float
+    description: The principal amount of the loan.
+  - name: performance_classification
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: status
+    datatype: String
+    description: The loan's performance classification, such as performing, non-performing, or watch.
+  - name: loan_identifier
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: loan_id
+    datatype: String
+    description: The identifier assigned to the loan.
+  - name: is_non_performing_loan
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: npl_flag
+    datatype: Boolean
+    description: Indicates whether the loan is classified as non-performing.
+  - name: customer_id
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: customer_id
+    datatype: String
+  - name: branch_id
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: branch_id
+    datatype: String
+  primary_key:
+  - loan_identifier
+  unique_keys:
+  - - loan_identifier
+- name: risk_rating
+  source: core_banking.public.risk_ratings
+  description: An assessment of risk expressed as a letter rating and numeric score as of a specific date.
+  fields:
+  - name: risk_score
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: score
+    datatype: Integer
+    description: The numeric score assigned to the record.
+  - name: as_of_date
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: as_of
+    datatype: Date
+    description: 'The date as of which the record''s information applies. — format: YYYY-MM-DD'
+  - name: risk_rating
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: rating
+    datatype: String
+    description: The letter rating assigned to the record, with sample values A through E.
+  - name: customer_id
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: customer_id
+    datatype: String
+  primary_key:
+  - customer_id
+  unique_keys:
+  - - customer_id
+    - as_of_date
+- name: transaction
+  source: core_banking.public.transactions
+  description: A recorded financial movement with a signed monetary amount, booking date and time, category, and descriptive note.
+  fields:
+  - name: transaction_type
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: txn_type
+    datatype: String
+    description: The transaction category, such as deposit, card, outgoing wire, incoming transfer, or incoming wire.
+  - name: booking_date_and_time
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: booked_at
+    datatype: DateTime
+    description: 'The date and time the transaction was booked, without time zone information. — format: YYYY-MM-DD HH:MM:SS'
+  - name: transaction_amount
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: amount
+    datatype: Float
+    description: The signed monetary amount of the transaction.
+  - name: transaction_id
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: transaction_id
+    datatype: String
+    description: The identifier for the transaction.
+  - name: transaction_memo
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: memo
+    datatype: String
+    description: A text note describing the transaction's purpose or context.
+  - name: account_id
+    expression:
+      dialects:
+      - dialect: ANSI_SQL
+        expression: account_id
+    datatype: String
+  primary_key:
+  - transaction_id
+  unique_keys:
+  - - transaction_id
+relationships:
+- name: loan_customer_id_to_customer
+  from: loan
+  to: customer
+  from_columns:
+  - customer_id
+  to_columns:
+  - customer_id
+- name: risk_rating_customer_id_to_customer
+  from: risk_rating
+  to: customer
+  from_columns:
+  - customer_id
+  to_columns:
+  - customer_id
+- name: loan_branch_id_to_branch
+  from: loan
+  to: branch
+  from_columns:
+  - branch_id
+  to_columns:
+  - branch_code
+- name: customer_branch_id_to_branch
+  from: customer
+  to: branch
+  from_columns:
+  - branch_id
+  to_columns:
+  - branch_code
+- name: bank_account_customer_id_to_customer
+  from: bank_account
+  to: customer
+  from_columns:
+  - customer_id
+  to_columns:
+  - customer_id
+- name: bank_account_branch_id_to_branch
+  from: bank_account
+  to: branch
+  from_columns:
+  - branch_id
+  to_columns:
+  - branch_code
+- name: transaction_account_id_to_bank_account
+  from: transaction
+  to: bank_account
+  from_columns:
+  - account_id
+  to_columns:
+  - account_id
+ai_context:
+  instructions: Answer Happn banking questions with the metrics below instead of inventing formulas. Total deposits sum open account balances only. NPL principal and ratio use the loan is_non_performing_loan flag. Transaction volume is the sum of absolute transaction amounts.
+  synonyms:
+  - Happn Community Bank semantic model
+  - banking cube model
+  examples:
+  - What is total deposits across open accounts?
+  - What is the NPL ratio on the loan book?
+  - Which customers concentrate deposit share?
+metrics:
+- name: total_deposits
+  expression:
+    sql: SUM(CASE WHEN bank_account.account_status = 'open' THEN bank_account.account_balance ELSE 0 END)
+  datatype: Float
+  description: Sum of open account balances (deposit products).
+  ai_context:
+    instructions: Count only accounts with account_status = open.
+    synonyms:
+    - open deposit balances
+    - total open deposits
+- name: total_principal
+  expression:
+    sql: SUM(loan.principal_amount)
+  datatype: Float
+  description: Total loan principal outstanding.
+  ai_context:
+    synonyms:
+    - loan book principal
+    - total principal
+- name: npl_principal
+  expression:
+    sql: SUM(CASE WHEN loan.is_non_performing_loan THEN loan.principal_amount ELSE 0 END)
+  datatype: Float
+  description: Principal of non-performing loans.
+  ai_context:
+    synonyms:
+    - NPL book
+    - non-performing principal
+- name: npl_ratio
+  expression:
+    sql: SUM(CASE WHEN loan.is_non_performing_loan THEN loan.principal_amount ELSE 0 END) / NULLIF(SUM(loan.principal_amount), 0)
+  datatype: Float
+  description: Non-performing loan principal divided by total loan principal.
+  ai_context:
+    instructions: Ratio in [0, 1]; multiply by 100 only for display as a percent.
+    synonyms:
+    - NPL ratio
+    - non-performing loan ratio
+- name: transaction_volume
+  expression:
+    sql: SUM(ABS(transaction.transaction_amount))
+  datatype: Float
+  description: Sum of absolute transaction amounts.
+  ai_context:
+    synonyms:
+    - payment volume
+    - absolute transaction sum
+- name: customer_deposit_share
+  expression:
+    sql: SUM(CASE WHEN bank_account.account_status = 'open' THEN bank_account.account_balance ELSE 0 END)
+  datatype: Float
+  description: Open-balance sum used with a customer dimension to measure deposit concentration (max share of total_deposits).
+  ai_context:
+    instructions: Pivot by customer and compare each customer's open balances to total_deposits; warn when a single customer exceeds the concentration threshold.

@@ -1,0 +1,89 @@
+# CSV -> RDF individual binding for the Happn ontology (ossie/ontology.yaml).
+# Which CSV, which id column, which literal and link properties per concept.
+# type_when adds a subclass type (from the ontology's `extends`) when a column matches.
+# The converter never invents concepts: every concept here must exist in ossie/ontology.yaml.
+
+rdf_abox:
+  namespace: https://example.com/happn-bank#
+  prefix: happn
+  sources:
+    Customer:
+      csv: customers.csv
+      id_column: customer_id
+      literals:
+        customer_name: name
+        customer_segment: segment
+        customer_status: status
+    BankAccount:
+      csv: accounts.csv
+      id_column: account_id
+      literals:
+        account_balance: balance
+        account_status: status
+        product_type: product
+      links:
+        customer: {column: customer_id, concept: Customer}
+    Branch:
+      csv: branches.csv
+      id_column: branch_id
+      literals:
+        branch_name: name
+        region: region
+    Transaction:
+      csv: transactions.csv
+      id_column: transaction_id
+      literals:
+        transaction_amount: amount
+        txn_type: txn_type
+      links:
+        onAccount: {column: account_id, concept: BankAccount}
+    Loan:
+      csv: loans.csv
+      id_column: loan_id
+      literals:
+        principal_amount: principal
+        days_past_due: days_past_due
+        is_non_performing_loan: npl_flag
+      links:
+        borrower: {column: customer_id, concept: Customer}
+      # Individuals with npl_flag also typed as NonPerformingLoan (OWL subclass demo)
+      type_when:
+        - concept: NonPerformingLoan
+          column: npl_flag
+          equals: "true"
+    FinancialInstitution:
+      csv: financial_institutions.csv
+      id_column: institution_id
+      literals:
+        institution_name: name
+        institution_type: institution_type
+    BeneficialOwner:
+      csv: beneficial_owners.csv
+      id_column: bo_id
+      literals:
+        ownership_pct: ownership_pct
+      links:
+        ownerCustomer: {column: customer_id, concept: Customer}
+        ownsAccount: {column: account_id, concept: BankAccount}
+        recordedAtInstitution: {column: institution_id, concept: FinancialInstitution}
+    RelatedParty:
+      csv: related_parties.csv
+      id_column: rp_id
+      literals:
+        relationship_type: relationship_type
+      links:
+        fromCustomer: {column: customer_id, concept: Customer}
+        toCustomer: {column: related_customer_id, concept: Customer}
+    SuspiciousActivity:
+      csv: suspicious_activities.csv
+      id_column: sar_id
+      literals:
+        sar_category: category
+        sar_status: status
+        narrative: narrative
+      links:
+        flaggedAccount: {column: account_id, concept: BankAccount}
+      type_when:
+        - concept: OpenSuspiciousActivity
+          column: status
+          equals: open

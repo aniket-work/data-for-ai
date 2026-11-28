@@ -1,0 +1,5 @@
+rp_id,customer_id,related_customer_id,relationship_type,status
+RP-001,CU-1001,CU-1008,family,active
+RP-002,CU-1003,CU-1008,business_partner,active
+RP-003,CU-1006,CU-1005,director,active
+RP-004,CU-1002,CU-1001,co_signer,active

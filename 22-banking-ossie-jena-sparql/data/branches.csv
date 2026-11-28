@@ -1,0 +1,5 @@
+branch_id,name,region,city,country,opened_on
+BR-NYC,Manhattan Flagship,Northeast,New York,US,2010-03-01
+BR-CHI,Chicago Loop,Midwest,Chicago,US,2012-06-15
+BR-AUS,Austin Domain,South,Austin,US,2018-09-01
+BR-SEA,Seattle Pike,West,Seattle,US,2015-01-20

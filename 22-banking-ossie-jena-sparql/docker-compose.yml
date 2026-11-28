@@ -1,0 +1,32 @@
+# Banking knowledge-graph demo stack
+# OSSIE → RDF (adapter) → Apache Jena Fuseki → SPARQL explorer
+#
+# Host ports:
+#   Fuseki UI / SPARQL   3030
+
+name: banking-jena-ossie
+
+services:
+  fuseki:
+    image: stain/jena-fuseki:5.1.0
+    platform: linux/amd64
+    ports:
+      - "3030:3030"
+    environment:
+      ADMIN_PASSWORD: ${FUSEKI_PASSWORD:-admin}
+      FUSEKI_DATASET_1: happn
+      JVM_ARGS: -Xmx1g
+    volumes:
+      - fuseki_data:/fuseki-base
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -fsS 'http://127.0.0.1:3030/$$/ping' >/dev/null || exit 1",
+        ]
+      interval: 3s
+      timeout: 5s
+      retries: 40
+
+volumes:
+  fuseki_data:

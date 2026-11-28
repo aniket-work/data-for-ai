@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Happn Banking — Jena SPARQL (from Apache OSSIE)</title>
+  <style>
+    :root { color-scheme: light; --ink: #1a1a1a; --muted: #555; --line: #d0d0d0; --bg: #f7f5f1; --accent: #0b5fff; }
+    body { font-family: "IBM Plex Sans", "Segoe UI", sans-serif; margin: 0; background: var(--bg); color: var(--ink); }
+    header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--line); background: #fff; }
+    header h1 { margin: 0 0 0.35rem; font-size: 1.25rem; font-weight: 650; }
+    header p { margin: 0; color: var(--muted); font-size: 0.95rem; max-width: 52rem; }
+    main { display: grid; grid-template-columns: 16rem 1fr; gap: 0; min-height: calc(100vh - 5rem); }
+    nav { border-right: 1px solid var(--line); background: #fff; padding: 1rem; }
+    nav button { display: block; width: 100%; text-align: left; margin: 0 0 0.5rem; padding: 0.55rem 0.65rem;
+      border: 1px solid var(--line); background: #fff; border-radius: 6px; cursor: pointer; font: inherit; }
+    nav button:hover, nav button.active { border-color: var(--accent); color: var(--accent); }
+    section { padding: 1rem 1.25rem 2rem; }
+    label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 0.35rem; }
+    textarea { width: 100%; min-height: 14rem; font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 0.85rem; padding: 0.75rem; border: 1px solid var(--line); border-radius: 6px; box-sizing: border-box; }
+    .actions { margin: 0.75rem 0 1rem; display: flex; gap: 0.5rem; align-items: center; }
+    button.run { background: var(--accent); color: #fff; border: 0; border-radius: 6px; padding: 0.55rem 1rem;
+      font: inherit; cursor: pointer; }
+    #meta { font-size: 0.85rem; color: var(--muted); }
+    table { border-collapse: collapse; width: 100%; background: #fff; }
+    th, td { border: 1px solid var(--line); padding: 0.4rem 0.55rem; text-align: left; font-size: 0.9rem; }
+    th { background: #efeee9; }
+    #error { color: #a40000; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Happn Banking — Apache Jena SPARQL</h1>
+    <p>
+      Definitions come from the Apache OSSIE package in this folder,
+      converted to RDF by scripts/ossie_to_rdf.py. Endpoint defaults to
+      <code>http://127.0.0.1:3030/happn/sparql</code>.
+    </p>
+  </header>
+  <main>
+    <nav id="examples"></nav>
+    <section>
+      <label for="endpoint">SPARQL endpoint</label>
+      <input id="endpoint" style="width:100%;margin-bottom:0.75rem;padding:0.45rem;border:1px solid var(--line);border-radius:6px;box-sizing:border-box"
+             value="http://127.0.0.1:3030/happn/sparql" />
+      <label for="query">Query</label>
+      <textarea id="query"></textarea>
+      <div class="actions">
+        <button class="run" id="run" type="button">Run</button>
+        <span id="meta"></span>
+      </div>
+      <div id="error"></div>
+      <div id="results"></div>
+    </section>
+  </main>
+  <script>
+    const EXAMPLES = [
+      {
+        title: "≤3 hops to SAR",
+        sparql: `PREFIX happn: <https://example.com/happn-bank#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT ?customerLabel ?accountLabel ?sarLabel WHERE {
+  ?rp a happn:RelatedParty ;
+      happn:RelatedParty_fromCustomer ?cust ;
+      happn:RelatedParty_toCustomer ?owner .
+  ?bo a happn:BeneficialOwner ;
+      happn:BeneficialOwner_ownerCustomer ?owner ;
+      happn:BeneficialOwner_ownsAccount ?acct .
+  ?sar a happn:SuspiciousActivity ;
+       happn:SuspiciousActivity_flaggedAccount ?acct .
+  ?cust rdfs:label ?customerLabel .
+  ?acct rdfs:label ?accountLabel .
+  ?sar rdfs:label ?sarLabel .
+}`
+      },
+      {
+        title: "Beneficial owners AC-2013",
+        sparql: `PREFIX happn: <https://example.com/happn-bank#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?boLabel ?ownerLabel WHERE {
+  ?bo a happn:BeneficialOwner ;
+      rdfs:label ?boLabel ;
+      happn:BeneficialOwner_ownerCustomer ?owner ;
+      happn:BeneficialOwner_ownsAccount ?acct .
+  ?owner rdfs:label ?ownerLabel .
+  ?acct rdfs:label "AC-2013" .
+}`
+      },
+      {
+        title: "OpenSuspiciousActivity ⊑ SuspiciousActivity",
+        sparql: `PREFIX happn: <https://example.com/happn-bank#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?sub ?parent WHERE {
+  ?sub rdfs:subClassOf ?parent .
+  FILTER(?sub = happn:OpenSuspiciousActivity)
+}`
+      },
+      {
+        title: "Non-performing loans",
+        sparql: `PREFIX happn: <https://example.com/happn-bank#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?loan ?label WHERE {
+  ?loan a happn:NonPerformingLoan .
+  OPTIONAL { ?loan rdfs:label ?label }
+}`
+      }
+    ];
+
+    const nav = document.getElementById("examples");
+    const queryEl = document.getElementById("query");
+    const endpointEl = document.getElementById("endpoint");
+    const resultsEl = document.getElementById("results");
+    const errorEl = document.getElementById("error");
+    const metaEl = document.getElementById("meta");
+
+    function selectExample(i, btn) {
+      queryEl.value = EXAMPLES[i].sparql;
+      [...nav.querySelectorAll("button")].forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    }
+
+    EXAMPLES.forEach((ex, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = ex.title;
+      b.addEventListener("click", () => selectExample(i, b));
+      nav.appendChild(b);
+      if (i === 0) selectExample(0, b);
+    });
+
+    async function runQuery() {
+      errorEl.textContent = "";
+      resultsEl.innerHTML = "";
+      metaEl.textContent = "Running…";
+      const endpoint = endpointEl.value.trim();
+      const query = queryEl.value;
+      try {
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Accept": "application/sparql-results+json, application/json",
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: new URLSearchParams({ query })
+        });
+        if (!res.ok) {
+          throw new Error(await res.text());
+        }
+        const data = await res.json();
+        if (typeof data.boolean === "boolean") {
+          metaEl.textContent = "ASK result";
+          resultsEl.textContent = String(data.boolean);
+          return;
+        }
+        const vars = data.head.vars || [];
+        const rows = (data.results && data.results.bindings) || [];
+        metaEl.textContent = rows.length + " row(s)";
+        const table = document.createElement("table");
+        const thead = document.createElement("thead");
+        const hr = document.createElement("tr");
+        vars.forEach(v => { const th = document.createElement("th"); th.textContent = v; hr.appendChild(th); });
+        thead.appendChild(hr);
+        table.appendChild(thead);
+        const tbody = document.createElement("tbody");
+        rows.forEach(row => {
+          const tr = document.createElement("tr");
+          vars.forEach(v => {
+            const td = document.createElement("td");
+            td.textContent = row[v] ? row[v].value : "";
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+        resultsEl.appendChild(table);
+      } catch (err) {
+        metaEl.textContent = "";
+        errorEl.textContent = String(err);
+      }
+    }
+
+    document.getElementById("run").addEventListener("click", runQuery);
+  </script>
+</body>
+</html>

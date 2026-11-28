@@ -1,0 +1,21 @@
+transaction_id,account_id,booked_at,amount,txn_type,memo
+TX-3001,AC-2001,2025-10-01 09:15:00,1200.00,deposit,payroll
+TX-3002,AC-2001,2025-10-03 14:22:00,-85.40,card,grocery
+TX-3003,AC-2002,2025-10-05 11:00:00,5000.00,transfer_in,savings_boost
+TX-3004,AC-2005,2025-10-07 16:40:00,-3200.00,wire_out,vendor
+TX-3005,AC-2005,2025-10-08 10:05:00,15000.00,deposit,receivables
+TX-3006,AC-2008,2025-10-10 13:30:00,-450.00,card,travel
+TX-3007,AC-2009,2025-10-12 09:00:00,25000.00,deposit,dividend
+TX-3008,AC-2011,2025-10-14 18:20:00,-62.15,card,fuel
+TX-3009,AC-2013,2025-10-15 08:45:00,120000.00,wire_in,treasury
+TX-3010,AC-2013,2025-10-16 15:10:00,-48000.00,wire_out,payroll
+TX-3011,AC-2016,2025-10-18 12:00:00,2200.00,deposit,sales
+TX-3012,AC-2003,2025-10-20 17:55:00,-19.99,card,subscription
+TX-3013,AC-2018,2025-10-22 10:30:00,40000.00,deposit,bonus
+TX-3014,AC-2007,2025-10-25 19:05:00,-210.00,atm,cash
+TX-3015,AC-2010,2025-10-28 11:45:00,7800.00,deposit,invoice
+TX-3016,AC-2012,2025-11-01 09:20:00,1500.00,transfer_in,auto_save
+TX-3017,AC-2014,2025-11-03 14:00:00,-100000.00,wire_out,investment
+TX-3018,AC-2004,2025-11-05 16:30:00,300.00,deposit,interest
+TX-3019,AC-2006,2025-11-08 08:10:00,-900.00,ach_out,utilities
+TX-3020,AC-2017,2025-11-10 13:25:00,4500.00,deposit,tax_refund

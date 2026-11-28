@@ -1,0 +1,11 @@
+customer_id,branch_id,name,segment,since_date,status
+CU-1001,BR-NYC,Ava Chen,retail,2019-04-12,active
+CU-1002,BR-NYC,Noah Patel,retail,2020-01-08,active
+CU-1003,BR-CHI,Mia Kowalski,smb,2018-11-03,active
+CU-1004,BR-CHI,Liam Okafor,retail,2021-07-22,active
+CU-1005,BR-AUS,Sofia Alvarez,wealth,2017-02-14,active
+CU-1006,BR-AUS,Ethan Brooks,smb,2022-05-30,active
+CU-1007,BR-SEA,Harper Nguyen,retail,2016-09-19,active
+CU-1008,BR-SEA,Lucas Berg,corporate,2015-12-01,active
+CU-1009,BR-NYC,Zoe Martins,retail,2023-03-11,inactive
+CU-1010,BR-CHI,Owen Park,smb,2019-08-25,active

@@ -1,0 +1,43 @@
+{
+  "description": "SPARQL fixtures for the Happn banking RDF converted from the Apache OSSIE package + demo CSVs.",
+  "dataset": "happn",
+  "namespace": "https://example.com/happn-bank#",
+  "queries": [
+    {
+      "id": "customers_within_3_hops_of_sar",
+      "description": "Customers reaching a suspicious account via related-party + beneficial ownership (≤3 hops).",
+      "sparql": "PREFIX happn: <https://example.com/happn-bank#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nSELECT DISTINCT ?customerLabel ?accountLabel ?sarLabel WHERE {\n  ?rp a happn:RelatedParty ;\n      happn:RelatedParty_fromCustomer ?cust ;\n      happn:RelatedParty_toCustomer ?owner .\n  ?bo a happn:BeneficialOwner ;\n      happn:BeneficialOwner_ownerCustomer ?owner ;\n      happn:BeneficialOwner_ownsAccount ?acct .\n  ?sar a happn:SuspiciousActivity ;\n       happn:SuspiciousActivity_flaggedAccount ?acct .\n  ?cust rdfs:label ?customerLabel .\n  ?acct rdfs:label ?accountLabel .\n  ?sar rdfs:label ?sarLabel .\n  FILTER(?customerLabel = \"CU-1001\")\n  FILTER(?accountLabel = \"AC-2013\")\n  FILTER(?sarLabel = \"SA-001\")\n}",
+      "expect_min_rows": 1,
+      "expect_bindings": [
+        {"customerLabel": "CU-1001", "accountLabel": "AC-2013", "sarLabel": "SA-001"}
+      ]
+    },
+    {
+      "id": "beneficial_owners_of_ac2013",
+      "description": "Beneficial owners of account AC-2013.",
+      "sparql": "PREFIX happn: <https://example.com/happn-bank#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nSELECT ?boLabel ?ownerLabel WHERE {\n  ?bo a happn:BeneficialOwner ;\n      rdfs:label ?boLabel ;\n      happn:BeneficialOwner_ownerCustomer ?owner ;\n      happn:BeneficialOwner_ownsAccount ?acct .\n  ?owner rdfs:label ?ownerLabel .\n  ?acct rdfs:label \"AC-2013\" .\n}",
+      "expect_min_rows": 1,
+      "expect_bindings": [
+        {"boLabel": "BO-001", "ownerLabel": "CU-1008"}
+      ]
+    },
+    {
+      "id": "open_suspicious_activity_subclass",
+      "description": "OpenSuspiciousActivity extends SuspiciousActivity (TBox from OSSIE extends).",
+      "sparql": "PREFIX happn: <https://example.com/happn-bank#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nASK {\n  happn:OpenSuspiciousActivity rdfs:subClassOf happn:SuspiciousActivity .\n}",
+      "expect_ask": true
+    },
+    {
+      "id": "non_performing_loan_individuals",
+      "description": "NPL loans typed as NonPerformingLoan (ABox typing from OSSIE extends + abox_binding type_when).",
+      "sparql": "PREFIX happn: <https://example.com/happn-bank#>\nSELECT (COUNT(*) AS ?c) WHERE { ?x a happn:NonPerformingLoan }",
+      "expect_count_min": 2
+    },
+    {
+      "id": "related_party_graph",
+      "description": "Related-party edges include CU-1003 ↔ CU-1008.",
+      "sparql": "PREFIX happn: <https://example.com/happn-bank#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nSELECT ?fromLabel ?toLabel ?rtype WHERE {\n  ?rp a happn:RelatedParty ;\n      happn:RelatedParty_fromCustomer ?f ;\n      happn:RelatedParty_toCustomer ?t ;\n      happn:RelatedParty_relationship_type ?rtype .\n  ?f rdfs:label ?fromLabel .\n  ?t rdfs:label ?toLabel .\n  FILTER(?fromLabel = \"CU-1003\" && ?toLabel = \"CU-1008\")\n}",
+      "expect_min_rows": 1
+    }
+  ]
+}

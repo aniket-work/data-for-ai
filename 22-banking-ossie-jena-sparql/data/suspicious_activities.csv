@@ -1,0 +1,4 @@
+sar_id,account_id,reported_on,category,status,narrative
+SA-001,AC-2013,2025-11-01,unusual_wire,open,Large outbound wire cluster on corporate checking
+SA-002,AC-2005,2025-10-20,structuring,closed,Repeated near-threshold cash deposits
+SA-003,AC-2014,2025-11-05,unusual_wire,open,Rapid savings drawdown via wire
