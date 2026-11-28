@@ -4,7 +4,7 @@
  "meta": {
   "title": "Kestrel Bay Bank warehouse (fictional, shared by Lessons 10 to 12)",
   "locale": "en",
-  "output": ".archify/erd-kestrel-bay-bank-20261120-110000/kestrel-bay-bank.html",
+  "output": ".diagrams/erd-kestrel-bay-bank-20261120-110000/kestrel-bay-bank.html",
   "quality_profile": "showcase"
  },
  "layout": {

@@ -2,7 +2,7 @@
   "schema_version": 2,
   "diagram_type": "workflow",
   "meta": { "title": "An Accountable Claims Triage Agent", "animation": "trace", "visual_preset": "signal-flow", "quality_profile": "showcase",
-            "output": ".archify/workflow-accountable-agent-20261124-223500/accountable-agent.html" },
+            "output": ".diagrams/workflow-accountable-agent-20261124-223500/accountable-agent.html" },
   "lanes": [
     { "id": "in", "label": "Claim" },
     { "id": "sem", "label": "Semantica checks" },

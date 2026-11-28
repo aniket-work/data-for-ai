@@ -20,7 +20,7 @@ The data is the same 6,000 rows of IoT telemetry used in videos 1 to 3, loaded i
 | [semantic_demo.py](semantic_demo.py) | Validates, explores and queries the model |
 | [build_db.py](build_db.py) | Builds `data/iot.duckdb` from the CSV |
 
-The diagrams were made with [archify](https://github.com/tt-a1i/archify) and come as PNG, SVG, interactive HTML and the archify JSON. The slides from the video are in [docs/slides.pdf](docs/slides.pdf), and [docs/semantic-model.md](docs/semantic-model.md) summarizes the specification.
+The diagrams come as PNG, SVG, interactive HTML and JSON source. The slides from the video are in [docs/slides.pdf](docs/slides.pdf), and [docs/semantic-model.md](docs/semantic-model.md) summarizes the specification.
 
 ## Concepts in plain words
 

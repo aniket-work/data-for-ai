@@ -23,7 +23,7 @@ Everything runs locally with Python, [PyYAML](https://pyyaml.org/), [networkx](h
 
 ![Plain keyword RAG vs GraphRAG: top-3 similar notes give the wrong crew and no passengers; traversing the graph gives the connected answer with evidence](diagrams/graphrag-vs-rag.png)
 
-The diagrams were made with [archify](https://github.com/tt-a1i/archify) and come as PNG, SVG, interactive HTML and the archify JSON. The slides from the video are in [docs/slides.pdf](docs/slides.pdf).
+The diagrams come as PNG, SVG, interactive HTML and JSON source. The slides from the video are in [docs/slides.pdf](docs/slides.pdf).
 
 ## The scenario and the six questions
 
@@ -152,5 +152,5 @@ python six_lenses.py scorecard
 | `show.py` | Prints a file with syntax colours |
 | `config/`, `decisions/`, `governance/` | Our own YAML formats for residency, the decision table and the policies |
 | `knowledge/ops_notes/` | Eight short operations notes used by both RAG approaches |
-| `diagrams/` | archify diagrams (PNG, SVG, HTML, JSON) |
+| `diagrams/` | Diagrams (PNG, SVG, HTML, JSON) |
 | `docs/slides.pdf` | Slides from the video |

@@ -20,7 +20,7 @@ The data is the same 6,000 rows of IoT telemetry used in [video 1](../01-eventho
 | [ossie_demo.py](ossie_demo.py) | Validates, explains and queries the three files | |
 | [build_db.py](build_db.py) | Builds `data/iot.db` (SQLite) from the CSV | |
 
-The diagrams were made with [archify](https://github.com/tt-a1i/archify) and come as PNG, SVG, interactive HTML and the archify JSON. [diagrams/iot-ontology.mmd](diagrams/iot-ontology.mmd) is a Mermaid version written by the demo script. The slides from the video are in [docs/slides.pdf](docs/slides.pdf).
+The diagrams come as PNG, SVG, interactive HTML and JSON source. [diagrams/iot-ontology.mmd](diagrams/iot-ontology.mmd) is a Mermaid version written by the demo script. The slides from the video are in [docs/slides.pdf](docs/slides.pdf).
 
 ```mermaid
 flowchart LR

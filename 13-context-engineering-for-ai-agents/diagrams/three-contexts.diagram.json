@@ -3,7 +3,7 @@
   "diagram_type": "architecture",
   "meta": {
     "title": "One agent, three kinds of context",
-    "output": ".archify/architecture-three-contexts-20261122-200000/three-contexts.html",
+    "output": ".diagrams/architecture-three-contexts-20261122-200000/three-contexts.html",
     "locale": "en",
     "quality_profile": "showcase"
   },

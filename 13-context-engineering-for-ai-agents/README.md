@@ -20,7 +20,7 @@ Model: [Qwen2.5-Coder-3B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-3B-
 
 ![Context assembly for one question: resolve terms, select layers, the LLM writes SQL with certified patterns, the guard runs it with permissions in code, and the answer is checked](diagrams/context-assembly.png)
 
-Diagrams made with [archify](https://github.com/tt-a1i/archify) (PNG, SVG, interactive HTML and the archify JSON). The slides from the video are in [docs/slides.pdf](docs/slides.pdf).
+The diagrams come as PNG, SVG, interactive HTML and JSON source. The slides from the video are in [docs/slides.pdf](docs/slides.pdf).
 
 ## The business: Brightpaw Veterinary Clinics (fictional)
 
@@ -110,4 +110,4 @@ python ce_agent.py scorecard
 
 ## Credits
 
-[llama.cpp](https://github.com/ggml-org/llama.cpp) (MIT), [Qwen2.5-Coder](https://huggingface.co/Qwen/Qwen2.5-Coder-3B-Instruct) (Qwen team), [rich](https://github.com/Textualize/rich) (MIT), [PyYAML](https://pyyaml.org/) (MIT), SQLite (public domain) and [archify](https://github.com/tt-a1i/archify) are the work of their authors.
+[llama.cpp](https://github.com/ggml-org/llama.cpp) (MIT), [Qwen2.5-Coder](https://huggingface.co/Qwen/Qwen2.5-Coder-3B-Instruct) (Qwen team), [rich](https://github.com/Textualize/rich) (MIT), [PyYAML](https://pyyaml.org/) (MIT), SQLite (public domain) are the work of their authors.

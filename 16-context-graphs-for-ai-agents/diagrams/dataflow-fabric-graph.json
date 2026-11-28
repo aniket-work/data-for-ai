@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "diagram_type": "dataflow",
-  "meta": { "title": "A Context Graph on Microsoft Fabric", "output": ".archify/dataflow-fabric-graph-20261124-130000/fabric-graph.html",
+  "meta": { "title": "A Context Graph on Microsoft Fabric", "output": ".diagrams/dataflow-fabric-graph-20261124-130000/fabric-graph.html",
             "animation": "trace", "visual_preset": "signal-flow", "quality_profile": "showcase" },
   "stages": [ { "label": "Sources" }, { "label": "OneLake" }, { "label": "Graph" }, { "label": "Agents" } ],
   "nodes": [

@@ -3,7 +3,7 @@
   "diagram_type": "dataflow",
   "meta": {
     "title": "Part 2 build: Telemetry to materialized views",
-    "output": ".archify/dataflow-e2e-20261117-181624/eventhouse-part2-architecture.html",
+    "output": ".diagrams/dataflow-e2e-20261117-181624/eventhouse-part2-architecture.html",
     "locale": "en",
     "quality_profile": "showcase"
   },

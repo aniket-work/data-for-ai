@@ -56,7 +56,7 @@ Measures: `total_deposits`, `loan_book`, `delinquent_loans`, `delinquency_rate`,
 
 **Scoring.** We never trust the model's prose. For each question we take the rows of the last successful `query` call and compare them with `eval/ground_truth.json` (from `mf query` in Lesson 10): within 0.5% for amounts and counts, within 0.05 percentage points for rates. For a breakdown every expected row must match.
 
-The diagram was made with [archify](https://github.com/tt-a1i/archify) and comes as PNG, SVG, interactive HTML and the archify JSON. The slides from the video are in [docs/slides.pdf](docs/slides.pdf).
+The diagram comes as PNG, SVG, interactive HTML and JSON source. The slides from the video are in [docs/slides.pdf](docs/slides.pdf).
 
 ## Prerequisites
 
@@ -176,5 +176,5 @@ The run from the video is already in `eval/scoreboard.json`, so `scoreboard.py` 
 | `eval/questions.yml`, `eval/ground_truth.json`, `eval/scoreboard.json` | Questions and MetricFlow truth (from Lesson 11), the scores from the video |
 | `scripts/make_warehouse.py`, `scripts/setup_cube.sh`, `scripts/cube_up.sh`, `scripts/start_cube.sh`, `scripts/start_local_llm.sh` | Warehouse copy, install, start Cube, start the local model |
 | `scripts/rest_demo.py`, `scripts/graphql_demo.py`, `scripts/sql_demo.py`, `scripts/access_demo.py`, `scripts/scoreboard.py`, `scripts/show.py` | Helpers used in the video |
-| `diagrams/` | archify diagram (PNG, SVG, HTML, JSON) |
+| `diagrams/` | Diagrams (PNG, SVG, HTML, JSON) |
 | `docs/slides.pdf` | Slides from the video |

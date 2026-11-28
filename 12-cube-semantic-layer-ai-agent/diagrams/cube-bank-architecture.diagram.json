@@ -4,7 +4,7 @@
  "meta": {
   "title": "One semantic layer, four doors: Cube in front of the Kestrel Bay Bank warehouse",
   "locale": "en",
-  "output": ".archify/architecture-cube-bank-20261120-202000/cube-bank.html",
+  "output": ".diagrams/architecture-cube-bank-20261120-202000/cube-bank.html",
   "quality_profile": "showcase",
   "legend": {"entries": {"frontend": {"label": "Caller"}, "external": {"label": "Local model"}, "security": {"label": "Access rules"}, "backend": {"label": "Cube Core"}, "database": {"label": "Database"}}}
  },

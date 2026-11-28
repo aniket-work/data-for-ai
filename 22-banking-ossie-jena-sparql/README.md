@@ -133,7 +133,7 @@ sed -i '/^RP-005,/d' data/related_parties.csv && ./run-local.sh --no-open
 | `fuseki/config.ttl` | Optional OWL Micro reasoner config |
 | `explorer/index.html` | Static SPARQL explorer |
 | `docker-compose.yml`, `run-local.sh`, `requirements.txt` | Local stack |
-| `docs/` | Diagrams (made with [archify](https://github.com/tt-a1i/archify)) |
+| `docs/` | Diagrams |
 
 Part of [Data for AI](https://github.com/aniket-work/data-for-ai). Learn more:
 [Apache OSSIE](https://ossie.apache.org) · [Apache Jena](https://jena.apache.org).

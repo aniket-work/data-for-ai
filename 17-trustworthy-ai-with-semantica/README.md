@@ -30,7 +30,7 @@ Plain RAG cited the superseded 2025 wording twice, fast-tracked the claim whose 
 | `build_data.py` | Writes the 15 sample documents to `docs_corpus/` (policy wording 2025 and 2026, triage guideline v2 and v3, call notes, adjuster reports, an invoice) and the tables in `data/` (`sources.csv` with credibility and validity windows, `policies.csv`, `facts.csv` with a quote for every fact) |
 | `trust.py` | The lesson: provenance store, conflicts, policy versions, rules, plain RAG baseline (TF-IDF), the LLM call, guardrail, grading, audit replay, tamper test and export |
 | `runs/` | Saved answers, scorecard and the provenance store from the video |
-| `diagrams/` | The agent loop and the Fabric mapping (archify JSON, HTML, PNG) |
+| `diagrams/` | The agent loop and the Fabric mapping (JSON, HTML, PNG) |
 | `docs/slides.pdf` | Slides from the video |
 
 ## Run it

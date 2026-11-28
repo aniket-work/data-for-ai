@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "diagram_type": "dataflow",
-  "meta": { "title": "Fact-Level Provenance Next to Fabric Lineage", "output": ".archify/dataflow-trust-fabric-20261124-223500/trust-fabric.html",
+  "meta": { "title": "Fact-Level Provenance Next to Fabric Lineage", "output": ".diagrams/dataflow-trust-fabric-20261124-223500/trust-fabric.html",
             "animation": "trace", "visual_preset": "signal-flow", "quality_profile": "showcase" },
   "stages": [ { "label": "Sources" }, { "label": "Semantica" }, { "label": "OneLake" }, { "label": "Review" } ],
   "nodes": [

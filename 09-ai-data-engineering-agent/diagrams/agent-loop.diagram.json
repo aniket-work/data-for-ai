@@ -2,7 +2,7 @@
  "schema_version": 2,
  "diagram_type": "workflow",
  "meta": {"title": "One agent stage: plan, act, check, repeat", "visual_preset": "signal-flow", "quality_profile": "showcase",
-          "output": ".archify/workflow-agent-loop-20261120-093000/agent-loop.html"},
+          "output": ".diagrams/workflow-agent-loop-20261120-093000/agent-loop.html"},
  "lanes": [
   {"id": "human", "label": "Human"},
   {"id": "agent", "label": "Agent loop"},

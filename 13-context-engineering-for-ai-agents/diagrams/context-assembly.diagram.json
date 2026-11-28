@@ -3,7 +3,7 @@
   "diagram_type": "workflow",
   "meta": {
     "title": "Context assembly for one question",
-    "output": ".archify/workflow-context-assembly-20261122-200000/context-assembly.html",
+    "output": ".diagrams/workflow-context-assembly-20261122-200000/context-assembly.html",
     "locale": "en",
     "quality_profile": "showcase"
   },

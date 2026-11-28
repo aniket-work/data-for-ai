@@ -3,7 +3,7 @@
   "diagram_type": "dataflow",
   "meta": {
     "title": "Update policy vs materialized view",
-    "output": ".archify/dataflow-mv-vs-update-policy-20261117-181624/update-policy-vs-materialized-view.html",
+    "output": ".diagrams/dataflow-mv-vs-update-policy-20261117-181624/update-policy-vs-materialized-view.html",
     "locale": "en",
     "quality_profile": "showcase"
   },

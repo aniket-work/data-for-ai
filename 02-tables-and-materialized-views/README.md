@@ -8,7 +8,7 @@ This folder is the hands-on companion to video 2 in the Data for AI series.
 
 ![Today's build: Telemetry to SensorReadings with .set-or-append, then three materialized views queried from a KQL queryset](diagrams/architecture.png)
 
-The diagrams in [diagrams/](diagrams/) were made with [archify](https://github.com/tt-a1i/archify). Each one comes as a PNG, an SVG, and an interactive HTML page (download it and open it in a browser), plus the archify JSON it was generated from. The original Mermaid source is still in [diagrams/architecture.mmd](diagrams/architecture.mmd).
+The diagrams in [diagrams/](diagrams/) come as a PNG, an SVG, and an interactive HTML page (download it and open it in a browser), plus the JSON they were generated from. The original Mermaid source is still in [diagrams/architecture.mmd](diagrams/architecture.mmd).
 
 | Diagram | PNG | SVG | Interactive |
 |---|---|---|---|

@@ -25,7 +25,7 @@ In this lesson we build one for **Kestrel Cold Chain**, a fictional vaccine and 
 | `questions.yaml` | The five questions with expected answers |
 | `gql/context_queries.gql` | The same lookups written in GQL for graph in Microsoft Fabric (not executed here) |
 | `runs/` | Saved answers from the video |
-| `diagrams/` | The agent loop and the Fabric mapping (archify JSON, HTML, PNG, SVG) |
+| `diagrams/` | The agent loop and the Fabric mapping (JSON, HTML, PNG, SVG) |
 | `docs/slides.pdf` | Slides from the video |
 
 ## Run it

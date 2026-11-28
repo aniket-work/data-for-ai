@@ -2,7 +2,7 @@
   "schema_version": 2,
   "diagram_type": "workflow",
   "meta": { "title": "How an Agent Uses a Context Graph", "animation": "trace", "visual_preset": "signal-flow", "quality_profile": "showcase",
-            "output": ".archify/workflow-agent-loop-20261124-130000/agent-loop.html" },
+            "output": ".diagrams/workflow-agent-loop-20261124-130000/agent-loop.html" },
   "lanes": [
     { "id": "ask", "label": "Request" },
     { "id": "read", "label": "Graph retrieval" },

@@ -158,7 +158,7 @@ python scripts/rag_eval.py               # 8 questions, with and without retriev
 | `scripts/qdrant_up.sh`, `scripts/pg_up.sh`, `scripts/start_local_llm.sh` | Start Qdrant, a private PostgreSQL, the local model |
 | `scripts/build_index.py`, `compare.py`, `show_query.py`, `vectors.py`, `metrics.py`, `chunking.py`, `map.py`, `ann_bench.py`, `filters.py`, `pg_duckdb.py`, `rag.py`, `rag_eval.py`, `show.py` | The demos from the video |
 | `results/` | Results from the recorded runs |
-| `diagrams/` | archify diagram (PNG, SVG, interactive HTML, archify JSON) |
+| `diagrams/` | Diagrams (PNG, SVG, interactive HTML, JSON) |
 | `docs/slides.pdf` | Slides from the video |
 
 ## Credits and licences

@@ -22,7 +22,7 @@ The business: **Northlight Cinemas**, a made-up chain with 7 cinemas in 6 Canadi
 
 ![Northlight Cinemas star schema: fact_screening in the middle, linked to dim_cinema, dim_film, dim_date and dim_daypart](diagrams/northlight-star-schema.png)
 
-The diagrams were made with [archify](https://github.com/tt-a1i/archify) and come as PNG, SVG, interactive HTML and the archify JSON. The slides from the video are in [docs/slides.pdf](docs/slides.pdf).
+The diagrams come as PNG, SVG, interactive HTML and JSON source. The slides from the video are in [docs/slides.pdf](docs/slides.pdf).
 
 ## The cube in one table
 
@@ -133,5 +133,5 @@ The first request asks for `box office`, `attendance` and `Occupancy` by Genre, 
 | `scripts/ask_semantic_layer.py` | A small client for Saiku's AI Query API (teaching code) |
 | `scripts/show.py` | Prints part of a file with syntax colours |
 | `queries/` | Two JSON requests for the AI Query API |
-| `diagrams/` | archify diagrams (PNG, SVG, HTML, JSON) |
+| `diagrams/` | Diagrams (PNG, SVG, HTML, JSON) |
 | `docs/slides.pdf` | Slides from the video |

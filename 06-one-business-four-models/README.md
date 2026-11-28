@@ -21,7 +21,7 @@ Everything runs locally with Python, [rdflib](https://rdflib.readthedocs.io/), [
 
 ![Semantic layer over the bike-share tables: trips joined to stations, bikes and memberships](diagrams/semantic-layer-erd.png)
 
-The diagrams were made with [archify](https://github.com/tt-a1i/archify) and come as PNG, SVG, interactive HTML and the archify JSON. The slides from the video are in [docs/slides.pdf](docs/slides.pdf).
+The diagrams come as PNG, SVG, interactive HTML and JSON source. The slides from the video are in [docs/slides.pdf](docs/slides.pdf).
 
 ## The business rules and the four questions
 
@@ -166,7 +166,7 @@ No single form answers everything. Real systems combine them: words → model �
 ├── kg/queries/*.rq            # data check and multi-hop query
 ├── semantic_layer/bikeshare_semantic.yaml
 ├── data/*.csv
-├── diagrams/                  # archify PNG, SVG, HTML and JSON
+├── diagrams/                  # PNG, SVG, HTML and JSON
 └── docs/slides.pdf
 ```
 

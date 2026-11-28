@@ -52,7 +52,7 @@ The three arms:
 
 **Scoring.** We never trust the model's prose. For each answer we take the last SQL that ran successfully, execute it ourselves, and compare it with `eval/ground_truth.json` (from `mf query` in Lesson 10): within 0.5% for amounts and counts, within 0.05 percentage points for rates (fraction or percent form). For a breakdown every expected row must match; a filtered question (one expected key) may answer with a single row.
 
-The diagram was made with [archify](https://github.com/tt-a1i/archify) and comes as PNG, SVG, interactive HTML and the archify JSON. The slides from the video are in [docs/slides.pdf](docs/slides.pdf).
+The diagram comes as PNG, SVG, interactive HTML and JSON source. The slides from the video are in [docs/slides.pdf](docs/slides.pdf).
 
 ## Prerequisites
 
@@ -147,5 +147,5 @@ The runs from the video are already in `eval/runs/`, so `scoreboard.py` and `sid
 | `eval/questions.yml`, `eval/ground_truth.json`, `eval/runs/`, `eval/scoreboard.json` | Questions, MetricFlow truth, the runs from the video, the scores |
 | `scripts/setup_wren.sh`, `scripts/start_local_llm.sh` | Profile + build + memory; the local model server |
 | `scripts/plan.py`, `scripts/scoreboard.py`, `scripts/side_by_side.py`, `scripts/show.py`, `scripts/ground_truth.py` | Helpers used in the video |
-| `diagrams/` | archify diagram (PNG, SVG, HTML, JSON) |
+| `diagrams/` | Diagrams (PNG, SVG, HTML, JSON) |
 | `docs/slides.pdf` | Slides from the video |

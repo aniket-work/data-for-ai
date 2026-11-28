@@ -22,7 +22,7 @@ An agent question then goes through a **context assembler**: understand, retriev
 
 ![Context assembler: question, understand, retrieve, apply policies, compute, grounded answer, runtime log](diagrams/context-assembler.png)
 
-The diagrams were made with [archify](https://github.com/tt-a1i/archify) and come as PNG, SVG, interactive HTML and the archify JSON. The slides from the video are in [docs/slides.pdf](docs/slides.pdf), and [docs/context-layers.md](docs/context-layers.md) explains the concepts.
+The diagrams come as PNG, SVG, interactive HTML and JSON source. The slides from the video are in [docs/slides.pdf](docs/slides.pdf), and [docs/context-layers.md](docs/context-layers.md) explains the concepts.
 
 ## Concepts in plain words
 

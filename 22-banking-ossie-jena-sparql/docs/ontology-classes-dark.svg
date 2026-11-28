@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 1060 696" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="classic" data-quality-profile="showcase" data-class-ui="" data-reader-fit="intrinsic-height" data-reader-min-text="7.5" style="--flow-cycle: 3.600s; width: 1060px; height: 696px; min-width: 0px;" width="1060" height="696" xmlns="http://www.w3.org/2000/svg" data-theme="dark"><style>
+<svg viewBox="0 0 1060 696" role="img" lang="en" aria-labelledby="dg-diagram-title dg-diagram-description" data-animation="trace" data-preset="classic" data-quality-profile="showcase" data-class-ui="" data-reader-fit="intrinsic-height" data-reader-min-text="7.5" style="--flow-cycle: 3.600s; width: 1060px; height: 696px; min-width: 0px;" width="1060" height="696" xmlns="http://www.w3.org/2000/svg" data-theme="dark"><style>
 /*
 JetBrains Mono variable WOFF2 subsets from Google Fonts service revision v24.
 These fixed bytes are shared by the viewer and its SVG/raster exports.
@@ -143,15 +143,15 @@ svg { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consol
 [data-preset="editorial"][data-theme="dark"] { --bg: #181611; --grid: #39342a; --panel: rgba(35, 31, 24, 0.96); --panel-border: #625a4a; --lane-fill: rgba(52, 46, 35, 0.46); --lane-stroke: #726957; --text: #f4eddf; --text-muted: #b9ae9b; --text-dim: #776e60; --text-faint: #9d917e; --mask: #231f18; --frontend-fill: rgba(43, 133, 142, 0.16); --frontend-stroke: #7fc6c7; --backend-fill: rgba(63, 132, 92, 0.16); --backend-stroke: #8fc29e; --database-fill: rgba(117, 91, 141, 0.17); --database-stroke: #c0a4d0; --cloud-fill: rgba(170, 119, 49, 0.16); --cloud-stroke: #d8ad68; --security-fill: rgba(157, 69, 65, 0.17); --security-stroke: #df9085; --messagebus-fill: rgba(174, 79, 42, 0.16); --messagebus-stroke: #df946f; --external-fill: rgba(126, 115, 96, 0.18); --external-stroke: #b8ad99; --arrow: #948978; --arrow-emphasis: #dd6b3d; --arrow-security: var(--security-stroke); --arrow-dashed: var(--database-stroke); --edge-label: var(--arrow); --toolbar-bg: rgba(35, 31, 24, 0.92); --toolbar-border: #625a4a; --toolbar-text: #eee5d5; --toolbar-hover: #302a20; --toolbar-menu-bg: #231f18; }
 [data-preset="editorial"][data-theme="light"] { --bg: #f2eee5; --grid: #d8d0c2; --panel: rgba(251, 248, 241, 0.97); --panel-border: #c4b9a6; --lane-fill: rgba(229, 221, 207, 0.42); --lane-stroke: #b8aa94; --text: #242018; --text-muted: #6f6658; --text-dim: #a09788; --text-faint: #796f60; --mask: #fbf8f1; --frontend-fill: rgba(31, 117, 126, 0.09); --frontend-stroke: #287e84; --reader-accent: #267a80; --backend-fill: rgba(42, 119, 75, 0.09); --backend-stroke: #397b53; --database-fill: rgba(105, 75, 130, 0.09); --database-stroke: #765d86; --cloud-fill: rgba(157, 103, 31, 0.1); --cloud-stroke: #9a671f; --security-fill: rgba(153, 58, 52, 0.09); --security-stroke: #9e463f; --messagebus-fill: rgba(182, 70, 27, 0.09); --messagebus-stroke: #ad4b25; --external-fill: rgba(101, 91, 75, 0.09); --external-stroke: #746b5e; --arrow: #8a806f; --arrow-emphasis: #bb4c23; --arrow-security: var(--security-stroke); --arrow-dashed: var(--database-stroke); --edge-label: var(--text-muted); --toolbar-bg: rgba(251, 248, 241, 0.94); --toolbar-border: #c4b9a6; --toolbar-text: #40392f; --toolbar-hover: #fffdf8; --toolbar-menu-bg: #fbf8f1; }
 svg { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "DejaVu Sans Mono", "Liberation Mono", "Noto Sans Mono CJK SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", monospace; width: 100%; min-width: min(900px, 100%); display: block; transform-origin: 0px 0px; transition: transform 0.18s; }
-@keyframes archify-lens-in { 
+@keyframes dg-lens-in { 
   0% { opacity: 0; transform: translateY(5px) scale(0.985); }
   100% { opacity: 1; transform: translateY(0px) scale(1); }
 }
 svg [data-node-id][data-node-drilldowns] { cursor: pointer; }
-svg a.archify-drilldown-link { text-decoration: none; color: inherit; cursor: pointer; }
-svg .archify-drilldown-mark-disc { fill: color-mix(in srgb, var(--backend-stroke) 88%, var(--panel)); stroke: color-mix(in srgb, var(--backend-stroke) 55%, var(--toolbar-border)); stroke-width: 1; }
-svg .archify-drilldown-mark-arrow { stroke: var(--panel); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-@keyframes archify-guide-in { 
+svg a.dg-drilldown-link { text-decoration: none; color: inherit; cursor: pointer; }
+svg .dg-drilldown-mark-disc { fill: color-mix(in srgb, var(--backend-stroke) 88%, var(--panel)); stroke: color-mix(in srgb, var(--backend-stroke) 55%, var(--toolbar-border)); stroke-width: 1; }
+svg .dg-drilldown-mark-arrow { stroke: var(--panel); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes dg-guide-in { 
   0% { opacity: 0; transform: translateY(-5px) scale(0.985); }
   100% { opacity: 1; transform: translateY(0px) scale(1); }
 }
@@ -163,7 +163,7 @@ svg .archify-drilldown-mark-arrow { stroke: var(--panel); stroke-width: 1.6; str
 [data-theme="dark"] .toolbar .preset-menu, [data-theme="dark"] .toolbar .export-menu { border-color: rgba(148, 163, 184, 0.16); box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px, rgba(0, 0, 0, 0.6) 0px 18px 44px -12px; }
 [data-theme="light"] .preset-option-swatch.classic { background: radial-gradient(circle at 1px 1px, rgb(217, 222, 229) 0.6px, transparent 0.9px) 0px 0px / 5px 5px, rgb(255, 255, 255); }
 [data-theme="light"] .preset-option-swatch.classic::before { border-color: rgb(27, 135, 163); background: rgba(14, 116, 144, 0.08); box-shadow: rgba(17, 24, 39, 0.12) 0px 2px 4px; }
-@keyframes archify-motion-dot-breathe { 
+@keyframes dg-motion-dot-breathe { 
   0%, 100% { opacity: 1; transform: scale(1); }
   46% { opacity: 0.55; transform: scale(0.72); }
 }
@@ -379,220 +379,220 @@ svg[data-preset="editorial"] .ambient-flow-fill { --flow-peak: 0.2; }
 svg[data-preset="editorial"] .ambient-flow-playhead-glow { --flow-peak: 0.14; }
 svg[data-preset="blueprint"] .ambient-edge-flow { stroke-linecap: square; }
 svg[data-preset="editorial"] { --flow-halo-peak: 0.07; --flow-glow-peak: 0.28; --flow-tail-peak: 0.2; --flow-head-peak: 0.7; --flow-wake-peak: 0.14; --flow-ripple-peak: 0.3; }
-@keyframes archify-node-enter { 
+@keyframes dg-node-enter { 
   0% { opacity: 0; }
   100% { opacity: 1; }
 }
-@keyframes archify-node-pulse { 
+@keyframes dg-node-pulse { 
   0%, 72%, 100% { filter: none; stroke-width: 1.5; }
   18%, 36% { filter: drop-shadow(0 0 8px var(--arrow-emphasis)); stroke-width: 2.4; }
 }
-@keyframes archify-blueprint-node-pulse { 
+@keyframes dg-blueprint-node-pulse { 
   0%, 72%, 100% { opacity: 1; filter: none; }
   18%, 36% { opacity: 0.72; filter: drop-shadow(0 0 2px var(--frontend-stroke)); }
 }
-@keyframes archify-editorial-node-pulse { 
+@keyframes dg-editorial-node-pulse { 
   0%, 72%, 100% { opacity: 1; filter: none; }
   18%, 36% { opacity: 0.78; filter: drop-shadow(0 2px 2px color-mix(in srgb, var(--text) 18%, transparent)); }
 }
-@keyframes archify-signal-scan { 
+@keyframes dg-signal-scan { 
   0%, 18% { opacity: 1; transform: translateX(-70%); }
   70% { opacity: 1; transform: translateX(70%); }
   100% { opacity: 0; transform: translateX(70%); }
 }
-@keyframes archify-radar-live { 
+@keyframes dg-radar-live { 
   0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--backend-stroke) 52%, transparent); }
   55%, 100% { box-shadow: transparent 0px 0px 0px 0.32rem; }
 }
-@keyframes archify-intent-trace-flow { 
+@keyframes dg-intent-trace-flow { 
   0% { opacity: 0.94; stroke-dashoffset: 0; }
   100% { opacity: 0.94; stroke-dashoffset: -1; }
 }
-@keyframes archify-route-probe-flow { 
+@keyframes dg-route-probe-flow { 
   0% { stroke-dashoffset: 0; opacity: 0.96; }
   78% { stroke-dashoffset: -1; opacity: 0.96; }
   100% { stroke-dasharray: none; stroke-dashoffset: 0; opacity: 0.58; }
 }
-@keyframes archify-route-journey-flow { 
+@keyframes dg-route-journey-flow { 
   0% { opacity: 0.16; stroke-dashoffset: 0; }
   14%, 76% { opacity: 1; }
   100% { opacity: 0; stroke-dashoffset: -1; }
 }
-@keyframes archify-semantic-lens-flow { 
+@keyframes dg-semantic-lens-flow { 
   0% { opacity: 0.2; stroke-dashoffset: 0; }
   12%, 78% { opacity: 0.9; }
   100% { opacity: 0; stroke-dashoffset: -1; }
 }
-@keyframes archify-relationship-pulse { 
+@keyframes dg-relationship-pulse { 
   0% { opacity: 0.18; stroke-dashoffset: 0; }
   10%, 76% { opacity: 0.98; }
   100% { opacity: 0; stroke-dashoffset: -1; }
 }
-@keyframes archify-relationship-token-life { 
+@keyframes dg-relationship-token-life { 
   0%, 7% { opacity: 0; }
   13%, 82% { opacity: 1; }
   100% { opacity: 0; }
 }
-@keyframes archify-share-cue-enter { 
+@keyframes dg-share-cue-enter { 
   0% { opacity: 0; transform: translate(-50%, -0.45rem); }
   100% { opacity: 1; transform: translate(-50%, 0px); }
 }
-@keyframes archify-share-cue-pulse { 
+@keyframes dg-share-cue-pulse { 
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.48; transform: scale(0.78); }
 }
-@keyframes archify-relay-ripple { 
+@keyframes dg-relay-ripple { 
   0% { r: 2px; opacity: var(--flow-peak, 0.6); }
   20.833%, 100% { r: 20px; opacity: 0; }
 }
-@keyframes archify-relay-comet-0 { 
+@keyframes dg-relay-comet-0 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   3.333% { opacity: var(--flow-peak, 0.9); }
   19.296% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
   23.74%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
-@keyframes archify-relay-wake-0 { 
+@keyframes dg-relay-wake-0 { 
   0% { stroke-dashoffset: var(--flow-len, 0px); opacity: var(--flow-peak, 0.3); animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   19.296% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
   44.296%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
-@keyframes archify-relay-comet-1 { 
+@keyframes dg-relay-comet-1 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   3.333% { opacity: var(--flow-peak, 0.9); }
   16.766% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
   21.21%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
-@keyframes archify-relay-wake-1 { 
+@keyframes dg-relay-wake-1 { 
   0% { stroke-dashoffset: var(--flow-len, 0px); opacity: var(--flow-peak, 0.3); animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   16.766% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
   41.766%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
-@keyframes archify-relay-comet-2 { 
+@keyframes dg-relay-comet-2 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   3.333% { opacity: var(--flow-peak, 0.9); }
   34.372% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
   38.817%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
-@keyframes archify-relay-wake-2 { 
+@keyframes dg-relay-wake-2 { 
   0% { stroke-dashoffset: var(--flow-len, 0px); opacity: var(--flow-peak, 0.3); animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   34.372% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
   59.372%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
-@keyframes archify-relay-comet-3 { 
+@keyframes dg-relay-comet-3 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   3.333% { opacity: var(--flow-peak, 0.9); }
   19.048% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
   23.492%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
-@keyframes archify-relay-wake-3 { 
+@keyframes dg-relay-wake-3 { 
   0% { stroke-dashoffset: var(--flow-len, 0px); opacity: var(--flow-peak, 0.3); animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   19.048% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
   44.048%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
-@keyframes archify-relay-comet-4 { 
+@keyframes dg-relay-comet-4 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   2.333% { opacity: var(--flow-peak, 0.9); }
   11.667% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
   16.111%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
-@keyframes archify-relay-wake-4 { 
+@keyframes dg-relay-wake-4 { 
   0% { stroke-dashoffset: var(--flow-len, 0px); opacity: var(--flow-peak, 0.3); animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   11.667% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
   36.667%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
-@keyframes archify-relay-comet-5 { 
+@keyframes dg-relay-comet-5 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   2.333% { opacity: var(--flow-peak, 0.9); }
   11.667% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
   16.111%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
-@keyframes archify-relay-wake-5 { 
+@keyframes dg-relay-wake-5 { 
   0% { stroke-dashoffset: var(--flow-len, 0px); opacity: var(--flow-peak, 0.3); animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   11.667% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
   36.667%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
-@keyframes archify-relay-comet-6 { 
+@keyframes dg-relay-comet-6 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   2.333% { opacity: var(--flow-peak, 0.9); }
   11.667% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
   16.111%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
-@keyframes archify-relay-wake-6 { 
+@keyframes dg-relay-wake-6 { 
   0% { stroke-dashoffset: var(--flow-len, 0px); opacity: var(--flow-peak, 0.3); animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   11.667% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
   36.667%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
-@keyframes archify-relay-comet-7 { 
+@keyframes dg-relay-comet-7 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   2.361% { opacity: var(--flow-peak, 0.9); }
   11.806% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
   16.25%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
-@keyframes archify-relay-wake-7 { 
+@keyframes dg-relay-wake-7 { 
   0% { stroke-dashoffset: var(--flow-len, 0px); opacity: var(--flow-peak, 0.3); animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   11.806% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
   36.806%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
-@keyframes archify-relay-comet-8 { 
+@keyframes dg-relay-comet-8 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   2.333% { opacity: var(--flow-peak, 0.9); }
   11.667% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
   16.111%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
-@keyframes archify-relay-wake-8 { 
+@keyframes dg-relay-wake-8 { 
   0% { stroke-dashoffset: var(--flow-len, 0px); opacity: var(--flow-peak, 0.3); animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   11.667% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
   36.667%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
-@keyframes archify-relay-node-0 { 
+@keyframes dg-relay-node-0 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
   0% { filter: var(--ambient-node-base-filter, none); }
   3.333%, 11.667% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
   33.333% { filter: var(--ambient-node-base-filter, none); }
 }
-@keyframes archify-relay-node-1 { 
+@keyframes dg-relay-node-1 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
   0% { filter: var(--ambient-node-base-filter, none); }
   3.333%, 11.667% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
   33.333% { filter: var(--ambient-node-base-filter, none); }
 }
-@keyframes archify-relay-node-2 { 
+@keyframes dg-relay-node-2 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
   0% { filter: var(--ambient-node-base-filter, none); }
   3.333%, 11.667% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
   33.333% { filter: var(--ambient-node-base-filter, none); }
 }
-@keyframes archify-relay-node-3 { 
+@keyframes dg-relay-node-3 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
   0% { filter: var(--ambient-node-base-filter, none); }
   3.333%, 11.667% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
   33.333% { filter: var(--ambient-node-base-filter, none); }
 }
-@keyframes archify-relay-node-4 { 
+@keyframes dg-relay-node-4 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
   19.296% { filter: var(--ambient-node-base-filter, none); }
   22.629%, 30.962% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
   52.629% { filter: var(--ambient-node-base-filter, none); }
 }
-@keyframes archify-relay-node-5 { 
+@keyframes dg-relay-node-5 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
   19.048% { filter: var(--ambient-node-base-filter, none); }
   22.381%, 30.714% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
   52.381% { filter: var(--ambient-node-base-filter, none); }
 }
-@keyframes archify-relay-node-6 { 
+@keyframes dg-relay-node-6 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
   11.667% { filter: var(--ambient-node-base-filter, none); }
   15%, 23.333% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
   45% { filter: var(--ambient-node-base-filter, none); }
 }
-@keyframes archify-relay-node-7 { 
+@keyframes dg-relay-node-7 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
   11.806% { filter: var(--ambient-node-base-filter, none); }
   15.139%, 23.472% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
   45.139% { filter: var(--ambient-node-base-filter, none); }
 }
-@keyframes archify-relay-node-8 { 
+@keyframes dg-relay-node-8 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
   11.667% { filter: var(--ambient-node-base-filter, none); }
   15%, 23.333% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
@@ -635,12 +635,12 @@ svg[data-class-ui]:has([data-legend-semantic-kind="composition"]:is(:hover, :foc
 svg[data-class-ui]:has([data-legend-semantic-kind="aggregation"]:is(:hover, :focus-within)) [data-class-relationship]:not([data-class-relationship="aggregation"]) { opacity: 0.15; }
 svg[data-class-ui] [data-node-id][data-class-kind][data-emphasis] &gt; .cl-type { stroke-width: 2.4; }
 :root, svg { --bg: #020617; --grid: #1e293b; --canvas-dot: rgba(148, 163, 184, 0.16); --text: #ffffff; --text-muted: #94a3b8; --text-dim: #475569; --text-faint: #7d8da1; --panel: rgba(15, 23, 42, 0.5); --panel-border: #1e293b; --lane-fill: rgba(15, 23, 42, 0.22); --lane-stroke: #334155; --arrow: #94a3b8; --arrow-emphasis: #34d399; --arrow-security: #e28295; --arrow-dashed: #9d8df1; --edge-label: #94a3b8; --mask: #0f172a; --frontend-fill: rgba(8, 51, 68, 0.4); --frontend-stroke: #22d3ee; --backend-fill: rgba(6, 78, 59, 0.4); --backend-stroke: #34d399; --database-fill: rgba(76, 29, 149, 0.4); --database-stroke: #a78bfa; --cloud-fill: rgba(120, 53, 15, 0.3); --cloud-stroke: #fbbf24; --security-fill: rgba(136, 19, 55, 0.4); --security-stroke: #fb7185; --messagebus-fill: rgba(251, 146, 60, 0.3); --messagebus-stroke: #fb923c; --external-fill: rgba(30, 41, 59, 0.5); --external-stroke: #94a3b8; --toolbar-bg: rgba(15, 23, 42, 0.8); --toolbar-border: #334155; --toolbar-text: #e2e8f0; --toolbar-hover: rgba(15, 23, 42, 0.95); --toolbar-menu-bg: #0f172a; --reader-accent: #077f9c; --flow-cycle: ; --flow-halo-peak: ; --flow-glow-peak: ; --flow-tail-peak: ; --flow-head-peak: ; --flow-wake-peak: ; --flow-ripple-peak: ; --flow-peak: ; --cl-hue: ; }
-</style><rect x="0" y="0" width="1060" height="696" fill="#020617"/><metadata id="archify-software-notices">NOTICE
-Archify
-Copyright (c) 2026 tt-a1i (Archify)
+</style><rect x="0" y="0" width="1060" height="696" fill="#020617"/><metadata id="dg-software-notices">NOTICE
+Dg
+Copyright (c) 2026 tt-a1i (Dg)
 Copyright (c) 2025 Cocoon AI
 
-Archify is distributed under the Apache License, Version 2.0 (LICENSE),
+Dg is distributed under the Apache License, Version 2.0 (LICENSE),
 except where a file, package manifest, or third-party notice specifies otherwise.
 The separately versioned DeepSeek Harness adapter remains MIT; its bundled
 Skill retains the license of the immutable source selected in release.json.
@@ -652,7 +652,7 @@ copyright and permission notice is preserved in LICENSE-MIT. This transition
 does not revoke existing MIT grants or assert a new patent grant on behalf
 of historical contributors.
 
-Archify originated from Cocoon-AI/architecture-diagram-generator:
+Dg originated from Cocoon-AI/architecture-diagram-generator:
 https://github.com/Cocoon-AI/architecture-diagram-generator
 
 Third-party components retain their own licenses; see THIRD_PARTY_NOTICES.md
@@ -660,7 +660,7 @@ and the license files beside those components. Names and logos do not imply
 official endorsement, and the software license grants no general trademark
 permission.
 
-These software licenses cover Archify's embedded runtime and templates, not
+These software licenses cover Dg's embedded runtime and templates, not
 ownership of a user's authored content, business data, or source repository.
 
 LICENSE
@@ -870,7 +870,7 @@ LICENSE
 LICENSE-MIT
 MIT License
 
-Copyright (c) 2026 tt-a1i (Archify)
+Copyright (c) 2026 tt-a1i (Dg)
 Copyright (c) 2025 Cocoon AI
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -894,12 +894,12 @@ SOFTWARE.
 THIRD_PARTY_NOTICES.md
 # Third-party notices
 
-Archify includes optional vector data for third-party brand marks. These marks
+Dg includes optional vector data for third-party brand marks. These marks
 are provided only to identify technologies and services in user-authored
 diagrams. Their inclusion does not imply sponsorship, endorsement, partnership,
-or affiliation with Archify.
+or affiliation with Dg.
 
-Archify's license and historical MIT grants are described in LICENSE, NOTICE,
+Dg's license and historical MIT grants are described in LICENSE, NOTICE,
 and LICENSE-MIT. The software license does not
 replace the copyright licenses, trademark policies, or brand guidelines that
 apply to third-party marks. Users are responsible for confirming that their
@@ -918,11 +918,11 @@ CC0 for the collection does not mean that every underlying icon is CC0. License
 and brand-guideline metadata may be incomplete or change over time. The absence
 of an individual license entry is not a grant of permission.
 
-Archify embeds the selected icons as vector-path data and may render them in a
+Dg embeds the selected icons as vector-path data and may render them in a
 user-selected color. The following individual licenses were recorded in the
 pinned Simple Icons 16.28.0 metadata:
 
-| Mark | Recorded source | Recorded license | Archify treatment |
+| Mark | Recorded source | Recorded license | Dg treatment |
 |---|---|---|---|
 | Angular | [Angular press kit](https://angular.dev/press-kit) | [`CC-BY-4.0`](https://creativecommons.org/licenses/by/4.0/) | Embedded as vector-path data; color may be changed by the authored diagram. |
 | Apache Airflow | [Apache logos](https://apache.org/logos) | [`Apache-2.0`](https://www.apache.org/licenses/LICENSE-2.0) | Embedded as vector-path data; Apache trademarks remain subject to the [ASF trademark policy](https://www.apache.org/foundation/marks/). |
@@ -945,7 +945,7 @@ rights. Its inclusion does not state or imply endorsement by OpenAI.
 
 ## JetBrains Mono
 
-Delivered Archify viewer artifacts embed the JetBrains Mono variable font
+Delivered Dg viewer artifacts embed the JetBrains Mono variable font
 subsets served by Google Fonts. For characters covered by these subsets, font
 selection does not depend on a network request or a locally installed copy.
 Uncovered characters (including CJK) still use the system fallback stack;
@@ -968,7 +968,7 @@ SVG when a page is built; delivered pages contain no Pele code.
 
 Brand names, logos, and trademarks remain the property of their respective
 owners. This notice records provenance and known terms; it does not grant rights
-that Archify does not hold, and it does not state that every packaged mark has
+that Dg does not hold, and it does not state that every packaged mark has
 been cleared for every commercial, promotional, or redistributive use.
 
 ## Story HTML parser
@@ -1001,8 +1001,8 @@ The Atlas 3D view includes the unmodified minified build of
 License. It is embedded in the analysis page and runs only when Atlas 3D is
 opened. The complete license is preserved in
 `modules/code-analysis/overlay/vendor/THREE-LICENSE.txt` in the packaged Skill.</metadata>
-        <title id="archify-diagram-title">The bank's knowledge graph schema (TBox) generated from the Apache OSSIE ontology</title>
-        <desc id="archify-diagram-description">A class and interface diagram generated by Archify.</desc>
+        <title id="dg-diagram-title">The bank's knowledge graph schema (TBox) generated from the Apache OSSIE ontology</title>
+        <desc id="dg-diagram-description">A class and interface diagram generated by Dg.</desc>
         <!-- Definitions -->
         <defs>
           <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
@@ -1086,7 +1086,7 @@ opened. The complete license is preserved in
         <g id="node-related_party" data-node-id="related_party" data-node-label="RelatedParty" tabindex="0" role="button" aria-label="Focus RelatedParty, declared link between two customers, Class" aria-pressed="false" data-node-kind="class" data-node-sublabel="declared link between two customers" data-node-context="Class" data-class-kind="class" class="cl-hue-backend">
           <title>RelatedParty · declared link between two customers · Class</title>
           <rect x="57.5" y="50" width="196" height="84" rx="8" class="c-mask"/>
-          <rect x="57.5" y="50" width="196" height="84" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 1; --flow-node-name: archify-relay-node-0;" stroke-width="1.2"/>
+          <rect x="57.5" y="50" width="196" height="84" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 1; --flow-node-name: dg-relay-node-0;" stroke-width="1.2"/>
           <path class="cl-header c-backend" stroke="none" d="M 65.5 50 H 245.5 A 8 8 0 0 1 253.5 58 V 84 H 57.5 V 58 A 8 8 0 0 1 65.5 50 Z"/>
           <path class="cl-cap" d="M 69.5 51.4 H 241.5" stroke-width="2.6" stroke-linecap="round" fill="none"/>
           <g aria-hidden="true" class="cl-badge">
@@ -1105,7 +1105,7 @@ opened. The complete license is preserved in
         <g id="node-customer" data-node-id="customer" data-node-label="Customer" tabindex="0" role="button" aria-label="Focus Customer, person or organisation, Class" aria-pressed="false" data-node-kind="class" data-node-sublabel="person or organisation" data-node-context="Class" data-class-kind="class" class="cl-hue-backend">
           <title>Customer · person or organisation · Class</title>
           <rect x="448" y="50" width="183" height="84" rx="8" class="c-mask"/>
-          <rect x="448" y="50" width="183" height="84" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 0; --flow-node-name: archify-relay-node-4;" stroke-width="1.2"/>
+          <rect x="448" y="50" width="183" height="84" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 0; --flow-node-name: dg-relay-node-4;" stroke-width="1.2"/>
           <path class="cl-header c-backend" stroke="none" d="M 456 50 H 623 A 8 8 0 0 1 631 58 V 84 H 448 V 58 A 8 8 0 0 1 456 50 Z"/>
           <path class="cl-cap" d="M 460 51.4 H 619" stroke-width="2.6" stroke-linecap="round" fill="none"/>
           <g aria-hidden="true" class="cl-badge">
@@ -1124,7 +1124,7 @@ opened. The complete license is preserved in
         <g id="node-loan" data-node-id="loan" data-node-label="Loan" tabindex="0" role="button" aria-label="Focus Loan, credit extended to a customer, Class" aria-pressed="false" data-node-kind="class" data-node-sublabel="credit extended to a customer" data-node-context="Class" data-class-kind="class" class="cl-hue-backend">
           <title>Loan · credit extended to a customer · Class</title>
           <rect x="800" y="40" width="236" height="104" rx="8" class="c-mask"/>
-          <rect x="800" y="40" width="236" height="104" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 2; --flow-node-name: archify-relay-node-7;" stroke-width="1.2"/>
+          <rect x="800" y="40" width="236" height="104" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 2; --flow-node-name: dg-relay-node-7;" stroke-width="1.2"/>
           <path class="cl-header c-backend" stroke="none" d="M 808 40 H 1028 A 8 8 0 0 1 1036 48 V 74 H 800 V 48 A 8 8 0 0 1 808 40 Z"/>
           <path class="cl-cap" d="M 812 41.4 H 1024" stroke-width="2.6" stroke-linecap="round" fill="none"/>
           <g aria-hidden="true" class="cl-badge">
@@ -1144,7 +1144,7 @@ opened. The complete license is preserved in
         <g id="node-beneficial_owner" data-node-id="beneficial_owner" data-node-label="BeneficialOwner" tabindex="0" role="button" aria-label="Focus BeneficialOwner, ownership stake in an account, Class" aria-pressed="false" data-node-kind="class" data-node-sublabel="ownership stake in an account" data-node-context="Class" data-class-kind="class" class="cl-hue-backend">
           <title>BeneficialOwner · ownership stake in an account · Class</title>
           <rect x="53.5" y="238" width="204" height="84" rx="8" class="c-mask"/>
-          <rect x="53.5" y="238" width="204" height="84" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 3; --flow-node-name: archify-relay-node-1;" stroke-width="1.2"/>
+          <rect x="53.5" y="238" width="204" height="84" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 3; --flow-node-name: dg-relay-node-1;" stroke-width="1.2"/>
           <path class="cl-header c-backend" stroke="none" d="M 61.5 238 H 249.5 A 8 8 0 0 1 257.5 246 V 272 H 53.5 V 246 A 8 8 0 0 1 61.5 238 Z"/>
           <path class="cl-cap" d="M 65.5 239.4 H 245.5" stroke-width="2.6" stroke-linecap="round" fill="none"/>
           <g aria-hidden="true" class="cl-badge">
@@ -1163,7 +1163,7 @@ opened. The complete license is preserved in
         <g id="node-bank_account" data-node-id="bank_account" data-node-label="BankAccount" tabindex="0" role="button" aria-label="Focus BankAccount, checking, savings, money market, Class" aria-pressed="false" data-node-kind="class" data-node-sublabel="checking, savings, money market" data-node-context="Class" data-class-kind="class" class="cl-hue-backend">
           <title>BankAccount · checking, savings, money market · Class</title>
           <rect x="449.5" y="228" width="180" height="104" rx="8" class="c-mask"/>
-          <rect x="449.5" y="228" width="180" height="104" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 3; --flow-node-name: archify-relay-node-5;" stroke-width="1.2"/>
+          <rect x="449.5" y="228" width="180" height="104" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 3; --flow-node-name: dg-relay-node-5;" stroke-width="1.2"/>
           <path class="cl-header c-backend" stroke="none" d="M 457.5 228 H 621.5 A 8 8 0 0 1 629.5 236 V 262 H 449.5 V 236 A 8 8 0 0 1 457.5 228 Z"/>
           <path class="cl-cap" d="M 461.5 229.4 H 617.5" stroke-width="2.6" stroke-linecap="round" fill="none"/>
           <g aria-hidden="true" class="cl-badge">
@@ -1183,7 +1183,7 @@ opened. The complete license is preserved in
         <g id="node-npl" data-node-id="npl" data-node-label="NonPerformingLoan" tabindex="0" role="button" aria-label="Focus NonPerformingLoan, days_past_due &gt;= 90 or NPL flag, Class" aria-pressed="false" data-node-kind="class" data-node-sublabel="days_past_due &gt;= 90 or NPL flag" data-node-context="Class" data-class-kind="class" class="cl-hue-backend">
           <title>NonPerformingLoan · days_past_due &gt;= 90 or NPL flag · Class</title>
           <rect x="807.5" y="263" width="221" height="34" rx="8" class="c-mask"/>
-          <rect x="807.5" y="263" width="221" height="34" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 8; --flow-node-name: archify-relay-node-2;" stroke-width="1.2"/>
+          <rect x="807.5" y="263" width="221" height="34" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 8; --flow-node-name: dg-relay-node-2;" stroke-width="1.2"/>
           <path class="cl-header c-backend" stroke="none" d="M 815.5 263 H 1020.5 A 8 8 0 0 1 1028.5 271 V 297 H 807.5 V 271 A 8 8 0 0 1 815.5 263 Z"/>
           <path class="cl-cap" d="M 819.5 264.4 H 1016.5" stroke-width="2.6" stroke-linecap="round" fill="none"/>
           <g aria-hidden="true" class="cl-badge">
@@ -1198,7 +1198,7 @@ opened. The complete license is preserved in
         <g id="node-fin_inst" data-node-id="fin_inst" data-node-label="FinancialInstitution" tabindex="0" role="button" aria-label="Focus FinancialInstitution, bank, correspondent, clearing, Class" aria-pressed="false" data-node-kind="class" data-node-sublabel="bank, correspondent, clearing" data-node-context="Class" data-class-kind="class" class="cl-hue-backend">
           <title>FinancialInstitution · bank, correspondent, clearing · Class</title>
           <rect x="32" y="426" width="247" height="84" rx="8" class="c-mask"/>
-          <rect x="32" y="426" width="247" height="84" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 4; --flow-node-name: archify-relay-node-6;" stroke-width="1.2"/>
+          <rect x="32" y="426" width="247" height="84" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 4; --flow-node-name: dg-relay-node-6;" stroke-width="1.2"/>
           <path class="cl-header c-backend" stroke="none" d="M 40 426 H 271 A 8 8 0 0 1 279 434 V 460 H 32 V 434 A 8 8 0 0 1 40 426 Z"/>
           <path class="cl-cap" d="M 44 427.4 H 267" stroke-width="2.6" stroke-linecap="round" fill="none"/>
           <g aria-hidden="true" class="cl-badge">
@@ -1217,7 +1217,7 @@ opened. The complete license is preserved in
         <g id="node-sar" data-node-id="sar" data-node-label="SuspiciousActivity" tabindex="0" role="button" aria-label="Focus SuspiciousActivity, SAR filed against an account, Class" aria-pressed="false" data-node-kind="class" data-node-sublabel="SAR filed against an account" data-node-context="Class" data-class-kind="class" class="cl-hue-backend">
           <title>SuspiciousActivity · SAR filed against an account · Class</title>
           <rect x="424.5" y="416" width="230" height="104" rx="8" class="c-mask"/>
-          <rect x="424.5" y="416" width="230" height="104" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 7; --flow-node-name: archify-relay-node-8;" stroke-width="1.2"/>
+          <rect x="424.5" y="416" width="230" height="104" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 7; --flow-node-name: dg-relay-node-8;" stroke-width="1.2"/>
           <path class="cl-header c-backend" stroke="none" d="M 432.5 416 H 646.5 A 8 8 0 0 1 654.5 424 V 450 H 424.5 V 424 A 8 8 0 0 1 432.5 416 Z"/>
           <path class="cl-cap" d="M 436.5 417.4 H 642.5" stroke-width="2.6" stroke-linecap="round" fill="none"/>
           <g aria-hidden="true" class="cl-badge">
@@ -1237,7 +1237,7 @@ opened. The complete license is preserved in
         <g id="node-open_sar" data-node-id="open_sar" data-node-label="OpenSuspiciousActivity" tabindex="0" role="button" aria-label="Focus OpenSuspiciousActivity, sar_status = 'open', Class" aria-pressed="false" data-node-kind="class" data-node-sublabel="sar_status = 'open'" data-node-context="Class" data-class-kind="class" class="cl-hue-backend">
           <title>OpenSuspiciousActivity · sar_status = 'open' · Class</title>
           <rect x="407" y="604" width="265" height="34" rx="8" class="c-mask"/>
-          <rect x="407" y="604" width="265" height="34" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 9; --flow-node-name: archify-relay-node-3;" stroke-width="1.2"/>
+          <rect x="407" y="604" width="265" height="34" rx="8" class="c-backend cl-type" data-animate="node" style="--step: 9; --flow-node-name: dg-relay-node-3;" stroke-width="1.2"/>
           <path class="cl-header c-backend" stroke="none" d="M 415 604 H 664 A 8 8 0 0 1 672 612 V 638 H 407 V 612 A 8 8 0 0 1 415 604 Z"/>
           <path class="cl-cap" d="M 419 605.4 H 660" stroke-width="2.6" stroke-linecap="round" fill="none"/>
           <g aria-hidden="true" class="cl-badge">

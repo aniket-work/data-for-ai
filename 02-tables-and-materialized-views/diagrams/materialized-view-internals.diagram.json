@@ -3,7 +3,7 @@
   "diagram_type": "dataflow",
   "meta": {
     "title": "How a materialized view stays fresh",
-    "output": ".archify/dataflow-mv-internals-20261117-181624/materialized-view-internals.html",
+    "output": ".diagrams/dataflow-mv-internals-20261117-181624/materialized-view-internals.html",
     "locale": "en",
     "quality_profile": "showcase"
   },

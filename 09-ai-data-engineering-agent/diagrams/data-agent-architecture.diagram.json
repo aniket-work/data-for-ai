@@ -4,7 +4,7 @@
  "meta": {
   "title": "A local AI data engineering agent",
   "locale": "en",
-  "output": ".archify/architecture-data-agent-20261120-093000/data-agent-architecture.html",
+  "output": ".diagrams/architecture-data-agent-20261120-093000/data-agent-architecture.html",
   "quality_profile": "showcase",
   "legend": {
    "entries": {

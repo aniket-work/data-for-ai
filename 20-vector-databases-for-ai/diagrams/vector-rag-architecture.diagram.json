@@ -4,7 +4,7 @@
  "meta": {
   "title": "Data as vectors: the Kestrel Bay Bank policy assistant, ingest and query paths",
   "locale": "en",
-  "output": ".archify/architecture-vector-rag-20261121-103000/vector-rag.html",
+  "output": ".diagrams/architecture-vector-rag-20261121-103000/vector-rag.html",
   "quality_profile": "showcase",
   "legend": {"entries": {"frontend": {"label": "Input"}, "backend": {"label": "Processing"}, "database": {"label": "Qdrant"}, "external": {"label": "Local model"}, "security": {"label": "Filter"}}}
  },

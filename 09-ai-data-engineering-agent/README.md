@@ -20,7 +20,7 @@ The business: **Saltmarsh Ferries**, a made-up ferry company with three ticket o
 
 ![Inside one stage: the model plans a tool call with a reason, reads run at once, writes wait for a human y/N, errors and critic findings go back to the model, repeat until finish](diagrams/agent-loop.png)
 
-The diagrams were made with [archify](https://github.com/tt-a1i/archify) and come as PNG, SVG, interactive HTML and the archify JSON. The slides from the video are in [docs/slides.pdf](docs/slides.pdf).
+The diagrams come as PNG, SVG, interactive HTML and JSON source. The slides from the video are in [docs/slides.pdf](docs/slides.pdf).
 
 ## The raw data in one table
 
@@ -151,5 +151,5 @@ Start over at any time with `python data_agent.py reset` (deletes the warehouse,
 | `scripts/start_local_llm.sh` | Starts llama.cpp's OpenAI-compatible server on port 8998 |
 | `scripts/verify_answer.py`, `scripts/row_counts.py`, `scripts/show_audit.py` | Check the agent's work by hand |
 | `lake/raw/` | The raw October files and `routes.json` |
-| `diagrams/` | archify diagrams (PNG, SVG, HTML, JSON) |
+| `diagrams/` | Diagrams (PNG, SVG, HTML, JSON) |
 | `docs/slides.pdf` | Slides from the video |
